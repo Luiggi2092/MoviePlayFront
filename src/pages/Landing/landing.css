@@ -1,17 +1,21 @@
 .container {
-    justify-content: center;
-    align-items: center;
-   background: black;
+   text-align: center;
+   color: #101010;
+   background-image: url('../../assets/peli2023.jpg');
+   height: 900px;
+   
 
+   
 }
 
 .container-div {
     background-color: #101010;
-    color: white;
-    width: 2680;
-    height: 390px;
+    color: rgb(10, 4, 4);
+    width: 100%;
+    height: 790px;
     box-shadow: 0px 4px 4px rgb(1, 70, 122);
     border-radius: 20px;
+    margin-bottom: 0.5%;
 }
 
 .container-div1 {
@@ -32,17 +36,18 @@
 
 .button-container {
     background-color: #03546D;
+    
 }
 
 .button-container1 {
     background-color: #03546D;
-    justify-content: center;
     align-items: center;
     width: 378.73px;
     height: 92.03px;
     border-radius: 10px;
     font-size: 50px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 
 h1 {
@@ -52,7 +57,40 @@ h1 {
     font-weight: 600;
     word-wrap: break-word;
     letter-spacing: 2.75px;
+    text-align: center;
 }
+
+h2 {
+    font-size: 100px;
+    font-family: 'Inter';
+    font-weight: 600;
+    word-wrap: break-word;
+    letter-spacing: 2.75px;
+    color: white;
+    margin-left: 5%;
+
+}
+h3{
+   font-size: 50px;
+    font-family: 'Inter';
+    font-weight: 600;
+    word-wrap: break-word;
+    letter-spacing: 2.75px;
+    color: white;
+    margin-bottom: 3%; 
+    text-align: center;
+}
+
+.img-landing {
+width: auto;
+height: auto;
+border: 0.50px black solid;
+height: 900px;
+margin: auto;
+
+}
+
+
 
 span {
     font-size: 35px;
@@ -61,4 +99,3 @@ span {
     word-wrap: break-word;
 }
 
-.img-container {}

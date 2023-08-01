@@ -1,38 +1,38 @@
 import React from 'react'
+import img from '../../assets/series-netflix.jpg'
 import './landing.css'
 
 
 const Landing = () => {
 
   return (
-<div className='container'>
-  <div className='img-container'>
-  <img style={{ width: 2680, height: 1004, border: '0.50px black solid' }} src="series-netflix.jpg" />
-<div className='container-div1'>Disfruta de las mejores películas y series</div>
+<div>
+      <div className='container'>
+<h1>Disfruta de las mejores películas y series</h1>
 <button className='button-container1'>Acceder</button>
 </div>
 
 <div className='container-div'>
-        <h1>Disfruta en tu TV<span><br />
+        <h2>Disfruta en tu TV<span><br />
 Ve en smart TV, Chromecast,
-Apple TV, reproductores  y más.</span></h1>
+Apple TV, reproductores  y más.</span></h2>
 <img src="" alt="" />
 </div>
 
 <div className='container-div'>
-  <h1>Descarga tus series para verlas forever.</h1>
+  <h2>Descarga tus series para verlas forever.</h2>
   <img src="" alt="" />
 </div>
 
 <div className='container-div'>
-  <h1>Disfruta donde quieras</h1>
+  <h2>Disfruta donde quieras</h2>
   <div className='img-container'>
   <img src="" alt="" />
   </div>
 </div>
 
 <div className='container-div'>
-  <h1>Descarga tus series para verlas forever</h1>
+  <h2>Descarga tus series para verlas forever</h2>
   <h3>Ingresa tu email para crear una cuenta o reiniciar tu membresía</h3>
   <input type="text" placeholder=''/>
   <button className='button-container'> INGRESAR</button>
