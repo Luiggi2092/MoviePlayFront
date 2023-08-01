@@ -1,6 +1,7 @@
 body{
     padding: 0;
     margin: 0;
+    background-color: #101010;
 }
 
 span{
@@ -8,15 +9,10 @@ span{
 }
 
 h1{
-    color: black;
-}
-
-.containerMax{
-    border: 1px solid black;
+    color: black;    
 }
 
 .filters{
-    border: 1px solid red;
     display: flex;
 }
 
@@ -33,6 +29,7 @@ h1{
     font-style: normal;
     font-weight: 300;
     line-height: normal;
+    color: white;
 }
 
 .filters div select{
@@ -40,6 +37,25 @@ h1{
     height: 20px;
 }
 
-.cardContainer{
-    border: 1px solid blue;
+.Container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.peliculaContainer{
+    background-color: #000000;
+    padding-top: 100px;
+    height:515px;
+    width:1070px;
+    margin: 30px 0;
+
+}
+
+.paginado{
+    background-color: #03546D;
+    width: 300px;
+    height: 30px;
 }

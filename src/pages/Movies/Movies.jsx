@@ -6,7 +6,7 @@ const Movies = () => {
     <section className={style.containerMax}>
       <div className={style.filters}>
         <div>
-          <span>Categoria</span>
+          <span>Categoría</span>
           <select>
             <option>Select categoria</option>
           </select>
@@ -30,9 +30,9 @@ const Movies = () => {
           </select>
         </div>
       </div>
-      <div className={style.cardContainer}>
-        <h1>Aqui van las peliculas</h1>
-        <div>paginado</div>
+      <div className={style.Container}>
+        <div className={style.peliculaContainer}></div>
+        <div className={style.paginado}>paginado</div>
       </div>
       
     </section>
