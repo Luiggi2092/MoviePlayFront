@@ -2,7 +2,7 @@ import React from 'react'
 
 const Series = () => {
   return (
-    <div>Series</div>
+    <h1>Series</h1>
   )
 }
 
