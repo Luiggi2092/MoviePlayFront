@@ -1,0 +1,45 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+
+span{
+    font-size: 14px;
+}
+
+h1{
+    color: black;
+}
+
+.containerMax{
+    border: 1px solid black;
+}
+
+.filters{
+    border: 1px solid red;
+    display: flex;
+}
+
+.filters div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 40px;
+}
+
+.filters div span{
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.filters div select{
+    width: 120px;
+    height: 20px;
+}
+
+.cardContainer{
+    border: 1px solid blue;
+}
