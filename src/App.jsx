@@ -6,6 +6,7 @@ import Movies from './pages/Movies/Movies'
 import MoviesDetail from './pages/MoviesDetail/MoviesDetail'
 import Series from './pages/Series/Series'
 import DetailSeries from './components/Seriedetail/Seriedetail'
+import Register from './pages/Register/register'
 
 
 const App = () => {
@@ -18,7 +19,7 @@ const App = () => {
 	<Route exact path='/home' element={<Home/>} />
 	<Route exact path='/movies' element={<Movies/>} />
 	
-	
+	<Route exact path='/register' element={<Register/>} />
 	<Route exact path='/series' element={<Series/>} />
 	<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 	<Route exact path='/detailSeries' element={<DetailSeries/>}/>
