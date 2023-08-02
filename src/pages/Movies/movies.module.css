@@ -20,7 +20,7 @@ h1{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px 40px;
+    padding: 25px 50px;
 }
 
 .filters div span{
@@ -47,15 +47,19 @@ h1{
 
 .peliculaContainer{
     background-color: #000000;
-    padding-top: 100px;
-    height:515px;
-    width:1070px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height:1120px;
+    width:1248px;
     margin: 30px 0;
 
 }
 
 .paginado{
     background-color: #03546D;
-    width: 300px;
+    width: 350px;
     height: 30px;
+    display: flex;
+    justify-content: center;
 }
