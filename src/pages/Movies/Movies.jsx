@@ -54,7 +54,7 @@ const Movies = () => {
           "name": "Thriller"
         }
       ],
-      "id": 654321,
+      "id": 654331,
       "original_title": "Crime Thriller",
       "overview": "A thrilling crime movie with unexpected plot twists and intense action scenes.",
       "popularity": 135.8,
@@ -299,8 +299,8 @@ const Movies = () => {
           {peliculas.map(({ id, image }) => (
           <Card key={id} id={id} image={image} />
           ))}
-        </div>
         <div className={style.paginado}>paginado</div>
+        </div>
       </div>
       
     </section>

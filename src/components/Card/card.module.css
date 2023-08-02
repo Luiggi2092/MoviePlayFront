@@ -1,7 +1,8 @@
 .containerMax{
     width: 216px;
     height: 276px;
-    background-size: cover
+    background-size: cover;
+    margin: 20px 10px;
 }
 
 img{
