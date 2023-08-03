@@ -1,0 +1,130 @@
+.detailsContainer {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .peliculaContainer {
+    width: 100%; /* O ajusta el ancho del reproductor de video real */
+    height: auto;
+  }
+  
+  .maxContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nameContainer {
+    height: 100px;
+    display: flex;
+    padding: 10px 20px;
+    align-items: center;
+  }
+  
+  .name {
+    color: #fdf9f9;
+    font-family: Century Gothic;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-right: 16px;
+  }
+  
+  .info {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 20px 10px;
+  }
+  
+  .image {
+    width: 338.583px;
+    height: 545.444px;
+    margin-top: 10px;
+    margin-left: 16px;
+  }
+  
+  .image img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .section {
+    display: flex;
+  }
+  
+  .info div {
+    margin-left: 20px;
+  }
+  
+  .info div span {
+    color: #03546D;
+    font-family: Century Gothic;
+    font-size: 32px;
+  }
+  
+  .info div p {
+    color: #FFF;
+    font-family: Century Gothic;
+    font-size: 24px;
+  }
+  
+  .botonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+  }
+  
+  .botonContainer button {
+    width: 60%; /* O ajusta el ancho del botón según tus necesidades */
+    height: 62px;
+    border-radius: 10px;
+    background: #03546D;
+    color: #FFF;
+    font-size: 24px;
+    font-family: Century Gothic;
+  }
+  
+
+.divContainerTC {
+    display: flex;
+    justify-content: center;
+}
+
+.divTemp {
+    margin-top: 60px;
+    margin-right: 300px;
+}
+
+.divCap {
+    margin-top: 60px;
+    margin-left: 300px;
+}
+
+p {
+    margin-bottom: 0;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    color:#03546D
+}
+
+.divCap p{
+    color: #03546D;
+}
+
+.divTemp p{
+    color: #03546D;
+}
+
+.selectDetail {
+    margin-bottom: 80px;
+    padding: 6px 30px;
+}
+
+.divVideo {
+    margin: 10px 200px 200px 200px;
+}

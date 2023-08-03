@@ -9,7 +9,7 @@
 
 .formContainer{
     width: 738px;
-    height: 628px;
+    height: auto;
     margin: 20px;
     background-color: black;
     border-radius: 10px;
@@ -58,4 +58,9 @@ form div{
     margin-left: 40px;
     width: 160px;
     height: 30px;
+}
+
+p{
+    color: red;
+    font-size: 12px;
 }
