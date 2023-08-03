@@ -5,7 +5,9 @@ import Home from './pages/Home/Home'
 import Movies from './pages/Movies/Movies'
 import MoviesDetail from './pages/MoviesDetail/MoviesDetail'
 import Series from './pages/Series/Series'
-import DetailSeries from './components/Seriedetail/Seriedetail'
+import SerieDetail from './pages/Seriedetail/Seriedetail'
+import Register from './pages/Register/register'
+import AccessPage from './pages/AccessPage/AccessPage'
 
 
 const App = () => {
