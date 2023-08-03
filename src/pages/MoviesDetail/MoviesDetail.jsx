@@ -9,10 +9,17 @@ const MoviesDetail = () => {
     
       const {id} = useParams()
       const pelicula = peliculas.find(Element => Element.id == id)
+      const [isScrolled, setIsScrolled] = useState(false)
+
+    window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  }
 
     return(
         <section className={style.maxContainer}>
         <div>
+            <Navbar isScrolled={isScrolled} />
             <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
                 <h1 className={style.name}>{pelicula.original_title} </h1>

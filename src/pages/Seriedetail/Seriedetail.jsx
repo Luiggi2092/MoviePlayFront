@@ -1,6 +1,8 @@
 import data from "../../data";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import style from './seriedetail.module.css'
+import Navbar from "../../components/Navbar/Navbar"
 
 const SerieDetail = () => {
 
@@ -9,9 +11,16 @@ const SerieDetail = () => {
       const {id} = useParams()
       const serie = series.find(Element => Element.id == id)
 
+      const [isScrolled, setIsScrolled] = useState(false)
+
+        window.onscroll = () => {
+        setIsScrolled(window.pageYOffset === 0 ? false : true);
+        return () => (window.onscroll = null);
+        }
+
     return (
         <section className='sectionDetailSerie'>
-             
+             <Navbar isScrolled={isScrolled} /> 
              <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
                 <h1 className={style.name}>{serie.original_title} </h1>

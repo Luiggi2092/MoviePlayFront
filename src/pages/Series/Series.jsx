@@ -2,13 +2,23 @@ import React from 'react'
 import data from '../../data'
 import style from './series.module.css'
 import Card from '../../components/CardSerie/Card'
+import { useState } from 'react'
+import Navbar from "../../components/Navbar/Navbar"
 
 const Series = () => {
 
   const series = data
 
+  const [isScrolled, setIsScrolled] = useState(false)
+
+        window.onscroll = () => {
+        setIsScrolled(window.pageYOffset === 0 ? false : true);
+        return () => (window.onscroll = null);
+        }
+
   return (
     <section className={style.containerMax}>
+      <Navbar isScrolled={isScrolled} /> 
       <h1>Todas las series</h1>
       <div className={style.filters}>
         <div>

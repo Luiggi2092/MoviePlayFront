@@ -2,15 +2,24 @@ import React, {useState} from 'react'
 import style from './movies.module.css'
 import Card from '../../components/CardMovie/CardMovie';
 import data from '../../data';
+import Navbar from "../../components/Navbar/Navbar"
 
 const Movies = () => {
 
   const peliculas = data
+
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  }
   
 
   return (
   
     <section className={style.containerMax}>
+      <Navbar isScrolled={isScrolled} /> 
       <h1 className={style.allmovies}>Todas las peliculas</h1>
       <div className={style.filters}>
         <div>
