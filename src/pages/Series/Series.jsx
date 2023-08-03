@@ -56,10 +56,9 @@ const Series = () => {
           <button className="elementoB button">Siguiente</button>
         
         </div>
-        
+      </div>
       </section>
 
-    </section>
   )
 }
 
