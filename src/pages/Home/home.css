@@ -1,0 +1,69 @@
+body{
+    padding: 0;
+    margin: 0;
+    
+    background-color: black;
+}
+
+.containerHome{
+    display: flex;
+}
+
+.main {
+    width: 1600px;
+    margin: 50px auto;
+    /* text-align: center; */
+    overflow: hidden;
+}
+
+
+
+.busqueda {
+    background-color: black;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+}
+
+h2{
+    font-size: 30px;
+    text-align: center;
+    padding: 40px 50px;
+}
+
+.peliculas{
+    height: 800px;
+    background-color: black;
+}
+
+.h3peliculas{
+    text-align: left;
+}
+
+.Mostrar {
+    width: 100%;
+    height: 50px;
+    background-color: #03546D;
+    margin: 40% 0;
+}
+
+.Mostrar a {
+    font-size: 20px;
+
+}
+
+.h3series{
+    
+    text-align: left;
+}
+
+.series{
+    height: 800px;
+    background-color: black;
+}
+
+.piedePagina{
+    background-color: #FAF0F0;
+    width: 100%;
+    height: 500px;
+}

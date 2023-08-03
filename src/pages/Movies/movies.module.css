@@ -1,0 +1,65 @@
+body{
+    padding: 0;
+    margin: 0;
+    background-color: #101010;
+}
+
+span{
+    font-size: 14px;
+}
+
+h1{
+    color: black;    
+}
+
+.filters{
+    display: flex;
+}
+
+.filters div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 25px 50px;
+}
+
+.filters div span{
+    font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    color: white;
+}
+
+.filters div select{
+    width: 120px;
+    height: 20px;
+}
+
+.Container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.peliculaContainer{
+    background-color: #000000;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height:1120px;
+    width:1248px;
+    margin: 30px 0;
+
+}
+
+.paginado{
+    background-color: #03546D;
+    width: 350px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+}

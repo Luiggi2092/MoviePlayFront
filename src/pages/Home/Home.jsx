@@ -1,19 +1,23 @@
 import React, {useState} from 'react'
-import Navbar from '../../components/Navbar/Navbar'
+import "./home.css"
+import SliderShow from '../../components/SliderShow/SliderShow'
+import styled from "styled-components"
+import { useState } from 'react'
+import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
+import ModalCreateSerie from "../../components/ModalCreateSerie/ModalCreateSerie"import Navbar from '../../components/Navbar/Navbar'
 
 const Home = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
-
-  window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  }
-
   return (
-    <div>
-      <Navbar isScrolled={isScrolled}/>
-    </div>
+    <div>Home</div>
   )
 }
+
+const Title = styled.h1`
+  font-size: 18px;
+  font-weight:700;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+`;
+
 
 export default Home

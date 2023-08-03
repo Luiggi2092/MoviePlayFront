@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-import Navbar from '../../components/Navbar/Navbar'
+import React from 'react'
 
 const Series = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -10,9 +9,7 @@ const Series = () => {
   }
 
   return (
-    <div>
-      <Navbar isScrolled={isScrolled} />
-    </div>
+    <div>Series</div>
   )
 }
 
