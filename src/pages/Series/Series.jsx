@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { NavLink } from 'react-router-dom'
+import Navbar from "../../components/Navbar/Navbar"
 import './series.css'
 
 const Series = () => {
+
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  }
+
   return (
 
     <section className="section">
-
+      <div>
+        <Navbar isScrolled={isScrolled} /> 
       <p className="pTitle">Todas la series</p>
 
       <div className="containerFilter">
@@ -133,7 +143,7 @@ const Series = () => {
         </div>
 
       </section>
-
+      </div>
     </section>
   )
 }
