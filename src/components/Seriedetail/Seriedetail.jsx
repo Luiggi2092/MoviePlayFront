@@ -15,7 +15,7 @@ const SerieDetail = () => {
         <section className='sectionDetailSerie'>
             <div>
                 <Navbar isScrolled={isScrolled} />
-            <h3 className='nameSeie'>Nombre Serie</h3>
+            <h3 className='nameSeie'>NOMBRE DE LA SERIE</h3>
             
             <div className="containerDivDetail">
                 
@@ -47,18 +47,18 @@ const SerieDetail = () => {
             </div>
             
             <div className='divButtonCompraSerie'>
-                <button className='buttonCompraSerie'>$ 100</button>
+                <button className='buttonCompraSerie'>$100</button>
             </div>
 
             <div className='divContainerTC'>
                 <div className='divTemp'>
-                    <p className='p'>TEMPORADA</p>
+                    <p className='p-p'>TEMPORADA</p>
                     <select className='selectDetail'>
                         <option>Temporada 1</option>
                     </select>
                 </div>
                 <div className='divCap'>
-                    <p className='p'>CAPITULO</p>
+                    <p className='p-p'>CAPITULO</p>
                     <select className='selectDetail'>
                         <option>Catipulo 1</option>
                     </select>
@@ -66,7 +66,7 @@ const SerieDetail = () => {
             </div>
 
             <div className='divVideo'>
-                <img className="imgSeries" src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
+                <img className="imgSeries-i" src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
             </div>
             </div>
 

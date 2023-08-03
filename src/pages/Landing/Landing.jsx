@@ -1,6 +1,7 @@
 import React from 'react';
 import fondo from '../../assets/fondo.png';
-import logo from '../../assets/Logo.ico.png';
+import Logo from '../../assets/Logo.ico.png';
+import img0 from '../../assets/camilo.jpeg';
 import img1 from '../../assets/amber1.jpg'
 import img2 from '../../assets/nico.png'
 import img3 from '../../assets/luis.jpeg'
@@ -27,7 +28,7 @@ const Landing = () => {
       <div className={style.img}>
         <div className={style.imgOverlay}>
         <img src={fondo} alt="img.jpg" className={style.fondo}  />
-        <img src={logo} alt="Logo.ico" className={style.logo}/>
+        <img src={Logo} alt="Logo.ico" className={style.logo}/>
         <h1 className={style.h1}>Disfruta de las mejores películas y series</h1>
         </div>
         <button onClick={clickHandler} className={style.boton}>Acceder</button>
@@ -35,7 +36,7 @@ const Landing = () => {
       </div>
 
       <div className={style.div1}>
-        <h2 className={`${style.title} ${style.titleLeft}`}>Disfruta en tu TV<span><br />
+        <h2 className={`${style.title} ${style.titleLeft}`}>Disfruta en tu TV<span className={style.span}><br />
           Ve en smart TV, Chromecast,
           Apple TV, reproductores  y más.</span></h2>
         <div className={style.tvContainer}>
@@ -77,30 +78,58 @@ const Landing = () => {
 
         <div className={style.circle}>
           <img src={img3} alt="luis.jpeg" className={style.img3} />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
         </div>
        
         <div className={style.circle}>
           <img src={img2} alt="nico.png" className={style.img2} />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
         </div>
 
         <div className={style.circle}>
           <img src="" alt="" />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
+        </div>
+
+        <div className={style.circle}>
+            <img src={img0} alt="camilo.jpeg" className={style.img0} />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
         </div>
 
         <div className={style.circle}>
           <img src="" alt="" />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
         </div>
 
         <div className={style.circle}>
           <img src="" alt="" />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
         </div>
 
         <div className={style.circle}>
           <img src="" alt="" />
-        </div>
-
-        <div className={style.circle}>
-          <img src="" alt="" />
+            <div className={style.textContainer}>
+              <p className={style.name}>Nombre 2</p>
+              <p className={style.career}>Carrera 2</p>
+            </div>
         </div>
       </div>
       </div>

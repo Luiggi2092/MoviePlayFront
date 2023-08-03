@@ -282,27 +282,27 @@ const Movies = () => {
         <Navbar isScrolled={isScrolled} /> 
       <div className={style.filters}>
         <div>
-          <span>Categoría</span>
-          <select>
-            <option>Select categoria</option>
+            <span>Categoría</span>
+            <select className={style.select1}>
+              <option>Select categoria</option>
           </select>
         </div>
         <div>
           <span>Año</span>
-          <select>
-            <option>Select año</option>
+          <select className={style.select1}>
+              <option className={style.p1}>Select año</option>
           </select>
         </div>
         <div>
           <span>Puntuación</span>
-          <select>
-            <option>Select Puntuación</option>
+            <select className={style.select1}>
+              <option className={style.p1}>Select Puntuación</option>
           </select>
         </div>
         <div>
           <span>Ordenamiento</span>
-          <select>
-            <option>select Ordenamiento</option>
+            <select className={style.select1}>
+              <option className={style.p1}>select Ordenamiento</option>
           </select>
         </div>
       </div>

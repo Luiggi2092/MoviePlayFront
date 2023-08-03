@@ -13,50 +13,49 @@ const Series = () => {
   }
 
   return (
-
     <section className="section">
       <div>
         <Navbar isScrolled={isScrolled} /> 
-      <p className="pTitle">Todas la series</p>
+      <h1 className="pTitle">Todas la series</h1>
 
       <div className="containerFilter">
 
         <div className="div">
 
-          <p className="p">Categoria</p>
+          <p className="p-p">Categoria</p>
 
           <select className="select">
-            <option>Filtrar</option>
+              <option>Filtrar</option>
           </select>
 
         </div>
 
         <div className="div">
 
-          <p className="p">Año</p>
+            <p className="p-p">Año</p>
 
           <select className="select">
-            <option>Filtrar</option>
+              <option>Filtrar</option>
           </select>
 
         </div>
 
         <div className="div">
 
-          <p className="p">Puntuación</p>
+            <p className="p-p">Puntuación</p>
 
           <select className="select">
-            <option>Filtrar</option>
+              <option>Filtrar</option>
           </select>
 
         </div>
 
         <div className="div">
 
-          <p className="p">Ordenamiento</p>
+            <p className="p-p">Ordenamiento</p>
 
           <select className="select">
-            <option>Filtrar</option>
+              <option>Filtrar</option>
           </select>
 
         </div>
@@ -145,6 +144,7 @@ const Series = () => {
       </section>
       </div>
     </section>
+   
   )
 }
 
