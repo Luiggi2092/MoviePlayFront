@@ -7,6 +7,7 @@ import MoviesDetail from './pages/MoviesDetail/MoviesDetail'
 import Series from './pages/Series/Series'
 import SerieDetail from './pages/Seriedetail/Seriedetail'
 import Register from './pages/Register/register'
+import AccessPage from './pages/AccessPage/AccessPage'
 
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
 	<Route exact path='/series' element={<Series/>} />
 	<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 	<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
+	<Route exact path='/login' element={<AccessPage/>}/>
  </Routes>
 </BrowserRouter>
 )
