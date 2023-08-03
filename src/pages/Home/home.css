@@ -1,18 +1,18 @@
-body{
+body {
     padding: 0;
     margin: 0;
-    
+
     background-color: black;
 }
 
-.containerHome{
+.containerHome {
     display: flex;
 }
 
 .main {
     width: 1600px;
     margin: 50px auto;
-    text-align: center;
+    /* text-align: center; */
     overflow: hidden;
 }
 
@@ -22,20 +22,21 @@ body{
     background-color: black;
     width: 100%;
     height: 200px;
+    text-align: center;
 }
 
-h2{
+h2 {
     font-size: 30px;
     text-align: center;
     padding: 40px 50px;
 }
 
-.peliculas{
+.peliculas {
     height: 800px;
     background-color: black;
 }
 
-.h3peliculas{
+.h3peliculas {
     text-align: left;
 }
 
@@ -51,17 +52,17 @@ h2{
 
 }
 
-.h3series{
-    
+.h3series {
+
     text-align: left;
 }
 
-.series{
+.series {
     height: 800px;
     background-color: black;
 }
 
-.piedePagina{
+.piedePagina {
     background-color: #FAF0F0;
     width: 100%;
     height: 500px;

@@ -34,6 +34,7 @@ const Series = () => {
           <select>
             <option>select Ordenamiento</option>
           </select>
+        
         </div>
       </div>
       <div className={style.Container}>
@@ -43,8 +44,21 @@ const Series = () => {
           ))}
         <div className={style.paginado}>paginado</div>
         </div>
-      </div>
-      
+
+        <div className="divPaginado">
+
+          <button className="elementoB button">Anterior</button>
+          
+          <p className='pPaginado'>1</p>
+          <p className='pPaginado'>2</p>
+          <p className='pPaginado'>3</p>
+          
+          <button className="elementoB button">Siguiente</button>
+        
+        </div>
+        
+      </section>
+
     </section>
   )
 }

@@ -1,0 +1,383 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  font-family: Netflix Sans,Helvetica Neue,Segoe UI,Roboto,Ubuntu,sans-serif;
+  height: 100%;
+  background-color: #000000;
+  color: #fff;
+}
+
+
+.container {
+  margin: 0 auto;
+  padding: 0px;
+  
+}
+
+.img-container img {
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: cover;
+background: rgb(0 0 0 / 40%);
+position: relative;
+letter-spacing: 0 !important;
+text-align: center;
+
+}
+
+.img-overlay {
+    position: relative;
+}
+
+/* Estilo para la imagen de fondo */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #080808;
+}
+
+.img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.imgOverlay {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.fondo {
+  width: 100%;
+  height: auto;
+  z-index: -0.5;
+}
+
+.div1 p {
+  font-size: 18px;
+  color: #741c1c;
+  position: absolute;
+}
+
+.logo{
+  width: 100px;;
+  align-items: flex-start;
+  display: flex;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 80px;
+  height: auto;
+  z-index: 1;
+}
+
+ .boton {
+  padding: 10px 30px;
+  background-color: #005a8e;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  margin-top: 100px;
+  border-radius: 10px;
+ position: absolute;
+ font-size: 1.5rem;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ justify-content: center;
+ font-size: 20px;
+ cursor: pointer; 
+}
+
+.boton:hover {
+  background-color: #860707;
+}
+
+
+.h1 {
+  font-size: 45px;
+    font-weight: bold;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+    letter-spacing: 0 !important;
+    margin-top: 5px;
+    z-index: 2;
+}
+
+.title1 {
+  text-align: center;
+  margin-top: -90px;
+  margin-bottom: 20px;
+  color: white
+ 
+}
+
+
+.registreTopRight {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1;
+  background-color: #005a8e;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  
+}
+
+.registreTopRight:hover {
+  background-color: #860707;
+}
+
+.div1 {
+margin-top: 20px;
+background-color: #0e0e0e;
+width: 100%;
+height: 50%;
+padding: 70px;
+box-shadow: 5px 8px 8px #77b8f9;
+display: flex;
+align-items: flex-start;
+margin-bottom: 10px;
+
+}
+
+.titleLeft{
+text-align: left;
+font-size: 40px;
+}
+
+
+
+.div2{
+margin-top: 10px;
+background-color: #0e0e0e;
+width: 100%;
+height: 50%;
+padding: 120px;
+box-shadow: 2px 5px 5px #77b8f9;
+}
+
+.alignRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+
+.div3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+ 
+}
+
+
+.title2 {
+  font-size: 44px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  
+}
+
+
+h4 {
+  font-size: 17.5px;
+  margin-bottom: 10px;
+}
+
+.input {
+  width: 50%;
+  padding: 9px;
+  margin-bottom: 10px;
+  background-color: #e0e6ea;
+  border: none;
+  border-radius: 5px;
+  
+}
+
+
+.input2 {
+  padding: 4px 9px;
+  font-size: 16px;
+  background-color: #005a8e;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.input2:hover {
+  background-color:  #860707;
+}
+
+.span {
+  font-size: 20px;
+}
+
+.img1,
+.img2,
+.img3,
+.img0 {
+
+  width: 35mm;
+  height: 45mm;
+  object-fit: cover;
+  margin-bottom: 10px;
+    
+}
+
+.circle {
+  width: 35mm;
+  height: 35mm; 
+  border-radius: 50%;
+  overflow: hidden;
+
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  justify-content: center;
+  margin: 0 10px;
+}
+
+.grid {
+  /* Add your styles for the grid container */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
+}
+
+.textContainer {
+  text-align: center;
+  color: #77b8f9;
+}
+
+/* Estilo para el nombre */
+.name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #b33333;
+}
+
+
+.career {
+  font-size: 12px;
+  color: aliceblue;
+}
+
+
+.tvContainer {
+  width: 50%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 2px 10px 10px 5px rgba(255, 255, 255, 0.5);
+  margin: 0 auto;
+  overflow: hidden;
+  
+}
+
+
+.tvImage {
+  width: 100%;
+  height: auto;
+  
+}
+
+
+.footer {
+  background-color: #040303;
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  
+}
+
+.titlefo {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: white;
+ 
+}
+
+.footer h4 {
+  font-size: 15px;
+  margin-bottom: 5px;
+  margin-top: 20px;
+  color: #f8f9fa;
+ 
+}
+
+
+.footer a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 20px;
+  color: #005a8e;;
+  
+  
+}
+
+
+.footer h6 {
+  font-size: 12px;
+  margin-top: 20px;
+  
+}
+
+a:hover{
+color: #860707;
+}
+
+a{
+  cursor: pointer;
+  text-decoration: none;
+  font-size: small;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+

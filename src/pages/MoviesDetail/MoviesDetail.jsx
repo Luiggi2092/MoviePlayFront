@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom"
+import React, { useState } from 'react'
+import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
 import data from "../../data";
 
@@ -10,6 +12,8 @@ const MoviesDetail = () => {
 
     return(
         <section className={style.maxContainer}>
+        <div>
+          <Navbar isScrolled={isScrolled} />
             <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
                 <h1 className={style.name}>{pelicula.original_title} </h1>
@@ -48,7 +52,7 @@ const MoviesDetail = () => {
             <div className={style.peliculaContainer}>
                 <h1>Aqui va la pelicula</h1>
             </div>
-            
+        </div>
         </section>
     )
 }
