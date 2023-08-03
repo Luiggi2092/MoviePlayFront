@@ -1,7 +1,18 @@
 import { useParams } from "react-router-dom"
+import React, { useState } from 'react'
+import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
 
 const MoviesDetail = () => {
+
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  }
+
+
     const peliculas = [
         {
           "genres": [
@@ -269,6 +280,8 @@ const MoviesDetail = () => {
 
     return(
         <section className={style.maxContainer}>
+        <div>
+          <Navbar isScrolled={isScrolled} />
             <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
                 <h1 className={style.name}>{pelicula.original_title} </h1>
@@ -307,7 +320,7 @@ const MoviesDetail = () => {
             <div className={style.peliculaContainer}>
                 <h1>Aqui va la pelicula</h1>
             </div>
-            
+        </div>
         </section>
     )
 }

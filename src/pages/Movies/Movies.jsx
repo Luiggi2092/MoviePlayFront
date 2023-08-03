@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import style from './movies.module.css'
 import Card from '../../components/Card/Card';
+import Navbar from "../../components/Navbar/Navbar"
 
 const Movies = () => {
 
+  
   const peliculas = [
     {
       "genres": [
@@ -265,9 +267,19 @@ const Movies = () => {
     }
   ];
 
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  }
+
 
   return (
+  
     <section className={style.containerMax}>
+      <div> 
+        <Navbar isScrolled={isScrolled} /> 
       <div className={style.filters}>
         <div>
           <span>Categoría</span>
@@ -302,8 +314,9 @@ const Movies = () => {
           <div className={style.paginado}>paginado</div>
         </div>
       </div>
-
+      </div>
     </section>
+   
   )
 }
 
