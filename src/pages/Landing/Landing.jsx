@@ -1,5 +1,5 @@
 import React from 'react';
-import fondo from '../../assets/img.jpg';
+import fondo from '../../assets/fondo.png';
 import logo from '../../assets/Logo.ico.png';
 import img1 from '../../assets/amber1.jpg'
 import img2 from '../../assets/nico.png'
@@ -113,7 +113,7 @@ const Landing = () => {
         <Link to="/terminosdeuso">Términos de uso</Link>
         <h4>Contáctenos</h4>
         <a href="https://www.instagram.com/" target="_blank"><i className="fab fa-instagram icono-red"></i></a>
-        <h6>© 2023 MoviePlay. Todos los derechos reservados.</h6>
+        <h6>© 2023 MoviesPlay. Todos los derechos reservados.</h6>
       </footer>
     </div>
   );
