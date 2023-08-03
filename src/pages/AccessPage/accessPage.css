@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.containerDivAccessPage {
+    height: 100%;
+    background-image: url('../../assets/cintas-online.jpg');
+    padding: 20px;
+}
+
+.divContainerTodo {
+    background-color: #000000;
+    margin: 50px 400px 50px 400px;
+    padding-bottom: 40px;
+}
+
+.h2FormAccessPage {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0;
+    font-size: 37px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.formularioAccessPage {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.labelFormAccessPage {
+    margin-top: 2rem;
+    margin-bottom: 7px;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.inputFormAccessPage {
+    width: 55%;
+    height: 30px;
+    padding: 7px;
+    border-radius: .3rem;
+    font-size: 17px;
+    margin-bottom: 0;
+    border: none;
+}
+
+.inputFormAccessPage:focus {
+    outline:none;
+    border: 3px solid #2980B9;
+}
+
+.buttonFormAccessPage {
+    margin-top: 3rem;
+    padding: 8px 25px;
+    font-size: 19px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    background-color: #2980B9;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.divpFormAccessPage {
+    margin-top: 40px;
+}
+
+.pFromAccessPage {
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.spanFormAccessPage {
+    margin-left: 6px;
+    color: #2980B9;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.pErrorEmailAccessPage {
+    margin-top: 6px;
+    margin-bottom: 0;
+    color: #E12727;
+    font-size: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.mensajeError {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #E12727;
+    padding: 15px;
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-bottom: 0;
+    border-radius: 5px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+}
