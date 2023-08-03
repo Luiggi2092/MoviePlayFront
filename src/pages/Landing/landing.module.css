@@ -70,9 +70,14 @@ text-align: center;
   z-index: -0.5;
 }
 
+.div1 p {
+  font-size: 18px;
+  color: #741c1c;
+  position: absolute;
+}
+
 .logo{
-  width: 250px;
-  height: 250px;
+  width: 100px;;
   align-items: flex-start;
   display: flex;
   position: absolute;
@@ -127,6 +132,7 @@ text-align: center;
   text-align: center;
   margin-top: -90px;
   margin-bottom: 20px;
+  color: white
  
 }
 
@@ -233,13 +239,14 @@ h4 {
   background-color:  #860707;
 }
 
-span {
-  font-size: 30px;
+.span {
+  font-size: 20px;
 }
 
 .img1,
 .img2,
-.img3 {
+.img3,
+.img0 {
 
   width: 35mm;
   height: 45mm;
@@ -261,6 +268,14 @@ span {
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   justify-content: center;
+  margin: 0 10px;
+}
+
+.grid {
+  /* Add your styles for the grid container */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 20px;
 }
 
 .textContainer {
@@ -315,6 +330,7 @@ span {
 .titlefo {
   font-size: 28px;
   margin-bottom: 20px;
+  color: white;
  
 }
 
