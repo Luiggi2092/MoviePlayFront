@@ -1,0 +1,66 @@
+.maxContainer{
+    height: 880px;
+    background-image:url('../../assets/series-netflix.jpg') ;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formContainer{
+    width: 738px;
+    height: auto;
+    margin: 20px;
+    background-color: black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    font-size: 48px;
+    color: white;
+    font-family: Century Gothic;
+}
+
+input{
+    width: 389px;
+    height: 40px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+button{
+    width: 223px;
+    height: 35px;
+    border-radius: 10px;
+    background: #03546D;
+    color: white;
+    font-size: 24px;
+    font-family: Century Gothic ;
+    margin: 20px;
+}
+
+span{
+    color: white;
+    font-family: Century Gothic;
+}
+
+form div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.file{
+    margin-left: 40px;
+    width: 160px;
+    height: 30px;
+}
+
+p{
+    color: red;
+    font-size: 12px;
+}
