@@ -6,55 +6,55 @@ const Series = () => {
   return (
 
     <section className="section">
-      
+
       <p className="pTitle">Todas la series</p>
 
       <div className="containerFilter">
-      
+
         <div className="div">
-          
+
           <p className="p">Categoria</p>
-          
+
           <select className="select">
             <option>Filtrar</option>
           </select>
-          
+
         </div>
-          
+
         <div className="div">
-        
+
           <p className="p">Año</p>
-        
+
           <select className="select">
             <option>Filtrar</option>
           </select>
-        
+
         </div>
 
         <div className="div">
-        
+
           <p className="p">Puntuación</p>
-        
+
           <select className="select">
             <option>Filtrar</option>
           </select>
-        
+
         </div>
 
         <div className="div">
-        
+
           <p className="p">Ordenamiento</p>
-        
+
           <select className="select">
             <option>Filtrar</option>
           </select>
-        
+
         </div>
 
       </div>
 
       <section className="containerSeries">
-        
+
         <div className="divContainerCard">
 
           <NavLink to='/detailSeries'>
@@ -66,7 +66,7 @@ const Series = () => {
           </NavLink>
 
           <NavLink to='/detailSeries'>
-            <img className="imgSeries" src="https://i.blogs.es/522d7e/mejoresfantasia2023/1366_2000.jpeg" alt="" /> 
+            <img className="imgSeries" src="https://i.blogs.es/522d7e/mejoresfantasia2023/1366_2000.jpeg" alt="" />
           </NavLink>
 
           <NavLink to='/detailSeries'>
@@ -117,21 +117,21 @@ const Series = () => {
           <NavLink to='/detailSeries'>
             <img className="imgSeries" src="https://i.blogs.es/522d7e/mejoresfantasia2023/1366_2000.jpeg" alt="" />
           </NavLink>
-        
+
         </div>
 
         <div className="divPaginado">
 
           <button className="elementoB button">Anterior</button>
-          
+
           <p className='pPaginado'>1</p>
           <p className='pPaginado'>2</p>
           <p className='pPaginado'>3</p>
-          
+
           <button className="elementoB button">Siguiente</button>
-        
+
         </div>
-        
+
       </section>
 
     </section>

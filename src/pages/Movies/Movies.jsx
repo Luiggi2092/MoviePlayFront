@@ -264,7 +264,7 @@ const Movies = () => {
       "autor": "Director 14"
     }
   ];
-  
+
 
   return (
     <section className={style.containerMax}>
@@ -297,12 +297,12 @@ const Movies = () => {
       <div className={style.Container}>
         <div className={style.peliculaContainer}>
           {peliculas.map(({ id, image }) => (
-          <Card key={id} id={id} image={image} />
+            <Card key={id} id={id} image={image} />
           ))}
-        <div className={style.paginado}>paginado</div>
+          <div className={style.paginado}>paginado</div>
         </div>
       </div>
-      
+
     </section>
   )
 }

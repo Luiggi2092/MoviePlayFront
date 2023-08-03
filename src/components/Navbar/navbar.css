@@ -1,0 +1,81 @@
+/* navbar.css */
+nav {
+    background-color: #080808;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+}
+
+.brand img {
+    width: 100px;
+    height: auto;
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+   
+}
+
+.links li {
+    list-style: none;
+    margin-right: 20px;
+}
+
+.links li:last-child {
+    margin-right: 0;
+}
+
+.links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.links a:hover {
+    color: #a30e0e;
+}
+
+.shopping-cart {
+    font-size: 30px;
+}
+
+.shopping-cart a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    margin: 50px;
+}
+
+.shopping-cart a:hover {
+    color: #a30e0e;
+}
+
+.scrolled {
+    background-color: #fff;
+    color: #a30e0e;
+    box-shadow: 0 2px 5px rgba(247, 245, 245, 0.767);
+}
+
+.scrolled .links a,
+.scrolled .shopping-cart a {
+    color: #050505;
+}
+
+.scrolled .links a:hover,
+.scrolled .shopping-cart a:hover {
+    color: #a30e0e;
+}
