@@ -1,9 +1,20 @@
 import './seriedetail.css'
+import React, { useState } from 'react'
+import Navbar from "../../components/Navbar/Navbar"
+
 
 const SerieDetail = () => {
+
+    const [isScrolled, setIsScrolled] = useState(false)
+
+    window.onscroll = () => {
+        setIsScrolled(window.pageYOffset === 0 ? false : true);
+        return () => (window.onscroll = null);
+    }
     return (
         <section className='sectionDetailSerie'>
-             
+            <div>
+                <Navbar isScrolled={isScrolled} />
             <h3 className='nameSeie'>Nombre Serie</h3>
             
             <div className="containerDivDetail">
@@ -56,6 +67,7 @@ const SerieDetail = () => {
 
             <div className='divVideo'>
                 <img className="imgSeries" src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
+            </div>
             </div>
 
         </section>
