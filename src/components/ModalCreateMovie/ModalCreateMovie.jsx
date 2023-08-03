@@ -63,6 +63,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         cambiarEstado(false);
         setForm({...form,imagen: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
         setAvance(0);
+        setErrors({...errors,duracion: "",trailer:""})
 
     }
 

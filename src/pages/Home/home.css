@@ -17,6 +17,9 @@ body {
 }
 
 
+label{
+    color: black;
+}
 
 .busqueda {
     background-color: black;
