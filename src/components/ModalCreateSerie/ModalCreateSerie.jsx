@@ -30,6 +30,8 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
         descripcion: "",
     })
 
+    
+
     const ChangeHandle = (event) => {
         
         let property = event.target.name;
