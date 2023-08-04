@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './accessPage.css'
 import { NavLink } from 'react-router-dom'
+import Footer from '../../components/Footer/Footer'
 
 
 const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
@@ -120,7 +121,8 @@ const AccessPage = () => {
                 </div>
 
             </div>
-
+            
+            <Footer/>
         </section>
     )
 }

@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import style from './seriedetail.module.css'
 import Navbar from "../../components/Navbar/Navbar"
+import Footer from "../../components/Footer/Footer";
 
 const SerieDetail = () => {
 
@@ -76,6 +77,7 @@ const SerieDetail = () => {
                 <img className={style.imgSeries} src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
             </div>
 
+            <Footer/>
         </section>
     )
 }

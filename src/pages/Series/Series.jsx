@@ -5,6 +5,8 @@ import Card from '../../components/CardSerie/Card'
 import { useState } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 
+import Footer from '../../components/Footer/Footer'
+
 const Series = () => {
 
   const series = data
@@ -67,8 +69,8 @@ const Series = () => {
         
         </div>
       </div>
+      <Footer/>
       </section>
-
   )
 }
 

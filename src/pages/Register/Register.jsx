@@ -1,6 +1,7 @@
 import style from './register.module.css'
 import validation from './validations'
 import { useState } from 'react'
+// import Footer from '../../components/Footer/Footer'
 
 const Register = () => {
 
@@ -60,6 +61,8 @@ const Register = () => {
                 </div>
                 <button type='submit'>Registrarse</button>
             </form>            
+
+            {/* <Footer/> */}
         </section>
     )
 }

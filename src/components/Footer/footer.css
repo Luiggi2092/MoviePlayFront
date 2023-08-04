@@ -1,0 +1,62 @@
+.footer {
+    background-color: #fff;
+}
+
+.divTitleFooter {
+    display: flex;
+    justify-content: center;
+}
+
+.pTitleFooter {
+    margin-top: 30px;
+    font-size: 17px;
+    color: #000;
+}
+
+.divContainerFooter {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.divContainerPModal {
+    margin: 30px 0px 10px 40px;
+}
+
+.pModal {
+    margin-bottom: 20px;
+    color: #000;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.pContactenos {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: #000;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divContainericon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pFooter {
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+    margin-bottom: 7px;
+    color: #000;
+    font-size: 14px;
+}
+
+.bi {
+    color: #000;
+    font-size: 25px;
+    margin: 0 20px 0 20px;
+    cursor: pointer;
+}
