@@ -7,51 +7,60 @@
     justify-content: center;
 }
 
-.formContainer{
-    width: 738px;
-    height: auto;
-    margin: 20px;
-    background-color: black;
-    border-radius: 10px;
+.divContainerTodo {
+    background-color: #000000;
+    margin: 50px 400px 50px 400px;
+    padding-bottom: 40px;
+    width: 510px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
-h1{
-    font-size: 48px;
-    color: white;
-    font-family: Century Gothic;
+.inputFormAccessPage {
+    width: 283px;
+    height: 30px;
+    padding: 7px;
+    border-radius: .3rem;
+    font-size: 17px;
+    margin-bottom: 0;
+    border: none;
 }
 
-/*input{
-    width: 389px;
-    height: 40px;
-    margin: 20px;
-    border-radius: 10px;
-}*/
+.labelFormAccessPage {
+    margin-top: 2rem;
+    margin-bottom: 7px;
+    color: #fff;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
 
-/*button{
-    width: 223px;
-    height: 35px;
-    border-radius: 10px;
-    background: #03546D;
-    color: white;
-    font-size: 24px;
-    font-family: Century Gothic ;
-    margin: 20px;
+.inputFormAccessPage:focus {
+    outline:none;
+    border: 3px solid #2980B9;
 }
-*/
-/*span{
-    color: white;
-    font-family: Century Gothic;
+
+.buttonFormAccessPage {
+    margin-top: 3rem;
+    padding: 8px 25px;
+    font-size: 19px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    background-color: #2980B9;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
 }
+
 .form{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center; 
-}*/
+}
 
 .file{
     margin-left: 40px;
@@ -59,7 +68,10 @@ h1{
     height: 30px;
 }
 
-/*p{
-    color: red;
+.error{
+    margin-top: 6px;
+    margin-bottom: 0;
+    color: #E12727;
     font-size: 12px;
-}*/
+    font-family: 'Roboto', sans-serif;
+}
