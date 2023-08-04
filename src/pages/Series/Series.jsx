@@ -2,14 +2,18 @@ import React from 'react'
 import data from '../../data'
 import style from './series.module.css'
 import Card from '../../components/CardSerie/Card'
-import { useState } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
-
+import { useDispatch,useSelector} from "react-redux"
+import { useState,useEffect } from "react";
+import {getGeneros} from "../../redux/actions";
 import Footer from '../../components/Footer/Footer'
 
 const Series = () => {
 
   const series = data
+
+  const dispatch = useDispatch();
+  const listaGenero = useSelector(state=> state.Generos.data);
 
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -17,6 +21,11 @@ const Series = () => {
         setIsScrolled(window.pageYOffset === 0 ? false : true);
         return () => (window.onscroll = null);
         }
+
+  useEffect(()=> {
+      dispatch(getGeneros()); 
+
+  },[])
 
   return (
     <section className={style.containerMax}>
@@ -26,7 +35,10 @@ const Series = () => {
         <div>
           <span>Categoría</span>
           <select>
-            <option>Select categoria</option>
+              <option>Seleccione</option>
+                  {listaGenero?.map((gen,index)=>{
+                      return <option key={index}>{gen.name}</option>
+                })}
           </select>
         </div>
         <div>
