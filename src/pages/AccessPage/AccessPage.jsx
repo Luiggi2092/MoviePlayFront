@@ -2,6 +2,7 @@ import { useState,useEffect } from 'react'
 import './accessPage.css'
 import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
+import Footer from '../../components/Footer/Footer'
 
 
 const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
@@ -175,7 +176,8 @@ const AccessPage = () => {
                 </div>
 
             </div>
-
+            
+            <Footer/>
         </section>
     )
 }

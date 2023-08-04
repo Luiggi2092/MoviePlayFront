@@ -7,6 +7,8 @@ import styled from "styled-components"
 import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
 import ModalCreateSerie from "../../components/ModalCreateSerie/ModalCreateSerie";
 import Navbar from "../../components/Navbar/Navbar"
+import Footer from '../../components/Footer/Footer'
+
 const Home = () => {
   
   
@@ -68,7 +70,7 @@ const Home = () => {
 
       </div>
     </div>
-      
+      <Footer/>
     </div>
     
   )

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
 import data from "../../data";
+import Footer from "../../components/Footer/Footer";
 
 const MoviesDetail = () => {
     const peliculas = data
@@ -59,6 +60,7 @@ const MoviesDetail = () => {
                 <h1>Aqui va la pelicula</h1>
             </div>
         </div>
+        <Footer/>
         </section>
     )
 }

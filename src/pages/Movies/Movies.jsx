@@ -3,6 +3,7 @@ import style from './movies.module.css'
 import Card from '../../components/CardMovie/CardMovie';
 import data from '../../data';
 import Navbar from "../../components/Navbar/Navbar"
+import Footer from '../../components/Footer/Footer';
 
 const Movies = () => {
 
@@ -55,6 +56,7 @@ const Movies = () => {
           <div className={style.paginado}>paginado</div>
         </div>
       </div>
+      <Footer/>
     </section>
    
   )
