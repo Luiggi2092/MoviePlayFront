@@ -24,14 +24,14 @@ h1{
     font-family: Century Gothic;
 }
 
-input{
+/*input{
     width: 389px;
     height: 40px;
     margin: 20px;
     border-radius: 10px;
-}
+}*/
 
-button{
+/*button{
     width: 223px;
     height: 35px;
     border-radius: 10px;
@@ -41,18 +41,17 @@ button{
     font-family: Century Gothic ;
     margin: 20px;
 }
-
-span{
+*/
+/*span{
     color: white;
     font-family: Century Gothic;
 }
-
-form div{
+.form{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
+    justify-content: center; 
+}*/
 
 .file{
     margin-left: 40px;
@@ -60,7 +59,7 @@ form div{
     height: 30px;
 }
 
-p{
+/*p{
     color: red;
     font-size: 12px;
-}
+}*/

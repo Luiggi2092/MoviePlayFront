@@ -11,6 +11,11 @@ nav {
     align-items: center;
 }
 
+.buqNav{
+    float: right;
+    margin-right:-30%;
+}
+
 .left {
     display: flex;
     align-items: center;
