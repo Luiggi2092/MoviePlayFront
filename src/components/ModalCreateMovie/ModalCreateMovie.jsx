@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import "./ModalCreateMovie.css"
+import Swal from 'sweetalert2'
+import style from "./ModalCreateMovie.module.css"
 
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
@@ -15,9 +16,10 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         name: "",
         imagen: "",
         genero: "",
-        duracion: 0.0,
+        duracion: 0,
         trailer: "",
         descripcion: "",
+        price : 0.0
 
     })
 
@@ -29,6 +31,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         duracion: "",
         trailer: "",
         descripcion: "",
+        price: 0.0
 
     })
 
@@ -102,8 +105,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
          if(property === "duracion"){
             
-            if(Number(value.substring(1,2))>= 4){
-                setErrors({...errors,duracion: "La Duracion de la pelicula debe ser menos a 04 horas"})
+            if(Number(value)>= 240){
+                setErrors({...errors,duracion: "La Duracion de la pelicula debe ser menos de 240 minutos"})
             }else{
                 setErrors({...errors,duracion: ""});
             }
@@ -112,17 +115,27 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
     }
 
+    const submitHandler =(event)=> {
+       event.preventDefault();
+       cambiarEstado(false);
+       Swal.fire({
+        title:`La pelicula se creo con exito`,
+        icon:'success',
+        confirmButtonText:'Ok'});
+    
+    }
+
 
     return (
         <>
         
         {openModal && <form>
-            <div className="Overlay">
-                <div className="ContenedorModal">
-                   <div className="EncabezadoModal">
-                       <h2 className="titulo">Movie</h2>
+            <div className={style.Overlay}>
+                <div className={style.ContenedorModal}>
+                   <div className={style.EncabezadoModal}>
+                       <h2 className={style.titulo}>Movie</h2>
                    </div>
-                   <div className="contenedor">
+                   <div className={style.contenedor}>
                       
                      <div>      
                      <img src={form.imagen== "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps": form.imagen} />
@@ -132,13 +145,13 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         <br/> 
                      </div>
                      </div>
-                     <div className="inputs">
+                     <div className={style.inputs}>
                      <div>
                         <label>Titulo :  </label>
                         <br/>
                         <input type="text" name="name" onChange={ChangeHandle}/>
                      </div> 
-                     <div className="genero">
+                     <div className={style.genero}>
                         <label>Genero :    </label>
                         <br/>
                         <select name="genero" onChange={ChangeHandle}>
@@ -152,30 +165,35 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                      <div>
                         <label>Duracion :   </label>
                         <br/>
-                        <input type="time" name="duracion" onChange={ChangeHandle}></input>
+                        <input type="text" name="duracion" onChange={ChangeHandle}></input>
                         <br/>
-                        <span className="error">{errors.duracion}</span>
+                        <span className={style.error}>{errors.duracion}</span>
                      </div> 
                      <div>
                         <label>Trailer :   </label>
                         <br/>
                         <input type="url" name="trailer" onChange={ChangeHandle}></input>
                         <br/>
-                        <span className="error">{errors.trailer}</span>
+                        <span className={style.error}>{errors.trailer}</span>
+                     </div>
+                     <div>
+                        <label>Precio $ : </label>
+                        <br/>
+                        <input type="text" />
                      </div>
                      <br/>
                      <br/>
-                     <input type="file" className="file-input" onChange={handleImagenUpload} />
+                     <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
                      <br/>
                      
-                     <button type="submit" >
+                     <button type="submit" className={style.botonMovie} onClick={submitHandler} >
                             Crear Pelicula
                      </button>
                 
                         
 
                      
-                <div className="BotonCerrar" onClick={BotonCerrar}>
+                <div className={style.BotonCerrar} onClick={BotonCerrar}>
                             X
                         </div>
                      
@@ -183,7 +201,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                      
                     
                    
-                <div className="textArea">
+                <div className={style.textArea}>
                 <label>Descripcion : </label>
                 <br/>
                 <textarea name="descripcion" onChange={ChangeHandle}></textarea>
@@ -191,7 +209,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                    
                 </div>
                 
-                <div className="BotonCerrar" onClick={BotonCerrar}>
+                <div className={style.BotonCerrar} onClick={BotonCerrar}>
                             X
                         </div>
 

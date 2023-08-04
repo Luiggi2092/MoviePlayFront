@@ -54,7 +54,7 @@ const Register = () => {
                 <input placeholder='CONFIRM PASSWORD' type='password' value={input.confirmPassword} name='confirmPassword' onChange={handleChange}/>
                 {error.confirmPassword && <p className={style.error}>{error.confirmPassword}</p>}
                 <br/>
-                <div>
+                <div className={style.form}>
                 <span>ENTER YOUR IMAGE {'(optional)'}</span>
                 <input className={style.file} type='file'/>
                 </div>

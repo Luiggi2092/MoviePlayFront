@@ -46,7 +46,7 @@
 }
 
 .titulo{
-    padding: 15px;
+    padding: 5px;
     color: #03546D;
 }
 
@@ -85,17 +85,16 @@
 
 .textArea textarea {
     width: 400px;
-    text-align: center;
-    
+    /*text-align: center;*/
     background-color: #1766DC;
     border-radius: 10px;
     color: white;
 }
 
 
-.file-input {
+.fileinput {
     width: 132px;
-    margin-top: -45px;
+    margin-top: 05px;
     height: 22px;
     background: #1766DC;
     color: white;
@@ -124,7 +123,7 @@
     float: left;
 }
 
-button {
+.botonMovie {
     margin: 10px;
     background-color: #1766DC;
     border-radius: 10px;
