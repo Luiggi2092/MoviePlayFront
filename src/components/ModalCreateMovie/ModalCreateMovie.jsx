@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import style from "./ModalCreateMovie.module.css"
-
+import {getGeneros} from "../../redux/actions";
+import { useDispatch,useSelector} from "react-redux"
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
 
@@ -11,6 +12,9 @@ const UPLOAD_PRESET = 'Products'
 const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
     const [avance, setAvance] = useState(0);
+    const dispatch = useDispatch();
+    const listaGenero = useSelector(state=> state.Generos.data);
+
 
     const [form,setForm] = useState({
         name: "",
@@ -36,8 +40,13 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
     })
 
 
-  
+    useEffect(()=> {
+          dispatch(getGeneros()); 
 
+    },[])  
+  
+   
+    console.log(listaGenero);
 
 
 
@@ -156,10 +165,9 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         <br/>
                         <select name="genero" onChange={ChangeHandle}>
                             <option>Seleccione :</option>
-                            <option value="Drama">Drama</option>
-                            <option value="Accion">Acción</option>
-                            <option value="Comedia">Comedia</option>
-                            <option value="Aventura">Aventura</option>  
+                            {listaGenero?.map((gen,index)=>{
+                                  return <option key={index}>{gen.name}</option>
+                            })}  
                         </select> 
                      </div>
                      <div>
