@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import "./home.css"
 import SliderShow from '../../components/SliderShow/SliderShow'
+import Card from '../../components/CardSerie/Card'
+import data from '../../data'
 import styled from "styled-components"
 import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
 import ModalCreateSerie from "../../components/ModalCreateSerie/ModalCreateSerie";
@@ -9,6 +11,8 @@ import Footer from '../../components/Footer/Footer'
 
 const Home = () => {
   
+  
+  const series = data
   
   const [openModal, setOpenModal] = useState(false);
   const [openModalSerie,setOpenModalSerie] = useState(false);
@@ -36,7 +40,7 @@ const Home = () => {
     <div className="containerHome">
       <div className="main">
       <SliderShow/>
-      <div className='busqueda'>
+      {/* <div className='busqueda'>
           <h2>Busca tus peliculas y series favoritas</h2> 
           <input type='search'/>
           <button>
@@ -44,19 +48,22 @@ const Home = () => {
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
           </svg>
           </button>
-      </div>
+      </div> */}
       <div className='peliculas'>
-         <h3 className='h3peliculas'>Peliculas Online</h3>
-         <button onClick={handleModalMovie}>Nueva Pelicula</button>
+         <h3 className='h3peliculas'>Peliculas y Series Online</h3>
+         <button onClick={handleModalMovie} className='CreateNew'>Nueva Pelicula</button>
          <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
-         <button className='Mostrar'><a>Ver mas Peliculas</a></button>
-      </div>
-      <div className='series'>
-         <h3 className='h3series'>Series Online</h3>
-         <button onClick={handleModalSerie}>Nueva Serie</button>
+         <button onClick={handleModalSerie} className='CreateNew'>Nueva Serie</button>
          <ModalCreateSerie openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
-         <button className='Mostrar'><a>Ver mas Series</a></button>  
+         <div className='containerCard'>
+         {series.map(({ id, image }) => (
+          <Card key={id} id={id} image={image} />
+          ))}
+          
+        <button className='Mostrar'><a>Mostrar Mas</a></button>  
+        </div>
       </div>
+      
       <div className='piedePagina'>
          
       </div>

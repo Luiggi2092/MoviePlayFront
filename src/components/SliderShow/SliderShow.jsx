@@ -1,5 +1,6 @@
 import React,{useRef,useEffect} from "react";
 import img1 from "../../assets/caret-left-square.svg"
+import image1 from '../../assets/fondo.png';
 import img2 from "../../assets/caret-left-square.svg"
 import styled from "styled-components"
 import './SliderShow.css';
@@ -86,7 +87,7 @@ const anterior = ()=> {
         <ContenedorSliderShow ref={slidershow}>
             <Slider>
                 <a href="https://www.themoviedb.org/movie/872585-oppenheimer">
-                 <img src="https://www.themoviedb.org/t/p/original/mm7qW1zO1jYWMFFBk9qf73HMhUJ.jpg"/>
+                 <img src={image1}/>
                 </a>
                 <TextSlider>
                     <a>$ 10.45</a>
@@ -165,6 +166,7 @@ const Slider = styled.div`
        img {
           width : 100%;
           vertical-align: top;
+          height : 500px;
        }
 `;
 
