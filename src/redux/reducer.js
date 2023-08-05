@@ -5,7 +5,7 @@ const initialState = {
      Media:[],
      Todo:[],
      NewMovie:[],
-     MovieId:[],
+     MovieId:[]
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -24,7 +24,7 @@ const rootReducer =(state = initialState,action)=> {
         case POST_MOVIE:
             return {...state, NewMovie : action.payload}     
         case GET_MOVIEXID:
-            return {...state, MovieId:action.payload}    
+            return {...state, MovieId:action.payload}
         default:
             return {...state}
     }
