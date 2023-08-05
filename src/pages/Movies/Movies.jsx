@@ -1,6 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import style from './movies.module.css'
 import Card from '../../components/CardMovie/CardMovie';
+import {getMovies} from "../../redux/actions"
+import {useSelector,useDispatch} from "react-redux"
 import data from '../../data';
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
@@ -8,6 +10,19 @@ import Footer from '../../components/Footer/Footer';
 const Movies = () => {
 
   const peliculas = data
+
+  const dispatch = useDispatch();
+  const listaMovie = useSelector(state=> state.Media);
+  
+  
+  useEffect(()=> {
+       dispatch(getMovies());
+  },[])
+
+
+  listaMovie.data?.map((e,index)=> {
+       console.log(e);
+   })
 
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -50,8 +65,9 @@ const Movies = () => {
       </div>
       <div className={style.Container}>
         <div className={style.peliculaContainer}>
-          {peliculas.map(({ id, image }) => (
-            <Card key={id} id={id} image={image} />
+          {listaMovie.data?.map((image, index) => (
+            
+            <Card key={index} id={image.id} image={image.image} />
           ))}
           <div className={style.paginado}>paginado</div>
         </div>

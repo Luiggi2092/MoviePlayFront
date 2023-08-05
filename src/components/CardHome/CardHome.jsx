@@ -1,7 +1,7 @@
-import style from './card.module.css'
+import style from './CardHome.module.css'
 import { Link } from 'react-router-dom'
 
-const Card = ({image,id}) => {
+const CardHome = ({image,id}) => {
 
     console.log(image);
     console.log(id);
@@ -15,4 +15,5 @@ const Card = ({image,id}) => {
     )
 }
 
-export default Card
+
+export default CardHome;

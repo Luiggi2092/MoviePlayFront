@@ -1,13 +1,18 @@
+
 .detailsContainer {
     height: auto;
     display: flex;
     flex-direction: column;
+    
   }
   
   .peliculaContainer {
     width: 100%; /* O ajusta el ancho del reproductor de video real */
     height: auto;
+    display: flex;
+    
   }
+
   
   .maxContainer {
     display: flex;
