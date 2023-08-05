@@ -1,21 +1,34 @@
 import { useParams } from "react-router-dom"
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
+import {getMoviexid} from "../../redux/actions"
 import data from "../../data";
 import Footer from "../../components/Footer/Footer";
+import { useSelector,useDispatch } from "react-redux"
+import ReactPlayer from 'react-player/youtube'
 
 const MoviesDetail = () => {
     const peliculas = data
     
       const {id} = useParams()
+      const dispatch = useDispatch();
       const pelicula = peliculas.find(Element => Element.id == id)
+      const peliculaid = useSelector(state=> state.MovieId)
       const [isScrolled, setIsScrolled] = useState(false)
+
+      useEffect(()=> {
+          dispatch(getMoviexid(id));
+    },[]) 
 
     window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
   }
+
+
+
+
 
     return(
         <section className={style.maxContainer}>
@@ -23,41 +36,42 @@ const MoviesDetail = () => {
             <Navbar isScrolled={isScrolled} />
             <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
-                <h1 className={style.name}>{pelicula.original_title} </h1>
-                <h1 className={style.name}>- 2023</h1>
+                <h1 className={style.name}>{peliculaid.name}</h1>
+                <h1 className={style.name}></h1>
                 </div>
 
                 <section className={style.section}>
                 <div className={style.image}>
-                <img src={pelicula.image}/>
+                <img src={peliculaid.image}/>
                 </div>
                 <div className={style.info}>
                     <div>
                         <span>Sipnosis</span>
-                        <p>{pelicula.overview}</p>
+                        <p>{peliculaid.description}</p>
                     </div>
                     <div>
                         <span>Raiting</span>
-                        <p>{pelicula.popularity}%</p>
+                        <p>80%</p>
                     </div>
                     <div>
-                        <span>Actores</span>
-                        <p>{pelicula.actors.join(', ')}</p>
+                        <span>Genero</span>
+                        <p></p>
                     </div>
                     <div>
                         <span>Director</span>
-                        <p>{pelicula.autor}</p>
+                        <p></p>
                     </div>
                 </div>
                 </section>
 
                 <div className={style.botonContainer}>
-                    <button>$4.99</button>
+                    <button>${peliculaid.price}.00</button>
                 </div>
                 
             </div>
             <div className={style.peliculaContainer}>
-                <h1>Aqui va la pelicula</h1>
+                <ReactPlayer height={500} width={1550} style={{margin:'0 30%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
+                    
             </div>
         </div>
         <Footer/>

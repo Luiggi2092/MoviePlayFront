@@ -1,8 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import "./home.css"
 import SliderShow from '../../components/SliderShow/SliderShow'
-import Card from '../../components/CardSerie/Card'
+import Card from '../../components/CardHome/CardHome'
 import data from '../../data'
+import {getTodo} from "../../redux/actions"
+import { useSelector,useDispatch } from 'react-redux'
 import styled from "styled-components"
 import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
 import ModalCreateSerie from "../../components/ModalCreateSerie/ModalCreateSerie";
@@ -16,8 +18,17 @@ const Home = () => {
   
   const [openModal, setOpenModal] = useState(false);
   const [openModalSerie,setOpenModalSerie] = useState(false);
+  const dispatch = useDispatch();
+  const listaTodo = useSelector(state=> state.Todo)
 
   
+  useEffect(()=> {
+     dispatch(getTodo());
+  },[])
+
+
+  console.log(listaTodo);
+
   const handleModalMovie = () => {
     setOpenModal(!openModal);
   }
@@ -56,18 +67,13 @@ const Home = () => {
          <button onClick={handleModalSerie} className='CreateNew'>Nueva Serie</button>
          <ModalCreateSerie openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
          <div className='containerCard'>
-         {series.map(({ id, image }) => (
-          <Card key={id} id={id} image={image} />
+         {listaTodo?.map(( hom, index ) => (
+          <Card key={index} id={hom.id} image={hom.image} />
           ))}
           
         <button className='Mostrar'><a>Mostrar Mas</a></button>  
         </div>
       </div>
-      
-      <div className='piedePagina'>
-         
-      </div>
-
       </div>
     </div>
       <Footer/>
