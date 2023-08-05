@@ -6,6 +6,7 @@ export const GET_TODO = "GET_TODO";
 export const POST_MOVIE = "POST_MOVIE";
 export const GET_MOVIEXID = "GET_MOVIEXID";
 
+
 export const getGeneros = ()=> {
    return async function (dispatch){
      const generos = await axios.get("/genres");
