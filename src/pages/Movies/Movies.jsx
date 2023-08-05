@@ -1,28 +1,65 @@
 import React, {useState,useEffect} from 'react'
 import style from './movies.module.css'
 import Card from '../../components/CardMovie/CardMovie';
-import {getMovies} from "../../redux/actions"
 import {useSelector,useDispatch} from "react-redux"
-import data from '../../data';
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
+import Pagination from 'react-bootstrap/Pagination';
 
 const Movies = () => {
 
-  const peliculas = data
-
   const dispatch = useDispatch();
-  const listaMovie = useSelector(state=> state.Media);
+
+  const [movies, setMovies] = useState([])
+  const [infoPage, setInfoPage] = useState({})
+  const [itemsPage, setItemsPage] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+
+  
+  //----------------------------PAGINADO------------------------------------------------
+
+  const getMovieAndPage = (page, url) =>{
+    let newUrl = page === null ? url :`http://localhost:3001/media/movies?page=${page}`
+
+    fetch(newUrl)
+    .then(response => response.json())
+    .then(data => {
+      setMovies(data.elementos)
+      setInfoPage(data.totalPages)
+      setCurrentPage(page)
+    })
+  }
   
   
-  useEffect(()=> {
-       dispatch(getMovies());
+  useEffect(()=>{
+    getMovieAndPage(0, null)
   },[])
 
+  useEffect(() => {
+    let items = []
+    for(let i = 1; i <= infoPage; i++){
+      items.push(<Pagination.Item key={i} onClick={(event) =>{
+        setCurrentPage(parseInt(event.target.text))
+        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</Pagination.Item>)
 
-  listaMovie.data?.map((e,index)=> {
-       console.log(e);
-   })
+      }
+      setItemsPage(items)   
+    },[infoPage])
+    
+    const handlePreviousPage = () => {      
+      if (currentPage > 1) {
+        getMovieAndPage(currentPage - 1, null);
+      }
+    };
+  
+    const handleNextPage = () => {
+      if (currentPage < infoPage) {
+        getMovieAndPage(currentPage + 1, null);
+      }
+    };
+    
+
+
 
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -65,11 +102,17 @@ const Movies = () => {
       </div>
       <div className={style.Container}>
         <div className={style.peliculaContainer}>
-          {listaMovie.data?.map((image, index) => (
+          {movies?.map((image, index) => (
             
             <Card key={index} id={image.id} image={image.image} />
           ))}
-          <div className={style.paginado}>paginado</div>
+          <div className={style.paginado}>
+            <Pagination>
+              <Pagination.Prev onClick={handlePreviousPage}/>
+              {itemsPage.map(item => item)}      
+              <Pagination.Next onClick={handleNextPage}/>      
+            </Pagination>
+          </div>
         </div>
       </div>
       <Footer/>

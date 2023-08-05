@@ -13,7 +13,6 @@ const MoviesDetail = () => {
     
       const {id} = useParams()
       const dispatch = useDispatch();
-      const pelicula = peliculas.find(Element => Element.id == id)
       const peliculaid = useSelector(state=> state.MovieId)
       const [isScrolled, setIsScrolled] = useState(false)
 
@@ -55,7 +54,7 @@ const MoviesDetail = () => {
                     </div>
                     <div>
                         <span>Genero</span>
-                        <p></p>
+                        
                     </div>
                     <div>
                         <span>Director</span>

@@ -8,6 +8,7 @@ export const GET_MOVIEXID = "GET_MOVIEXID";
 export const GETSEARCHBAR = "GETSEARCHBAR";
 export const GETSEARCHBARCLEAN = "GETSEARCHBARCLEAN";
 
+
 export const getGeneros = ()=> {
    return async function (dispatch){
      const generos = await axios.get("/genres");
