@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-dom"
 import { FaShoppingCart } from 'react-icons/fa';
+import { getTodobusqueda,getTodoFillClean } from '../../redux/actions';
+import { useDispatch,useSelector} from "react-redux"
 import './navbar.css'
 import Logo from "../../assets/Logo.ico.png"
 
 
 
 const Navbar = ({ isScrolled }) => {
- 
+const [busqueda,setbusqueda] = useState({
+       search:""
+}); 
+const dispatch = useDispatch();
+const buq = useSelector(state => state.TodoFill);
+
 const links = [
   { name: "Home", link: "/home" },
   { name: "Movies", link: "/movies" },
@@ -15,6 +22,26 @@ const links = [
   
 ];
 
+
+const busquedanav = ()=> {
+     if(busqueda.search){
+         dispatch(getTodobusqueda(busqueda.search));
+     }else{
+         dispatch(getTodoFillClean());
+     } 
+     console.log(buq);
+}
+
+
+const ChangeHandle =(e)=> {
+    const property = e.target.name;
+    const value = e.target.value;
+
+    setbusqueda({...busqueda
+              ,[property]:value})
+
+
+}
   return (
 
 <div>
@@ -35,8 +62,8 @@ const links = [
 </ul>
 </div>
 <div className='buqNav'>
-          <input type='search' placeholder='Buscar...'/>
-          <button>
+          <input type='search' placeholder='Buscar...' name="search" onChange={ChangeHandle}/>
+          <button onClick={busquedanav}>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
           </svg>

@@ -20,6 +20,7 @@ const Home = () => {
   const [openModalSerie,setOpenModalSerie] = useState(false);
   const dispatch = useDispatch();
   const listaTodo = useSelector(state=> state.Todo)
+  const buq = useSelector(state => state.TodoFill);
 
   
   useEffect(()=> {
@@ -67,7 +68,9 @@ const Home = () => {
          <button onClick={handleModalSerie} className='CreateNew'>Nueva Serie</button>
          <ModalCreateSerie openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
          <div className='containerCard'>
-         {listaTodo?.map(( hom, index ) => (
+         {buq.length > 0 ? buq.map(( hom, index ) => (
+          <Card key={index} id={hom.id} image={hom.image} />
+          )) : listaTodo?.map(( hom, index ) => (
           <Card key={index} id={hom.id} image={hom.image} />
           ))}
           
