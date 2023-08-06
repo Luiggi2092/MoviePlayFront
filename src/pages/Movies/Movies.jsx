@@ -69,8 +69,9 @@ const Movies = () => {
             
             <Card key={index} id={image.id} image={image.image} />
           ))}
+         </div>
           <div className={style.paginado}>paginado</div>
-        </div>
+      
       </div>
       <Footer/>
     </section>

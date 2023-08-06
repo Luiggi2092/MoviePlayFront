@@ -1,6 +1,7 @@
-import './footer.css'
+import style from './footer.module.css';
 import ModalFooter from '../ModalFooter/ModalFooter'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
     const [showS, setShowS] = useState(false);
@@ -27,28 +28,19 @@ const Footer = () => {
 
     return (
         <>
-            <footer className="footer">
-                <div className='divTitleFooter'>
-                    <p className='pTitleFooter'>¿Preguntas?, envía un email a StreamPlay@gmail.com</p>
-                </div>
-
-                <div className='divContainerFooter'>
-                    <div className='divContainerPModal'>
-                        <p className='pModal' onClick={handleShowS}>Suscripcion</p>
-                        <p className='pModal' onClick={handleShowP}>Privacidad</p>
-                        <p className='pModal' onClick={handleShowC}>Centro de ayuda</p>
-                        <p className='pModal' onClick={handleShowT}>Terminos de uso</p>
-                    </div>
-                    <div>
-                        <p className='pContactenos'>Contáctenos</p>
-                        
+            <footer className={style.footer}>
+                    <h1 className={style.titlefo}>¿Preguntas?,  envía un email a moviesplay@gmail.com</h1>
+                        <Link className='pModal' onClick={handleShowS}>Suscripcion</Link>
+                        <Link className='pModal' onClick={handleShowP}>Privacidad</Link>
+                        <Link className='pModal' onClick={handleShowC}>Centro de ayuda</Link>
+                        <Link className='pModal' onClick={handleShowT}>Terminos de uso</Link>
+                <h4>Contáctenos</h4>                        
                         <div className='divContainericon'>
-                            <i className="bi bi-envelope"></i>
-                            <i className="bi bi-instagram"></i>
-                        </div>
-                        <p className='pFooter'>© 2023 StreamPlay, todos los derechos reservados</p>
-                    </div>
-                </div>
+                    <a href="https://accounts.google.com/" target="_blank"><i className="bi bi-envelope"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank"><i className="fab fa-instagram icono-red"></i></a>   
+                    <h6>© 2023 MoviesPlay. Todos los derechos reservados.</h6>                   
+         </div>
+                
             </footer>
 
             <ModalFooter

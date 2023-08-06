@@ -28,7 +28,7 @@ const Series = () => {
   },[])
 
   return (
-    <section className={style.containerMax}>
+    <section>
       <Navbar isScrolled={isScrolled} /> 
       <h1>Todas las series</h1>
       <div className={style.filters}>
@@ -66,21 +66,21 @@ const Series = () => {
           {series.map(({ id, image }) => (
           <Card key={id} id={id} image={image} />
           ))}
-        <div className={style.paginado}>paginado</div>
         </div>
 
-        <div className="divPaginado">
-
-          <button className="elementoB button">Anterior</button>
+        {/* <div className="divPaginado"> */}
+          <div className={style.paginado}>
+            
+          <button className={style.button}>Anterior</button>
           
-          <p className='pPaginado'>1</p>
-          <p className='pPaginado'>2</p>
-          <p className='pPaginado'>3</p>
+          <p className={style.paginado}>1</p>
+          <p className={style.paginado}>2</p>
+          <p className={style.paginado}>3</p>
           
-          <button className="elementoB button">Siguiente</button>
-        
+          <button className={style.button}>Siguiente</button>
         </div>
       </div>
+      {/* </div> */}
       <Footer/>
       </section>
   )

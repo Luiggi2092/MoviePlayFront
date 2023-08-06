@@ -49,23 +49,22 @@ const Home = () => {
     <div>
       <Navbar isScrolled={isScrolled} /> 
     <div className="containerHome">
-      <div className="main">
+      <div >
       <SliderShow/>
-      {/* <div className='busqueda'>
-          <h2>Busca tus peliculas y series favoritas</h2> 
-          <input type='search'/>
-          <button>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-          </svg>
-          </button>
-      </div> */}
-      <div className='peliculas'>
-         <h3 className='h3peliculas'>Peliculas y Series Online</h3>
+      
+      <div className='main'>
+        
+            <div>
          <button onClick={handleModalMovie} className='CreateNew'>Nueva Pelicula</button>
          <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
          <button onClick={handleModalSerie} className='CreateNew'>Nueva Serie</button>
-         <ModalCreateSerie openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
+              <div className='modal'>
+              <ModalCreateSerie  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
+              </div>
+            </div>
+            <div>
+              <h3 className='h3peliculas'>Peliculas y Series Online</h3>
+            </div>
          <div className='containerCard'>
          {listaTodo?.map(( hom, index ) => (
           <Card key={index} id={hom.id} image={hom.image} />
