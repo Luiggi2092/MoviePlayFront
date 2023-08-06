@@ -27,7 +27,7 @@ const Movies = () => {
 
 
   
-  //----------------------------PAGINADO------------------------------------------------
+  //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
     let newUrl = `http://localhost:3001/media/movies?page=${page}`
@@ -39,8 +39,7 @@ const Movies = () => {
     }
     if(order){
       newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
-    }
-    
+    }    
 
     fetch(newUrl)
     .then(response => response.json())
@@ -49,11 +48,11 @@ const Movies = () => {
       setInfoPage(data.totalPages)
       setCurrentPage(page)
     })
-  }
+  };
   
   useEffect(()=>{
     getMovieAndPage(1, null, null, null)
-  },[])
+  },[]);
 
   useEffect(() => {
     let items = []
@@ -64,7 +63,7 @@ const Movies = () => {
 
       }
       setItemsPage(items)   
-    },[infoPage, currentPage])
+    },[infoPage, currentPage]);
     
     const handlePreviousPage = () => {      
       if (currentPage > 1) {
@@ -118,7 +117,7 @@ const Movies = () => {
             value={selectedGenre}
             onChange={handleGenreChange}
           >
-            <option value="">Select categoria</option>
+            <option value="">All</option>
             {generos.map((gender) => {
               return (
                 <option key={gender.id} value={gender.name}>
@@ -135,7 +134,7 @@ const Movies = () => {
             value={selectedPrice}
             onChange={handlePriceChange}
           >
-            <option value="">Select precio</option>
+            <option value="">Select price</option>
             <option value="up">Lowest to highest</option>
             <option value="down">Highest to lowest</option>
           </select>
@@ -146,7 +145,7 @@ const Movies = () => {
             className={style.select1}
             value={selectedOrder}
             onChange={handleOrderChange}>
-              <option value="">Select Order</option>
+              <option value="">Select order</option>
             <option value="up">A - Z</option>
             <option value="down">Z - A</option>
           </select>
