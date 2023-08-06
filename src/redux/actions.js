@@ -7,12 +7,14 @@ export const POST_MOVIE = "POST_MOVIE";
 export const GET_MOVIEXID = "GET_MOVIEXID";
 export const GETSEARCHBAR = "GETSEARCHBAR";
 export const GETSEARCHBARCLEAN = "GETSEARCHBARCLEAN";
-
+export const GET_SERIES = "GET_SERIES";
+export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
+export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
+export const POST_SERIE = "POST_SERIE";
 
 export const getGeneros = ()=> {
    return async function (dispatch){
      const {data} = await axios.get("/genres");
-     console.log(data)
      const generos = data
      dispatch({type: GET_GENEROS, payload : generos})
    }
@@ -62,3 +64,34 @@ export const getTodoFillClean = ()=> {
          dispatch({type:GETSEARCHBARCLEAN,payload: []})
        }
 }
+
+export const getSeries = ()=> {
+  return async function (dispatch){
+      const series = (await axios.get("/media/series")).data.elementos;
+      // console.log(series)
+      dispatch({type: GET_SERIES, payload : series})
+  }
+}
+
+export const getSeriesPage = (page)=> {
+  return async function (dispatch){
+      const seriesPage = (await axios.get(`/media/series?page=${page}`)).data.elementos;
+      dispatch({type: GET_SERIES_PAGE, payload : seriesPage})
+  }
+}
+
+export const getGenerosSeries = (gen)=> {
+  return async function (dispatch){
+      const generosSeries = (await axios.get(`/media/series?genre=${gen}`)).data.elementos;
+      // console.log(generosSeries)
+      dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
+  }
+}
+
+export const postSerie =(Serie)=>{
+    return async function (dispatch){
+        const PostSerie = await axios.post(`/series`,Serie);
+        console.log(PostSerie);
+        dispatch({type: POST_SERIE,payload: PostSerie});
+    }
+} 

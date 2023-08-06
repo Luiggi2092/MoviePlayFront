@@ -13,7 +13,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
     const [avance, setAvance] = useState(0);
     const dispatch = useDispatch();
-    const listaGenero = useSelector(state=> state.Generos.data);
+    const listaGenero = useSelector(state=> state.Generos);
     
 
 
