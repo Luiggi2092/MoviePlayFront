@@ -1,13 +1,8 @@
-body {
-    padding: 0;
-    margin: 0;
 
-    background-color: black;
-}
 
-.containerHome {
+/* .containerHome {
     display: flex;
-}
+} */
 
 .main {
     width: 1600px;
@@ -56,9 +51,10 @@ h2 {
 .Mostrar {
     width: 90.5%;
     height: 50px;
-    z-index: 50;
+    z-index: 1;
     background-color: #1766DC;
-    margin: 04% ;
+    top:195px;
+    position: relative;;   
 }
 
 .Mostrar a {

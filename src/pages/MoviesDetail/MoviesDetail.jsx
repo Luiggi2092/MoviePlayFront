@@ -64,12 +64,12 @@ const MoviesDetail = () => {
                 </section>
 
                 <div className={style.botonContainer}>
-                    <button>${peliculaid.price}.00</button>
+                    <button>${peliculaid.price}</button>
                 </div>
                 
             </div>
             <div className={style.peliculaContainer}>
-                <ReactPlayer height={500} width={1550} style={{margin:'0 30%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
+                <ReactPlayer height={500} width={1550} style={{margin:'0 30%',maxWidth:"100%",padding:"20px"}} url={peliculaid.linkVideo} controls={true} />
                     
             </div>
         </div>

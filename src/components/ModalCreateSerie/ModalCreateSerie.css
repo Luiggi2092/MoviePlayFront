@@ -131,6 +131,17 @@
     background: #F2F2F2;
 }
 
+.episodio {
+    background-color: #1766DC;
+    position: relative;
+    top:0px;
+    right: 10px;
+    width: 400px;
+    text-align: left;
+    
+     
+}
+
 .contenedor {
     padding: 10px;
     float: left;
