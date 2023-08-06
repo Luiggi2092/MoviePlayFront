@@ -3,13 +3,11 @@ import React, { useState,useEffect } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
 import {getMoviexid} from "../../redux/actions"
-import data from "../../data";
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
 import ReactPlayer from 'react-player/youtube'
 
 const MoviesDetail = () => {
-    const peliculas = data
     
       const {id} = useParams()
       const dispatch = useDispatch();
@@ -27,7 +25,7 @@ const MoviesDetail = () => {
 
 
 
-
+  console.log(peliculaid)
 
     return(
         <section className={style.maxContainer}>
@@ -47,19 +45,16 @@ const MoviesDetail = () => {
                     <div>
                         <span>Sipnosis</span>
                         <p>{peliculaid.description}</p>
-                    </div>
-                    <div>
-                        <span>Raiting</span>
-                        <p>80%</p>
-                    </div>
+                    </div>                    
                     <div>
                         <span>Genero</span>
+                        <p>
+                        {peliculaid.Genres &&
+                        peliculaid.Genres.map((genre) => genre.name).join(', ')}
+                        </p>
                         
                     </div>
-                    <div>
-                        <span>Director</span>
-                        <p></p>
-                    </div>
+                    
                 </div>
                 </section>
 
