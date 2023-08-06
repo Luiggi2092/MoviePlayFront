@@ -10,6 +10,7 @@ export const GETSEARCHBARCLEAN = "GETSEARCHBARCLEAN";
 export const GET_SERIES = "GET_SERIES";
 export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
 export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
+export const POST_SERIE = "POST_SERIE";
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -75,7 +76,6 @@ export const getSeries = ()=> {
 export const getSeriesPage = (page)=> {
   return async function (dispatch){
       const seriesPage = (await axios.get(`/media/series?page=${page}`)).data.elementos;
-      // console.log(series)
       dispatch({type: GET_SERIES_PAGE, payload : seriesPage})
   }
 }
@@ -87,3 +87,11 @@ export const getGenerosSeries = (gen)=> {
       dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
   }
 }
+
+export const postSerie =(Serie)=>{
+    return async function (dispatch){
+        const PostSerie = await axios.post(`/series`,Serie);
+        console.log(PostSerie);
+        dispatch({type: POST_SERIE,payload: PostSerie});
+    }
+} 
