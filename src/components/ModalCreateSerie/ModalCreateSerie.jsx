@@ -9,25 +9,31 @@ const UPLOAD_PRESET = 'Products'
 const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
     
     const [avance,setAvance] = useState(0);
-
+    const [actor,setActor] = useState("");
     const [form, setForm] = useState({
-        name: "",
-        imagen: "",
-        genero: "",
-        episodio: "",
-        temporadas: 1,
-        precio: 0.0,
+        titulo: "",
+        image: "",
+        genres: [],
+        actores:[],
+        numEpisodio: 0,
+        numTemporada: 0,
+        price: 0.0,
+        tituloEpisodio:"",
+        descripcionEpisodio:"",
+        linkVideo:"",
+        time:"",
         descripcion: "",
+        yearEstreno:""
+        
     });
 
     const [errors,setErrors] = useState({
-        name: "",
-        imagen: "",
-        genero: "",
-        episodio: "",
-        temporadas: 1,
-        precio: 0.0,
-        descripcion: "",
+        linkVideo:"",
+        numEpisodio: 0,
+        numTemporada: 0,
+
+        
+
     })
 
     
@@ -45,11 +51,43 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
 
     }
 
+
+    
+    const ChangeHandleCombo = (event)=> {
+        
+        let property = event.target.name;
+        let value = event.target.value;
+        
+        if(property == "genres"){
+        let array=[];
+        array.push(...form.genres,value);
+        setForm({...form,genres:[...array]});
+        }
+
+
+    }
+
     const validate =(value,property)=> {
 
 
 
 
+    }
+
+    const CrearActores =(e)=> {
+        e.preventDefault();  
+        setActor(event.target.value);
+          
+    }
+
+    const AgregandoActores = (e)=> {
+            e.preventDefault();
+            let array=[];
+            console.log(actor)
+            array.push(...form.actores,actor);
+            setForm({...form,actores:[...array]});
+            setActor('');
+            
     }
 
 
@@ -72,12 +110,12 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
         }
        });
        console.log(res);
-       setForm({...form,imagen: res.data.secure_url})
+       setForm({...form,image: res.data.secure_url})
     };
     
     const BotonCerrar = () => {
         cambiarEstadoSerie(false);
-        setForm({...form,imagen:"https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps"})
+        setForm({...form,image:"https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps"})
         setAvance(0);
 
     }
@@ -102,22 +140,27 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                   <h2 className="titulo">Serie</h2>
                 </div>
                 <div className="contenedor">
-                <img src={form.imagen == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps":form.imagen}/>
-                <div>
+                <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps":form.image}/>
+                <div className="progress">
                     <progress value={avance} max={100} id="progress-bar" />
                     <br/>
                 </div>
                 </div>
                 <div className="inputs">
                  <div>
-                    <label>Titulo : </label>
+                    <label>Titulo de Serie : </label>
                     <br/>
-                    <input type="text" name="name" onChange={ChangeHandle}/>
+                    <input type="text" name="titulo" onChange={ChangeHandle}/>
                  </div> 
+                 <div>
+                    <label>Año Estreno :</label>
+                    <input type="text" name="yearEstreno" onChange={ChangeHandle}/>
+
+                 </div>
                  <div>
                     <label>Genero :</label>
                     <br/>
-                    <select name="genero" onChange={ChangeHandle}>
+                    <select name="genres" onChange={ChangeHandleCombo}>
                             <option>Seleccione :</option>
                             <option value="Drama">Drama</option>
                             <option value="Accion">Acción</option>
@@ -126,26 +169,60 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     </select>
                  </div>
                  <div>
-                    <label>Temporadas :</label>
+                    <label>Actores :</label>
                     <br/>
-                    <input type="number" name="temporadas" onChange={ChangeHandle} value={form.temporadas > 1 ? form.temporadas : 1}/>
+                    <input type="text" name="actores" onChange={CrearActores}/>
+                    <button onClick={AgregandoActores}>Crear Actor</button>
                  </div>
                  <div>
-                    <label>Precio $ :</label>
+                    <label> N° Temporadas :</label>
                     <br/>
-                    <input type="text" name="precio" onChange={ChangeHandle}/>
-                 </div>
-                 <div>
-                    <label>Episodio :</label>
-                    <br/>
-                    <input type="text" name="episodio" onChange={ChangeHandle} />
+                    <input type="number" name="numTemporada" onChange={ChangeHandle} />
                  </div>
                  <br/>
+                 <fieldset className="episodio">
+                 <legend>Episodio :</legend>
+                 <div>
+                    <label>N° Episodio :</label>
+                    <br/>
+                    <input type="text" name="numEpisodio" onChange={ChangeHandle} />
+                 </div>
+                 <div>
+                 <br/>
+                    <label>Descripcion de Episodio :</label>
+                    <br/>
+                    <textarea name="descripcionEpisodio" onChange={ChangeHandle}/>
+                 </div>
+                 <div>
+                    <label>Duracion de Episodio : </label>
+                    <br/>
+                    <input name="time" onChange={ChangeHandle}/>
+                 </div>
+                 <br/>
+                 <div>
+                    <label>Titulo de Episodio :</label>
+                    <br/>
+                    <input name="tituloEpisodio" onChange={ChangeHandle}/>
+                 </div>
+                 <br/>
+                 <div>
+                    <label>Trailer de Episodio</label>
+                    <input type="text" name="linkVideo" onChange={ChangeHandle}/>
+                 </div>
+                 </fieldset>
+                 <br/>
                  <div className="textArea">
-                     <label className="lades">Descripcion :</label> 
+                     <label>Descripcion de la Serie :</label> 
                      <br/>
                      <textarea name="descripcion" onChange={ChangeHandle}></textarea>     
                  </div>
+                 <br/>
+                 <div>
+                    <label>Precio de Serie $ :</label>
+                    <br/>
+                    <input type="text" name="price" onChange={ChangeHandle}/>
+                 </div>
+                 
                  <input type="file" accept="image/*" className="fileinput" onChange={handleImagenUpload} />
                  <button type="submit" className="botonMovie" onClick={submitHandler} >
                             Crear Serie
