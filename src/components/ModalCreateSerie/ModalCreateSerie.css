@@ -25,7 +25,7 @@
 .ContenedorModal {
     background-color: white;
     flex-wrap: nowrap;
-    width: 460px;
+    width: 760px;
     min-height: 400px;
     position: relative;
     text-align: center;
@@ -52,17 +52,22 @@
 
 .inputs{   
    padding: 20px;
+
 }
 
 .inputs div {
     padding: 5px;
+    float: left;
+    
 }
 
 
 
-.inputs div input {
+.inputs div input,
+.input div label {
     background-color: #1766DC;
-    margin-right: -10PX;
+    right: 0PX;
+    position: relative;
     width: 120px;
     color: white;
     border-radius: 10px;
@@ -139,11 +144,12 @@
     position: relative;
     top:0px;
     right: 0px;
-    width: 400px;
-    text-align: left;
+    width: 480px;
+    height: 180px;
     
      
 }
+
 
 .contenedor {
     padding: 10px;

@@ -16,6 +16,7 @@ const MoviesDetail = () => {
 
       useEffect(()=> {
           dispatch(getMoviexid(id));
+          
     },[]) 
 
     window.onscroll = () => {

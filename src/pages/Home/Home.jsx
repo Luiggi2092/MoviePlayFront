@@ -19,7 +19,7 @@ const Home = () => {
   
   const [openModal, setOpenModal] = useState(false);
   const [openModalSerie,setOpenModalSerie] = useState(false);
-  const [cantCard,setCanCard] = useState(10);
+  const [cantCard,setCanCard] = useState(12);
   const dispatch = useDispatch();
   const listaTodo = useSelector(state=> state.Todo)
   const buq = useSelector(state => state.TodoFill);
@@ -41,7 +41,7 @@ const Home = () => {
   }
 
   const AmpliarCards = ()=> {
-    setCanCard(20);
+    setCanCard(15);
   }
 
   const [isScrolled, setIsScrolled] = useState(false)

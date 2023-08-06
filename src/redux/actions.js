@@ -90,7 +90,7 @@ export const getGenerosSeries = (gen)=> {
 
 export const postSerie =(Serie)=>{
     return async function (dispatch){
-        const PostSerie = await axios.post(`/series`,Serie);
+        const PostSerie = await axios.post(`/series/series`,Serie);
         console.log(PostSerie);
         dispatch({type: POST_SERIE,payload: PostSerie});
     }
