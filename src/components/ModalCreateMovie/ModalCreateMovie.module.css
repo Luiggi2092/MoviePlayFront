@@ -1,6 +1,4 @@
-/* ModalCreateMovie.module.css */
 
-/* Estilos para el modal */
 .Overlay {
     position: fixed;
     top: 0;
@@ -15,59 +13,57 @@
 }
 
 .ContenedorModal {
-    position: relative;
-    width: 350px;
-    height: 350px;
-    max-height: 50%;
-    overflow-y: auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
+    position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30%;
+        max-height: 50%;
+        overflow-y: auto;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
 }
 
-/* Estilos para el botón de cerrar */
+
 .BotonCerrar {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition: 0.3s ease all;
-    color: #1766DC;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: .3s ease all;
+        border-radius: 5px;
+        color: #1766DC;
+    
 }
 
 .BotonCerrar:hover {
     color: #ff0000;
 }
 
-/* Resto de estilos para el contenido del modal */
-.EncabezadoModal {
-    text-align: center;
-}
+
+
 
 .contenedor {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+position: relative;
+
 }
 
 .contenedor img {
-    max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto;
+max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .inputs {
-    margin-top: 20px;
+margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .inputs input[type="text"],
@@ -75,10 +71,10 @@
 .inputs textarea,
 .inputs select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
 }
 
 .botonMovie {

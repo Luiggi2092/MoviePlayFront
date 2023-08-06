@@ -158,14 +158,14 @@ const Series = () => {
             series?.map((element, index) => (
               <Card key={index} id={index} image={element.image} />
           ))}
-       
-        <div className={style.divPaginado}>
-            <Pagination>
-              <Pagination.Prev onClick={handlePreviousPage}/>
-              <Pagination.Next onClick={handleNextPage}/>      
+        </div>
+        <div >
+          <Pagination className={style.divPaginado}>
+            <Pagination.Prev className={style.divPaginado} onClick={handlePreviousPage}/>
+            <Pagination.Next className={style.divPaginado} onClick={handleNextPage}/>      
             </Pagination>
           </div>
-          </div>
+          
           </div>
       
       

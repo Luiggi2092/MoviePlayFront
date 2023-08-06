@@ -76,40 +76,70 @@ display: flex;
 
 }
 
-.paginado {
+
+
+.divPaginado {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  margin-bottom: 20px;
+  margin: 10px;
+  font-size: 20px;
+  color: white;
 }
 
-.paginado p {
-  margin: 0 5px;
-  padding: 5px 10px;
-  background-color: #090909;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
-.paginado p:hover {
-  background-color: #6a0202;
-}
-
-.button {
-  margin: 0 5px;
-  padding: 5px 10px;
-  background-color: #007bff;
+.Pagination-Prev,
+.Pagination-Next {
+  font-size: 20px;
+  background-color: #f7f8f9;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  padding: 8px 16px;
+  margin: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 5px;
+  outline: none;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
 }
 
-.button:hover {
+.Pagination-Prev:hover,
+.Pagination-Next:hover {
   background-color: #0056b3;
+}
+
+
+.Pagination-Prev i {
+  margin-right: 5px;
+}
+
+
+.Pagination-Next i {
+  margin-left: 5px;
+}
+
+
+.Pagination-Item {
+  font-size: 20px;
+  background-color: #fff;
+  color: #007bff;
+  border: 1px solid #007bff;
+  padding: 8px 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.Pagination-Item .active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.Pagination-Item:hover:not(.active) {
+  background-color: #f0f0f0;
 }
