@@ -9,8 +9,8 @@ export const GET_MOVIEXID = "GET_MOVIEXID";
 
 export const getGeneros = ()=> {
    return async function (dispatch){
-     const generos = await axios.get("/genres");
-     console.log(generos);
+     const {data} = await axios.get("/genres");
+     const generos = data
      dispatch({type: GET_GENEROS, payload : generos})
    }
    
