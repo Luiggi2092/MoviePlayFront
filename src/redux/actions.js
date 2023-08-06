@@ -8,6 +8,8 @@ export const GET_MOVIEXID = "GET_MOVIEXID";
 export const GET_SERIES = "GET_SERIES";
 export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
 export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
+export const GET_PRECIO_SERIES = "GET_PRECIO_SERIES"
+export const GET_ALFA_SERIES = "GET_ALFA_SERIES"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -67,7 +69,23 @@ export const getSeriesPage = (page)=> {
 export const getGenerosSeries = (gen)=> {
   return async function (dispatch){
       const generosSeries = (await axios.get(`/media/series?genre=${gen}`)).data.elementos;
-      // console.log(generosSeries)
+      console.log(generosSeries)
       dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
+  }
+}
+
+export const getPrecioSeries = (p)=> {
+  return async function (dispatch){
+      const preciosSeries = (await axios.get(`/media/series?ordprecio=${p}`)).data.elementos;
+      // console.log(generosSeries)
+      dispatch({type: GET_PRECIO_SERIES, payload: preciosSeries})
+  }
+}
+
+export const getAlfaSeries = (a)=> {
+  return async function (dispatch){
+      const alfaSeries = (await axios.get(`/media/series?ordalfa=${a}`)).data.elementos;
+      // console.log(generosSeries)
+      dispatch({type: GET_ALFA_SERIES, payload: alfaSeries})
   }
 }

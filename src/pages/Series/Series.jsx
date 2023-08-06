@@ -5,7 +5,7 @@ import Card from '../../components/CardSerie/Card'
 import Navbar from "../../components/Navbar/Navbar"
 import { useDispatch,useSelector} from "react-redux"
 import { useState,useEffect } from "react";
-import {getGeneros, getSeries, getSeriesPage, getGenerosSeries} from "../../redux/actions";
+import {getGeneros, getSeries, getSeriesPage, getGenerosSeries, getPrecioSeries, getAlfaSeries} from "../../redux/actions";
 import Footer from '../../components/Footer/Footer'
 
 const Series = () => {
@@ -14,6 +14,10 @@ const Series = () => {
 
   const listaGenero = useSelector(state=> state.Generos.data);
   const series = useSelector(state => state.Series)
+
+  const [cat, setCat] = useState('')
+  const [precio, setPrecio] = useState('')
+  const [alfa, setAlfa] = useState('') 
 
 
   const [isScrolled, setIsScrolled] = useState(false)
@@ -29,19 +33,29 @@ const Series = () => {
       dispatch(getSeries())
   },[])
 
+  
+
   const handlePreviousPage = () => { 
-    // if (series.length <= 5) null  
-     dispatch(getSeriesPage(1))
+    dispatch(getSeriesPage(1))
   };
 
   const handleNextPage = () => {
-    // if (series.length <= 5) null
-     dispatch(getSeriesPage(2))
+    dispatch(getSeriesPage(2))
   };
 
   const handleGen = (event) => {
     if (event.target.value === 'Restaurar') dispatch(getSeries())
     else dispatch(getGenerosSeries(event.target.value))
+  }
+
+  const handlePrecio = (event) => {
+    if (event.target.value === 'Restaurar') dispatch(getSeries())
+    else dispatch(getPrecioSeries(event.target.value))
+  }
+
+  const handleAlfa = (event) => {
+    if (event.target.value === 'Restaurar') dispatch(getSeries())
+    else dispatch(getAlfaSeries(event.target.value))
   }
 
   return (
@@ -56,7 +70,7 @@ const Series = () => {
         <div>
           <span>Categoría</span>
           <select onChange={handleGen}>
-              <option >Seleccione</option>
+              <option defaultChecked hidden>Seleccionar</option>
               <option value="Restaurar">Restaurar</option>
               {listaGenero?.map((gen,index)=>{
                 return <option key={index} value={gen.name}>{gen.name}</option>
@@ -66,15 +80,21 @@ const Series = () => {
         
         <div>
           <span>Precio</span>
-          <select>
-            <option>Select año</option>
+          <select onChange={handlePrecio}>
+            <option defaultChecked hidden>Seleccionar</option>
+            <option value="Restaurar">Restaurar</option>
+            <option value='up'>Min - Max</option>
+            <option value='down'>Max - Min</option>
           </select>
         </div>
         
         <div>
           <span>Ordenamiento</span>
-          <select>
-            <option>select Ordenamiento</option>
+          <select onChange={handleAlfa}>
+            <option defaultChecked hidden>Seleccionar</option>
+            <option value="Restaurar">Restaurar</option>
+            <option value='up'>A - Z</option>
+            <option value='down'>Z - A</option>
           </select>
         
         </div>
@@ -93,11 +113,8 @@ const Series = () => {
         </div>
 
         <div className={style.divPaginado}>
-
-          <button className={style.elementoB} onClick={() => handlePreviousPage(1)}>Anterior</button>
-          
+          <button className={style.elementoB} onClick={() => handlePreviousPage(1)}>Anterior</button> 
           <button className={style.elementoB} onClick={() => handleNextPage(2)}>Siguiente</button>
-        
         </div>
         
       </div>
