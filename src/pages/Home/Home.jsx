@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from 'react'
 import "./home.css"
 import SliderShow from '../../components/SliderShow/SliderShow'
-import Card from '../../components/CardHome/CardHome'
+import CardMov from '../../components/CardMovie/CardMovie'
+import CardSer from '../../components/CardSerie/Card'
 import data from '../../data'
-import {getTodo} from "../../redux/actions"
+import {getTodo,getTodoFillClean} from "../../redux/actions"
 import { useSelector,useDispatch } from 'react-redux'
 import styled from "styled-components"
 import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
@@ -24,6 +25,7 @@ const Home = () => {
 
   
   useEffect(()=> {
+     dispatch(getTodoFillClean());
      dispatch(getTodo());
   },[])
 
@@ -68,10 +70,11 @@ const Home = () => {
          <button onClick={handleModalSerie} className='CreateNew'>Nueva Serie</button>
          <ModalCreateSerie openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
          <div className='containerCard'>
+          
          {buq.length > 0 ? buq.map(( hom, index ) => (
-          <Card key={index} id={hom.id} image={hom.image} />
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
           )) : listaTodo?.map(( hom, index ) => (
-          <Card key={index} id={hom.id} image={hom.image} />
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
           ))}
           
         <button className='Mostrar'><a>Mostrar Mas</a></button>  

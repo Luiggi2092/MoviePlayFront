@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link,useNavigate } from "react-router-dom"
 import { FaShoppingCart } from 'react-icons/fa';
 import { getTodobusqueda,getTodoFillClean } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux"
@@ -14,6 +14,7 @@ const [busqueda,setbusqueda] = useState({
 }); 
 const dispatch = useDispatch();
 const buq = useSelector(state => state.TodoFill);
+const navegate = useNavigate();
 
 const links = [
   { name: "Home", link: "/home" },
@@ -29,7 +30,8 @@ const busquedanav = ()=> {
      }else{
          dispatch(getTodoFillClean());
      } 
-     console.log(buq);
+     
+     navegate("/home");
 }
 
 
