@@ -1,9 +1,10 @@
 import React, {useState,useEffect} from 'react'
 import "./home.css"
 import SliderShow from '../../components/SliderShow/SliderShow'
-import Card from '../../components/CardHome/CardHome'
+import CardMov from '../../components/CardMovie/CardMovie'
+import CardSer from '../../components/CardSerie/Card'
 import data from '../../data'
-import {getTodo} from "../../redux/actions"
+import {getTodo,getTodoFillClean} from "../../redux/actions"
 import { useSelector,useDispatch } from 'react-redux'
 import styled from "styled-components"
 import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
@@ -18,16 +19,18 @@ const Home = () => {
   
   const [openModal, setOpenModal] = useState(false);
   const [openModalSerie,setOpenModalSerie] = useState(false);
+  const [cantCard,setCanCard] = useState(10);
   const dispatch = useDispatch();
   const listaTodo = useSelector(state=> state.Todo)
+  const buq = useSelector(state => state.TodoFill);
 
   
   useEffect(()=> {
+     dispatch(getTodoFillClean());
      dispatch(getTodo());
   },[])
 
 
-  console.log(listaTodo);
 
   const handleModalMovie = () => {
     setOpenModal(!openModal);
@@ -35,6 +38,10 @@ const Home = () => {
 
   const handleModalSerie = () => {
    setOpenModalSerie(!openModalSerie)
+  }
+
+  const AmpliarCards = ()=> {
+    setCanCard(20);
   }
 
   const [isScrolled, setIsScrolled] = useState(false)
@@ -66,13 +73,18 @@ const Home = () => {
               <h3 className='h3peliculas'>Peliculas y Series Online</h3>
             </div>
          <div className='containerCard'>
-         {listaTodo?.map(( hom, index ) => (
-          <Card key={index} id={hom.id} image={hom.image} />
-          ))}
           
-        <button className='Mostrar'><a>Mostrar Mas</a></button>  
+         {buq.length > 0 ? buq.map(( hom, index ) => (
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
+          )) : listaTodo?.map(( hom, index ) => (
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
+          )).slice(0,cantCard)}
+            
+      <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>
         </div>
+        
       </div>
+      
       </div>
     </div>
       <Footer/>

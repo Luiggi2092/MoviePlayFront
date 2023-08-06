@@ -86,7 +86,7 @@ const anterior = ()=> {
         <ContenedorPrincipal>
         <ContenedorSliderShow ref={slidershow}>
             <Slider>
-                <a href="https://www.themoviedb.org/movie/872585-oppenheimer">
+                <a href="http://localhost:5173/moviesdetail/13">
                  <img src={image1}/>
                 </a>
                 <TextSlider>
@@ -94,7 +94,7 @@ const anterior = ()=> {
                 </TextSlider>
             </Slider>
             <Slider>
-                <a href="https://www.themoviedb.org/movie/346698-barbie">
+                <a href="http://localhost:5173/moviesdetail/3">
                  <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
                 </a>
                 <TextSlider>
@@ -102,7 +102,7 @@ const anterior = ()=> {
                 </TextSlider>
             </Slider>
             <Slider>
-                <a href="https://www.themoviedb.org/movie/502356-the-super-mario-bros-movie">
+                <a href="http://localhost:5173/moviesdetail/14">
                  <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
                 </a>
                 <TextSlider>

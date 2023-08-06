@@ -1,21 +1,6 @@
-body {
-    padding: 0;
-    margin: 0;
 
-    background-color: #1E1E1E;
-}
-
-.containerHome {
+ .containerHome {
     display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 20px;
-        
-}
-
-.SliderShow {
-    width: 100%;
-    height: auto;
 }
 
 .main {
@@ -45,7 +30,9 @@ h2 {
 }
 
 .peliculas {
-    margin-top: 20px;
+    height: 800px;
+    padding: 25px;
+    background-color: black;
 }
 
 .containerCard{    
@@ -53,9 +40,10 @@ background-color: #040404;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    margin-top: 10%;
-    margin-bottom: 100px;
+    flex-wrap: wrap;
+    height:1120px;
+    width: 100%;
+    margin: 30px 0;
 }
 
 h3{
@@ -73,9 +61,10 @@ h3{
 .Mostrar {
     width: 90.5%;
     height: 50px;
-    z-index: 50;
+    z-index: 1;
     background-color: #1766DC;
-    margin: 04% ;
+    top:10px;
+    position: relative;  
 }
 
 .Mostrar a {
@@ -113,3 +102,9 @@ background-color: #03546D;
     background-color: black;
 }
 
+.piedePagina {
+    background-color: #FAF0F0;
+    width: 100%;
+    height: 500px;
+    margin-top: 25%;
+}

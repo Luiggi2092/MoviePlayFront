@@ -1,11 +1,24 @@
-import {GET_GENEROS,GET_MEDIA,GET_TODO,POST_MOVIE,GET_MOVIEXID} from "./actions"
+import {GET_GENEROS,
+        GET_MEDIA,
+        GET_TODO,
+        POST_MOVIE,
+        GET_MOVIEXID, 
+        GET_SERIES, 
+        GET_SERIES_PAGE, 
+        GET_GENEROS_SERIES,
+        GETSEARCHBAR,
+        GETSEARCHBARCLEAN,
+        POST_SERIE} from "./actions"
 
 const initialState = {
      Generos: [],
      Media:[],
      Todo:[],
+     TodoFill:[],
      NewMovie:[],
      MovieId:[],
+     Series: [],
+     NewSerie:[],
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -24,7 +37,14 @@ const rootReducer =(state = initialState,action)=> {
         case POST_MOVIE:
             return {...state, NewMovie : action.payload}     
         case GET_MOVIEXID:
-            return {...state, MovieId:action.payload}    
+            return {...state, MovieId:action.payload}
+        
+        case GETSEARCHBAR:
+            return {...state, TodoFill: action.payload}
+        case GETSEARCHBARCLEAN:
+            return {...state, TodoFill: action.payload}  
+        case POST_SERIE:
+             return {...state, NewSerie: action.payload}      
         default:
             return {...state}
     }
