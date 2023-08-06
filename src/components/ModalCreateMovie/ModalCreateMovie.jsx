@@ -230,8 +230,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         
 
                      
-                <div className={style.BotonCerrar} onClick={BotonCerrar}>
-                            X
+                <div className={style.BotonCerrar} >
+                 <buttonon onClick={BotonCerrar}>X</buttonon>
                         </div>
                      
                    </div>
@@ -246,9 +246,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                    
                 </div>
                 
-                <div className={style.BotonCerrar} onClick={BotonCerrar}>
-                            X
-                        </div>
+                
 
 
             </div>
