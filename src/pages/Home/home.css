@@ -1,14 +1,14 @@
 
-
  .containerHome {
     display: flex;
-} 
+}
 
 .main {
-    width: 1600px;
-    margin: 50px auto;
-    /* text-align: center; */
-    overflow: hidden;
+    width: 100%;
+        max-width: 2000px;
+        margin: 0 auto;
+        padding: 0 20px;
+        margin-top: 20px;
 }
 
 
@@ -30,21 +30,34 @@ h2 {
 }
 
 .peliculas {
-    height: 100%;
+    height: 800px;
     padding: 25px;
     background-color: black;
 }
 
-.containerCard{
+.containerCard{    
+background-color: #040404;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     flex-wrap: wrap;
-    max-height:1241px;
+    height:1120px;
     width: 100%;
+    margin: 30px 0;
+    margin-top: -50px;
+    margin-bottom: 100px;
 }
 
-.h3peliculas {
-    text-align: left;
+h3{
+    font-size: 50px;
+        font-weight: bold;
+        margin-top: 10px;
+        margin-bottom: 80px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+       
+        
 }
 
 .Mostrar {
@@ -62,16 +75,27 @@ h2 {
 }
 
 .CreateNew {
-    margin-right: 30%;
-    float  :right;
-    background-color: #1766DC;
-    border-radius: 10px;
+background-color: #03546D;
     color: white;
-    width: 120px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    align-items: center;
+    
 }
 
-.h3series {
+.CreateNew:hover {
+    background-color: #950202;
+    
+}
 
+
+
+.h3series {
     text-align: left;
 }
 
@@ -84,4 +108,5 @@ h2 {
     background-color: #FAF0F0;
     width: 100%;
     height: 500px;
+    margin-top: 25%;
 }

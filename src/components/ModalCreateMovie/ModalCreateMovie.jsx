@@ -176,7 +176,9 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                    <div className={style.contenedor}>
                       
                      <div>      
-                     <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps": form.image} />
+                     <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps": form.image} />  
+                                <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
+                                
                      </div>
                      <div>
                         <progress value={avance} max={100} id="progress-bar" />      
@@ -219,9 +221,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         <input type="text" name="price" onChange={ChangeHandle} />
                      </div>
                      <br/>
-                     <br/>
-                     <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
-                     <br/>
+                    
                      
                      <button type="submit" className={style.botonMovie} >
                             Crear Pelicula
@@ -230,8 +230,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         
 
                      
-                <div className={style.BotonCerrar} onClick={BotonCerrar}>
-                            X
+                <div className={style.BotonCerrar} >
+                 <buttonon onClick={BotonCerrar}>X</buttonon>
                         </div>
                      
                    </div>
@@ -246,9 +246,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                    
                 </div>
                 
-                <div className={style.BotonCerrar} onClick={BotonCerrar}>
-                            X
-                        </div>
+                
 
 
             </div>

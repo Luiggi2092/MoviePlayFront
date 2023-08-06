@@ -1,124 +1,109 @@
 .Overlay {
-    width: 100vw;
-    height: 100vh;
     position: fixed;
     top: 0;
-    left: -1%;
-    background: rgba(0, 0, 0, .5);
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    z-index: 60;
-    
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 400;
 }
 
-.error{
-    color: red;
-    font-size: 10px;
-}
-
-.imaupload{
-    width: 100px;
-    height: 150px;
- }
 
 .ContenedorModal {
-    background-color: white;
-    flex-wrap: nowrap;
-    width: 760px;
-    min-height: 400px;
-    position: relative;
-    text-align: center;
-    border-radius: 5px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 0 10px;
-
-}
-
-.EncabezadoModal {
-    /* display: flex;
-    align-items: center;
-    justify-content: space-between; 
-    margin-bottom: 20px;
-    padding-bottom: 20px;*/
-    height: 50px;
-    border-bottom: 1px solid #e8e8e8;
-}
-
-.titulo{
-    padding: 5px;
-    color: #03546D;
-}
-
-.inputs{   
-   padding: 20px;
-
-}
-
-.inputs div {
-    padding: 5px;
-    float: left;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    max-height: 50%;
+    overflow-y: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
     
 }
 
-
-
-.inputs div input,
-.input div label {
-    background-color: #1766DC;
-    right: 0PX;
-    position: relative;
-    width: 120px;
-    color: white;
-    border-radius: 10px;
-}
-
-.inputs div select {
-    background-color: #1766DC;
-    width: 120px;
-    margin-right: -10PX;
-    color: #e8e8e8;
-    border-radius: 10px;
-    
-}
-
-.textArea {
-    margin-bottom: -10px;
-    padding-top: 20px;
-    position: relative;
-    
-    
-}
-
-.lades{
-    position: relative;
-    margin-top: -40px;
-    right: 260px;
-}
-
-.textArea textarea {
-    width: 400px;
-    /*text-align: center;*/
-    background-color: #1766DC;
-    border-radius: 10px;
-    color: white;
-    position: relative;
-    top: 10px;
-    right: 10px;
-}
-
-
-.fileinput {
-    width: 133px;
-    margin-right: 65px;
-    height: 22px;
-    background: #1766DC;
-    position: relative;
-    right: -10px;
-    color: white;
-}
 
 .BotonCerrar {
+    position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        transition: .3s ease all;
+        border-radius: 5px;
+        color: #1766DC;}
+
+
+.titulo {
+    text-align: center;
+}
+
+
+
+
+.inputs {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+
+.inputs input[type="text"],
+.inputs input[type="url"],
+.inputs textarea,
+.inputs select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.botonMovie {
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.error {
+    color: #ff0000;
+}
+
+
+.textArea textarea {
+    width: 100%;
+    height: 150px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.contenedor img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.contenedor {
+    position: relative;
+}
+
+/* .BotonCerrar {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -144,12 +129,11 @@
     position: relative;
     top:0px;
     right: 0px;
-    width: 480px;
-    height: 180px;
+    width: 400px;
+    text-align: left;
     
      
 }
-
 
 .contenedor {
     padding: 10px;
