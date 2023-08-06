@@ -8,7 +8,7 @@
 /*body, html {
   font-family: Netflix Sans,Helvetica Neue,Segoe UI,Roboto,Ubuntu,sans-serif;
   height: 100%;
-  background-color: #000000;
+background-color: rgba(0, 0, 0, 0.650);
   color: #fff;
 } */
 
@@ -35,7 +35,7 @@ text-align: center;
     position: relative;
 }
 
-/* Estilo para la imagen de fondo */
+
 .container {
   display: flex;
   flex-direction: column;
@@ -49,7 +49,7 @@ text-align: center;
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.650);
 }
 
 .imgOverlay {
@@ -68,6 +68,7 @@ text-align: center;
   width: 100%;
   height: auto;
   z-index: -0.5;
+  
 }
 
 .div1 p {
@@ -233,6 +234,7 @@ h4 {
   border: none;
   border-radius: 5px;
   color: white;
+  margin-bottom: 5%;
 }
 
 .input2:hover {
@@ -283,7 +285,7 @@ h4 {
   color: #77b8f9;
 }
 
-/* Estilo para el nombre */
+
 .name {
   font-size: 14px;
   font-weight: bold;

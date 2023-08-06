@@ -101,7 +101,6 @@ const Series = () => {
 
   return (
     <section className={style.containerMax}>
-      
       <Navbar isScrolled={isScrolled} /> 
       
       <h1>Todas las series</h1>
@@ -159,16 +158,16 @@ const Series = () => {
             series?.map((element, index) => (
               <Card key={index} id={index} image={element.image} />
           ))}
-
         </div>
-
-        <div className={style.divPaginado}>
-            <Pagination>
-              <Pagination.Prev onClick={handlePreviousPage}/>
-              <Pagination.Next onClick={handleNextPage}/>      
+        <div >
+          <Pagination className={style.divPaginado}>
+            <Pagination.Prev className={style.divPaginado} onClick={handlePreviousPage}/>
+            <Pagination.Next className={style.divPaginado} onClick={handleNextPage}/>      
             </Pagination>
           </div>
-      </div>
+          
+          </div>
+      
       
       <Footer/>
       

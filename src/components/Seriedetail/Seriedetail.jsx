@@ -1,77 +1,77 @@
-import './seriedetail.css'
-import React, { useState } from 'react'
-import Navbar from "../../components/Navbar/Navbar"
+// import style from './seriedetail.module.css'
+// import React, { useState } from 'react'
+// import Navbar from "../Navbar/Navbar"
 
 
-const SerieDetail = () => {
+// const SerieDetail = () => {
 
-    const [isScrolled, setIsScrolled] = useState(false)
+//     const [isScrolled, setIsScrolled] = useState(false)
 
-    window.onscroll = () => {
-        setIsScrolled(window.pageYOffset === 0 ? false : true);
-        return () => (window.onscroll = null);
-    }
-    return (
-        <section className='sectionDetailSerie'>
-            <div>
-                <Navbar isScrolled={isScrolled} />
-            <h3 className='nameSeie'>NOMBRE DE LA SERIE</h3>
+//     window.onscroll = () => {
+//         setIsScrolled(window.pageYOffset === 0 ? false : true);
+//         return () => (window.onscroll = null);
+//     }
+//     return (
+//         <section className={style.sectionDetailSerie}>
+//             <div>
+//                 <Navbar isScrolled={isScrolled} />
+//                 <h3 className={style.nameSerie}>NOMBRE DE LA SERIE</h3>
             
-            <div className="containerDivDetail">
+//                 <div className={style.containerDivDetail}>
                 
-                <img className='imgDetailSerie' src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
+//                     <img className={style.imageSerie} src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
 
-                <div>
+//                 <div>
 
-                    <p className='nameDescripcion'>Descripcion</p>
+//                         <p className={style.descrip}>Descripcion</p>
 
-                    <p className='descripcionSerie'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam aliquid dicta fugit debitis sint voluptas, ex eaque excepturi nam cum obcaecati quas. Ullam ducimus cum eligendi veniam perferendis. Minus, voluptas?</p>
+//                         <p className={style.descripSerie}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam aliquid dicta fugit debitis sint voluptas, ex eaque excepturi nam cum obcaecati quas. Ullam ducimus cum eligendi veniam perferendis. Minus, voluptas?</p>
 
-                    <p className='nameRaiting'>Raiting</p>
-                    <div className='divEstrellas'>
-                        <p>⭐</p>
-                        <p>⭐</p>
-                        <p>⭐</p>
-                        <p>⭐</p>
-                        <p>⭐</p>
-                    </div>
+//                         <p className={style.raiting}>Raiting</p>
+//                         <div className={style.estrellas}>
+//                         <p>⭐</p>
+//                         <p>⭐</p>
+//                         <p>⭐</p>
+//                         <p>⭐</p>
+//                         <p>⭐</p>
+//                     </div>
 
-                    <p className='nameActores'>Actores</p>
-                    <p className='actoresSeries'>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+//                         <p className={style.actores}>Actores</p>
+//                         <p className={style.actoresSeries}>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
 
-                    <p className='nameDirector'>Director</p>
-                    <p className='directorSerie'>Lee Byeong-heon</p>
+//                         <p className={style.director}>Director</p>
+//                         <p className={style.directorSerie}>Lee Byeong-heon</p>
                 
-                </div>
+//                 </div>
 
-            </div>
+//             </div>
             
-            <div className='divButtonCompraSerie'>
-                <button className='buttonCompraSerie'>$100</button>
-            </div>
+//                 <div className={style.compraSer}>
+//                     <button className={style.bottoncompr}>$100</button>
+//             </div>
 
-            <div className='divContainerTC'>
-                <div className='divTemp'>
-                    <p className='p-p'>TEMPORADA</p>
-                    <select className='selectDetail'>
-                        <option>Temporada 1</option>
-                    </select>
-                </div>
-                <div className='divCap'>
-                    <p className='p-p'>CAPITULO</p>
-                    <select className='selectDetail'>
-                        <option>Catipulo 1</option>
-                    </select>
-                </div>
-            </div>
+//                 <div className={style.containerTc}>
+//                     <div className={style.divTem}>
+//                     <p className='p-p'>TEMPORADA</p>
+//                         <select className={style.serieD}>
+//                         <option>Temporada 1</option>
+//                     </select>
+//                 </div>
+//                     <div className={style.cap}>
+//                         <p className={style.pp}>CAPITULO</p>
+//                         <select className={style.capitulo}>
+//                         <option>Catipulo 1</option>
+//                     </select>
+//                 </div>
+//             </div>
 
-            <div className='divVideo'>
-                <img className="imgSeries-i" src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
-            </div>
-            </div>
+//                 <div className={style.video}>
+//                     <img className={style.imgserie} src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
+//             </div>
+//             </div>
 
-        </section>
-    )
-}
+//         </section>
+//     )
+// }
 
-export default SerieDetail
+// export default SerieDetail
