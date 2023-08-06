@@ -1,5 +1,7 @@
 import "./ModalCreateSerie.css"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector,useDispatch} from "react-redux"
+import {getGeneros,postSerie,getSeries} from "../../redux/actions"
 import axios from "axios";
 import Swal from 'sweetalert2'
 
@@ -10,6 +12,10 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
     
     const [avance,setAvance] = useState(0);
     const [actor,setActor] = useState("");
+    const listaGenero = useSelector(state=> state.Generos);
+    const series = useSelector(state => state.Series)
+
+    const dispatch = useDispatch();
     const [form, setForm] = useState({
         titulo: "",
         image: "",
@@ -21,7 +27,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
         tituloEpisodio:"",
         descripcionEpisodio:"",
         linkVideo:"",
-        time:"",
+        duracion:"",
         descripcion: "",
         yearEstreno:""
         
@@ -35,6 +41,12 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
         
 
     })
+
+    useEffect(()=> {
+        
+         dispatch(getGeneros());
+         dispatch(getSeries());
+    },[])
 
     
 
@@ -123,12 +135,33 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
 
     const submitHandler =(event)=> {
         event.preventDefault();
+        if(form.titulo,
+           form.descripcion,
+           form.image,
+           form.genres,
+           form.actores,
+           form.numEpisodio,
+           form.numTemporada,
+           form.price,
+           form.tituloEpisodio,
+           form.descripcionEpisodio,
+           form.linkVideo,
+           form.duracion,
+           form.descripcion,
+           form.yearEstreno ){
+            dispatch(postSerie(form));
+
         cambiarEstadoSerie(false)
         Swal.fire({
             title:`La serie se creo con exito`,
             icon:'success',
             confirmButtonText:'Ok'});
-        
+            }else{
+                Swal.fire({
+                    title:`ocurrio un error al crear pelicula`,
+                     icon:'error',
+                     confirmButtonText:'Ok'});
+            }
     }
 
     return (
@@ -161,11 +194,9 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <label>Genero :</label>
                     <br/>
                     <select name="genres" onChange={ChangeHandleCombo}>
-                            <option>Seleccione :</option>
-                            <option value="Drama">Drama</option>
-                            <option value="Accion">Acción</option>
-                            <option value="Comedia">Comedia</option>
-                            <option value="Aventura">Aventura</option>  
+                    {listaGenero?.map((gen,index)=>{
+                                  return <option key={index}>{gen.name}</option>
+                            })}   
                     </select>
                  </div>
                  <div>
@@ -180,6 +211,15 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <input type="number" name="numTemporada" onChange={ChangeHandle} />
                  </div>
                  <br/>
+                 <fieldset>
+                    <legend>Existe Serie</legend>
+                    <select>
+                        <option>Seleccione :</option>
+                         {series?.map((ser,index)=> {
+                            return <option key={index} className="serexi">{ser.name}</option>
+                         })}
+                    </select>
+                 </fieldset>
                  <fieldset className="episodio">
                  <legend>Episodio :</legend>
                  <div>
@@ -196,7 +236,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  <div>
                     <label>Duracion de Episodio : </label>
                     <br/>
-                    <input name="time" onChange={ChangeHandle}/>
+                    <input name="duracion" onChange={ChangeHandle}/>
                  </div>
                  <br/>
                  <div>
