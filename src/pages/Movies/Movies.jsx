@@ -5,6 +5,7 @@ import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
 import Pagination from 'react-bootstrap/Pagination';
+import {getGeneros} from '../../redux/actions'
 
 const Movies = () => {
 
@@ -14,12 +15,32 @@ const Movies = () => {
   const [infoPage, setInfoPage] = useState({})
   const [itemsPage, setItemsPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectedGenre, setSelectedGenre] = useState('')
+  const [selectedPrice, setSelectedPrice] = useState('')
+  const [selectedOrder, setSelectedOrder] = useState('')
+
+  const generos = useSelector(state => state.Generos)
+
+  useEffect(() => {
+    dispatch(getGeneros())
+  },[dispatch])
+
 
   
   //----------------------------PAGINADO------------------------------------------------
 
-  const getMovieAndPage = (page, url) =>{
-    let newUrl = page === null ? url :`http://localhost:3001/media/movies?page=${page}`
+  const getMovieAndPage = (page, genre, price, order) =>{
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
+    if (genre) {
+      newUrl += `&genre=${genre}`;
+    }
+    if (price) {
+      newUrl += `&ordprecio=${price === 'up' ? 'up' : 'down'}`;
+    }
+    if(order){
+      newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
+    }
+    
 
     fetch(newUrl)
     .then(response => response.json())
@@ -30,9 +51,8 @@ const Movies = () => {
     })
   }
   
-  
   useEffect(()=>{
-    getMovieAndPage(0, null)
+    getMovieAndPage(1, null, null, null)
   },[])
 
   useEffect(() => {
@@ -44,7 +64,7 @@ const Movies = () => {
 
       }
       setItemsPage(items)   
-    },[infoPage])
+    },[infoPage, currentPage])
     
     const handlePreviousPage = () => {      
       if (currentPage > 1) {
@@ -57,7 +77,23 @@ const Movies = () => {
         getMovieAndPage(currentPage + 1, null);
       }
     };
-    
+
+    const handleGenreChange = (event) => {
+      setSelectedGenre(event.target.value);
+      getMovieAndPage(1, event.target.value, selectedPrice);
+    };
+  
+    const handlePriceChange = (event) => {
+      setSelectedPrice(event.target.value);
+      getMovieAndPage(1, selectedGenre, event.target.value);
+    };
+
+    const handleOrderChange = (event) => {
+      setSelectedOrder(event.target.value);
+      getMovieAndPage(1, selectedGenre, selectedPrice, event.target.value);
+    };
+
+   
 
 
 
@@ -77,28 +113,44 @@ const Movies = () => {
       <div className={style.filters}>
         <div>
             <span>Categoría</span>
-            <select className={style.select1}>
-              <option>Select categoria</option>
+            <select
+            className={style.select1}
+            value={selectedGenre}
+            onChange={handleGenreChange}
+          >
+            <option value="">Select categoria</option>
+            {generos.map((gender) => {
+              return (
+                <option key={gender.id} value={gender.name}>
+                  {gender.name}
+                </option>
+              );
+            })}
           </select>
         </div>
         <div>
-          <span>Año</span>
-          <select className={style.select1}>
-              <option className={style.p1}>Select año</option>
-          </select>
-        </div>
-        <div>
-          <span>Puntuación</span>
-            <select className={style.select1}>
-              <option className={style.p1}>Select Puntuación</option>
+          <span>Precio</span>
+          <select
+            className={style.select1}
+            value={selectedPrice}
+            onChange={handlePriceChange}
+          >
+            <option value="">Select precio</option>
+            <option value="up">Lowest to highest</option>
+            <option value="down">Highest to lowest</option>
           </select>
         </div>
         <div>
           <span>Ordenamiento</span>
-            <select className={style.select1}>
-              <option className={style.p1}>select Ordenamiento</option>
+            <select 
+            className={style.select1}
+            value={selectedOrder}
+            onChange={handleOrderChange}>
+              <option value="">Select Order</option>
+            <option value="up">A - Z</option>
+            <option value="down">Z - A</option>
           </select>
-        </div>
+        </div>        
       </div>
       <div className={style.Container}>
         <div className={style.peliculaContainer}>
