@@ -39,24 +39,6 @@ const rootReducer =(state = initialState,action)=> {
         case GET_MOVIEXID:
             return {...state, MovieId:action.payload}
         
-        case GET_SERIES:
-            return {
-                ...state,
-                Series: action.payload
-            }
-
-        case GET_SERIES_PAGE: 
-            return {
-                ...state,
-                Series: action.payload
-            }
-
-        case GET_GENEROS_SERIES: 
-            return {
-                ...state,
-                Series: action.payload
-            }
-        
         case GETSEARCHBAR:
             return {...state, TodoFill: action.payload}
         case GETSEARCHBARCLEAN:
