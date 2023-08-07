@@ -1,10 +1,13 @@
 import React from 'react'
+
 import style from './series.module.css'
-import Card from '../../components/CardSerie/Card'
-import Navbar from "../../components/Navbar/Navbar"
+
 import { useDispatch,useSelector} from "react-redux"
 import { useState,useEffect } from "react";
 import {getGeneros} from "../../redux/actions";
+
+import Card from '../../components/CardSerie/Card'
+import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -156,7 +159,7 @@ const Series = () => {
 
           {
             series?.map((element, index) => (
-              <Card key={index} id={index} image={element.image} />
+              <Card key={index} id={element.id} image={element.image} />
           ))}
         </div>
         <div >

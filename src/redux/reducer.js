@@ -3,13 +3,15 @@ import {GET_GENEROS,
         GET_TODO,
         POST_MOVIE,
         GET_MOVIEXID, 
+        GET_SERIES_ID,
         GET_SERIES, 
-        GET_SERIES_PAGE, 
-        GET_GENEROS_SERIES,
+        // GET_SERIES_PAGE, 
+        // GET_GENEROS_SERIES,
         GETSEARCHBAR,
         GETSEARCHBARCLEAN,
         POST_SERIE,
-        CLEAR_MOVIE_ID} from "./actions"
+        CLEAR_MOVIE_ID,
+        DELETE_SERIE_ID} from "./actions"
 
 const initialState = {
      Generos: [],
@@ -18,8 +20,15 @@ const initialState = {
      TodoFill:[],
      NewMovie:[],
      MovieId:[],
-     Series: [],
+     SerieID: [],
      NewSerie:[],
+     UrlSerie: '',
+     ActoresSeries: '',
+     generos: '',
+     temporadaSerie: '',
+     catipuloSerie: '',
+     tituloEpisodio: '',
+     cantidadTemporadas: ''
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -48,6 +57,21 @@ const rootReducer =(state = initialState,action)=> {
              return {...state, NewSerie: action.payload}   
         case CLEAR_MOVIE_ID:
              return { ...state, MovieId: [] }
+        case GET_SERIES_ID: {
+            return {...state, 
+                SerieID: action.payload.series,
+                UrlSerie: action.payload.link,
+                ActoresSeries: action.payload.actoresP,
+                generos: action.payload.generos,
+                temporadaSerie: action.payload.temp,
+                temporadaSerie: action.payload.temp,
+                catipuloSerie: action.payload.catp,
+                tituloEpisodio: action.payload.tituloEpi
+            }
+        }
+        case DELETE_SERIE_ID: {
+            return {...state, SerieID: [], UrlSerie: ''}
+        }
         default:
             return {...state}
     }
