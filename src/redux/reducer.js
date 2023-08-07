@@ -11,7 +11,7 @@ import {GET_GENEROS,
         GETSEARCHBARCLEAN,
         POST_SERIE,
         CLEAR_MOVIE_ID,
-        DELETE_SERIE_ID} from "./actions"
+        DELETE_SERIE_ID} from "./actions" 
 
 const initialState = {
      Generos: [],
