@@ -11,7 +11,7 @@ import {GET_GENEROS,
         GETSEARCHBARCLEAN,
         POST_SERIE,
         CLEAR_MOVIE_ID,
-        DELETE_SERIE_ID} from "./actions"
+        DELETE_SERIE_ID} from "./actions" 
 
 const initialState = {
      Generos: [],
@@ -28,7 +28,8 @@ const initialState = {
      temporadaSerie: '',
      catipuloSerie: '',
      tituloEpisodio: '',
-     cantidadTemporadas: ''
+     cantidadTemporadas: [],
+     cantidadCapitulos: []
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -66,7 +67,9 @@ const rootReducer =(state = initialState,action)=> {
                 temporadaSerie: action.payload.temp,
                 temporadaSerie: action.payload.temp,
                 catipuloSerie: action.payload.catp,
-                tituloEpisodio: action.payload.tituloEpi
+                tituloEpisodio: action.payload.tituloEpi,
+                cantidadTemporadas: action.payload.cantidadTemporadas,
+                cantidadCapitulos: action.payload.cantidadCapitulos
             }
         }
         case DELETE_SERIE_ID: {
