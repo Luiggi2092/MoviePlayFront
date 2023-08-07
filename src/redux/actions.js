@@ -163,6 +163,6 @@ export const getSeriesID = (id)=> {
 
 export function deleteSerieId() {
   return {
-      type: DELETE_SERIE_ID
+      type: DELETE_SERIE_ID 
   }
 }
