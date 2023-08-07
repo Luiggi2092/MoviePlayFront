@@ -11,6 +11,7 @@ export const GET_SERIES = "GET_SERIES";
 export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
 export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
 export const POST_SERIE = "POST_SERIE";
+export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -106,3 +107,7 @@ export const postSerie =(Serie)=>{
         dispatch({type: POST_SERIE,payload: PostSerie});
     }
 } 
+
+export const clearMovieId = () => {
+  return { type: CLEAR_MOVIE_ID };
+};

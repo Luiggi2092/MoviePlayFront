@@ -8,7 +8,8 @@ import {GET_GENEROS,
         GET_GENEROS_SERIES,
         GETSEARCHBAR,
         GETSEARCHBARCLEAN,
-        POST_SERIE} from "./actions"
+        POST_SERIE,
+        CLEAR_MOVIE_ID} from "./actions"
 
 const initialState = {
      Generos: [],
@@ -44,7 +45,9 @@ const rootReducer =(state = initialState,action)=> {
         case GETSEARCHBARCLEAN:
             return {...state, TodoFill: action.payload}  
         case POST_SERIE:
-             return {...state, NewSerie: action.payload}      
+             return {...state, NewSerie: action.payload}   
+        case CLEAR_MOVIE_ID:
+             return { ...state, MovieId: [] }
         default:
             return {...state}
     }
