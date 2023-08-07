@@ -20,7 +20,7 @@ const SerieDetail = () => {
         }
 
     return (
-        <section className='sectionDetailSerie'>
+        <section>
              <Navbar isScrolled={isScrolled} /> 
              <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
@@ -32,6 +32,7 @@ const SerieDetail = () => {
                 <div className={style.image}>
                 <img src={serie.image}/>
                 </div>
+                
                 <div className={style.info}>
                     <div>
                         <span>Sipnosis</span>
@@ -74,7 +75,7 @@ const SerieDetail = () => {
             </div>
 
             <div className={style.divVideo}>
-                <img className={style.imgSeries} src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
+                <img height={500} width={850} style={{ margin: '0 42%', maxWidth: "100%" }} src="https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg" alt="" />
             </div>
 
             <Footer/>

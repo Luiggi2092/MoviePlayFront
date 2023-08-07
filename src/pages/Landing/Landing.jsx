@@ -23,6 +23,11 @@ const Landing = () => {
     navigate("/home");
   };
 
+  const registerHandler = () => {
+    navigate("/registro");
+  };
+
+
   return (
     <div className={style.container}>
       <div className={style.img}>
@@ -32,7 +37,7 @@ const Landing = () => {
         <h1 className={style.h1}>Disfruta de las mejores películas y series</h1>
         </div>
         <button onClick={clickHandler} className={style.boton}>Acceder</button>
-        <button className={`${style.registre} ${style.registreTopRight}`} >Registro</button>
+        <button onClick={registerHandler} className={`${style.registre} ${style.registreTopRight}`} >Registro</button>
       </div>
 
       <div className={style.div1}>
@@ -64,7 +69,7 @@ const Landing = () => {
         <input className={style.input} type="text" placeholder='' />
         <button className={style.input2}> INGRESAR</button>
       </div>
-
+{/* 
       <div className={style.div2}>
         <h1 className={style.title1}>Quienes Somos</h1>
         <div className={style.grid}>
@@ -132,8 +137,7 @@ const Landing = () => {
             </div>
         </div>
       </div>
-      </div>
-
+      </div> */}
       <footer className={style.footer}>
         <h1 className={style.titlefo}>¿Preguntas?,  envía un email a moviesplay@gmail.com</h1>
         <Link to="/suscripciones">Suscripciones</Link>
@@ -141,9 +145,11 @@ const Landing = () => {
         <Link to="/centrodeayuda">Centro de ayuda</Link>
         <Link to="/terminosdeuso">Términos de uso</Link>
         <h4>Contáctenos</h4>
+        <a href="https://accounts.google.com/" target="_blank"><i className="bi bi-envelope"></i></a>
         <a href="https://www.instagram.com/" target="_blank"><i className="fab fa-instagram icono-red"></i></a>
         <h6>© 2023 MoviesPlay. Todos los derechos reservados.</h6>
       </footer>
+
     </div>
   );
 };

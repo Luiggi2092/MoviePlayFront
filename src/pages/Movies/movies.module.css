@@ -1,36 +1,9 @@
-body{
+body {
     padding: 0;
     margin: 0;
+
     background-color: #1E1E1E;
 }
-
-/*span{
-    color: #fdfbfb;
-        font-size: 20px;
-        font-family: 'Roboto', sans-serif;
-        padding: 3px;
-        margin: 2px;
-}
-
-h1{
-    color: black;  
-    font-size: 10px;  
-}*/
-
-
-.filters{
-    display: flex;
-    
-}
-
-/* .select1 {
-        font-family: 'Roboto', sans-serif;
-        border-radius: 5px;
-        background-color: transparent;
-        color: rgb(255, 255, 255);
-        font-size: 15px;
-} */
-
 
 .p1 {
     color: #fdfbfb;
@@ -41,62 +14,141 @@ h1{
 }
 
 .filters div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 25px 60px;
-    font-size: 20px;
+    margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 25px 50px;
+        border-radius: none;
 }
 
 .filters div span{
-    color: #fdfbfb;
-        font-size: 20px;
-        font-family: 'Roboto', sans-serif;
-        padding: 3px;
-        margin: 2px;
-        display: flex;
-        margin-top: 50px;
+font-family: Inter;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    color: white;
 }
 
 .filters div select{
-    padding: 5px 20px;
-        font-family: 'Roboto', sans-serif;
+    width: 180px;
+        height: 20px;
+        margin-top: 10px;
         border-radius: 5px;
-        background-color: transparent;
-        color: rgb(255, 255, 255);
+        align-items: center;
+        background-color: rgba(253, 251, 251, 0);
+        color: white;
         cursor: pointer;
 }
 
-.Container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.filters option {
+    background-color: rgba(2, 2, 2, 0.8);
+    border-radius: none;
+}
 
+.Container{
+display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .filters {
-    display: flex;
+display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    border-radius: none;
+    cursor: pointer;
 
 }
 
 .peliculaContainer{
+display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    width: 120%;
+    max-width: 1200px;
     background-color: #000000;
-    display: flex;
-    justify-content: center;
+    margin-top: 10px;
     flex-wrap: wrap;
-    height:1120px;
-    width:1248px;
-    margin: 30px 0;
+    margin-top: 20px;
+    margin-bottom: 80px;
 
 }
 
-.paginado{
-    background-color: #03546D;
-    width: 350px;
-    height: 30px;
+
+
+/* movies.module.css */
+
+/* Estilos para el contenedor del paginado */
+.paginado {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 20px;
 }
 
+/* Estilos para los botones de la paginación */
+.but {
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.but:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para los números de la paginación */
+.pagination-item {
+    font-size: 14px;
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-item.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination-item:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+/* Estilos para el botón previo (anterior) */
+.customPrev {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.customPrev:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para el botón siguiente */
+.customNext {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.customNext:hover {
+    background-color: #0056b3;
+}

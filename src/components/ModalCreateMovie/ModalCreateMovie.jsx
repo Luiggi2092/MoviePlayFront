@@ -38,7 +38,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         time: "",
         linkVideo: "",
         description: "",
-        price: 0.0
+        price: ""
 
     })
 
@@ -108,6 +108,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
     const validate =(value,property)=> {
          var RegExUrl = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+         var RegExUrlPrecio = /^\d*\.?\d*$/;
         
 
          if(property === "linkVideo") {
@@ -115,8 +116,11 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
             console.log(value)
               
             if(!RegExUrl.test(value) ){
+                if(value == ""){
+                    setErrors({...errors,linkVideo: ""});  
+                }else{
                 setErrors({...errors,linkVideo : "No cumple con el formato de una url"});
-            }
+            }}
             else{
                 setErrors({...errors,linkVideo: ""});
             }
@@ -126,8 +130,20 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
             
             if(Number(value)>= 240){
                 setErrors({...errors,time: "La Duracion de la pelicula debe ser menos de 240 minutos"})
-            }else{
+            }else if(!RegExUrlPrecio.test(value)){
+                setErrors({...errors,time: "La Duracion solo puede contener numeros"}) 
+            }
+            
+            else{
                 setErrors({...errors,time: ""});
+            }
+         }
+
+         if(property === "price"){
+            if(!RegExUrlPrecio.test(value)){
+                setErrors({...errors,price : "El Precio solo puede contener numeros"})
+            }else{
+                setErrors({...errors,price: ""});
             }
          }
 
@@ -153,7 +169,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
     
         }else{
             Swal.fire({
-                title:`ocurrio un error al crear pelicula`,
+                title:`Debe llenar correctamente los campos`,
                  icon:'error',
                  confirmButtonText:'Ok'});
         
@@ -176,7 +192,9 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                    <div className={style.contenedor}>
                       
                      <div>      
-                     <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps": form.image} />
+                     <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps": form.image} />  
+                                <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
+                                
                      </div>
                      <div>
                         <progress value={avance} max={100} id="progress-bar" />      
@@ -204,24 +222,24 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         <br/>
                         <input type="text" name="time" onChange={ChangeHandle}></input>
                         <br/>
-                        <span className={style.error}>{errors.duracion}</span>
+                        <span className={style.error}>{errors.time}</span>
                      </div> 
                      <div>
-                        <label>Trailer :   </label>
+                        <label>Url Video :   </label>
                         <br/>
                         <input type="url" name="linkVideo" onChange={ChangeHandle}></input>
                         <br/>
-                        <span className={style.error}>{errors.trailer}</span>
+                        <span className={style.error}>{errors.linkVideo}</span>
                      </div>
                      <div>
                         <label>Precio $ : </label>
                         <br/>
                         <input type="text" name="price" onChange={ChangeHandle} />
+                         <br/>
+                         <span className={style.error}>{errors.price}</span>
                      </div>
                      <br/>
-                     <br/>
-                     <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
-                     <br/>
+                    
                      
                      <button type="submit" className={style.botonMovie} >
                             Crear Pelicula
@@ -230,8 +248,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         
 
                      
-                <div className={style.BotonCerrar} onClick={BotonCerrar}>
-                            X
+                <div className={style.BotonCerrar} >
+                 <buttonon onClick={BotonCerrar}>X</buttonon>
                         </div>
                      
                    </div>
@@ -246,9 +264,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                    
                 </div>
                 
-                <div className={style.BotonCerrar} onClick={BotonCerrar}>
-                            X
-                        </div>
+                
 
 
             </div>
