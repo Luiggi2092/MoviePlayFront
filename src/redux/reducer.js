@@ -22,7 +22,11 @@ const initialState = {
      SerieID: [],
      NewSerie:[],
      UrlSerie: '',
-     ActoresSeries: ''
+     ActoresSeries: '',
+     generos: '',
+     temporadaSerie: '',
+     catipuloSerie: '',
+     tituloEpisodio: ''
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -54,7 +58,11 @@ const rootReducer =(state = initialState,action)=> {
             return {...state, 
                 SerieID: action.payload.series,
                 UrlSerie: action.payload.link,
-                ActoresSeries: action.payload.actoresP
+                ActoresSeries: action.payload.actoresP,
+                generos: action.payload.generos,
+                temporadaSerie: action.payload.temp,
+                catipuloSerie: action.payload.catp,
+                tituloEpisodio: action.payload.tituloEpi
             }
         }
 

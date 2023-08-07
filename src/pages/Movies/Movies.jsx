@@ -4,7 +4,7 @@ import Card from '../../components/CardMovie/CardMovie';
 import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
-import Pagination from 'react-bootstrap/Pagination';
+import { Pagination, Dropdown } from 'react-bootstrap';
 import {getGeneros} from '../../redux/actions'
 
 const Movies = () => {
@@ -157,15 +157,25 @@ const Movies = () => {
             
             <Card key={index} id={image.id} image={image.image} />
           ))}
-          <div className={style.paginado}>
-            <Pagination>
-              <Pagination.Prev onClick={handlePreviousPage}/>
-              {itemsPage.map(item => item)}      
-              <Pagination.Next onClick={handleNextPage}/>      
-            </Pagination>
+         </div>
+         
+        <div >
+          <Pagination className={style.paginado}>
+            <Pagination.Prev
+              className={style.but}
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            />
+            {itemsPage.map((item) => item)}
+            <Pagination.Next
+              className={style.but}
+              onClick={handleNextPage}
+              disabled={currentPage === infoPage}
+            />
+          </Pagination>
           </div>
         </div>
-      </div>
+      
       <Footer/>
     </section>
    

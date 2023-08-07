@@ -1,96 +1,106 @@
 
-.detailsContainer {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    
-  }
-  
-  .peliculaContainer {
-    width: 100%; /* O ajusta el ancho del reproductor de video real */
-    height: auto;
-    display: flex;
-    
-  }
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-  
-  .maxContainer {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+/* Global styles for the whole page */
+/* .max {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+} */
+
+
+.detailsContainer {
+  display: flex;
+    flex-direction: column;
     align-items: center;
+    margin-top: 20px;
+    background-color: black;
+}
+
+
+.nameContainer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+
+.name {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+
+.section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+
+.image img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-left: 100px;
+}
+
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 60%;
+  margin-right: 200px;
+}
+
+
+.info span {
+  font-weight: bold;
+  font-size: 30px;
+  color: #007bff;
+}
+
+
+.botonContainer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+button:hover {
+background-color: red;
+}
+
+
+.peliculaContainer {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 80px ;
+  border-radius: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .react-player {
+    margin: 0;
+    max-width: 100%;
+    height: 300px;
   }
-  
-  .nameContainer {
-    height: 100px;
-    display: flex;
-    padding: 10px 20px;
-    align-items: center;
-  }
-  
-  .name {
-    color: #fdf9f9;
-    font-family: Century Gothic;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    margin-right: 16px;
-  }
-  
-  .info {
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-    padding: 20px 10px;
-  }
-  
-  .image {
-    width: 338.583px;
-    height: 545.444px;
-    margin-top: 10px;
-    margin-left: 16px;
-  }
-  
-  .image img {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .section {
-    display: flex;
-  }
-  
-  .info div {
-    margin-left: 20px;
-  }
-  
-  .info div span {
-    color: #03546D;
-    font-family: Century Gothic;
-    font-size: 32px;
-  }
-  
-  .info div p {
-    color: #FFF;
-    font-family: Century Gothic;
-    font-size: 24px;
-  }
-  
-  .botonContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
-  }
-  
-  .botonContainer button {
-    width: 60%; /* O ajusta el ancho del botón según tus necesidades */
-    height: 62px;
-    border-radius: 10px;
-    background: #03546D;
-    color: #FFF;
-    font-size: 24px;
-    font-family: Century Gothic;
-  }
-  
+}

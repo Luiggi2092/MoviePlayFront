@@ -92,7 +92,7 @@ export const getSeries = ()=> {
 
 export const postSerie =(Serie)=>{
     return async function (dispatch){
-        const PostSerie = await axios.post(`/series`,Serie);
+        const PostSerie = await axios.post(`/series/series`,Serie);
         console.log(PostSerie);
         dispatch({type: POST_SERIE,payload: PostSerie});
     }
@@ -102,11 +102,17 @@ export const getSeriesID = (id)=> {
   return async function (dispatch){
       const seriesId = (await axios.get(`/media/series/${id}`)).data;
       const linkS = seriesId.Episodios[0].linkVideo
-      const actores = seriesId.actores.map((genre) => genre).join(', ')
+      const actores = seriesId.actores.map((a) => a).join(', ')
+      const genero = seriesId.Genres.map((a) => a.name).join(', ')
+      const temporada = seriesId.Episodios[0].numTemporada
+      const capitulo = seriesId.Episodios[0].numEpisodio
+      const tituloEpisodio = seriesId.Episodios[0].tituloEpisodio
+      console.log(tituloEpisodio)
       dispatch(
         {
           type: GET_SERIES_ID, 
-          payload: {series: seriesId, link: linkS, actoresP: actores}
+          payload: {series: seriesId, link: linkS, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio}
+          // payload: {series: seriesId, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio}
         }
       )
   }

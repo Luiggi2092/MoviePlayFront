@@ -1,130 +1,142 @@
+
+body {
+  margin: 0;
+  padding: 0;
+}
+.sectionDetailSerie {
+  font-family: Arial, sans-serif;
+  color: #333;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+
 .detailsContainer {
-  height: auto;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
-}
-
-.peliculaContainer {
-  width: 100%; /* O ajusta el ancho del reproductor de video real */
-  height: auto;
-}
-
-.maxContainer {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
+  margin-top: 20px;
+    background-color: black;
 }
 
 .nameContainer {
-  height: 100px;
   display: flex;
-  padding: 10px 20px;
   align-items: center;
 }
 
 .name {
-  color: #fdf9f9;
-  font-family: Century Gothic;
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: normal;
-  margin-right: 16px;
+  font-size: 30px;
+  margin-right: 5px;
 }
 
-.info {
-  width: 100%;
-  height: auto;
-  margin-top: 10px;
-  padding: 20px 10px;
-}
-
-.image {
-  width: 338.583px;
-  height: 545.444px;
-  margin-top: 10px;
-  margin-left: 16px;
+/* section styles */
+.section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .image img {
-  width: 100%;
-  height: 100%;
+  width: 200px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-left: 80px;
 }
 
-.section {
-  display: flex;
+.info {
+display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 60%;
+  margin-right: 200px;
+  margin-left: 80px;
 }
 
 .info div {
-  margin-left: 20px;
+  margin-bottom: 5px;
 }
 
-.info div span {
-  color: #03546D;
-  font-family: Century Gothic;
-  font-size: 32px;
-}
-
-.info div p {
-  color: #FFF;
-  font-family: Century Gothic;
-  font-size: 24px;
+.info span {
+  font-weight: bold;
+    font-size: 25px;
+    color: #007bff;
 }
 
 .botonContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 150px;
+  margin-top: 20px;
 }
 
-.botonContainer button {
-  width: 60%; /* O ajusta el ancho del botón según tus necesidades */
-  height: 62px;
-  border-radius: 10px;
-  background: #03546D;
-  color: #FFF;
-  font-size: 24px;
-  font-family: Century Gothic;
+button {
+  background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
 
 .divContainerTC {
   display: flex;
-  justify-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    background-color: black;
+    
 }
 
-.divTemp {
-  margin-top: 60px;
-  margin-right: 300px;
-}
-
-.divCap {
-  margin-top: 60px;
-  margin-left: 300px;
-}
-
-p {
-  margin-bottom: 0;
-  font-size: 30px;
-  font-family: 'Roboto', sans-serif;
-  color:#03546D
-}
-
-.divCap p{
-  color: #03546D;
-}
-
-.divTemp p{
-  color: #03546D;
-}
+.divTemp p,
+.divCap p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+} 
 
 .selectDetail {
-  margin-bottom: 80px;
-  padding: 6px 30px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #333;
+  cursor: pointer;
 }
 
+.divTemp,
+.divCap {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+   
+}
+
+
 .divVideo {
-  margin: 10px 200px 200px 200px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+
+.imgSeries {
+  max-width: 100%;
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .info {
+    padding: 5px;
+  }
+
+  .divContainerTC {
+    flex-direction: column;
+  }
 }
