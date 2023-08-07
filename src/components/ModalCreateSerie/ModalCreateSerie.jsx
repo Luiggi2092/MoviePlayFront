@@ -81,7 +81,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
 
     const validate =(value,property)=> {
 
-
+            
 
 
     }

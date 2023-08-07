@@ -159,14 +159,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
           form.time &&
           form.linkVideo &&
           form.description &&
-          form.price ){
+          form.price  ){
             dispatch(postMovie(form));
-            cambiarEstado(false);
-            Swal.fire({
-            title:`La pelicula se creo con exito`,
-             icon:'success',
-             confirmButtonText:'Ok'});
-    
         }else{
             Swal.fire({
                 title:`Debe llenar correctamente los campos`,
