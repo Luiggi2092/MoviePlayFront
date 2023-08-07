@@ -50,14 +50,23 @@ export const getTodobusqueda = (name)=> {
 
 export const postMovie = (mov) => {
      return async function (dispatch){
-        console.log(mov);
+        
       try{  
        
         const newMovie = await axios.post("/media",mov);
-        
-           dispatch({type: POST_MOVIE,payload: newMovie})
+        dispatch({type: POST_MOVIE,payload: newMovie})
+        Swal.fire({
+          title:`La Pelicula se Creo con Exito`,
+           icon:'success',
+           confirmButtonText:'Ok'});
+  
       }catch(error){
-        alert(error.response.data.error);
+        
+        Swal.fire({
+          title:`${error.response.data.error}`,
+           icon:'error',
+           confirmButtonText:'Ok'});
+
       }    
            
       
