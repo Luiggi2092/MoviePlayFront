@@ -11,6 +11,9 @@
     z-index: 400;
 }
 
+.error {
+    color: #ff0000;
+}
 
 .ContenedorModal {
     position: fixed;

@@ -35,9 +35,10 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
 
     const [errors,setErrors] = useState({
         linkVideo:"",
-        numEpisodio: 0,
-        numTemporada: 0,
-
+        numEpisodio: "",
+        numTemporada: "",
+        yearEstreno:"",
+        duracion:"",
         
 
     })
@@ -61,6 +62,8 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
         })
 
 
+        validate(value,property);
+
     }
 
 
@@ -80,7 +83,52 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
     }
 
     const validate =(value,property)=> {
+      var RegExUrl = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
+      var RegExUrlPrecio = /^\d*\.?\d*$/;
+      
+      if(property == "yearEstreno"){
 
+         
+          
+         if(!RegExUrlPrecio.test(value)){
+         
+            setErrors({...errors,yearEstreno : "El Año solo puede contener numeros"})
+
+         }else{
+            setErrors({...errors,yearEstreno : ""})
+         }
+
+      }
+
+      if(property == "numTemporada"){
+
+         if(!RegExUrlPrecio.test(value)){
+            setErrors({...errors,numTemporada: "El numero de la temporada solo puede contener numeros"})
+         }else{ 
+            setErrors({...errors,numTemporada : ""})
+         }
+
+      }
+
+      if(property == "numEpisodio"){
+         if(!RegExUrlPrecio.test(value)){
+            setErrors({...errors,numEpisodio: "El numero de episodio solo puede contener numeros"})
+         }else{ 
+            setErrors({...errors,numEpisodio : ""})
+         }
+      } 
+
+      if(property == "duracion") {
+
+         if(Number(value)> 120){
+            setErrors({...errors,duracion: "La Duracion del episodio debe ser menos de 120 minutos"});
+         }
+         else if(!RegExUrlPrecio.test(value)){
+            setErrors({...errors,numEpisodio: "La Duracion del episodio solo puede contener numeros"});
+         }
+      }else{
+         setErrors({...errors,numEpisodio: ""});
+      }
             
 
 
@@ -190,7 +238,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <label>Año Estreno :</label>
                     <br/>
                     <input type="text" name="yearEstreno" onChange={ChangeHandle}/>
-
+                    <span className="error">{errors.yearEstreno}</span>
                  </div>
                  <div>
                     <label>Genero :</label>
@@ -210,7 +258,8 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  <div>
                     <label> N° Temporadas :</label>
                     <br/>
-                    <input type="number" name="numTemporada" onChange={ChangeHandle} />
+                    <input type="text" name="numTemporada" onChange={ChangeHandle} />
+                    <span className="error">{errors.numTemporada}</span> 
                  </div>
                  <br/>
                  {/* <fieldset>
@@ -228,6 +277,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <label>N° Episodio :</label>
                     <br/>
                     <input type="text" name="numEpisodio" onChange={ChangeHandle} />
+                    <span className="error">{errors.numEpisodio}</span> 
                  </div>
                  <div>
                     <label>Titulo de Episodio :</label>
@@ -246,6 +296,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <label>Duracion de Episodio : </label>
                     <br/>
                     <input name="duracion" onChange={ChangeHandle}/>
+                    <span className="error">{errors.duracion}</span>
                  </div>
                  <br/>
                  <br/>
