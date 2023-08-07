@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom'
 
 const CardHome = ({image,id,tipo}) => {
 
-  
-    console.log(tipo);
+     console.log(tipo);
 
     return(
         <>
