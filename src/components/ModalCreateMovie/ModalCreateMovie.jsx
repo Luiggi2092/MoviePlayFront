@@ -81,7 +81,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         cambiarEstado(false);
         setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
         setAvance(0);
-        setErrors({...errors,time: "",linkVideo:""})
+        setErrors({...errors,time: "",linkVideo:"",price:""})
 
     }
 
@@ -172,6 +172,10 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
           form.description &&
           form.price  ){
             dispatch(postMovie(form));
+            cambiarEstado(false); 
+            setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+            setAvance(0);
+            setErrors({...errors,time: "",linkVideo:"",price:""})
         }else{
             Swal.fire({
                 title:`Debe llenar correctamente los campos`,
@@ -254,7 +258,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
                      
                 <div className={style.BotonCerrar} >
-                 <buttonon onClick={BotonCerrar}>X</buttonon>
+                 <button onClick={BotonCerrar}>X</button>
                         </div>
                      
                    </div>
