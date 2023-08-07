@@ -188,6 +188,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  </div> 
                  <div>
                     <label>Año Estreno :</label>
+                    <br/>
                     <input type="text" name="yearEstreno" onChange={ChangeHandle}/>
 
                  </div>
@@ -212,7 +213,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <input type="number" name="numTemporada" onChange={ChangeHandle} />
                  </div>
                  <br/>
-                 <fieldset>
+                 {/* <fieldset>
                     <legend>Existe Serie</legend>
                     <select>
                         <option>Seleccione :</option>
@@ -220,8 +221,8 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                             return <option key={index} className="serexi">{ser.name}</option>
                          })}
                     </select>
-                 </fieldset>
-                 <fieldset className="episodio">
+                 </fieldset>*/}
+                 <fieldset className="episodio"> 
                  <legend>Episodio :</legend>
                  <div>
                     <label>N° Episodio :</label>
@@ -229,22 +230,24 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <input type="text" name="numEpisodio" onChange={ChangeHandle} />
                  </div>
                  <div>
+                    <label>Titulo de Episodio :</label>
+                    <br/>
+                    <input name="tituloEpisodio" onChange={ChangeHandle}/>
+                 </div>
+                 <div>
+                 <br/>
                  <br/>
                     <label>Descripcion de Episodio :</label>
                     <br/>
                     <textarea name="descripcionEpisodio" onChange={ChangeHandle}/>
                  </div>
+                 
                  <div>
                     <label>Duracion de Episodio : </label>
                     <br/>
                     <input name="duracion" onChange={ChangeHandle}/>
                  </div>
                  <br/>
-                 <div>
-                    <label>Titulo de Episodio :</label>
-                    <br/>
-                    <input name="tituloEpisodio" onChange={ChangeHandle}/>
-                 </div>
                  <br/>
                  <div>
                     <label>Trailer de Episodio</label>

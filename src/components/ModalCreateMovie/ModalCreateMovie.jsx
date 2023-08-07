@@ -206,14 +206,14 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         <br/>
                         <input type="text" name="time" onChange={ChangeHandle}></input>
                         <br/>
-                        <span className={style.error}>{errors.duracion}</span>
+                        <span className={style.error}>{errors.time}</span>
                      </div> 
                      <div>
-                        <label>Trailer :   </label>
+                        <label>Url Video :   </label>
                         <br/>
                         <input type="url" name="linkVideo" onChange={ChangeHandle}></input>
                         <br/>
-                        <span className={style.error}>{errors.trailer}</span>
+                        <span className={style.error}>{errors.linkVideo}</span>
                      </div>
                      <div>
                         <label>Precio $ : </label>
