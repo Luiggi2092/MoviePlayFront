@@ -63,7 +63,7 @@ export const postMovie = (mov) => {
            confirmButtonText:'Ok'});
   
       }catch(error){
-        
+        console.log(error);
         Swal.fire({
           title:`${error.response.data.error}`,
            icon:'error',
@@ -112,9 +112,27 @@ export const getSeries = ()=> {
 
 export const postSerie =(Serie)=>{
     return async function (dispatch){
+
+        try {
+            
         const PostSerie = await axios.post(`/series/series`,Serie);
-        console.log(PostSerie);
         dispatch({type: POST_SERIE,payload: PostSerie});
+          Swal.fire({
+          title:`La Serie se Creo con Exito`,
+           icon:'success',
+           confirmButtonText:'Ok'});
+           
+          console.log("bien"); 
+        }catch(error){
+          
+          console.log("mal"); 
+          Swal.fire({
+            title:`${error.response.data.error}`,
+             icon:'error',
+             confirmButtonText:'Ok'});
+  
+        }    
+        
     }
 } 
 
