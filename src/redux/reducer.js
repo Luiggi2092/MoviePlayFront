@@ -26,7 +26,8 @@ const initialState = {
      generos: '',
      temporadaSerie: '',
      catipuloSerie: '',
-     tituloEpisodio: ''
+     tituloEpisodio: '',
+     cantidadTemporadas: ''
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -60,6 +61,7 @@ const rootReducer =(state = initialState,action)=> {
                 UrlSerie: action.payload.link,
                 ActoresSeries: action.payload.actoresP,
                 generos: action.payload.generos,
+                temporadaSerie: action.payload.temp,
                 temporadaSerie: action.payload.temp,
                 catipuloSerie: action.payload.catp,
                 tituloEpisodio: action.payload.tituloEpi

@@ -38,6 +38,7 @@ const SerieDetail = () => {
         } 
     }, [])
 
+
     return (
         <section>
              <Navbar isScrolled={isScrolled} /> 
@@ -85,7 +86,7 @@ const SerieDetail = () => {
  
             <div className={style.divContainerTC}>
                 <div className={style.divTemp}>
-                    <p >TEMPORADA</p>
+                    <p>TEMPORADA</p>
                     <select className={style.selectDetail}>
                         <option>Temporada {temporada}</option>
                     </select>

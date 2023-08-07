@@ -109,21 +109,22 @@ export const postSerie =(Serie)=>{
     }
 } 
 
-export const getSeriesID = (id)=> {
+export const getSeriesID = (id, FT, FC)=> {
   return async function (dispatch){
       const seriesId = (await axios.get(`/media/series/${id}`)).data;
+
       const linkS = seriesId.Episodios[0].linkVideo
       const actores = seriesId.actores.map((a) => a).join(', ')
       const genero = seriesId.Genres.map((a) => a.name).join(', ')
       const temporada = seriesId.Episodios[0].numTemporada
       const capitulo = seriesId.Episodios[0].numEpisodio
       const tituloEpisodio = seriesId.Episodios[0].tituloEpisodio
-      console.log(tituloEpisodio)
+
+
       dispatch(
         {
           type: GET_SERIES_ID, 
           payload: {series: seriesId, link: linkS, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio}
-          // payload: {series: seriesId, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio}
         }
       )
   }
