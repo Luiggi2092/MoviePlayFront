@@ -140,24 +140,100 @@ export const clearMovieId = () => {
   return { type: CLEAR_MOVIE_ID };
 };
 
-export const getSeriesID = (id)=> {
+export const getSeriesID = (id, temp, capit)=> {
   return async function (dispatch){
-      const seriesId = (await axios.get(`/media/series/${id}`)).data;
+    const seriesId = (await axios.get(`/media/series/${id}`)).data;
 
-      const linkS = seriesId.Episodios[0].linkVideo
-      const actores = seriesId.actores.map((a) => a).join(', ')
-      const genero = seriesId.Genres.map((a) => a.name).join(', ')
-      const temporada = seriesId.Episodios[0].numTemporada
-      const capitulo = seriesId.Episodios[0].numEpisodio
-      const tituloEpisodio = seriesId.Episodios[0].tituloEpisodio
+    // Utilizamos un objeto para almacenar las temporadas únicas
+    const temporadasUnicas = {};
+    // Utilizamos reduce para contar las temporadas únicas
+    seriesId.Episodios.forEach(episodio => {
+      temporadasUnicas[episodio.numTemporada] = true;
+    });
+    // Obtenemos el número de temporadas únicas
+    const cantidadTemporadas = Object.keys(temporadasUnicas).length;
+    const arregloTemporada = [];
+    for (let i = 1; i <= cantidadTemporadas; i++) {
+      arregloTemporada.push(i);
+    }
+    // Utilizamos un objeto para almacenar los capitulos únicas
+    const capitulosUnicos = {};
+    // Utilizamos reduce para contar las temporadas únicas
+    seriesId.Episodios.forEach(episodio => {
+      capitulosUnicos[episodio.numEpisodio] = true;
+    });
+    // Obtenemos el número de temporadas únicas
+    const cantidadCapitulo = Object.keys(capitulosUnicos).length;
+    const arregloCapitulo = [];
+    for (let i = 1; i <= cantidadCapitulo; i++) {
+      arregloCapitulo.push(i);
+    }
+
+    // Muestro la temporada 1 y capitulo 1
+    const linkS = seriesId.Episodios[0].linkVideo
+    const actores = seriesId.actores.map((a) => a).join(', ')
+    const genero = seriesId.Genres.map((a) => a.name).join(', ')
+    const temporada = seriesId.Episodios[0].numTemporada
+    const capitulo = seriesId.Episodios[0].numEpisodio
+    const tituloEpisodio = seriesId.Episodios[0].tituloEpisodio
+
+    dispatch(
+      {
+        type: GET_SERIES_ID, 
+        payload: {series: seriesId, link: linkS, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio, cantidadTemporadas: arregloTemporada, cantidadCapitulos: arregloCapitulo}
+      }
+    )
+  }
+}
 
 
-      dispatch(
-        {
-          type: GET_SERIES_ID, 
-          payload: {series: seriesId, link: linkS, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio}
-        }
-      )
+export const getSeriesTempCat = (id, temp, capit)=> {
+  return async function (dispatch){
+    const seriesId = (await axios.get(`/media/series/${id}`)).data;
+
+    // Utilizamos un objeto para almacenar las temporadas únicas
+    const temporadasUnicas = {};
+    // Utilizamos reduce para contar las temporadas únicas
+    seriesId.Episodios.forEach(episodio => {
+      temporadasUnicas[episodio.numTemporada] = true;
+    });
+    // Obtenemos el número de temporadas únicas
+    const cantidadTemporadas = Object.keys(temporadasUnicas).length;
+    const arregloTemporada = [];
+    for (let i = 1; i <= cantidadTemporadas; i++) {
+      arregloTemporada.push(i);
+    }
+    // Utilizamos un objeto para almacenar los capitulos únicas
+    const capitulosUnicos = {};
+    // Utilizamos reduce para contar las temporadas únicas
+    seriesId.Episodios.forEach(episodio => {
+      capitulosUnicos[episodio.numEpisodio] = true;
+    });
+    // Obtenemos el número de temporadas únicas
+    const cantidadCapitulo = Object.keys(capitulosUnicos).length;
+    const arregloCapitulo = [];
+    for (let i = 1; i <= cantidadCapitulo; i++) {
+      arregloCapitulo.push(i);
+    }
+
+    let filter = seriesId.Episodios.filter((episodio) => episodio.numTemporada == temp && episodio.numEpisodio == capit)
+
+    // console.log(filter)
+
+    // Muestro la temporada 1 y capitulo 1
+    const linkS = filter[0].linkVideo
+    const actores = seriesId.actores.map((a) => a).join(', ')
+    const genero = seriesId.Genres.map((a) => a.name).join(', ')
+    const temporada = filter[0].numTemporada
+    const capitulo = filter[0].numEpisodio
+    const tituloEpisodio = filter[0].tituloEpisodio
+
+    dispatch(
+      {
+        type: GET_SERIES_ID, 
+        payload: {series: seriesId, link: linkS, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio, cantidadTemporadas: arregloTemporada, cantidadCapitulos: arregloCapitulo}
+      }
+    )
   }
 }
 
