@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_MEDIA = "GET_MEDIA";
@@ -51,21 +52,28 @@ export const getTodobusqueda = (name)=> {
 
 export const postMovie = (mov) => {
      return async function (dispatch){
+        
+      try{  
+       
         const newMovie = await axios.post("/media",mov);
-        if(newMovie){
-           dispatch({type: POST_MOVIE,payload: newMovie})
-           Swal.fire({
-            title:`La pelicula se creo con exito`,
-             icon:'success',
-             confirmButtonText:'Ok'});
-        }else{
-          Swal.fire({
-            title:`Ocurrio un error`,
-             icon:'error',
-             confirmButtonText:'Ok'});
-        }
-     }
-}
+        dispatch({type: POST_MOVIE,payload: newMovie})
+        Swal.fire({
+          title:`La Pelicula se Creo con Exito`,
+           icon:'success',
+           confirmButtonText:'Ok'});
+  
+      }catch(error){
+        
+        Swal.fire({
+          title:`${error.response.data.error}`,
+           icon:'error',
+           confirmButtonText:'Ok'});
+
+      }    
+           
+      
+     
+}}
 
 export const getMoviexid = (id)=> {
       return async function (dispatch){

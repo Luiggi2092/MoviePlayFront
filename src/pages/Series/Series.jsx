@@ -9,7 +9,6 @@ import {getGeneros} from "../../redux/actions";
 import Card from '../../components/CardSerie/Card'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
-import Pagination from 'react-bootstrap/Pagination';
 
 const Series = () => {
 
@@ -67,9 +66,9 @@ const Series = () => {
   useEffect(() => {
     let items = []
     for(let i = 1; i <= infoPage; i++){
-      items.push(<Pagination.Item key={i} onClick={(event) =>{
+      items.push(<button key={i} onClick={(event) =>{
         setCurrentPage(parseInt(event.target.text))
-        getSeriesAndPage(parseInt(event.target.text), null)}}>{i}</Pagination.Item>)
+        getSeriesAndPage(parseInt(event.target.text), null)}}>{i}</button>)
 
       }
       setItemsPage(items)   
@@ -163,10 +162,21 @@ const Series = () => {
           ))}
         </div>
         <div >
-          <Pagination className={style.divPaginado}>
-            <Pagination.Prev className={style.divPaginado} onClick={handlePreviousPage}/>
-            <Pagination.Next className={style.divPaginado} onClick={handleNextPage}/>      
-            </Pagination>
+          
+            <button className={style.but} onClick={handlePreviousPage}>Prev</button>
+            {itemsPage.map((item) => 
+            <button
+              key={item.key}
+              className={style.but}
+              onClick={() => {
+              setCurrentPage(parseInt(item.key));
+              getSeriesAndPage(parseInt(item.key), selectedGenre, selectedPrice, selectedOrder);
+              }}
+            >
+              {item.key}
+            </button>)}
+            <button className={style.but} onClick={handleNextPage}>Next</button>      
+            
           </div>
           
           </div>

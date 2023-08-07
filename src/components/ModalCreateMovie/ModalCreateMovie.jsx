@@ -17,6 +17,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
     
 
 
+
     const [form,setForm] = useState({
         type: "movie",
         name: "",
@@ -25,7 +26,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         time: 0,
         linkVideo: "",
         description: "",
-        price : 0.0
+        price : ""
 
     })
 
@@ -42,10 +43,15 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
 
     })
 
+    
+
 
     useEffect(()=> {
           dispatch(getGeneros()); 
 
+
+      
+    
     },[])  
   
    
@@ -94,6 +100,10 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
         let property  = event.target.name;
         let value = event.target.value;
 
+        
+        
+
+
 
         setForm({
             ...form,
@@ -109,8 +119,9 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
     const validate =(value,property)=> {
          var RegExUrl = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
          var RegExUrlPrecio = /^\d*\.?\d*$/;
-        
 
+         
+    
          if(property === "linkVideo") {
 
             console.log(value)
@@ -159,14 +170,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
           form.time &&
           form.linkVideo &&
           form.description &&
-          form.price ){
+          form.price  ){
             dispatch(postMovie(form));
-            cambiarEstado(false);
-            Swal.fire({
-            title:`La pelicula se creo con exito`,
-             icon:'success',
-             confirmButtonText:'Ok'});
-    
         }else{
             Swal.fire({
                 title:`Debe llenar correctamente los campos`,
@@ -234,7 +239,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                      <div>
                         <label>Precio $ : </label>
                         <br/>
-                        <input type="text" name="price" onChange={ChangeHandle} />
+                        <input type="text" name="price"  onChange={ChangeHandle} id="texto"  />
                          <br/>
                          <span className={style.error}>{errors.price}</span>
                      </div>

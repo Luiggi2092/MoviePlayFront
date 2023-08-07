@@ -77,9 +77,13 @@ const Home = () => {
          <div className='containerCard'>
           
          {buq.length > 0 ? buq.map(( hom, index ) => (
-          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
+          hom.tipo == "Pelicula" ?
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo}/>
           )) : listaTodo?.map(( hom, index ) => (
-          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
+            hom.tipo == "Pelicula" ?
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo}/>
           )).slice(0,cantCard)}
             
           {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
