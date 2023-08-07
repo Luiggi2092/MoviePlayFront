@@ -21,6 +21,7 @@ const Home = () => {
   const [openModalSerie,setOpenModalSerie] = useState(false);
   const [cantCard,setCanCard] = useState(12);
   const dispatch = useDispatch();
+  const [showMoreButton, setShowMoreButton] = useState(true);
   const listaTodo = useSelector(state=> state.Todo)
   const buq = useSelector(state => state.TodoFill);
 
@@ -42,6 +43,7 @@ const Home = () => {
 
   const AmpliarCards = ()=> {
     setCanCard(15);
+    setShowMoreButton(false)
   }
 
   const [isScrolled, setIsScrolled] = useState(false)
@@ -80,7 +82,7 @@ const Home = () => {
           <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />
           )).slice(0,cantCard)}
             
-      <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>
+          {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
         </div>
         
       </div>
