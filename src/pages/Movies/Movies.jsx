@@ -4,7 +4,7 @@ import Card from '../../components/CardMovie/CardMovie';
 import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
-import { Pagination, Dropdown } from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 import {getGeneros} from '../../redux/actions'
 
 const Movies = () => {
@@ -57,9 +57,9 @@ const Movies = () => {
   useEffect(() => {
     let items = []
     for(let i = 1; i <= infoPage; i++){
-      items.push(<Pagination.Item key={i} onClick={(event) =>{
+      items.push(<button className={style.butonPaginado} key={i} onClick={(event) =>{
         setCurrentPage(parseInt(event.target.text))
-        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</Pagination.Item>)
+        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</button>)
 
       }
       setItemsPage(items)   
@@ -160,19 +160,19 @@ const Movies = () => {
          </div>
          
         <div >
-          <Pagination className={style.paginado}>
-            <Pagination.Prev
-              className={style.but}
+          
+            <button
+              className={style.butonPaginado}
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-            />
+            >{'<<'}</button>
             {itemsPage.map((item) => item)}
-            <Pagination.Next
-              className={style.but}
+            <button
+              className={style.butonPaginado}
               onClick={handleNextPage}
               disabled={currentPage === infoPage}
-            />
-          </Pagination>
+            >{'>>'}</button>
+          
           </div>
         </div>
       
