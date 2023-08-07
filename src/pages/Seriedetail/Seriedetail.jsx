@@ -100,7 +100,7 @@ const SerieDetail = () => {
             </div>
 
             <div className={style.divVideo}>
-                <ReactPlayer height={500} width={1550} style={{margin:'0 30%',maxWidth:"100%",padding:"20px"}} 
+                <ReactPlayer height={500} width={1550} style={{margin:'0 15%',maxWidth:"100%"}} 
                     url={
                         url
                     } controls={true} />
