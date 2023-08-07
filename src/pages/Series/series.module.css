@@ -78,15 +78,21 @@ display: flex;
 
 
 
-.divPaginado {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin: 10px;
-  font-size: 20px;
-  color: white;
+.but {
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.but:hover {
+  background-color: #0056b3;
 }
 
 

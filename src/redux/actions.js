@@ -8,11 +8,13 @@ export const POST_MOVIE = "POST_MOVIE";
 export const GET_MOVIEXID = "GET_MOVIEXID";
 export const GETSEARCHBAR = "GETSEARCHBAR";
 export const GETSEARCHBARCLEAN = "GETSEARCHBARCLEAN";
-export const GET_SERIES = "GET_SERIES";
-export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
-export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
+export const GET_SERIES_ID = "GET_SERIES_ID";
+export const GET_SERIES = "GET_SERIES"
+// export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
+// export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
+export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -93,20 +95,20 @@ export const getSeries = ()=> {
   }
 }
 
-export const getSeriesPage = (page)=> {
-  return async function (dispatch){
-      const seriesPage = (await axios.get(`/media/series?page=${page}`)).data.elementos;
-      dispatch({type: GET_SERIES_PAGE, payload : seriesPage})
-  }
-}
+// export const getSeriesPage = (page)=> {
+//   return async function (dispatch){
+//       const seriesPage = (await axios.get(`/media/series?page=${page}`)).data.elementos;
+//       dispatch({type: GET_SERIES_PAGE, payload : seriesPage})
+//   }
+// }
 
-export const getGenerosSeries = (gen)=> {
-  return async function (dispatch){
-      const generosSeries = (await axios.get(`/media/series?genre=${gen}`)).data.elementos;
-      // console.log(generosSeries)
-      dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
-  }
-}
+// export const getGenerosSeries = (gen)=> {
+//   return async function (dispatch){
+//       const generosSeries = (await axios.get(`/media/series?genre=${gen}`)).data.elementos;
+//       // console.log(generosSeries)
+//       dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
+//   }
+// }
 
 export const postSerie =(Serie)=>{
     return async function (dispatch){
@@ -119,3 +121,30 @@ export const postSerie =(Serie)=>{
 export const clearMovieId = () => {
   return { type: CLEAR_MOVIE_ID };
 };
+
+export const getSeriesID = (id)=> {
+  return async function (dispatch){
+      const seriesId = (await axios.get(`/media/series/${id}`)).data;
+
+      const linkS = seriesId.Episodios[0].linkVideo
+      const actores = seriesId.actores.map((a) => a).join(', ')
+      const genero = seriesId.Genres.map((a) => a.name).join(', ')
+      const temporada = seriesId.Episodios[0].numTemporada
+      const capitulo = seriesId.Episodios[0].numEpisodio
+      const tituloEpisodio = seriesId.Episodios[0].tituloEpisodio
+
+
+      dispatch(
+        {
+          type: GET_SERIES_ID, 
+          payload: {series: seriesId, link: linkS, actoresP: actores, generos: genero, temp: temporada, catp: capitulo, tituloEpi: tituloEpisodio}
+        }
+      )
+  }
+}
+
+export function deleteSerieId() {
+  return {
+      type: DELETE_SERIE_ID
+  }
+}

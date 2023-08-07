@@ -117,7 +117,7 @@ const Movies = () => {
             value={selectedGenre}
             onChange={handleGenreChange}
           >
-            <option value="">All</option>
+            <option value="">Restaurar</option>
             {generos.map((gender) => {
               return (
                 <option key={gender.id} value={gender.name}>
@@ -134,9 +134,9 @@ const Movies = () => {
             value={selectedPrice}
             onChange={handlePriceChange}
           >
-            <option value="">Select price</option>
-            <option value="up">Lowest to highest</option>
-            <option value="down">Highest to lowest</option>
+            <option value="">Restaurar</option>
+            <option value="up">Min - Max</option>
+            <option value="down">Max - Min</option>
           </select>
         </div>
         <div>
@@ -145,7 +145,7 @@ const Movies = () => {
             className={style.select1}
             value={selectedOrder}
             onChange={handleOrderChange}>
-              <option value="">Select order</option>
+              <option value="">Restaurar</option>
             <option value="up">A - Z</option>
             <option value="down">Z - A</option>
           </select>
