@@ -19,7 +19,7 @@ const Series = () => {
 
   const [series, setSeries] = useState([])
   const [infoPage, setInfoPage] = useState({})
-  // const [itemsPage, setItemsPage] = useState([])
+  const [itemsPage, setItemsPage] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
@@ -72,7 +72,7 @@ const Series = () => {
         getSeriesAndPage(parseInt(event.target.text), null)}}>{i}</Pagination.Item>)
 
       }
-      // setItemsPage(items)   
+      setItemsPage(items)   
     },[infoPage, currentPage]);
     
     const handlePreviousPage = () => {      

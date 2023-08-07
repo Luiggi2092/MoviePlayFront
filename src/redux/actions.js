@@ -12,6 +12,7 @@ export const GET_SERIES = "GET_SERIES"
 // export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
 // export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
 export const POST_SERIE = "POST_SERIE";
+export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
 
 export const getGeneros = ()=> {
@@ -109,7 +110,11 @@ export const postSerie =(Serie)=>{
     }
 } 
 
-export const getSeriesID = (id, FT, FC)=> {
+export const clearMovieId = () => {
+  return { type: CLEAR_MOVIE_ID };
+};
+
+export const getSeriesID = (id)=> {
   return async function (dispatch){
       const seriesId = (await axios.get(`/media/series/${id}`)).data;
 

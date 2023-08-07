@@ -57,9 +57,9 @@ const Movies = () => {
   useEffect(() => {
     let items = []
     for(let i = 1; i <= infoPage; i++){
-      items.push(<Pagination.Item key={i} onClick={(event) =>{
+      items.push(<button key={i} onClick={(event) =>{
         setCurrentPage(parseInt(event.target.text))
-        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</Pagination.Item>)
+        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</button>)
 
       }
       setItemsPage(items)   
@@ -160,19 +160,29 @@ const Movies = () => {
          </div>
          
         <div >
-          <Pagination className={style.paginado}>
-            <Pagination.Prev
+          
+            <button
               className={style.but}
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-            />
-            {itemsPage.map((item) => item)}
-            <Pagination.Next
+            >Prev</button>
+            {itemsPage.map((item) => 
+            <button
+            key={item.key}
+            className={style.but}
+            onClick={() => {
+              setCurrentPage(parseInt(item.key));
+              getMovieAndPage(parseInt(item.key), selectedGenre, selectedPrice, selectedOrder);
+            }}
+          >
+            {item.key}
+          </button>)}
+            <button
               className={style.but}
               onClick={handleNextPage}
               disabled={currentPage === infoPage}
-            />
-          </Pagination>
+            >Next</button>
+          
           </div>
         </div>
       
