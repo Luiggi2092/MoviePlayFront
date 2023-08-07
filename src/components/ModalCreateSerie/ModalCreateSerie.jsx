@@ -39,6 +39,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
         numTemporada: "",
         yearEstreno:"",
         duracion:"",
+        price: ""
         
 
     })
@@ -121,14 +122,37 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
       if(property == "duracion") {
 
          if(Number(value)> 120){
-            setErrors({...errors,duracion: "La Duracion del episodio debe ser menos de 120 minutos"});
+            setErrors({...errors,duracion: "La Duracion debe ser menos de 120 minutos"});
          }
          else if(!RegExUrlPrecio.test(value)){
-            setErrors({...errors,numEpisodio: "La Duracion del episodio solo puede contener numeros"});
-         }
-      }else{
-         setErrors({...errors,numEpisodio: ""});
+            setErrors({...errors,duracion: "La Duracion solo puede contener numeros"});
+         }else{
+         setErrors({...errors,duracion: ""});
       }
+   }
+
+     if(property == "linkVideo"){
+
+       if(!RegExUrl.test(value)){
+         if(value == ""){
+            setErrors({...errors,linkVideo: "La url no puede estar vacia"});  
+        }else{
+        setErrors({...errors,linkVideo : "No cumple con el formato de una url"});
+        }
+           
+       }else{
+         setErrors({...errors,linkVideo: ""});  
+       }
+           
+     }
+
+     if(property === "price"){
+      if(!RegExUrlPrecio.test(value)){
+          setErrors({...errors,price : "El Precio solo puede contener numeros"})
+      }else{
+          setErrors({...errors,price: ""});
+      }
+   }
             
 
 
@@ -198,15 +222,13 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
            form.descripcion,
            form.yearEstreno ){
             dispatch(postSerie(form));
-
         cambiarEstadoSerie(false)
-        Swal.fire({
-            title:`La serie se creo con exito`,
-            icon:'success',
-            confirmButtonText:'Ok'});
+        setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+        setAvance(0);
+        setErrors({...errors,duracion: "",linkVideo:"",price:"",numEpisodio:"",numTemporada: "",yearEstreno:""})
             }else{
                 Swal.fire({
-                    title:`ocurrio un error al crear pelicula`,
+                    title:`Debes llenar correctamento los campos`,
                      icon:'error',
                      confirmButtonText:'Ok'});
             }
@@ -282,7 +304,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  <div>
                     <label>Titulo de Episodio :</label>
                     <br/>
-                    <input name="tituloEpisodio" onChange={ChangeHandle}/>
+                    <input type="text" name="tituloEpisodio" onChange={ChangeHandle}/>
                  </div>
                  <div>
                  <br/>
@@ -295,14 +317,15 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  <div>
                     <label>Duracion de Episodio : </label>
                     <br/>
-                    <input name="duracion" onChange={ChangeHandle}/>
+                    <input type="text" name="duracion" onChange={ChangeHandle}/>
                     <span className="error">{errors.duracion}</span>
                  </div>
                  <br/>
                  <br/>
                  <div>
-                    <label>Trailer de Episodio</label>
+                    <label>Url de Episodio</label>
                     <input type="text" name="linkVideo" onChange={ChangeHandle}/>
+                    <span className="error">{errors.linkVideo}</span>
                  </div>
                  </fieldset>
                  <br/>
@@ -316,6 +339,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <label>Precio de Serie $ :</label>
                     <br/>
                     <input type="text" name="price" onChange={ChangeHandle}/>
+                    <span className="error">{errors.price}</span>
                  </div>
                  
                 

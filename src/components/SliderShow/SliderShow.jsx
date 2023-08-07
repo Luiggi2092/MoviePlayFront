@@ -1,4 +1,5 @@
 import React,{useRef,useEffect} from "react";
+import {useNavigate} from "react-router-dom"
 import img1 from "../../assets/caret-left-square.svg"
 import image1 from '../../assets/fondo.png';
 import img2 from "../../assets/caret-left-square.svg"
@@ -12,6 +13,7 @@ const SliderShow = () => {
     
    
 const slidershow = useRef(null);
+const navigate = useNavigate();
 
 const siguiente = ()=> {
     //Comprobamos que el slideshow tenga elementos
@@ -89,24 +91,24 @@ const anterior = ()=> {
                 <a href="http://localhost:5173/moviesdetail/13">
                  <img src={image1}/>
                 </a>
-                <TextSlider>
-                    <a>$ 10.45</a>
+                <TextSlider onClick={()=> navigate("/moviesdetail/13")}>
+                    <a href="http://localhost:5173/moviesdetail/13">$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
                 <a href="http://localhost:5173/moviesdetail/3">
                  <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
                 </a>
-                <TextSlider>
-                    <a>$ 8.45</a>
+                <TextSlider onClick={()=> navigate("/moviesdetail/3")}>
+                    <a href="http://localhost:5173/moviesdetail/3">$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
                 <a href="http://localhost:5173/moviesdetail/14">
                  <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
                 </a>
-                <TextSlider>
-                    <a>$ 5.45</a>
+                <TextSlider onClick={()=> navigate("/moviesdetail/14")}>
+                    <a href="http://localhost:5173/moviesdetail/14">$ 15.45</a>
                 </TextSlider>
             </Slider>
             </ContenedorSliderShow>
