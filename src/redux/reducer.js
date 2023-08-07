@@ -3,12 +3,14 @@ import {GET_GENEROS,
         GET_TODO,
         POST_MOVIE,
         GET_MOVIEXID, 
+        GET_SERIES_ID,
         GET_SERIES, 
-        GET_SERIES_PAGE, 
-        GET_GENEROS_SERIES,
+        // GET_SERIES_PAGE, 
+        // GET_GENEROS_SERIES,
         GETSEARCHBAR,
         GETSEARCHBARCLEAN,
-        POST_SERIE} from "./actions"
+        POST_SERIE,
+        DELETE_SERIE_ID} from "./actions"
 
 const initialState = {
      Generos: [],
@@ -17,8 +19,10 @@ const initialState = {
      TodoFill:[],
      NewMovie:[],
      MovieId:[],
-     Series: [],
+     SerieID: [],
      NewSerie:[],
+     UrlSerie: '',
+     ActoresSeries: ''
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -44,7 +48,20 @@ const rootReducer =(state = initialState,action)=> {
         case GETSEARCHBARCLEAN:
             return {...state, TodoFill: action.payload}  
         case POST_SERIE:
-             return {...state, NewSerie: action.payload}      
+             return {...state, NewSerie: action.payload}   
+             
+        case GET_SERIES_ID: {
+            return {...state, 
+                SerieID: action.payload.series,
+                UrlSerie: action.payload.link,
+                ActoresSeries: action.payload.actoresP
+            }
+        }
+
+        case DELETE_SERIE_ID: {
+            return {...state, SerieID: [], UrlSerie: ''}
+        }
+
         default:
             return {...state}
     }
