@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link,useNavigate } from "react-router-dom"
+import { Link,Outlet,useNavigate } from "react-router-dom"
 import { FaShoppingCart } from 'react-icons/fa';
 import { getTodobusqueda,getTodoFillClean } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux"
@@ -9,6 +9,7 @@ import Logo from "../../assets/Logo.ico.png"
 
 
 const Navbar = ({ isScrolled }) => {
+
 const [busqueda,setbusqueda] = useState({
        search:""
 }); 
@@ -46,8 +47,9 @@ const ChangeHandle =(e)=> {
 }
   return (
 
+<main>
 <div>
-<nav className={`flex ${isScrolled ? "scrolled" : ""}`} >
+<nav className={`flex ${isScrolled ? "scrolled nav" : "nav"}`} >
 <div className="left flex a-center">
 <div className="brand flex a-center j-center">
   <img src={Logo} alt='logo.ico.png'/>    
@@ -78,6 +80,8 @@ const ChangeHandle =(e)=> {
 </div>
 </nav>
 </div>
+  <Outlet/>
+</main>
 )
 }
 
