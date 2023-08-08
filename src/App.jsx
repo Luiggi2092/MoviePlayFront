@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom'
 import Landing from './pages/Landing/Landing'
 import Home from './pages/Home/Home'
 import Movies from './pages/Movies/Movies'
@@ -15,7 +15,7 @@ const App = () => {
 
   return (
 
-<BrowserRouter>
+<HashRouter>
  <Routes>
 	<Route exact path='/' element={<Landing/>} />
 	<Route exact path='/home' element={<Home/>} />
@@ -27,7 +27,7 @@ const App = () => {
 	<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
 	<Route exact path='/login' element={<AccessPage/>}/>
  </Routes>
-</BrowserRouter>
+</HashRouter>
 )
 }
 
