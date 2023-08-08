@@ -49,7 +49,7 @@ const ChangeHandle =(e)=> {
 
 <main>
 <div>
-<nav className={`flex ${isScrolled ? "scrolled" : ""}`} >
+<nav className={`flex ${isScrolled ? "scrolled nav" : "nav"}`} >
 <div className="left flex a-center">
 <div className="brand flex a-center j-center">
   <img src={Logo} alt='logo.ico.png'/>    
