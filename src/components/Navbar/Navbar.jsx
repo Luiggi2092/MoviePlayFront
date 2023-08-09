@@ -21,6 +21,7 @@ const links = [
   { name: "Home", link: "/home" },
   { name: "Movies", link: "/movies" },
   { name: "Series", link: "/series" },
+  { name: "Dashboard", link: "/DashboardAdmin/content1"}
   
 ];
 

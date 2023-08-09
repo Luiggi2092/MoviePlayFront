@@ -184,6 +184,7 @@ const TextSlider = styled.div`
 const Controles = styled.div`
      position: absolute;
      top:0;
+     background: none;
      z-index: 20;
      height: 100%;
      width:  100%;
