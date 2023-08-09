@@ -88,27 +88,27 @@ const anterior = ()=> {
         <ContenedorPrincipal>
         <ContenedorSliderShow ref={slidershow}>
             <Slider>
-                <a href="http://localhost:5173/moviesdetail/13">
+                <a>
                  <img src={image1}/>
                 </a>
-                <TextSlider onClick={()=> navigate("/moviesdetail/13")}>
-                    <a href="http://localhost:5173/moviesdetail/13">$ 18.45</a>
+                <TextSlider>
+                    <a href="https://movieplay.onrender.com/moviesdetail/13">$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
-                <a href="http://localhost:5173/moviesdetail/3">
+                <a>
                  <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
                 </a>
-                <TextSlider onClick={()=> navigate("/moviesdetail/3")}>
-                    <a href="http://localhost:5173/moviesdetail/3">$ 18.45</a>
+                <TextSlider > 
+                    <a href="https://movieplay.onrender.com/moviesdetail/3">$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
-                <a href="http://localhost:5173/moviesdetail/14">
+                <a>
                  <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
                 </a>
-                <TextSlider onClick={()=> navigate("/moviesdetail/14")}>
-                    <a href="http://localhost:5173/moviesdetail/14">$ 15.45</a>
+                <TextSlider >
+                    <a>$ 15.45</a>
                 </TextSlider>
             </Slider>
             </ContenedorSliderShow>
