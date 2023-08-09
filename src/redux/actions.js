@@ -15,6 +15,8 @@ export const GET_SERIES = "GET_SERIES"
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
+export const ADD_TO_CAR = 'ADD_TO_CAR'
+export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -242,3 +244,17 @@ export function deleteSerieId() {
       type: DELETE_SERIE_ID 
   }
 }
+
+export const addToCar = (item) => {
+  return {
+      type: ADD_TO_CAR,
+      payload: item,
+  };
+};
+
+export const removeFromCar = (itemId) => {
+  return {
+      type: REMOVE_FROM_CAR,
+      payload: itemId,
+  };
+};
