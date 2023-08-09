@@ -1,0 +1,22 @@
+
+
+
+.sidebar{
+    width: 14rem;
+    height: calc(100vh - 65px);
+    border-right: 1px solid white;
+}
+
+.ulSidebar{
+
+    list-style: none;
+    padding: 1rem 2rem;
+}
+
+.ulSidebar li {
+    margin-bottom: 1rem;
+}
+
+.ulSidebar li a {
+    text-decoration: none;
+}

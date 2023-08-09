@@ -8,6 +8,8 @@ import Series from './pages/Series/Series'
 import SerieDetail from './pages/Seriedetail/Seriedetail'
 import Register from './pages/Register/register'
 import AccessPage from './pages/AccessPage/AccessPage'
+import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin'
+
 
 
 
@@ -20,12 +22,14 @@ const App = () => {
 	<Route exact path='/' element={<Landing/>} />
 	<Route exact path='/home' element={<Home/>} />
 	<Route exact path='/movies' element={<Movies/>} />
-	
+    <Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
 	<Route exact path='/register' element={<Register/>} />
 	<Route exact path='/series' element={<Series/>} />
 	<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 	<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
 	<Route exact path='/login' element={<AccessPage/>}/>
+
+
  </Routes>
 </HashRouter>
 )
