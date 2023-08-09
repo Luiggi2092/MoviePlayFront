@@ -92,7 +92,7 @@ const anterior = ()=> {
                  <img src={image1}/>
                 </a>
                 <TextSlider>
-                    <a href="https://movieplay.onrender.com/moviesdetail/13">$ 18.45</a>
+                    <a>$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
@@ -100,7 +100,7 @@ const anterior = ()=> {
                  <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
                 </a>
                 <TextSlider > 
-                    <a href="https://movieplay.onrender.com/moviesdetail/3">$ 18.45</a>
+                    <a>$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
