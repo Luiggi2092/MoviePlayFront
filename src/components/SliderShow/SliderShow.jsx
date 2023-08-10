@@ -61,25 +61,16 @@ const anterior = ()=> {
 }
 
   useEffect(() => {
-    //  const interval  = setInterval(()=> {
-    //      siguiente();
-    //   },5000)
 
       slidershow.current.addEventListener('mouseover', () => {
-          console.log("para");
+          
      });
    
 
    slidershow.current.addEventListener('mouseleave', () => {
-    console.log("sigue")
+   
     });
       
-//  slidershow.current.addEventListener('mouseleave', () => {
-//         intervaloSlideshow.current = setInterval(() => {
-//              siguiente();
-//          },5000);
-    
-   //});
   },[]);
 
 
@@ -112,18 +103,7 @@ const anterior = ()=> {
                 </TextSlider>
             </Slider>
             </ContenedorSliderShow>
-            {/* <div>    
-                <a>
-                 <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
-                </a>
-             </div>
-             <div>   
-                <a>
-                 <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
-                </a>
-                </div>
-        
-            <div> */}
+           
             <Controles>
             <Boton
                             onClick={anterior}
