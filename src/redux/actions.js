@@ -15,6 +15,8 @@ export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
 export const ADD_TO_CAR = 'ADD_TO_CAR'
 export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
+export const ACCESO = 'ACCESO'
+export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -50,28 +52,25 @@ export const getTodobusqueda = (name)=> {
 }
 
 export const postMovie = (mov) => {
-     return async function (dispatch){
-        
-      try{  
-       
-        const newMovie = await axios.post("/media",mov);
-        dispatch({type: POST_MOVIE,payload: newMovie})
-        Swal.fire({
-          title:`La Pelicula se Creo con Exito`,
-           icon:'success',
-           confirmButtonText:'Ok'});
-  
-      }catch(error){
-        console.log(error);
-        Swal.fire({
-          title:`${error.response.data.error}`,
-           icon:'error',
-           confirmButtonText:'Ok'});
-
-      }    
-           
+    return async function (dispatch){
       
-     
+    try{  
+      
+      const newMovie = await axios.post("/media",mov);
+      dispatch({type: POST_MOVIE,payload: newMovie})
+      Swal.fire({
+        title:`La Pelicula se Creo con Exito`,
+          icon:'success',
+          confirmButtonText:'Ok'});
+
+    }catch(error){
+      console.log(error);
+      Swal.fire({
+        title:`${error.response.data.error}`,
+          icon:'error',
+          confirmButtonText:'Ok'});
+
+    }    
 }}
 
 export const getMoviexid = (id)=> {
@@ -202,8 +201,6 @@ export const getSeriesTempCat = (id, temp, capit)=> {
 
     let filter = seriesId.Episodios.filter((episodio) => episodio.numTemporada == temp && episodio.numEpisodio == capit)
 
-    // console.log(filter)
-
     // Muestro la temporada 1 y capitulo 1
     const linkS = filter[0].linkVideo
     const actores = seriesId.actores.map((a) => a).join(', ')
@@ -240,3 +237,19 @@ export const removeFromCar = (itemId) => {
       payload: itemId,
   };
 };
+
+export const acceso = (boolian) => {
+  return function accesoBoolian(dispatch){
+
+    dispatch({
+      type: ACCESO,
+      payload: boolian
+    })
+  }
+}
+
+export const bloquearAcceso = () => {
+  return {
+    type: BLOQUEAR_ACCESO
+  }
+}
