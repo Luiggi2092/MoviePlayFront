@@ -11,7 +11,9 @@ import {GET_GENEROS,
         GETSEARCHBARCLEAN,
         POST_SERIE,
         CLEAR_MOVIE_ID,
-        DELETE_SERIE_ID} from "./actions" 
+        DELETE_SERIE_ID,
+        ADD_TO_CAR,
+        REMOVE_FROM_CAR} from "./actions" 
 
 const initialState = {
      Generos: [],
@@ -29,7 +31,8 @@ const initialState = {
      catipuloSerie: '',
      tituloEpisodio: '',
      cantidadTemporadas: [],
-     cantidadCapitulos: []
+     cantidadCapitulos: [],
+     items: []
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -75,6 +78,18 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
+        case ADD_TO_CAR:
+            return {
+                ...state,
+                items: [...state.items, action.payload],
+            };
+        case REMOVE_FROM_CAR:
+            return {
+                ...state,
+                items: state.items.filter(item => item.id !== action.payload),
+            };
+        
+
         default:
             return {...state}
     }

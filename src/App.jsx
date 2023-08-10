@@ -10,8 +10,7 @@ import Register from './pages/Register/register'
 import AccessPage from './pages/AccessPage/AccessPage'
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin'
 
-
-
+import CardShop from './pages/CarShop/CardShop'
 
 const App = () => {
 
@@ -28,6 +27,7 @@ const App = () => {
 	<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 	<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
 	<Route exact path='/login' element={<AccessPage/>}/>
+	<Route exact path="/purchase-detail" element={<CardShop/>}/>
 
 
  </Routes>
