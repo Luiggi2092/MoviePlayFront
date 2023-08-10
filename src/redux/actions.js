@@ -10,13 +10,11 @@ export const GETSEARCHBAR = "GETSEARCHBAR";
 export const GETSEARCHBARCLEAN = "GETSEARCHBARCLEAN";
 export const GET_SERIES_ID = "GET_SERIES_ID";
 export const GET_SERIES = "GET_SERIES"
-// export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
-// export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
-export const ACCESO = 'ACCESO'
-export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
+export const ADD_TO_CAR = 'ADD_TO_CAR'
+export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -31,7 +29,7 @@ export const getGeneros = ()=> {
 export const getMovies = ()=> {
     return async function (dispatch){
         const movie = await axios.get("/media");
-       // console.log(movie);
+       
         dispatch({type:GET_MEDIA, payload : movie})
     }
 }
@@ -47,7 +45,6 @@ export const getTodobusqueda = (name)=> {
     console.log(name);
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;
-        console.log(todoSearchBar);
         dispatch({type: GETSEARCHBAR, payload: todoSearchBar})
     }
 }
@@ -89,25 +86,11 @@ export const getTodoFillClean = ()=> {
 export const getSeries = ()=> {
   return async function (dispatch){
       const series = (await axios.get("/media/series")).data.elementos;
-      // console.log(series)
+      
       dispatch({type: GET_SERIES, payload : series})
   }
 }
 
-// export const getSeriesPage = (page)=> {
-//   return async function (dispatch){
-//       const seriesPage = (await axios.get(`/media/series?page=${page}`)).data.elementos;
-//       dispatch({type: GET_SERIES_PAGE, payload : seriesPage})
-//   }
-// }
-
-// export const getGenerosSeries = (gen)=> {
-//   return async function (dispatch){
-//       const generosSeries = (await axios.get(`/media/series?genre=${gen}`)).data.elementos;
-//       // console.log(generosSeries)
-//       dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
-//   }
-// }
 
 export const postSerie =(Serie)=>{
     return async function (dispatch){
@@ -121,7 +104,6 @@ export const postSerie =(Serie)=>{
            icon:'success',
            confirmButtonText:'Ok'});
            
-          console.log("bien"); 
         }catch(error){
           
           console.log("mal"); 
@@ -240,18 +222,16 @@ export function deleteSerieId() {
   }
 }
 
-export const acceso = (boolian) => {
-  return function accesoBoolian(dispatch){
-
-    dispatch({
-      type: ACCESO,
-      payload: boolian
-    })
-  }
-}
-
-export const bloquearAcceso = () => {
+export const addToCar = (item) => {
   return {
-    type: BLOQUEAR_ACCESO
-  }
-}
+      type: ADD_TO_CAR,
+      payload: item,
+  };
+};
+
+export const removeFromCar = (itemId) => {
+  return {
+      type: REMOVE_FROM_CAR,
+      payload: itemId,
+  };
+};

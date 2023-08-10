@@ -12,8 +12,8 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ACCESO,
-        BLOQUEAR_ACCESO} from "./actions" 
+        ADD_TO_CAR,
+        REMOVE_FROM_CAR} from "./actions" 
 
 const initialState = {
      Generos: [],
@@ -32,7 +32,7 @@ const initialState = {
      tituloEpisodio: '',
      cantidadTemporadas: [],
      cantidadCapitulos: [],
-     Acceso: ''
+     items: []
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -78,20 +78,17 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
-
-        case ACCESO: {
+        case ADD_TO_CAR:
             return {
                 ...state,
-                Acceso: action.payload
-            }
-        }
-
-        case BLOQUEAR_ACCESO: {
+                items: [...state.items, action.payload],
+            };
+        case REMOVE_FROM_CAR:
             return {
                 ...state,
-                Acceso: ''
-            }
-        }
+                items: state.items.filter(item => item.id !== action.payload),
+            };
+        
 
         default:
             return {...state}

@@ -7,8 +7,6 @@ import data from '../../data'
 import {getTodo,getTodoFillClean} from "../../redux/actions"
 import { useSelector,useDispatch } from 'react-redux'
 import styled from "styled-components"
-import Modal from "../../components/ModalCreateMovie/ModalCreateMovie"
-import ModalCreateSerie from "../../components/ModalCreateSerie/ModalCreateSerie";
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
 
@@ -17,8 +15,6 @@ const Home = () => {
   
   const series = data
   
-  const [openModal, setOpenModal] = useState(false);
-  const [openModalSerie,setOpenModalSerie] = useState(false);
   const [cantCard,setCanCard] = useState(12);
   const dispatch = useDispatch();
   const [showMoreButton, setShowMoreButton] = useState(true);
@@ -33,13 +29,6 @@ const Home = () => {
 
 
 
-  const handleModalMovie = () => {
-    setOpenModal(!openModal);
-  }
-
-  const handleModalSerie = () => {
-   setOpenModalSerie(!openModalSerie)
-  }
 
   const AmpliarCards = ()=> {
     setCanCard(15);
@@ -63,14 +52,6 @@ const Home = () => {
       
       <div className='main'>
         
-            <div>
-         <button onClick={handleModalMovie} className='CreateNew'>Nueva Pelicula</button>
-         <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
-         <button onClick={handleModalSerie} className='CreateNew'>Nueva Serie</button>
-              <div className='modal'>
-              <ModalCreateSerie  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></ModalCreateSerie>
-              </div>
-            </div>
             <div>
               <h3 className='h3peliculas'>Peliculas y Series Online</h3>
             </div>

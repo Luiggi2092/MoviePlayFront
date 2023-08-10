@@ -61,25 +61,16 @@ const anterior = ()=> {
 }
 
   useEffect(() => {
-    //  const interval  = setInterval(()=> {
-    //      siguiente();
-    //   },5000)
 
       slidershow.current.addEventListener('mouseover', () => {
-          console.log("para");
+          
      });
    
 
    slidershow.current.addEventListener('mouseleave', () => {
-    console.log("sigue")
+   
     });
       
-//  slidershow.current.addEventListener('mouseleave', () => {
-//         intervaloSlideshow.current = setInterval(() => {
-//              siguiente();
-//          },5000);
-    
-   //});
   },[]);
 
 
@@ -88,42 +79,31 @@ const anterior = ()=> {
         <ContenedorPrincipal>
         <ContenedorSliderShow ref={slidershow}>
             <Slider>
-                <a href="http://localhost:5173/moviesdetail/13">
+                <a>
                  <img src={image1}/>
                 </a>
-                <TextSlider onClick={()=> navigate("/moviesdetail/13")}>
-                    <a href="http://localhost:5173/moviesdetail/13">$ 18.45</a>
+                <TextSlider>
+                    <a>$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
-                <a href="http://localhost:5173/moviesdetail/3">
+                <a>
                  <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
                 </a>
-                <TextSlider onClick={()=> navigate("/moviesdetail/3")}>
-                    <a href="http://localhost:5173/moviesdetail/3">$ 18.45</a>
+                <TextSlider > 
+                    <a>$ 18.45</a>
                 </TextSlider>
             </Slider>
             <Slider>
-                <a href="http://localhost:5173/moviesdetail/14">
+                <a>
                  <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
                 </a>
-                <TextSlider onClick={()=> navigate("/moviesdetail/14")}>
-                    <a href="http://localhost:5173/moviesdetail/14">$ 15.45</a>
+                <TextSlider >
+                    <a>$ 15.45</a>
                 </TextSlider>
             </Slider>
             </ContenedorSliderShow>
-            {/* <div>    
-                <a>
-                 <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
-                </a>
-             </div>
-             <div>   
-                <a>
-                 <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
-                </a>
-                </div>
-        
-            <div> */}
+           
             <Controles>
             <Boton
                             onClick={anterior}
@@ -184,6 +164,7 @@ const TextSlider = styled.div`
 const Controles = styled.div`
      position: absolute;
      top:0;
+     background: none;
      z-index: 20;
      height: 100%;
      width:  100%;

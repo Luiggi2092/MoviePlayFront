@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import React, { useState,useEffect } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
-import {getMoviexid, clearMovieId} from "../../redux/actions"
+import {getMoviexid, clearMovieId, addToCar} from "../../redux/actions"
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
 import ReactPlayer from 'react-player/youtube'
@@ -21,6 +21,12 @@ const MoviesDetail = () => {
           dispatch(clearMovieId());
           
     },[dispatch]) 
+
+    const handleclick = (event) => {
+        event.preventDefault()
+        addToCar(peliculaid)
+
+    }
 
     window.onscroll = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
@@ -63,7 +69,7 @@ const MoviesDetail = () => {
                 </section>
 
                 <div className={style.botonContainer}>
-                    <button>${peliculaid.price}</button>
+                    <button onClick={handleclick}>${peliculaid.price}</button>
                 </div>
                 
             </div>
