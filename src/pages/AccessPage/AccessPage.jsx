@@ -76,7 +76,7 @@ const AccessPage = () => {
     function handleCallbackResponse(response) {
         // console.log("Enconded JWT ID token" + response.credential)
         const userObject = jwt_decode(response.credential);
-        // console.log(userObject)
+        console.log(userObject)
         // console.log(response.credential)
         localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
         localStorage.setItem('TypoUsu', JSON.stringify(userObject.iss)); 

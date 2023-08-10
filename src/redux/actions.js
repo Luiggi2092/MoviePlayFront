@@ -15,6 +15,8 @@ export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
 export const ADD_TO_CAR = 'ADD_TO_CAR'
 export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
+export const ACCESO = 'ACCESO'
+export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -235,3 +237,19 @@ export const removeFromCar = (itemId) => {
       payload: itemId,
   };
 };
+
+export const acceso = (boolian) => {
+  return function accesoBoolian(dispatch){
+
+    dispatch({
+      type: ACCESO,
+      payload: boolian
+    })
+  }
+}
+
+export const bloquearAcceso = () => {
+  return {
+    type: BLOQUEAR_ACCESO
+  }
+}
