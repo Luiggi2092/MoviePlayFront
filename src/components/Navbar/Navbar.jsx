@@ -1,49 +1,55 @@
 import React, { useState } from 'react'
 import { Link,useNavigate } from "react-router-dom"
 import { FaShoppingCart } from 'react-icons/fa';
-import { getTodobusqueda,getTodoFillClean } from '../../redux/actions';
+import { getTodobusqueda,getTodoFillClean, bloquearAcceso } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux"
 import './navbar.css'
 import Logo from "../../assets/Logo.ico.png"
 
 
 
-const Navbar = ({ isScrolled }) => {
-const [busqueda,setbusqueda] = useState({
-       search:""
-}); 
-const dispatch = useDispatch();
-const buq = useSelector(state => state.TodoFill);
-const navegate = useNavigate();
+  const Navbar = ({ isScrolled }) => {
+  const [busqueda,setbusqueda] = useState({
+        search:""
+  }); 
+  const dispatch = useDispatch();
+  const buq = useSelector(state => state.TodoFill);
+  const navegate = useNavigate();
 
-const links = [
-  { name: "Home", link: "/home" },
-  { name: "Movies", link: "/movies" },
-  { name: "Series", link: "/series" },
-  
-];
-
-
-const busquedanav = ()=> {
-     if(busqueda.search){
-         dispatch(getTodobusqueda(busqueda.search));
-     }else{
-         dispatch(getTodoFillClean());
-     } 
-     
-     navegate("/home");
-}
+  const links = [
+    { name: "Home", link: "/home" },
+    { name: "Movies", link: "/movies" },
+    { name: "Series", link: "/series" },
+    
+  ];
 
 
-const ChangeHandle =(e)=> {
-    const property = e.target.name;
-    const value = e.target.value;
+  const busquedanav = ()=> {
+      if(busqueda.search){
+          dispatch(getTodobusqueda(busqueda.search));
+      }else{
+          dispatch(getTodoFillClean());
+      } 
+      
+      navegate("/home");
+  }
 
-    setbusqueda({...busqueda
-              ,[property]:value})
+
+  const ChangeHandle =(e)=> {
+      const property = e.target.name;
+      const value = e.target.value;
+
+      setbusqueda({...busqueda
+                ,[property]:value})
 
 
-}
+  }
+
+  const cerrarSesion = () => {
+    localStorage.clear()
+    dispatch(bloquearAcceso())
+  }
+
   return (
 
 <div>
@@ -74,6 +80,9 @@ const ChangeHandle =(e)=> {
 <div className="shopping-cart">
   <Link to="/purchase-detail">
       <FaShoppingCart />
+  </Link>
+  <Link to='/'>
+    <button onClick={cerrarSesion}>Cerrar Sesion</button>
   </Link>
 </div>
 </nav>
