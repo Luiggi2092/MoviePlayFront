@@ -1,6 +1,6 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import { useState,useEffect, useMemo } from "react";
-import { Column,useTable } from "react-table";
+import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
 import style from "./MantenerMovies.module.css"
 
 
@@ -44,7 +44,7 @@ const MantenerMovies = ()=> {
 
    const tableInstance = useTable({
      columns
-     ,data : movies});
+     ,data : movies}, useSortBy,useGlobalFilter);
 
    const {
        getTableProps,
@@ -100,11 +100,18 @@ const MantenerMovies = ()=> {
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "blue" }}>
                    {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()} >
+                    <th {...column.getHeaderProps(column.getSortByToggleProps())}  >
                        <div
                   
                 >
                   {column.render('Header')}
+                  <br/>
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc 
+                      ? "D"
+                      : "A" : ""}
+                  </span>
                 </div>
                     </th>
                    ))}
@@ -131,7 +138,7 @@ const MantenerMovies = ()=> {
                       } )}
                    </tr>
                  )
-              }).slice(0,5)}
+              })}
               
             </tbody>
           </table>
