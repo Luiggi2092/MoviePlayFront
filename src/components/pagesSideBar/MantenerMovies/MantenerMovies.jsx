@@ -10,6 +10,8 @@ const MantenerMovies = ()=> {
     
   const [openModal, setOpenModal] = useState(false); 
   const [movies, setMovies] = useState([])
+  const [itemsPage, setItemsPage] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
  
   
    const columns = useMemo(
@@ -87,6 +89,18 @@ const MantenerMovies = ()=> {
     setOpenModal(!openModal);
   }
 
+  const handlePreviousPage = () => {      
+    if (currentPage > 1) {
+      getMovieAndPage(currentPage - 1, null);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < infoPage) {
+      getMovieAndPage(currentPage + 1, null);
+    }
+  };
+
     return (
         <div className={style.tablecontainer} >
           <br/>
@@ -144,7 +158,17 @@ const MantenerMovies = ()=> {
             </tbody>
           </table>
          </div>
-         
+         <button
+              className={style.but}
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >Prev</button>
+            <button
+              className={style.but}
+              onClick={handleNextPage}
+              disabled={currentPage === infoPage}
+            >Next</button>
+          
         </div>
     )
 }
