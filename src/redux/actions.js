@@ -20,6 +20,7 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
 export const SAVE_ID_TO_SAVES = 'SAVE_ID_TO_SAVES'
 export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
+export const ADD_PRODUCT_DETAILS_MOVIE = 'ADD_PRODUCT_DETAILS_MOVIE'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -313,4 +314,23 @@ export const saveIdToSavesMovie = (id) => {
           });
       }
   };
+};
+
+export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
+  const state = getState();
+  const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
+
+  if (!existingProduct) {
+    dispatch(addToCart(user, null, productDetails.id));
+    dispatch(saveIdToSavesMovie(productDetails.id));
+
+    const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+    savedProducts.push(productDetails);
+    localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
+
+    dispatch({
+      type: ADD_PRODUCT_DETAILS_MOVIE,
+      payload: productDetails,
+    });
+  }
 };
