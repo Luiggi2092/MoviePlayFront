@@ -9,6 +9,8 @@ import { useSelector,useDispatch } from 'react-redux'
 import styled from "styled-components"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
+import Loading from "../../components/Loading/Loading";
+
 
 const Home = () => {
   
@@ -20,6 +22,7 @@ const Home = () => {
   const [showMoreButton, setShowMoreButton] = useState(true);
   const listaTodo = useSelector(state=> state.Todo)
   const buq = useSelector(state => state.TodoFill);
+
 
   
   useEffect(()=> {
@@ -66,6 +69,7 @@ const Home = () => {
           <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />:
           <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo}/>
           )).slice(0,cantCard)}
+          {listaTodo.length == 0 && <Loading/>}
             
           {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
         </div>

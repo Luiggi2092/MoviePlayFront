@@ -9,6 +9,7 @@ import {getGeneros} from "../../redux/actions";
 import Card from '../../components/CardSerie/Card'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
+import Loading from "../../components/Loading/Loading";
 
 const Series = () => {
 
@@ -160,6 +161,7 @@ const Series = () => {
             series?.map((element, index) => (
               <Card key={index} id={element.id} image={element.image} />
           ))}
+          {series.length == 0 && <Loading/>}
         </div>
         <div >
           

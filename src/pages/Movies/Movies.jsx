@@ -5,6 +5,7 @@ import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
 import {getGeneros} from '../../redux/actions'
+import Loading from "../../components/Loading/Loading";
 
 const Movies = () => {
 
@@ -157,6 +158,7 @@ const Movies = () => {
             
             <Card key={index} id={image.id} image={image.image} price={image.price}/>
           ))}
+          {movies.length == 0 && <Loading/>}
          </div>
          
         <div >
