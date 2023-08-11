@@ -2,6 +2,7 @@ import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import { useState,useEffect, useMemo } from "react";
 import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
 import style from "./MantenerMovies.module.css"
+import Loading from "../../Loading/Loading";
 
 
 const MantenerMovies = ()=> {
