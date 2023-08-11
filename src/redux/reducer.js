@@ -17,7 +17,9 @@ import {GET_GENEROS,
         ADD_CAR,
         DELETE_CAR,
         GET_CAR
-        } from "./actions" 
+        ,
+        ACCESO,
+        BLOQUEAR_ACCESO} from "./actions" 
 
 
         //Para guardar en el localStorage el contador del carrito y los id de movies
@@ -41,12 +43,7 @@ const initialState = {
      tituloEpisodio: '',
      cantidadTemporadas: [],
      cantidadCapitulos: [],
-     cartCount: savedCartCount,
-     cartMovies: [],
-     idSaves:savedIdSaves,
-     carrito: [],
-     carItems: {}
-     
+     items: []
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -102,26 +99,13 @@ const rootReducer =(state = initialState,action)=> {
                 localStorage.setItem('cartCount', newCartCount);
                 return {
                 ...state,
-                cartCount: newCartCount,
-                };
-            }
-       
-        case SAVE_ID:
-            {
-                if (state.idSaves.includes(action.payload)) {
-                    console.log(`El ID ${action.payload} ya está guardado.`);
-                    return state
-                }else{
-                    const updatedSavedIds = [...state.idSaves, action.payload];
-              
-                    localStorage.setItem("idSaves", JSON.stringify(updatedSavedIds));
-                    return {
-                      ...state,
-                      idSaves: updatedSavedIds,
-                    };
-                }         
-          
-              }
+                items: [...state.items, action.payload],
+            };
+        case REMOVE_FROM_CAR:
+            return {
+                ...state,
+                items: state.items.filter(item => item.id !== action.payload),
+            };
         
         case GET_CAR:
                 return {

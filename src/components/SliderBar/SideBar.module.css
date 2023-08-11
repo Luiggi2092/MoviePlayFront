@@ -5,6 +5,7 @@
     width: 14rem;
     height: calc(100vh - 65px);
     border-right: 1px solid white;
+    background-color: white;
 }
 
 .ulSidebar{
@@ -15,8 +16,15 @@
 
 .ulSidebar li {
     margin-bottom: 1rem;
+    padding-top: 2rem;
 }
 
 .ulSidebar li a {
     text-decoration: none;
+    padding-left: 10px;
+    font-size: 0.9rem;
+}
+
+.ulSidebar li a :active{
+    color: blue;
 }

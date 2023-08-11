@@ -7,6 +7,7 @@ import MantenerMovies from "../../components/pagesSideBar/MantenerMovies/Mantene
 import MantenerSeries from "../../components/pagesSideBar/MantenerSeries/MantenerSeries";
 import MantenerUsuarios from "../../components/pagesSideBar/MantenerUsuarios/MantenerUsuarios";
 import Sales from "../../components/pagesSideBar/SalesSideBar/SalesSideBar";
+import MantenerOrdenes from "../../components/pagesSideBar/MantenerOrdenes/MantenerOrdenes";
 
 
 const DashboardAdmin=()=> {
@@ -24,7 +25,8 @@ const DashboardAdmin=()=> {
              {data.contentId == "content2" && <MantenerMovies/>}
              {data.contentId == "content3" && <MantenerSeries/>}
              {data.contentId == "content4" && <MantenerUsuarios/>}
-             {data.contentId == "content5" && <Sales/>}
+             {data.contentId == "content5" && <MantenerOrdenes/>}
+             {data.contentId == "content6" && <Sales/>}
 
             </div>
            </div>

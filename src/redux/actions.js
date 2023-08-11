@@ -10,12 +10,12 @@ export const GETSEARCHBAR = "GETSEARCHBAR";
 export const GETSEARCHBARCLEAN = "GETSEARCHBARCLEAN";
 export const GET_SERIES_ID = "GET_SERIES_ID";
 export const GET_SERIES = "GET_SERIES"
-// export const GET_SERIES_PAGE = "GET_SERIES_PAGE";
-// export const GET_GENEROS_SERIES = "GET_GENEROS_SERIES";
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
 export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
+export const ACCESO = 'ACCESO'
+export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
 export const SAVE_ID = "SAVE_ID"
 export const ADD_CAR = "ADD_CAR"
@@ -84,7 +84,7 @@ export const deleteCar = (user, idS, idM) => {
 export const getMovies = ()=> {
     return async function (dispatch){
         const movie = await axios.get("/media");
-       // console.log(movie);
+       
         dispatch({type:GET_MEDIA, payload : movie})
     }
 }
@@ -100,34 +100,30 @@ export const getTodobusqueda = (name)=> {
     console.log(name);
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;
-        console.log(todoSearchBar);
         dispatch({type: GETSEARCHBAR, payload: todoSearchBar})
     }
 }
 
 export const postMovie = (mov) => {
-     return async function (dispatch){
-        
-      try{  
-       
-        const newMovie = await axios.post("/media",mov);
-        dispatch({type: POST_MOVIE,payload: newMovie})
-        Swal.fire({
-          title:`La Pelicula se Creo con Exito`,
-           icon:'success',
-           confirmButtonText:'Ok'});
-  
-      }catch(error){
-        console.log(error);
-        Swal.fire({
-          title:`${error.response.data.error}`,
-           icon:'error',
-           confirmButtonText:'Ok'});
-
-      }    
-           
+    return async function (dispatch){
       
-     
+    try{  
+      
+      const newMovie = await axios.post("/media",mov);
+      dispatch({type: POST_MOVIE,payload: newMovie})
+      Swal.fire({
+        title:`La Pelicula se Creo con Exito`,
+          icon:'success',
+          confirmButtonText:'Ok'});
+
+    }catch(error){
+      console.log(error);
+      Swal.fire({
+        title:`${error.response.data.error}`,
+          icon:'error',
+          confirmButtonText:'Ok'});
+
+    }    
 }}
 
 export const getMoviexid = (id)=> {
@@ -145,25 +141,11 @@ export const getTodoFillClean = ()=> {
 export const getSeries = ()=> {
   return async function (dispatch){
       const series = (await axios.get("/media/series")).data.elementos;
-      // console.log(series)
+      
       dispatch({type: GET_SERIES, payload : series})
   }
 }
 
-// export const getSeriesPage = (page)=> {
-//   return async function (dispatch){
-//       const seriesPage = (await axios.get(`/media/series?page=${page}`)).data.elementos;
-//       dispatch({type: GET_SERIES_PAGE, payload : seriesPage})
-//   }
-// }
-
-// export const getGenerosSeries = (gen)=> {
-//   return async function (dispatch){
-//       const generosSeries = (await axios.get(`/media/series?genre=${gen}`)).data.elementos;
-//       // console.log(generosSeries)
-//       dispatch({type: GET_GENEROS_SERIES, payload: generosSeries})
-//   }
-// }
 
 export const postSerie =(Serie)=>{
     return async function (dispatch){
@@ -177,7 +159,6 @@ export const postSerie =(Serie)=>{
            icon:'success',
            confirmButtonText:'Ok'});
            
-          console.log("bien"); 
         }catch(error){
           
           console.log("mal"); 
@@ -273,8 +254,6 @@ export const getSeriesTempCat = (id, temp, capit)=> {
 
     let filter = seriesId.Episodios.filter((episodio) => episodio.numTemporada == temp && episodio.numEpisodio == capit)
 
-    // console.log(filter)
-
     // Muestro la temporada 1 y capitulo 1
     const linkS = filter[0].linkVideo
     const actores = seriesId.actores.map((a) => a).join(', ')
@@ -306,17 +285,3 @@ export const removeFromCar = (itemId) => {
       payload: itemId,
   };
 };
-
-export const updateCartCount = (newCount) => {
-  return {
-    type: UPDATE_CART_COUNT,
-    payload: newCount,
-  };
-};
-
-export const saveId = (id) => {
-  return {
-    type:SAVE_ID,
-    payload:id
-  }
-}
