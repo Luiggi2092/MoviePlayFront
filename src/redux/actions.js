@@ -244,26 +244,37 @@ export const bloquearAcceso = () => {
 
 export const addToCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
   try {
-    const response = await axios.post('/carroCompra', { emailUsuario, idSerie, idMovie });
-    dispatch({ type: ADD_TO_CART, payload: response.data }); 
+    if(!idSerie){
+      const response = await axios.post('/carroCompra', { emailUsuario, idMovie });
+      dispatch({ type: ADD_TO_CART, payload: response.data }); 
+    }else{
+      const response = await axios.post('/carroCompra', { emailUsuario, idSerie });
+      dispatch({ type: ADD_TO_CART, payload: response.data }); 
+    }
   } catch (error) {
     console.error('Error al agregar al carrito', error);
   }
 };
 
 export const removeFromCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
+  console.log(emailUsuario)
   try {
-    const response = await axios.delete('/carroCompra', { data: { emailUsuario, idSerie, idMovie } });
-    dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+    if(!idSerie){
+      const response = await axios.delete(`/carroCompra?emailUsuario=${email}&idMovie=${idMovie}` );
+      dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+    }else{
+      const response = await axios.delete(`/carroCompra?emailUsuario=${email}&idMovie=${idSerie}` );
+      dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+    }
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
   }
 };
 
-export const fetchCartContent = emailUsuario => async dispatch => {
-  try {
-    const response = await axios.get('/carroCompra', { data: { emailUsuario } });
-    dispatch({ type: FETCH_CART_CONTENT, payload: response.data }); 
+export const fetchCartContent = (email) => async (dispatch) => {
+  try {    
+    const response = await axios.get(`/carroCompra?emailUsuario=${email}` );
+    dispatch({ type: FETCH_CART_CONTENT, payload: response.data.CarroCompra }); 
   } catch (error) {
     console.error('Error al obtener el contenido del carrito', error);
   }
