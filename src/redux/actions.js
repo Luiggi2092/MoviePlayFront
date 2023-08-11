@@ -19,6 +19,7 @@ export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
 export const SAVE_ID_TO_SAVES = 'SAVE_ID_TO_SAVES'
+export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -243,29 +244,45 @@ export const bloquearAcceso = () => {
   }
 }
 
-export const addToCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
+export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
     if(!idSerie){
       const response = await axios.post('/carroCompra', { emailUsuario, idMovie });
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
+      const state = getState();
+        const newCartCount = state.cartCount + 1;
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
     }else{
       const response = await axios.post('/carroCompra', { emailUsuario, idSerie });
-      dispatch({ type: ADD_TO_CART, payload: response.data }); 
+      dispatch({ type: ADD_TO_CART, payload: response.data });
+      const state = getState();
+        const newCartCount = state.cartCount + 1;
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
+      
     }
   } catch (error) {
     console.error('Error al agregar al carrito', error);
   }
 };
 
-export const removeFromCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
-  console.log(emailUsuario)
+export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
     if(!idSerie){
-      const response = await axios.delete(`/carroCompra?emailUsuario=${email}&idMovie=${idMovie}` );
-      dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+      const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idMovie}` );
+      dispatch({ type: REMOVE_FROM_CART, payload: response.data });
+      const state = getState();
+        const newCartCount = state.cart.cartCount - 1; 
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
     }else{
-      const response = await axios.delete(`/carroCompra?emailUsuario=${email}&idMovie=${idSerie}` );
+      const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idSerie}` );
       dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+      const state = getState();
+        const newCartCount = state.cart.cartCount - 1; 
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
     }
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
@@ -282,13 +299,13 @@ export const fetchCartContent = (email) => async (dispatch) => {
 };
 
 
-export const saveIdToSaves = (id) => {
+export const saveIdToSavesMovie = (id) => {
   return (dispatch, getState) => {
       const state = getState();
-      const existingId = state.idSaves.find((savedId) => savedId === id);
+      const existingId = state.idSavesMovies.find((savedId) => savedId === id);
 
       if (!existingId) {
-          const updatedIdSaves = [...state.idSaves, id];
+          const updatedIdSaves = [...state.idSavesMovies, id];
           localStorage.setItem('idSaves', JSON.stringify(updatedIdSaves));
           dispatch({
               type: SAVE_ID_TO_SAVES,
