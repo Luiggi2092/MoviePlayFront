@@ -74,7 +74,7 @@ const CardShop = () => {
 
     useEffect(() => {
         dispatch(fetchCartContent('marcos@gmail.com'));
-        dispatch(removeFromCart('marcos@gmail.com', null, 15))
+        // dispatch(removeFromCart('marcos@gmail.com', null, 15))
       }, [dispatch]);
 
       console.log(items)
