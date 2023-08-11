@@ -2,20 +2,21 @@ import style from './card.module.css'
 import { Link } from 'react-router-dom'
 import useLocalStorage from '../../useLocalStorage'
 // import { updateCartCount, saveId } from '../../redux/actions'
-import {addToCart, saveIdToSaves} from '../../redux/actions'
+import {addToCart, saveIdToSavesMovie} from '../../redux/actions'
 import {useDispatch} from "react-redux"
 import {useSelector} from "react-redux"
 
-const Card = ({image, id, price}) => {
+const Card = ({image, id, price, name, Genres}) => {
 
     const user = 'marcos@gmail.com'
 
     const dispatch = useDispatch();
     const savesId = useSelector(state => state.idSaves)
+    const contador = useSelector(state => state.cartCount)
 
     const handleclick = () => {
          dispatch(addToCart(user, null, id))
-         dispatch(saveIdToSaves(id))
+         dispatch(saveIdToSavesMovie(id))
 
 
     //    if(!savesId.includes(id) ){
@@ -28,6 +29,7 @@ const Card = ({image, id, price}) => {
     
 
     console.log(savesId)
+    console.log(contador)
 
     return(
         <div className={style.containerMax}>
