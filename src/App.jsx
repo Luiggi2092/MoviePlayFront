@@ -29,13 +29,13 @@ const App = () => {
             <Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
 			
 			<Route exact path='/home' element={<Home/>} />	
-			<Route element={<PrivateRouter user={acceso}/>}>
+			{/* <Route element={<PrivateRouter user={acceso}/>}> */}
 				<Route exact path='/movies' element={<Movies/>} />
 				<Route exact path='/series' element={<Series/>} />
 				<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 				<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
 				<Route exact path="/purchase-detail" element={<CarShop/>}/>
-			</Route>
+			{/* </Route> */}
 		</Routes>
 	</HashRouter>
 )
