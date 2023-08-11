@@ -18,7 +18,7 @@ export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
-export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
+export const SAVE_ID_TO_SAVES = 'SAVE_ID_TO_SAVES'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -281,20 +281,18 @@ export const fetchCartContent = (email) => async (dispatch) => {
   }
 };
 
-export const updateCartCount = (id) => {
+
+export const saveIdToSaves = (id) => {
   return (dispatch, getState) => {
       const state = getState();
-      const existingMovie = state.idSaves.find((savedId) => savedId === id);
+      const existingId = state.idSaves.find((savedId) => savedId === id);
 
-      if (existingMovie) {
-          // No se actualiza el carrito si la película ya existe en idSaves
-          return;
-      } else {
-          const newCartCount = state.countCar + 1; // Incrementar el contador en 1
-          localStorage.setItem('cartCount', newCartCount);
+      if (!existingId) {
+          const updatedIdSaves = [...state.idSaves, id];
+          localStorage.setItem('idSaves', JSON.stringify(updatedIdSaves));
           dispatch({
-              type: UPDATE_CART_COUNT,
-              payload: id,
+              type: SAVE_ID_TO_SAVES,
+              payload: updatedIdSaves,
           });
       }
   };

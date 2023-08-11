@@ -17,7 +17,7 @@ import {GET_GENEROS,
         ADD_TO_CART,
         REMOVE_FROM_CART,
         FETCH_CART_CONTENT,
-        UPDATE_CART_COUNT
+        SAVE_ID_TO_SAVES
         } from "./actions" 
 
 
@@ -45,7 +45,8 @@ const initialState = {
      cartItems: [],
      carrito:{},
      countCar: savedCartCount,
-     idSaves: savedIdSaves
+     idSaves: savedIdSaves,
+     items:0
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -99,18 +100,11 @@ const rootReducer =(state = initialState,action)=> {
 
         case FETCH_CART_CONTENT:
             return { ...state, carrito: action.payload };
-        
-        
-            case UPDATE_CART_COUNT:
-                const existingMovie = state.idSaves.find((id) => id === action.payload.id);
-                if(existingMovie){
-                    return state
-                }else{
-                    const newCartCount = state.cartCount + parseFloat(action.payload);
-                    localStorage.setItem('cartCount', newCartCount);
-                    return {
+
+            case SAVE_ID_TO_SAVES: {
+                return {
                     ...state,
-                    items: [...state.items, action.payload],
+                    idSaves: action.payload,
                 };
             }
 
