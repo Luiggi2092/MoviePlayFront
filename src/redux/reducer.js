@@ -42,6 +42,7 @@ const initialState = {
      cantidadTemporadas: [],
      cantidadCapitulos: [],
      cartItems: [],
+     carrito:{}
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -94,7 +95,7 @@ const rootReducer =(state = initialState,action)=> {
             return { ...state, cartItems: action.payload };
 
         case FETCH_CART_CONTENT:
-            return { ...state, cartItems: action.payload };
+            return { ...state, carrito: action.payload };
         
         
         default:
