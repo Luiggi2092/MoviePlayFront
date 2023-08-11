@@ -18,14 +18,15 @@ import {GET_GENEROS,
         REMOVE_FROM_CART,
         FETCH_CART_CONTENT,
         SAVE_ID_TO_SAVES,
-        UPDATE_CART_COUNT
+        UPDATE_CART_COUNT,
+        ADD_PRODUCT_DETAILS_MOVIE,
         } from "./actions" 
 
 
         //Para guardar en el localStorage el contador del carrito y los id de movies
         const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
         const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
-        const moviesSaved = JSON.parse(localStorage.getItem('moviesSaved')) || [];
+        const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
 
 const initialState = {
      Generos: [],
@@ -48,7 +49,8 @@ const initialState = {
      carrito:{},
      cartCount: savedCartCount,
      idSavesMovies: savedIdSaves,
-     items:0,
+     savedProductsMovies: moviesSaved
+
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -112,6 +114,16 @@ const rootReducer =(state = initialState,action)=> {
         
         case UPDATE_CART_COUNT:
             return { ...state, cartCount: action.payload };
+
+            case ADD_PRODUCT_DETAILS_MOVIE: {
+                const newSavedProducts = [...state.savedProductsMovies, action.payload];
+                localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
+              
+                return {
+                  ...state,
+                  savedProductsMovies: newSavedProducts,
+                };
+              }
 
         default:
             return {...state}
