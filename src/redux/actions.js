@@ -18,6 +18,7 @@ export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
+export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -278,4 +279,23 @@ export const fetchCartContent = (email) => async (dispatch) => {
   } catch (error) {
     console.error('Error al obtener el contenido del carrito', error);
   }
+};
+
+export const updateCartCount = (id) => {
+  return (dispatch, getState) => {
+      const state = getState();
+      const existingMovie = state.idSaves.find((savedId) => savedId === id);
+
+      if (existingMovie) {
+          // No se actualiza el carrito si la película ya existe en idSaves
+          return;
+      } else {
+          const newCartCount = state.countCar + 1; // Incrementar el contador en 1
+          localStorage.setItem('cartCount', newCartCount);
+          dispatch({
+              type: UPDATE_CART_COUNT,
+              payload: id,
+          });
+      }
+  };
 };
