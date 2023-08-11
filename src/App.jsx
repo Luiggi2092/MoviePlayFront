@@ -12,7 +12,7 @@ import Register from './pages/Register/register'
 import AccessPage from './pages/AccessPage/AccessPage'
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin'
 
-import CardShop from './pages/CarShop/CardShop'
+import CarShop from './pages/CarShop/CarShop'
 import PrivateRouter from './router/PrivateRouter'
 
 const App = () => {
@@ -34,7 +34,7 @@ const App = () => {
 				<Route exact path='/series' element={<Series/>} />
 				<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 				<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
-				<Route exact path="/purchase-detail" element={<CardShop/>}/>
+				<Route exact path="/purchase-detail" element={<CarShop/>}/>
 			</Route>
 		</Routes>
 	</HashRouter>

@@ -12,10 +12,19 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ADD_TO_CAR,
-        REMOVE_FROM_CAR,
+        // UPDATE_CART_COUNT,
+        // SAVE_ID,
+        // ADD_CAR,
+        // DELETE_CAR,
+        // GET_CAR,
         ACCESO,
-        BLOQUEAR_ACCESO} from "./actions" 
+        BLOQUEAR_ACCESO,
+        } from "./actions" 
+
+
+        //Para guardar en el localStorage el contador del carrito y los id de movies
+        const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
 
 const initialState = {
      Generos: [],
@@ -34,8 +43,7 @@ const initialState = {
      tituloEpisodio: '',
      cantidadTemporadas: [],
      cantidadCapitulos: [],
-     items: [],
-     Acceso: ''
+     items: []
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -81,31 +89,7 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
-        case ADD_TO_CAR:
-            return {
-                ...state,
-                items: [...state.items, action.payload],
-            };
-        case REMOVE_FROM_CAR:
-            return {
-                ...state,
-                items: state.items.filter(item => item.id !== action.payload),
-            };
-        case ACCESO: {
-                return {
-                    ...state,
-                    Acceso: action.payload
-                }
-            }
-    
-        case BLOQUEAR_ACCESO: {
-                return {
-                    ...state,
-                    Acceso: ''
-                }
-            }
         
-
         default:
             return {...state}
     }

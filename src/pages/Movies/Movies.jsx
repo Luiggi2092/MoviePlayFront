@@ -4,7 +4,6 @@ import Card from '../../components/CardMovie/CardMovie';
 import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
-import { Pagination, Dropdown } from 'react-bootstrap';
 import {getGeneros} from '../../redux/actions'
 import Loading from "../../components/Loading/Loading";
 
@@ -25,7 +24,8 @@ const Movies = () => {
   useEffect(() => {
     dispatch(getGeneros())
   },[dispatch])
-
+  
+ 
 
   
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
@@ -156,7 +156,7 @@ const Movies = () => {
         <div className={style.peliculaContainer}>
           {movies?.map((image, index) => (
             
-            <Card key={index} id={image.id} image={image.image} />
+            <Card key={index} id={image.id} image={image.image} price={image.price}/>
           ))}
           {movies.length == 0 && <Loading/>}
          </div>
