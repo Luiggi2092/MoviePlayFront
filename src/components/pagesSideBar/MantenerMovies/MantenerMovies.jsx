@@ -9,10 +9,17 @@ const MantenerMovies = ()=> {
    
     
   const [openModal, setOpenModal] = useState(false); 
+  const [mostrar,setMostrar] = useState(false);
   const [movies, setMovies] = useState([])
   const [itemsPage, setItemsPage] = useState([])
+  const [infoPage, setInfoPage] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
  
+
+  const toggleBoton = () => {
+    setMostrar(!mostrar);
+  };
+
   
    const columns = useMemo(
      ()=>[
@@ -34,9 +41,11 @@ const MantenerMovies = ()=> {
       { Header: "Accion",
           accessor: "accion",
          Cell: ({ row }) => ( // Renderiza el botón en la celda
-          <><button className={style.buttonAccion} onClick={() => console.log('Botón presionado', row)}>Editar</button>
+          <><button className={style.buttonAccion}  onClick={() => console.log('Botón presionado', row)}>Editar</button>
           
-          <button className={style.buttonAccion1} onClick={() => console.log('Botón presionado', row)}>Desactivar</button></>
+          { mostrar  ? (<button className={style.buttonAccion1} onClick={()=> console.log(row)}>Desactivar</button> ):
+           (<button className={style.buttonAccion2} onClick={()=> console.log(row)}>Activar</button>)
+            }</>
           
       )   },
       
@@ -74,8 +83,8 @@ const MantenerMovies = ()=> {
     .then(response => response.json())
     .then(data => {
       setMovies(data.elementos)
-      //setInfoPage(data.totalPages)
-      //setCurrentPage(page)
+      setInfoPage(data.totalPages)
+      setCurrentPage(page)
     })
   };
 
@@ -84,11 +93,25 @@ const MantenerMovies = ()=> {
      getMovieAndPage(1, null, null, null)
    },[]);
 
+
+   useEffect(() => {
+    let items = []
+    for(let i = 1; i <= infoPage; i++){
+      items.push(<button key={i} onClick={(event) =>{
+        setCurrentPage(parseInt(event.target.text))
+        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</button>)
+
+      }
+      setItemsPage(items)   
+    },[infoPage, currentPage]);
+
   
   const handleModalMovie = () => {
     setOpenModal(!openModal);
   }
 
+
+ 
   const handlePreviousPage = () => {      
     if (currentPage > 1) {
       getMovieAndPage(currentPage - 1, null);
@@ -158,17 +181,29 @@ const MantenerMovies = ()=> {
             </tbody>
           </table>
          </div>
+         <div className={style.paginado}>
          <button
               className={style.but}
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
             >Prev</button>
+             {itemsPage.map((item) => 
+            <button
+            key={item.key}
+            className={style.but}
+            onClick={() => {
+              setCurrentPage(parseInt(item.key));
+              getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
+            }}
+          >
+            {item.key}
+          </button>)}
             <button
               className={style.but}
               onClick={handleNextPage}
               disabled={currentPage === infoPage}
             >Next</button>
-          
+           </div>
         </div>
     )
 }
