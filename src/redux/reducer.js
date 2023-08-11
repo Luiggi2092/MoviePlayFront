@@ -16,10 +16,10 @@ import {GET_GENEROS,
         SAVE_ID,
         ADD_CAR,
         DELETE_CAR,
-        GET_CAR
-        ,
+        GET_CAR,
         ACCESO,
-        BLOQUEAR_ACCESO} from "./actions" 
+        BLOQUEAR_ACCESO,
+        } from "./actions" 
 
 
         //Para guardar en el localStorage el contador del carrito y los id de movies
@@ -101,11 +101,8 @@ const rootReducer =(state = initialState,action)=> {
                 ...state,
                 items: [...state.items, action.payload],
             };
-        case REMOVE_FROM_CAR:
-            return {
-                ...state,
-                items: state.items.filter(item => item.id !== action.payload),
-            };
+        }
+        
         
         case GET_CAR:
                 return {
