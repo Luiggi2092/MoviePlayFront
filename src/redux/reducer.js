@@ -12,8 +12,17 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ADD_TO_CAR,
-        REMOVE_FROM_CAR} from "./actions" 
+        UPDATE_CART_COUNT,
+        SAVE_ID,
+        ADD_CAR,
+        DELETE_CAR,
+        GET_CAR
+        } from "./actions" 
+
+
+        //Para guardar en el localStorage el contador del carrito y los id de movies
+        const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
 
 const initialState = {
      Generos: [],
@@ -32,7 +41,12 @@ const initialState = {
      tituloEpisodio: '',
      cantidadTemporadas: [],
      cantidadCapitulos: [],
-     items: []
+     cartCount: savedCartCount,
+     cartMovies: [],
+     idSaves:savedIdSaves,
+     carrito: [],
+     carItems: {}
+     
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -78,17 +92,64 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
-        case ADD_TO_CAR:
-            return {
-                ...state,
-                items: [...state.items, action.payload],
-            };
-        case REMOVE_FROM_CAR:
-            return {
-                ...state,
-                items: state.items.filter(item => item.id !== action.payload),
-            };
         
+        case UPDATE_CART_COUNT:
+            const existingMovie = state.idSaves.find((id) => id === action.payload.id);
+            if(existingMovie){
+                return state
+            }else{
+                const newCartCount = state.cartCount + parseFloat(action.payload);
+                localStorage.setItem('cartCount', newCartCount);
+                return {
+                ...state,
+                cartCount: newCartCount,
+                };
+            }
+       
+        case SAVE_ID:
+            {
+                if (state.idSaves.includes(action.payload)) {
+                    console.log(`El ID ${action.payload} ya está guardado.`);
+                    return state
+                }else{
+                    const updatedSavedIds = [...state.idSaves, action.payload];
+              
+                    localStorage.setItem("idSaves", JSON.stringify(updatedSavedIds));
+                    return {
+                      ...state,
+                      idSaves: updatedSavedIds,
+                    };
+                }         
+          
+              }
+        
+        case GET_CAR:
+                return {
+                  ...state,
+                  carItems: action.payload,
+                };
+
+        case ADD_CAR:
+                return {
+                  ...state,
+                  carrito: [...state.carrito, action.payload],
+                };
+
+        case DELETE_CAR:
+                // Actualiza el estado eliminando el elemento correspondiente del carrito
+                const updatedCarrito = state.carrito.filter(item => {
+                  if (action.payload.idSerie) {
+                    return item.idSerie !== action.payload.idSerie;
+                  } else if (action.payload.idMovie) {
+                    return item.idMovie !== action.payload.idMovie;
+                  }
+                  return true;
+                });
+              
+                return {
+                  ...state,
+                  carrito: updatedCarrito,
+                };
 
         default:
             return {...state}

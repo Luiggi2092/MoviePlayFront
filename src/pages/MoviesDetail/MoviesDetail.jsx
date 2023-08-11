@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import React, { useState,useEffect } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
-import {getMoviexid, clearMovieId, addToCar} from "../../redux/actions"
+import {getMoviexid, clearMovieId} from "../../redux/actions"
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
 import ReactPlayer from 'react-player/youtube'

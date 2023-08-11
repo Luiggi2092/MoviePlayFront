@@ -3,12 +3,16 @@ import { Link,Outlet,useNavigate } from "react-router-dom"
 import { FaShoppingCart } from 'react-icons/fa';
 import { getTodobusqueda,getTodoFillClean } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux"
+import useLocalStorage from '../../useLocalStorage';
 import './navbar.css'
 import Logo from "../../assets/Logo.ico.png"
 
 
 
 const Navbar = ({ isScrolled }) => {
+
+  const cartCount = useSelector((state) => state.cartCount)
+
 
 const [busqueda,setbusqueda] = useState({
        search:""
@@ -77,6 +81,7 @@ const ChangeHandle =(e)=> {
 <div className="shopping-cart">
   <Link to="/purchase-detail">
       <FaShoppingCart />
+      <span className="cart-count">{'('}{cartCount}{')'}</span>
   </Link>
 </div>
 </nav>

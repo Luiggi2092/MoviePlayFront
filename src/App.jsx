@@ -10,7 +10,7 @@ import Register from './pages/Register/register'
 import AccessPage from './pages/AccessPage/AccessPage'
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin'
 
-import CardShop from './pages/CarShop/CardShop'
+import CardShop from './pages/CarShop/CarShop'
 
 const App = () => {
 
