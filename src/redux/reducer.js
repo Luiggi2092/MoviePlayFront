@@ -14,6 +14,9 @@ import {GET_GENEROS,
         DELETE_SERIE_ID,
         ACCESO,
         BLOQUEAR_ACCESO,
+        ADD_TO_CART,
+        REMOVE_FROM_CART,
+        FETCH_CART_CONTENT
         } from "./actions" 
 
 
@@ -38,7 +41,7 @@ const initialState = {
      tituloEpisodio: '',
      cantidadTemporadas: [],
      cantidadCapitulos: [],
-     items: []
+     cartItems: [],
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -84,6 +87,14 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
+        case ADD_TO_CART:
+            return { ...state, cartItems: action.payload };
+
+        case REMOVE_FROM_CART:
+            return { ...state, cartItems: action.payload };
+
+        case FETCH_CART_CONTENT:
+            return { ...state, cartItems: action.payload };
         
         
         default:
