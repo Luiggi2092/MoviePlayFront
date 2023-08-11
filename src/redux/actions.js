@@ -13,14 +13,10 @@ export const GET_SERIES = "GET_SERIES"
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
+export const ADD_TO_CAR = 'ADD_TO_CAR'
 export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
 export const ACCESO = 'ACCESO'
 export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
-export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
-export const SAVE_ID = "SAVE_ID"
-export const ADD_CAR = "ADD_CAR"
-export const DELETE_CAR = "DELETE_CAR"
-export const GET_CAR = "GET_CAR"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -28,57 +24,8 @@ export const getGeneros = ()=> {
      const generos = data
      dispatch({type: GET_GENEROS, payload : generos})
    }
-  }
-
-export const getCar = (user) => {
-  return async function (dispatch) {
-    try {
-      const response = await axios.get('/carroCompra', {
-        params: {
-          emailUsuario: user
-        }
-      });
-
-      dispatch({ type: GET_CAR, payload: response.data });
-    } catch (error) {
-      console.error(error);
-    }
-  }
-}
    
-   
-export const addCar = (user, idS, idM) => {
-  return async function(dispatch){
 
-    const data = {
-      emailUsuario: user,
-    };
-    if (idSerie) {
-      data.idSerie = idS;
-    }
-    if (idMovie) {
-      data.idMovie = idM;
-    };
-    const response = await axios.post('/carroCompra', data);
-    dispatch({ type: ADD_CAR, payload: response });
-  }
-}
-
-export const deleteCar = (user, idS, idM) => {
-  return async function(dispatch){
-
-    const data = {
-      emailUsuario: user,
-    };
-    if (idSerie) {
-      data.idSerie = idS;
-    }
-    if (idMovie) {
-      data.idMovie = idM;
-    };
-    const response = await axios.delete('/carroCompra', data);
-    dispatch({ type: DELETE_CAR, payload:response});
-  }
 }
 
 export const getMovies = ()=> {
@@ -277,7 +224,12 @@ export function deleteSerieId() {
   }
 }
 
-
+export const addToCar = (item) => {
+  return {
+      type: ADD_TO_CAR,
+      payload: item,
+  };
+};
 
 export const removeFromCar = (itemId) => {
   return {
@@ -285,3 +237,19 @@ export const removeFromCar = (itemId) => {
       payload: itemId,
   };
 };
+
+export const acceso = (boolian) => {
+  return function accesoBoolian(dispatch){
+
+    dispatch({
+      type: ACCESO,
+      payload: boolian
+    })
+  }
+}
+
+export const bloquearAcceso = () => {
+  return {
+    type: BLOQUEAR_ACCESO
+  }
+}
