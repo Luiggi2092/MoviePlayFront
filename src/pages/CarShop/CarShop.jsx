@@ -3,6 +3,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
+import { fetchCartContent } from '../../redux/actions';
 // import { getCar } from '../../redux/actions';
 import axios from 'axios';
 
@@ -26,12 +27,14 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('ruta/backEnd',{
+            const {data} = await axios.post('http://localhost:3001/pago',{
                 id,
                 amount: 10000
             });
             console.log(paymentMethod)
+            console.log(data)
         }
+
     }
 
     return(
@@ -62,7 +65,7 @@ const CardShop = () => {
 
 
     const [continuePay, setContinuePay] = useState(false)
-    const cartCount = useSelector((state) => state.cartCount)
+    // const items = useSelector((state) => state.cartItems)
     const dispatch = useDispatch()
 
     const handleclick = (e) => {
@@ -70,11 +73,17 @@ const CardShop = () => {
         setContinuePay(true);
     }
 
+    // useEffect(() => {
+    //     dispatch(fetchCartContent('marcos@gmail.com'));
+    //   }, [dispatch]);
+
+    //   console.log(items)
+
     return(
         <section className={style.maxContainer}>
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {`(${cartCount})`}</p>
+                    <p className={style.textNav}>Carrito {`(0)`}</p>
                 </div>
                 <h1>aqui va el contenido</h1>
             </div>

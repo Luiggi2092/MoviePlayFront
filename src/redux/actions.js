@@ -244,7 +244,7 @@ export const bloquearAcceso = () => {
 
 export const addToCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
   try {
-    const response = await api.post('/carroCompra', { emailUsuario, idSerie, idMovie });
+    const response = await axios.post('/carroCompra', { emailUsuario, idSerie, idMovie });
     dispatch({ type: ADD_TO_CART, payload: response.data }); 
   } catch (error) {
     console.error('Error al agregar al carrito', error);
@@ -253,7 +253,7 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
 
 export const removeFromCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
   try {
-    const response = await api.delete('/carroCompra', { data: { emailUsuario, idSerie, idMovie } });
+    const response = await axios.delete('/carroCompra', { data: { emailUsuario, idSerie, idMovie } });
     dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
@@ -262,7 +262,7 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async dispatch
 
 export const fetchCartContent = emailUsuario => async dispatch => {
   try {
-    const response = await api.get('/carroCompra', { data: { emailUsuario } });
+    const response = await axios.get('/carroCompra', { data: { emailUsuario } });
     dispatch({ type: FETCH_CART_CONTENT, payload: response.data }); 
   } catch (error) {
     console.error('Error al obtener el contenido del carrito', error);
