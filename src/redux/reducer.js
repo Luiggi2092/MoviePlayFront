@@ -12,11 +12,6 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        // UPDATE_CART_COUNT,
-        // SAVE_ID,
-        // ADD_CAR,
-        // DELETE_CAR,
-        // GET_CAR,
         ACCESO,
         BLOQUEAR_ACCESO,
         } from "./actions" 
@@ -89,6 +84,7 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
+        
         
         default:
             return {...state}

@@ -20,7 +20,7 @@ const Card = ({image,id, price}) => {
 
     
 
-    console.log(savesId)
+    // console.log(savesId)
 
     return(
         <div className={style.containerMax}>

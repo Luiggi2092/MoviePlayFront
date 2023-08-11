@@ -13,10 +13,11 @@ export const GET_SERIES = "GET_SERIES"
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
-export const ADD_TO_CAR = 'ADD_TO_CAR'
-export const REMOVE_FROM_CAR = 'REMOVE_FROM_CAR'
 export const ACCESO = 'ACCESO'
 export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -224,19 +225,6 @@ export function deleteSerieId() {
   }
 }
 
-export const addToCar = (item) => {
-  return {
-      type: ADD_TO_CAR,
-      payload: item,
-  };
-};
-
-export const removeFromCar = (itemId) => {
-  return {
-      type: REMOVE_FROM_CAR,
-      payload: itemId,
-  };
-};
 
 export const acceso = (boolian) => {
   return function accesoBoolian(dispatch){
@@ -253,3 +241,30 @@ export const bloquearAcceso = () => {
     type: BLOQUEAR_ACCESO
   }
 }
+
+export const addToCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
+  try {
+    const response = await api.post('/carroCompra', { emailUsuario, idSerie, idMovie });
+    dispatch({ type: ADD_TO_CART, payload: response.data }); 
+  } catch (error) {
+    console.error('Error al agregar al carrito', error);
+  }
+};
+
+export const removeFromCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
+  try {
+    const response = await api.delete('/carroCompra', { data: { emailUsuario, idSerie, idMovie } });
+    dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+  } catch (error) {
+    console.error('Error al eliminar del carrito', error);
+  }
+};
+
+export const fetchCartContent = emailUsuario => async dispatch => {
+  try {
+    const response = await api.get('/carroCompra', { data: { emailUsuario } });
+    dispatch({ type: FETCH_CART_CONTENT, payload: response.data }); 
+  } catch (error) {
+    console.error('Error al obtener el contenido del carrito', error);
+  }
+};
