@@ -3,11 +3,16 @@
       position: relative;
       left: 420px;
       width: 800px; 
-      top:15%;
+      top:2%;
     
 
   }
 
+
+  .tbody{
+    background-color: white;
+    color:black;
+  }
 
   .table{
     border-collapse: collapse;
@@ -48,9 +53,34 @@
 
 }
 
+.buttonAccion2{
+  position: relative;
+  left: 10px;
+  background-color: greenyellow;
+
+}
+
+
+
   .table th,.table td {
     margin: 0;
     text-align: center;
     border-bottom: 1px solid black;
     border-right: 1px solid black;
+}
+
+
+.paginado {
+    position: relative;
+    top:20px;
+    text-align: center;
+}
+
+.paginado button {
+  padding: 5px;
+  border: 1px solid #ccc
+}
+
+.but{
+  padding-left: 5px;
 }

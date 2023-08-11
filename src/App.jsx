@@ -26,11 +26,11 @@ const App = () => {
 			<Route exact path='/' element={<Landing/>} />
 			<Route exact path='/login' element={<AccessPage/>}/>
 			<Route exact path='/register' element={<Register/>} />
-
+            <Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
+			
+			<Route exact path='/home' element={<Home/>} />	
 			<Route element={<PrivateRouter user={acceso}/>}>
-				<Route exact path='/home' element={<Home/>} />
 				<Route exact path='/movies' element={<Movies/>} />
-				<Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
 				<Route exact path='/series' element={<Series/>} />
 				<Route exact path='/moviesdetail/:id' element={<MoviesDetail/>} />
 				<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>

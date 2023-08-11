@@ -1,15 +1,25 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import { useState,useEffect, useMemo } from "react";
-import { Column,useTable } from "react-table";
+import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
 import style from "./MantenerMovies.module.css"
+import Loading from "../../Loading/Loading";
 
 
 const MantenerMovies = ()=> {
    
     
   const [openModal, setOpenModal] = useState(false); 
+  const [mostrar,setMostrar] = useState(false);
   const [movies, setMovies] = useState([])
+  const [itemsPage, setItemsPage] = useState([])
+  const [infoPage, setInfoPage] = useState({})
+  const [currentPage, setCurrentPage] = useState(1)
  
+
+  const toggleBoton = () => {
+    setMostrar(!mostrar);
+  };
+
   
    const columns = useMemo(
      ()=>[
@@ -31,9 +41,11 @@ const MantenerMovies = ()=> {
       { Header: "Accion",
           accessor: "accion",
          Cell: ({ row }) => ( // Renderiza el botón en la celda
-          <><button className={style.buttonAccion} onClick={() => console.log('Botón presionado', row)}>Editar</button>
+          <><button className={style.buttonAccion}  onClick={() => console.log('Botón presionado', row)}>Editar</button>
           
-          <button className={style.buttonAccion1} onClick={() => console.log('Botón presionado', row)}>Desactivar</button></>
+          { mostrar  ? (<button className={style.buttonAccion1} onClick={()=> console.log(row)}>Desactivar</button> ):
+           (<button className={style.buttonAccion2} onClick={()=> console.log(row)}>Activar</button>)
+            }</>
           
       )   },
       
@@ -44,7 +56,7 @@ const MantenerMovies = ()=> {
 
    const tableInstance = useTable({
      columns
-     ,data : movies});
+     ,data : movies}, useSortBy);
 
    const {
        getTableProps,
@@ -71,8 +83,8 @@ const MantenerMovies = ()=> {
     .then(response => response.json())
     .then(data => {
       setMovies(data.elementos)
-      //setInfoPage(data.totalPages)
-      //setCurrentPage(page)
+      setInfoPage(data.totalPages)
+      setCurrentPage(page)
     })
   };
 
@@ -81,10 +93,36 @@ const MantenerMovies = ()=> {
      getMovieAndPage(1, null, null, null)
    },[]);
 
+
+   useEffect(() => {
+    let items = []
+    for(let i = 1; i <= infoPage; i++){
+      items.push(<button key={i} onClick={(event) =>{
+        setCurrentPage(parseInt(event.target.text))
+        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</button>)
+
+      }
+      setItemsPage(items)   
+    },[infoPage, currentPage]);
+
   
   const handleModalMovie = () => {
     setOpenModal(!openModal);
   }
+
+
+ 
+  const handlePreviousPage = () => {      
+    if (currentPage > 1) {
+      getMovieAndPage(currentPage - 1, null);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < infoPage) {
+      getMovieAndPage(currentPage + 1, null);
+    }
+  };
 
     return (
         <div className={style.tablecontainer} >
@@ -100,11 +138,18 @@ const MantenerMovies = ()=> {
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "blue" }}>
                    {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()} >
+                    <th {...column.getHeaderProps(column.getSortByToggleProps())}  >
                        <div
                   
                 >
                   {column.render('Header')}
+                  <br/>
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc 
+                      ? "D"
+                      : "A" : ""}
+                  </span>
                 </div>
                     </th>
                    ))}
@@ -112,7 +157,7 @@ const MantenerMovies = ()=> {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
+            <tbody {...getTableBodyProps()} className={style.tbody}>
               {rows.map((row) => {
                  prepareRow(row);
                  return (
@@ -131,12 +176,34 @@ const MantenerMovies = ()=> {
                       } )}
                    </tr>
                  )
-              }).slice(0,5)}
+              })}
               
             </tbody>
           </table>
          </div>
-         
+         <div className={style.paginado}>
+         <button
+              className={style.but}
+              onClick={handlePreviousPage}
+              disabled={currentPage === 1}
+            >Prev</button>
+             {itemsPage.map((item) => 
+            <button
+            key={item.key}
+            className={style.but}
+            onClick={() => {
+              setCurrentPage(parseInt(item.key));
+              getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
+            }}
+          >
+            {item.key}
+          </button>)}
+            <button
+              className={style.but}
+              onClick={handleNextPage}
+              disabled={currentPage === infoPage}
+            >Next</button>
+           </div>
         </div>
     )
 }
