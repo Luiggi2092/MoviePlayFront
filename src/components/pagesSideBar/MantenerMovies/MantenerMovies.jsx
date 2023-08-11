@@ -44,7 +44,7 @@ const MantenerMovies = ()=> {
 
    const tableInstance = useTable({
      columns
-     ,data : movies}, useSortBy,useGlobalFilter);
+     ,data : movies}, useSortBy);
 
    const {
        getTableProps,
@@ -119,7 +119,7 @@ const MantenerMovies = ()=> {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
+            <tbody {...getTableBodyProps()} className={style.tbody}>
               {rows.map((row) => {
                  prepareRow(row);
                  return (
