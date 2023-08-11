@@ -3,7 +3,8 @@ import './accessPage.css'
 import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import Footer from '../../components/Footer/Footer'
-
+import {acceso} from "../../redux/actions";
+import { useDispatch} from "react-redux"
 
 const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 const passwordRegex = /^[0-9a-zA-Z]+$/
@@ -17,8 +18,10 @@ const AccessPage = () => {
     const [passwordError, setPasswordError] = useState(false)
     const [formCorrecto, setFormCorrecto] = useState(false)
     
-  const [user, setUser] = useState({})
+    const [user, setUser] = useState({})
     const navigate = useNavigate();
+
+    const dispatch = useDispatch();
 
     const validateEmail = () => {
         if (!emailRegex.test(email)) {
@@ -41,54 +44,7 @@ const AccessPage = () => {
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
         validateEmail()
-	}
-
-   
-  function handleCallbackResponse(response) {
-    console.log("Enconded JWT ID token" + response.credential)
-    const userObject = jwt_decode(response.credential);
-    console.log(userObject)
-    localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
-    localStorage.setItem('TypoUsu', JSON.stringify(userObject.iss));      
-    setUser(userObject)
-  }
-
-
-    useEffect(() => {
-        // global google
-
-        const loadGoogleSignIn = () => {
-            // Load the Google Sign-In API script
-            const script = document.createElement('script');
-            script.src = 'https://accounts.google.com/gsi/client';
-            script.async = true;
-            document.head.appendChild(script);
-      
-            // Initialize the Google Sign-In API once the script is loaded
-            script.onload = () => {
-              window.google.accounts.id.initialize({
-                client_id: "455768951489-dpmia14fe22vcrimo4fmgbtqnngab2b7.apps.googleusercontent.com",
-                callback: handleCallbackResponse
-              });
-      
-              window.google.accounts.id.renderButton(
-                document.getElementById("signInDiv"),
-                { theme: "outline", size: "large" }
-              );
-            };
-          };
-      
-          loadGoogleSignIn();
-          
-      }, [])
-    
-      const redirectToGoogle = () => {
-        const redirectUri = encodeURIComponent('http://localhost:/redirect-from-google');
-        const googleAuthUrl = `https://accounts.google.com/signin/oauth?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=${redirectUri}&scope=openid%20email%20profile`;
-      
-        window.location.href = googleAuthUrl;
-      }; 
-    
+    }
 
     const onChangePassword = (e) => {
         setPassword(e.target.value)
@@ -108,10 +64,63 @@ const AccessPage = () => {
         } else {
             setEmail('')
             setPassword('')
-        }
+        } 
     } 
 
+    const redirectToHome = () => {
+        setTimeout(() => {
+            navigate('/home')
+        }, 1000);
+    }
 
+    function handleCallbackResponse(response) {
+        // console.log("Enconded JWT ID token" + response.credential)
+        const userObject = jwt_decode(response.credential);
+        console.log(userObject)
+        // console.log(response.credential)
+        localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
+        localStorage.setItem('TypoUsu', JSON.stringify(userObject.iss)); 
+        localStorage.setItem('State', "true");     
+        dispatch(acceso('true'))
+        setUser(userObject)
+        redirectToHome()
+    }
+
+    // const redirectToGoogle = () => {
+    //     const redirectUri = encodeURIComponent('http://localhost:/redirect-from-google');
+    //     const googleAuthUrl = `https://accounts.google.com/signin/oauth?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=${redirectUri}&scope=openid%20email%20profile`;
+    
+    //     window.location.href = googleAuthUrl;
+    // }; 
+
+    useEffect(() => {
+        // global google
+
+        const loadGoogleSignIn = () => {
+            // Load the Google Sign-In API script
+            const script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            document.head.appendChild(script);
+      
+            // Initialize the Google Sign-In API once the script is loaded
+            script.onload = () => {
+              window.google.accounts.id.initialize({
+                client_id: "455768951489-dpmia14fe22vcrimo4fmgbtqnngab2b7.apps.googleusercontent.com",
+                callback: handleCallbackResponse
+            });
+      
+            window.google.accounts.id.renderButton(
+                document.getElementById("signInDiv"),
+                { theme: "outline", size: "large" }
+              );
+            };
+        };
+      
+        loadGoogleSignIn();
+          
+    }, [])
+    
     return (
         <section className='containerDivAccessPage'>
             
@@ -150,7 +159,7 @@ const AccessPage = () => {
                     }
                     <br/>
                     <div id="signInDiv"></div>
-                    <button onClick={() => window.google.accounts.id.prompt()}>Sign in with Google</button>
+                    {/* <button onClick={() => window.google.accounts.id.prompt()}>Sign in with Google</button> */}
               
                     <button className='buttonFormAccessPage'>Acceder</button>
                     

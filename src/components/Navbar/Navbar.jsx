@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link,Outlet,useNavigate } from "react-router-dom"
 import { FaShoppingCart } from 'react-icons/fa';
-import { getTodobusqueda,getTodoFillClean } from '../../redux/actions';
+import { getTodobusqueda,getTodoFillClean, bloquearAcceso } from '../../redux/actions';
 import { useDispatch,useSelector} from "react-redux"
 import './navbar.css'
 import Logo from "../../assets/Logo.ico.png"
@@ -26,26 +26,32 @@ const links = [
 ];
 
 
-const busquedanav = ()=> {
-     if(busqueda.search){
-         dispatch(getTodobusqueda(busqueda.search));
-     }else{
-         dispatch(getTodoFillClean());
-     } 
-     
-     navegate("/home");
-}
+  const busquedanav = ()=> {
+      if(busqueda.search){
+          dispatch(getTodobusqueda(busqueda.search));
+      }else{
+          dispatch(getTodoFillClean());
+      } 
+      
+      navegate("/home");
+  }
 
 
-const ChangeHandle =(e)=> {
-    const property = e.target.name;
-    const value = e.target.value;
+  const ChangeHandle =(e)=> {
+      const property = e.target.name;
+      const value = e.target.value;
 
-    setbusqueda({...busqueda
-              ,[property]:value})
+      setbusqueda({...busqueda
+                ,[property]:value})
 
 
-}
+  }
+
+  const cerrarSesion = () => {
+    localStorage.clear()
+    dispatch(bloquearAcceso())
+  }
+
   return (
 
 <main>
@@ -77,6 +83,9 @@ const ChangeHandle =(e)=> {
 <div className="shopping-cart">
   <Link to="/purchase-detail">
       <FaShoppingCart />
+  </Link>
+  <Link to='/'>
+    <button onClick={cerrarSesion}>Cerrar Sesion</button>
   </Link>
 </div>
 </nav>
