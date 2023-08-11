@@ -12,11 +12,11 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        UPDATE_CART_COUNT,
-        SAVE_ID,
-        ADD_CAR,
-        DELETE_CAR,
-        GET_CAR,
+        // UPDATE_CART_COUNT,
+        // SAVE_ID,
+        // ADD_CAR,
+        // DELETE_CAR,
+        // GET_CAR,
         ACCESO,
         BLOQUEAR_ACCESO,
         } from "./actions" 
@@ -90,48 +90,6 @@ const rootReducer =(state = initialState,action)=> {
             return {...state, SerieID: [], UrlSerie: ''}
         }
         
-        case UPDATE_CART_COUNT:
-            const existingMovie = state.idSaves.find((id) => id === action.payload.id);
-            if(existingMovie){
-                return state
-            }else{
-                const newCartCount = state.cartCount + parseFloat(action.payload);
-                localStorage.setItem('cartCount', newCartCount);
-                return {
-                ...state,
-                items: [...state.items, action.payload],
-            };
-        }
-        
-        
-        case GET_CAR:
-                return {
-                  ...state,
-                  carItems: action.payload,
-                };
-
-        case ADD_CAR:
-                return {
-                  ...state,
-                  carrito: [...state.carrito, action.payload],
-                };
-
-        case DELETE_CAR:
-                // Actualiza el estado eliminando el elemento correspondiente del carrito
-                const updatedCarrito = state.carrito.filter(item => {
-                  if (action.payload.idSerie) {
-                    return item.idSerie !== action.payload.idSerie;
-                  } else if (action.payload.idMovie) {
-                    return item.idMovie !== action.payload.idMovie;
-                  }
-                  return true;
-                });
-              
-                return {
-                  ...state,
-                  carrito: updatedCarrito,
-                };
-
         default:
             return {...state}
     }

@@ -3,7 +3,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
-import { getCar } from '../../redux/actions';
+// import { getCar } from '../../redux/actions';
 import axios from 'axios';
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');

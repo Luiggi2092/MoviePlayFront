@@ -1,22 +1,22 @@
 import style from './card.module.css'
 import { Link } from 'react-router-dom'
 import useLocalStorage from '../../useLocalStorage'
-import { updateCartCount, saveId } from '../../redux/actions'
+// import { updateCartCount, saveId } from '../../redux/actions'
 import {useDispatch} from "react-redux"
 import {useSelector} from "react-redux"
 
 const Card = ({image,id, price}) => {
 
     const dispatch = useDispatch();
-    const savesId = useSelector(state => state.idSaves)
+    // const savesId = useSelector(state => state.idSaves)
 
-    const handleclick = () => {     
-       if(!savesId.includes(id) ){
-           dispatch(updateCartCount(1));
-       }       
-           dispatch(saveId(id))  
+    // const handleclick = () => {     
+    //    if(!savesId.includes(id) ){
+    //        dispatch(updateCartCount(1));
+    //    }       
+    //        dispatch(saveId(id))  
     
-    }
+    // }
 
     
 
@@ -27,7 +27,7 @@ const Card = ({image,id, price}) => {
             <Link to={`/moviesdetail/${id}`}>
             <img src={image} className={style.image}/>
         </Link>
-        <button className={style.agg} onClick={handleclick} >{price} - Agregar al Carrito</button>
+        <button className={style.agg}  >{price} - Agregar al Carrito</button>
         </div>
     )
 }
