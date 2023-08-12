@@ -158,7 +158,7 @@ const Movies = () => {
             
             <Card key={index} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
           ))}
-          {movies.length == 0 && <Loading/>}
+          {movies?.length == 0 && <Loading/>}
          </div>
          
         <div >

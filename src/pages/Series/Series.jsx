@@ -161,7 +161,7 @@ const Series = () => {
             series?.map((element, index) => (
               <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name}/>
           ))}
-          {series.length == 0 && <Loading/>}
+          {series?.length == 0 && <Loading/>}
         </div>
         <div >
           
