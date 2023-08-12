@@ -52,7 +52,7 @@ const links = [
 
   const cerrarSesion = () => {
     localStorage.clear()
-    // dispatch(bloquearAcceso())
+    dispatch(bloquearAcceso())
   }
 
   let nombre = localStorage.getItem('name')

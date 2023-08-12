@@ -8,8 +8,8 @@ import store from './redux/store';
 // Import all of Bootstrap's CSS
 
 
-//axios.defaults.baseURL = "http://localhost:3001"  
-axios.defaults.baseURL = "https://movieplay.onrender.com/"
+axios.defaults.baseURL = "http://localhost:3001"  
+// axios.defaults.baseURL = "https://movieplay.onrender.com/"
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>

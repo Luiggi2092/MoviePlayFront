@@ -55,7 +55,8 @@ const initialState = {
      idSavesMovies: savedIdSaves,
      savedProductsMovies: moviesSaved,
      savedProductsSeries: seriesSaved,
-     idSavesSeries: savedIdSeries
+     idSavesSeries: savedIdSeries,
+     Acceso: ''
 
 }
 
@@ -147,6 +148,16 @@ const rootReducer =(state = initialState,action)=> {
                   savedProductsSeries: newSavedProducts,
                 };
               }
+        case ACCESO:
+            return {
+            ...state,
+            Acceso: action.payload
+        }
+        case BLOQUEAR_ACCESO:
+            return {
+            ...state,
+            Acceso: ''
+        }
 
         default:
             return {...state}

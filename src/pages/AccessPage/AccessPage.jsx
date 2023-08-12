@@ -120,13 +120,21 @@ const AccessPage = () => {
 
         try {
 
-            const responso = await axios.post('/usuario/login', email)  
+            const responso = await axios.post('/usuario/google', email)  
+
+            console.log(responso)
 
             localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
             localStorage.setItem('email', JSON.stringify(userObject.email));
             localStorage.setItem('nombre', JSON.stringify(userObject.given_name)); 
             localStorage.setItem('name', JSON.stringify(userObject.name)); 
             localStorage.setItem('foto', JSON.stringify(userObject.picture)); 
+            localStorage.setItem('State', 'true')
+
+            setEmail('')
+            setPassword('')
+
+            dispatch(acceso('true'))
 
             redirectToHome()
 
