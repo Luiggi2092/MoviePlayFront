@@ -1,13 +1,24 @@
 import style from './card.module.css'
 import { Link } from 'react-router-dom'
+import {addToCartAndSaveDetailsSerie} from '../../redux/actions'
+import { useDispatch } from 'react-redux';
 
-const Card = (props) => {
+const Card = ({id, image, price, name}) => {
+
+  const dispatch = useDispatch()
+  const propiedades = {image, id, price , name}
+  const user = 'marcos@gmail.com'
+
+  const handleclick = () => {
+    dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 
+}
   return (
-    <Link to={`/detailSeries/${props.id}`}>
-      <div className={style.containerMax}>
-        <img src={props.image} alt="Serie Poster" />
+    <div className={style.containerMax}>
+        <Link to={`/detailSeries/${id}`}>
+        <img src={image} alt="Serie Poster" className={style.image}/>
+        </Link>
+        <button className={style.agg} onClick={handleclick}>{price} - Agregar al Carrito</button>
       </div>
-    </Link>
   );
 };
 

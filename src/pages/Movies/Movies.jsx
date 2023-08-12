@@ -4,7 +4,6 @@ import Card from '../../components/CardMovie/CardMovie';
 import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
-import { Pagination, Dropdown } from 'react-bootstrap';
 import {getGeneros} from '../../redux/actions'
 import Loading from "../../components/Loading/Loading";
 
@@ -25,13 +24,14 @@ const Movies = () => {
   useEffect(() => {
     dispatch(getGeneros())
   },[dispatch])
-
+  
+ 
 
   
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -154,9 +154,9 @@ const Movies = () => {
       </div>
       <div className={style.Container}>
         <div className={style.peliculaContainer}>
-          {movies?.map((image, index) => (
+          {movies?.map((movie, index) => (
             
-            <Card key={index} id={image.id} image={image.image} />
+            <Card key={index} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
           ))}
           {movies.length == 0 && <Loading/>}
          </div>

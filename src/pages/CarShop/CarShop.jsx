@@ -1,7 +1,10 @@
-import style from './CardShop.module.css'
+import style from './CarShop.module.css'
 import {loadStripe} from '@stripe/stripe-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
+import { fetchCartContent, addToCart, removeFromCart } from '../../redux/actions';
+// import { getCar } from '../../redux/actions';
 import axios from 'axios';
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
@@ -10,6 +13,7 @@ const CheckoutForm = () => {
 
     const stripe = useStripe()
     const elements = useElements()
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,19 +27,20 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('ruta/backEnd',{
-                id,
+            const {data} = await axios.post('http://localhost:3001/pago',{
                 amount: 10000
             });
             console.log(paymentMethod)
+            console.log(data)
         }
+
     }
 
     return(
         <form className={style.card}>
             <CardElement className={style.formControl}/>
             <button className={style.button} onClick={handleSubmit}>
-                Buy
+                Comprar
             </button>
         </form>
     )
@@ -57,19 +62,28 @@ const Pago = () => {
 
 const CardShop = () => {
 
+
     const [continuePay, setContinuePay] = useState(false)
+    const items = useSelector((state) => state.carrito)
+    const dispatch = useDispatch()
 
     const handleclick = (e) => {
         e.preventDefault()
         setContinuePay(true);
     }
 
+    useEffect(() => {
+        dispatch(fetchCartContent('marcos@gmail.com'));
+        // dispatch(removeFromCart('marcos@gmail.com', null, 15))
+      }, [dispatch]);
+
+      console.log(items)
 
     return(
         <section className={style.maxContainer}>
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {'(0)'}</p>
+                    <p className={style.textNav}>Carrito {`(0)`}</p>
                 </div>
                 <h1>aqui va el contenido</h1>
             </div>

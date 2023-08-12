@@ -12,10 +12,25 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ADD_TO_CAR,
-        REMOVE_FROM_CAR,
         ACCESO,
-        BLOQUEAR_ACCESO} from "./actions" 
+        BLOQUEAR_ACCESO,
+        ADD_TO_CART,
+        REMOVE_FROM_CART,
+        FETCH_CART_CONTENT,
+        SAVE_ID_TO_SAVES,
+        UPDATE_CART_COUNT,
+        ADD_PRODUCT_DETAILS_MOVIE,
+        ADD_PRODUCT_DETAILS_SERIE,
+        SAVE_ID_TO_SERIES
+        } from "./actions" 
+
+
+        //Para guardar en el localStorage el contador del carrito , id de series y movies
+        const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
+        const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
+        const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
 const initialState = {
      Generos: [],
@@ -34,8 +49,14 @@ const initialState = {
      tituloEpisodio: '',
      cantidadTemporadas: [],
      cantidadCapitulos: [],
-     items: [],
-     Acceso: ''
+     cartItems: [],
+     carrito:{},
+     cartCount: savedCartCount,
+     idSavesMovies: savedIdSaves,
+     savedProductsMovies: moviesSaved,
+     savedProductsSeries: seriesSaved,
+     idSavesSeries: savedIdSeries
+
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -81,30 +102,41 @@ const rootReducer =(state = initialState,action)=> {
         case DELETE_SERIE_ID: {
             return {...state, SerieID: [], UrlSerie: ''}
         }
-        case ADD_TO_CAR:
+        case ADD_TO_CART:
+            return { ...state, cartItems: action.payload };
+
+        case REMOVE_FROM_CART:
+            return { ...state, cartItems: action.payload };
+
+        case FETCH_CART_CONTENT:
+            return { ...state, carrito: action.payload };
+
+        case SAVE_ID_TO_SAVES: {
             return {
-                ...state,
-                items: [...state.items, action.payload],
-            };
-        case REMOVE_FROM_CAR:
-            return {
-                ...state,
-                items: state.items.filter(item => item.id !== action.payload),
-            };
-        case ACCESO: {
-                return {
                     ...state,
-                    Acceso: action.payload
-                }
-            }
-    
-        case BLOQUEAR_ACCESO: {
-                return {
-                    ...state,
-                    Acceso: ''
-                }
+                    idSavesMovies: action.payload,
+                };
             }
         
+        case SAVE_ID_TO_SERIES: {
+                return {
+                        ...state,
+                        idSavesSeries: action.payload,
+                    };
+                }
+        
+        case UPDATE_CART_COUNT:
+            return { ...state, cartCount: action.payload };
+
+        case ADD_PRODUCT_DETAILS_MOVIE: {
+                const newSavedProducts = [...state.savedProductsMovies, action.payload];
+                localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
+              
+                return {
+                  ...state,
+                  savedProductsMovies: newSavedProducts,
+                };
+              }
 
         default:
             return {...state}

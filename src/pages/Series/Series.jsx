@@ -40,7 +40,7 @@ const Series = () => {
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/series?page=${page}`
+    let newUrl = `http://localhost:3001/media/series?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -119,7 +119,7 @@ const Series = () => {
             <option defaultChecked hidden>Seleccionar</option>
             <option value="">Restaurar</option>
               {listaGenero?.map((gen,index)=>{
-                return <option key={index} value={gen.name}>{gen.name}</option>
+                return <option key={index} value={gen.name} >{gen.name}</option>
               })}
           </select>
         </div>
@@ -159,7 +159,7 @@ const Series = () => {
 
           {
             series?.map((element, index) => (
-              <Card key={index} id={element.id} image={element.image} />
+              <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name}/>
           ))}
           {series.length == 0 && <Loading/>}
         </div>
