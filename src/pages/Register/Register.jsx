@@ -1,72 +1,208 @@
 import style from './register.module.css'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from "axios";
+import jwt_decode from "jwt-decode";
 import validation from './validations'
-import { useState } from 'react'
-// import Footer from '../../components/Footer/Footer'
 
 const Register = () => {
 
+    const navigate = useNavigate();
+
     const [input, setInput] = useState({
-        name: '',
+        nombre: '',
+        apellido: '',
         email:'',
-        password:'',
-        confirmPassword:''
+        password:''
     })
 
     const [error, setErrors] = useState({})
 
+    const [mensajeBack, setMensajeBack] = useState('')
+    const [mensajeTrue, setMensaje] = useState(false)
+
     const handleChange = (event) =>{
         const { name, value } = event.target;
+        
         setInput({
             ...input,
             [name]: value
-         });
+        });
+
         setErrors({
             ...error,
             [name]: validation({ ...input, [name]: value })[name]
         });
     }
 
-    const handleSubmit = (event) => {
+    const redirectToHome = () => {
+        setTimeout(() => {
+            navigate('/home')
+        }, 1000);
+    }
+
+    function generarContrasenaAleatoria(longitud) {
+        const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+        let contrasena = "";
+      
+        for (let i = 0; i < longitud; i++) {
+          const indiceAleatorio = Math.floor(Math.random() * caracteres.length);
+          const caracterAleatorio = caracteres.charAt(indiceAleatorio);
+          contrasena += caracterAleatorio;
+        }
+      
+        return contrasena;
+    }
+      
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+
         const errorSave = validation(input)
-        if(Object.values(errorSave).length !== 0)alert("You must fullfill all the required conditions")
-        else if(!input.name || !input.email || !input.password)alert("Please complete the form")
-        else{
-            alert('User created!');
-            setInput({
-                name: '',
-                email:'',
-                password:'',
-                confirmPassword:''
-            })
+        
+        if(Object.values(errorSave).length !== 0)alert("Debes cumplir con todas las condiciones requeridas")
+        
+        else if(!input.nombre || !input.apellido || !input.email || !input.password)alert("Por favor complete el formulario")
+        
+        else {
+    
+            try {
+                const {data} = await axios.post('/usuario', input)
+
+                localStorage.setItem('email', data.email);
+                localStorage.setItem('name', data.nombre); 
+                localStorage.setItem('id', data.id);     
+                localStorage.setItem('State', 'true')
+
+                setInput({
+                    nombre: '',
+                    apellido: '',
+                    email:'',
+                    password:''
+                })
+
+                redirectToHome()
+
+            } catch (error) {
+                setMensajeBack(error.response.data.error)
+                setMensaje(true)
+                setTimeout(() => {
+                    setMensaje(false)
+                }, 5000)
+            }
         }
     }
+
+    async function handleCallbackResponse(response) {
+
+        const longitudDeseada = 10; // Cambia esto a la longitud que desees
+        const contrasenaGenerada = generarContrasenaAleatoria(longitudDeseada);
+        
+        const userObject = jwt_decode(response.credential);
+        
+        // console.log(userObject)
+
+        const datos = {
+            nombre: userObject.given_name,
+            apellido: userObject.family_name,
+            email: userObject.email,
+            password: contrasenaGenerada,
+            image: userObject.picture
+        }
+        
+        try {
+            const responso = await axios.post('/usuario', datos)
+            
+        
+            console.log(response)
+        
+            localStorage.setItem('TokenUsu', response.credential);
+            localStorage.setItem('email', userObject.email);
+            localStorage.setItem('nombre', userObject.given_name); 
+            localStorage.setItem('name', userObject.name); 
+            localStorage.setItem('foto', userObject.picture); 
+            localStorage.setItem('State', 'true') 
+        
+            
+            redirectToHome()
+        
+        } catch (error) {
+            setMensajeBack(error.response.data.error)
+            setMensaje(true)
+            setTimeout(() => {
+                setMensaje(false)
+            }, 5000)
+        }
+    }
+
+    useEffect(() => {
+        // global google
+
+        const loadGoogleSignIn = () => {
+            // Load the Google Sign-In API script
+            const script = document.createElement('script');
+            script.src = 'https://accounts.google.com/gsi/client';
+            script.async = true;
+            document.head.appendChild(script);
+      
+            // Initialize the Google Sign-In API once the script is loaded
+            script.onload = () => {
+              window.google.accounts.id.initialize({
+                client_id: "455768951489-dpmia14fe22vcrimo4fmgbtqnngab2b7.apps.googleusercontent.com",
+                callback: handleCallbackResponse
+            });
+      
+            window.google.accounts.id.renderButton(
+                document.getElementById("signInDiv"),
+                { theme: "outline", size: "large" }
+              );
+            };
+        };
+      
+        loadGoogleSignIn();
+          
+    }, [])
 
 
     return(
         <section className={style.maxContainer}>
+            
             <form className={style.divContainerTodo} onSubmit={handleSubmit} > 
-            <h2 className='h2FormAccessPage'>Ingresa tus datos</h2>
-                <label className={style.labelFormAccessPage}>Name</label>
-                <input placeholder='ENTER YOUR NAME' value={input.name} name='name' onChange={handleChange} className={style.inputFormAccessPage}/>
-                {error.name && <p className={style.error}>{error.name}</p>}
+            
+                <h2 className='h2FormAccessPage'>Ingresa tus datos</h2>
+                
+                <label className={style.labelFormAccessPage}>Nombre</label>
+                <input placeholder='Nombre' value={input.nombre} name='nombre' onChange={handleChange} className={style.inputFormAccessPage}/>
+                {error.nombre && <p className={style.error}>{error.nombre}</p>}
+                
+                <label className={style.labelFormAccessPage}>Apellido</label>
+                <input placeholder='Apellido' value={input.apellido} name='apellido' onChange={handleChange} className={style.inputFormAccessPage}/>
+                {error.apellido && <p className={style.error}>{error.apellido}</p>}
+                
                 <label className={style.labelFormAccessPage}>Email</label>
-                <input placeholder='ENTER YOUR EMAIL' value={input.email} name='email' onChange={handleChange} className={style.inputFormAccessPage}/>
+                <input placeholder='Email' value={input.email} name='email' onChange={handleChange} className={style.inputFormAccessPage}/>
                 {error.email && <p className={style.error}>{error.email}</p>}
-                <label className={style.labelFormAccessPage}>Password</label>
-                <input placeholder='ENTER YOUR PASSWORD' type='password' value={input.password} name='password' onChange={handleChange} className={style.inputFormAccessPage}/>
+                
+                <label className={style.labelFormAccessPage}>Contraseña</label>
+                <input placeholder='Contraseña' type='password' value={input.password} name='password' onChange={handleChange} className={style.inputFormAccessPage}/>
                 {error.password && <p className={style.error}>{error.password}</p>}
-                <label className={style.labelFormAccessPage}>Confirm password</label>
-                <input placeholder='CONFIRM PASSWORD' type='password' value={input.confirmPassword} name='confirmPassword' onChange={handleChange} className={style.inputFormAccessPage}/>
-                {error.confirmPassword && <p className={style.error}>{error.confirmPassword}</p>}
+                
                 <br/>
+            
                 <div className={style.form}>
-                <span className={style.labelFormAccessPage}>ENTER YOUR IMAGE {'(optional)'}</span>
-                <input className={style.file} type='file'/>
+                    <span className={style.labelFormAccessPage}>Ingrese una imagen {'(optional)'}</span>
+                    <input className={style.file} type='file'/>
                 </div>
+
+                <br/>
+                <div id="signInDiv"></div>
+
+                {
+                    mensajeTrue === true && <p className='mensajeError'>❌ Error: {mensajeBack}</p>
+                }
+                
                 <button type='submit' className={style.buttonFormAccessPage}>Registrarse</button>
             </form>            
-
-            {/* <Footer/> */}
         </section>
     )
 }
