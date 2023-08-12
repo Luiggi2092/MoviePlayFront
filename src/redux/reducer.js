@@ -137,6 +137,16 @@ const rootReducer =(state = initialState,action)=> {
                   savedProductsMovies: newSavedProducts,
                 };
               }
+            
+        case ADD_PRODUCT_DETAILS_SERIE: {
+                const newSavedProducts = [...state.savedProductsSeries, action.payload];
+                localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
+              
+                return {
+                  ...state,
+                  savedProductsSeries: newSavedProducts,
+                };
+              }
 
         default:
             return {...state}

@@ -341,17 +341,17 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 
 export const saveIdToSavesSerie = (id) => {
   return (dispatch, getState) => {
-      const state = getState();
-      const existingId = state.idSavesSeries.find((savedId) => savedId === id);
+    const state = getState();
+    const existingId = state.idSavesSeries.find((savedId) => savedId === id);
 
-      if (!existingId) {
-          const updatedIdSaves = [...state.idSavesSeries, id];
-          localStorage.setItem('idSavesSeries', JSON.stringify(updatedIdSaves));
-          dispatch({
-              type: SAVE_ID_TO_SERIES,
-              payload: updatedIdSaves,
-          });
-      }
+    if (!existingId) {
+      const updatedIdSaves = [...state.idSavesSeries, id];
+      localStorage.setItem('idSavesSeries', JSON.stringify(updatedIdSaves));
+      dispatch({
+        type: SAVE_ID_TO_SERIES,
+        payload: updatedIdSaves,
+      });
+    }
   };
 };
 

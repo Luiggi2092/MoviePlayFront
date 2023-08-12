@@ -1,14 +1,15 @@
 import style from './card.module.css'
 import { Link } from 'react-router-dom'
 import {addToCartAndSaveDetailsSerie} from '../../redux/actions'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Card = ({id, image, price, name}) => {
 
   const dispatch = useDispatch()
   const propiedades = {image, id, price , name}
   const user = 'marcos@gmail.com'
-
+  const seriesid = useSelector(state => state.idSavesSeries)
+// console.log(seriesid)
   const handleclick = () => {
     dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 
 }
