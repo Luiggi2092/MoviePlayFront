@@ -1,4 +1,5 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
+import ModalEdit from "../../ModalEditarMovie/ModalEditarMovie"
 import { useState,useEffect, useMemo } from "react";
 import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
 import style from "./MantenerMovies.module.css"
@@ -9,16 +10,27 @@ const MantenerMovies = ()=> {
    
     
   const [openModal, setOpenModal] = useState(false); 
-  const [mostrar,setMostrar] = useState(false);
+  const [openModalEdit,setOpenModalEdit] = useState(false);
+  const [mostrar,setMostrar] = useState(null);
   const [movies, setMovies] = useState([])
+  const [idpelicula,setidPelicula] = useState(0);
   const [itemsPage, setItemsPage] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
+  const [selectedRows, setSelectedRows] = useState(1);
  
 
-  const toggleBoton = () => {
-    setMostrar(!mostrar);
-  };
+  
+  const inativar =(row)=> {
+    setMostrar(row.id)
+    console.log("inactivar" + row.id)
+  }
+
+  const activar = (row)=> {
+    setMostrar(null)
+    
+    console.log("Activar" + row.id)
+  }
 
   
    const columns = useMemo(
@@ -41,17 +53,17 @@ const MantenerMovies = ()=> {
       { Header: "Accion",
           accessor: "accion",
          Cell: ({ row }) => ( // Renderiza el botón en la celda
-          <><button className={style.buttonAccion}  onClick={() => console.log('Botón presionado', row)}>Editar</button>
+          <><button className={style.buttonAccion}  onClick={()=>handleModalMovieEdit(row)}>Editar</button>
           
-          { mostrar  ? (<button className={style.buttonAccion1} onClick={()=> console.log(row)}>Desactivar</button> ):
-           (<button className={style.buttonAccion2} onClick={()=> console.log(row)}>Activar</button>)
+          { mostrar !== row.id  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
+           (<button className={style.buttonAccion2} onClick={()=>activar(row)}>Activar</button>)
             }</>
           
       )   },
       
 
      ]
-     ,[]
+     ,[mostrar]
    );
 
    const tableInstance = useTable({
@@ -111,6 +123,13 @@ const MantenerMovies = ()=> {
   }
 
 
+  const handleModalMovieEdit = (row)=> {
+    console.log(row.original.id);
+    setidPelicula(row.original.id);
+    setOpenModalEdit(!openModalEdit);
+  }
+
+
  
   const handlePreviousPage = () => {      
     if (currentPage > 1) {
@@ -130,6 +149,7 @@ const MantenerMovies = ()=> {
           <button onClick={handleModalMovie} className={style.CreateNew}>Nueva Pelicula</button>
           
          <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
+         <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula >= 1 && idpelicula}></ModalEdit>
          <br/>
          <br/>
          <div>
