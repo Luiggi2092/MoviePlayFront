@@ -24,6 +24,7 @@ export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
 export const ADD_PRODUCT_DETAILS_MOVIE = 'ADD_PRODUCT_DETAILS_MOVIE'
 export const ADD_PRODUCT_DETAILS_SERIE = 'ADD_PRODUCT_DETAILS_SERIE'
 export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
+export const BANMOVIE= 'BANMOVIE'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -376,3 +377,10 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
     });
   }
 };
+
+export const ActivaroDesactivarMovies = (id)=> {
+       return async function (dispatch){
+          const banmov = axios.put(`/disableMovies/${id}`);
+          dispatch({type: BANMOVIE, payload: banmov})          
+       }
+}

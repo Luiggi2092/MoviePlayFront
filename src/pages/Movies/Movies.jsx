@@ -31,7 +31,7 @@ const Movies = () => {
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `http://localhost:3001/media/movies?page=${page}`
+    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }

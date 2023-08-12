@@ -1,6 +1,8 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import ModalEdit from "../../ModalEditarMovie/ModalEditarMovie"
 import { useState,useEffect, useMemo } from "react";
+import {ActivaroDesactivarMovies} from  "../../../redux/actions";
+import { useDispatch} from "react-redux"
 import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
 import style from "./MantenerMovies.module.css"
 import Loading from "../../Loading/Loading";
@@ -23,7 +25,8 @@ const MantenerMovies = ()=> {
   
   const inativar =(row)=> {
     setMostrar(row.id)
-    console.log("inactivar" + row.id)
+    console.log("id de pelicula" + row.original.id);
+
   }
 
   const activar = (row)=> {
@@ -80,7 +83,7 @@ const MantenerMovies = ()=> {
 
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
