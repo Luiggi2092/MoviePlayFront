@@ -3,7 +3,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
-import { fetchCartContent } from '../../redux/actions';
+import { fetchCartContent, addToCart, removeFromCart } from '../../redux/actions';
 // import { getCar } from '../../redux/actions';
 import axios from 'axios';
 
@@ -28,7 +28,6 @@ const CheckoutForm = () => {
 
             const {id} = paymentMethod;
             const {data} = await axios.post('http://localhost:3001/pago',{
-                id,
                 amount: 10000
             });
             console.log(paymentMethod)
@@ -65,7 +64,7 @@ const CardShop = () => {
 
 
     const [continuePay, setContinuePay] = useState(false)
-    // const items = useSelector((state) => state.cartItems)
+    const items = useSelector((state) => state.carrito)
     const dispatch = useDispatch()
 
     const handleclick = (e) => {
@@ -73,11 +72,12 @@ const CardShop = () => {
         setContinuePay(true);
     }
 
-    // useEffect(() => {
-    //     dispatch(fetchCartContent('marcos@gmail.com'));
-    //   }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchCartContent('marcos@gmail.com'));
+        // dispatch(removeFromCart('marcos@gmail.com', null, 15))
+      }, [dispatch]);
 
-    //   console.log(items)
+      console.log(items)
 
     return(
         <section className={style.maxContainer}>

@@ -19,6 +19,11 @@ export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
+export const SAVE_ID_TO_SAVES = 'SAVE_ID_TO_SAVES'
+export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
+export const ADD_PRODUCT_DETAILS_MOVIE = 'ADD_PRODUCT_DETAILS_MOVIE'
+export const ADD_PRODUCT_DETAILS_SERIE = 'ADD_PRODUCT_DETAILS_SERIE'
+export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -77,8 +82,10 @@ export const postMovie = (mov) => {
 
 export const getMoviexid = (id)=> {
       return async function (dispatch){
+        if(id > 0){
         const detmovie = (await axios.get(`/media/${id}`)).data;
         dispatch({type: GET_MOVIEXID, payload : detmovie })
+        }
       }
 }
 export const getTodoFillClean = ()=> {
@@ -243,29 +250,129 @@ export const bloquearAcceso = () => {
   }
 }
 
-export const addToCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
+export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
-    const response = await axios.post('/carroCompra', { emailUsuario, idSerie, idMovie });
-    dispatch({ type: ADD_TO_CART, payload: response.data }); 
+    if(!idSerie){
+      const response = await axios.post('/carroCompra', { emailUsuario, idMovie });
+      dispatch({ type: ADD_TO_CART, payload: response.data }); 
+      const state = getState();
+        const newCartCount = state.cartCount + 1;
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
+    }
+    if(!idMovie){
+      const response = await axios.post('/carroCompra', { emailUsuario, idSerie });
+      dispatch({ type: ADD_TO_CART, payload: response.data });
+      const state = getState();
+        const newCartCount = state.cartCount + 1;
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
+      
+    }
   } catch (error) {
     console.error('Error al agregar al carrito', error);
   }
 };
 
-export const removeFromCart = (emailUsuario, idSerie, idMovie) => async dispatch => {
+export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
-    const response = await axios.delete('/carroCompra', { data: { emailUsuario, idSerie, idMovie } });
-    dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+    if(!idSerie){
+      const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idMovie}` );
+      dispatch({ type: REMOVE_FROM_CART, payload: response.data });
+      const state = getState();
+        const newCartCount = state.cart.cartCount - 1; 
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
+    }
+    if(!idMovie){
+      const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idSerie}` );
+      dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
+      const state = getState();
+        const newCartCount = state.cart.cartCount - 1; 
+        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+        localStorage.setItem('cartCount', newCartCount);
+    }
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
   }
 };
 
-export const fetchCartContent = emailUsuario => async dispatch => {
-  try {
-    const response = await axios.get('/carroCompra', { data: { emailUsuario } });
-    dispatch({ type: FETCH_CART_CONTENT, payload: response.data }); 
+export const fetchCartContent = (email) => async (dispatch) => {
+  try {    
+    const response = await axios.get(`/carroCompra?emailUsuario=${email}` );
+    dispatch({ type: FETCH_CART_CONTENT, payload: response.data.CarroCompra }); 
   } catch (error) {
     console.error('Error al obtener el contenido del carrito', error);
+  }
+};
+
+
+export const saveIdToSavesMovie = (id) => {
+  return (dispatch, getState) => {
+      const state = getState();
+      const existingId = state.idSavesMovies.find((savedId) => savedId === id);
+
+      if (!existingId) {
+          const updatedIdSaves = [...state.idSavesMovies, id];
+          localStorage.setItem('idSaves', JSON.stringify(updatedIdSaves));
+          dispatch({
+              type: SAVE_ID_TO_SAVES,
+              payload: updatedIdSaves,
+          });
+      }
+  };
+};
+
+export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
+  const state = getState();
+  const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
+
+  if (!existingProduct) {
+    dispatch(addToCart(user, null, productDetails.id));
+    dispatch(saveIdToSavesMovie(productDetails.id));
+
+    const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+    savedProducts.push(productDetails);
+    localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
+
+    dispatch({
+      type: ADD_PRODUCT_DETAILS_MOVIE,
+      payload: productDetails,
+    });
+  }
+};
+
+export const saveIdToSavesSerie = (id) => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const existingId = state.idSavesSeries.find((savedId) => savedId === id);
+
+    if (!existingId) {
+      const updatedIdSaves = [...state.idSavesSeries, id];
+      localStorage.setItem('idSavesSeries', JSON.stringify(updatedIdSaves));
+      dispatch({
+        type: SAVE_ID_TO_SERIES,
+        payload: updatedIdSaves,
+      });
+    }
+  };
+};
+
+export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
+  const state = getState();
+  const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
+
+  if (!existingProduct) {
+    dispatch(addToCart(user, productDetails.id, null));
+    dispatch(saveIdToSavesSerie(productDetails.id));
+
+    const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+    savedProducts.push(productDetails);
+    localStorage.setItem('savedSeries', JSON.stringify(savedProducts));
+
+    dispatch({
+      type: ADD_PRODUCT_DETAILS_SERIE,
+      payload: productDetails,
+    });
   }
 };

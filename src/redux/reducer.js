@@ -16,13 +16,21 @@ import {GET_GENEROS,
         BLOQUEAR_ACCESO,
         ADD_TO_CART,
         REMOVE_FROM_CART,
-        FETCH_CART_CONTENT
+        FETCH_CART_CONTENT,
+        SAVE_ID_TO_SAVES,
+        UPDATE_CART_COUNT,
+        ADD_PRODUCT_DETAILS_MOVIE,
+        ADD_PRODUCT_DETAILS_SERIE,
+        SAVE_ID_TO_SERIES
         } from "./actions" 
 
 
-        //Para guardar en el localStorage el contador del carrito y los id de movies
+        //Para guardar en el localStorage el contador del carrito , id de series y movies
         const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
         const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
+        const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
+        const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
 const initialState = {
      Generos: [],
@@ -42,7 +50,13 @@ const initialState = {
      cantidadTemporadas: [],
      cantidadCapitulos: [],
      cartItems: [],
-     Acceso: ''
+     carrito:{},
+     cartCount: savedCartCount,
+     idSavesMovies: savedIdSaves,
+     savedProductsMovies: moviesSaved,
+     savedProductsSeries: seriesSaved,
+     idSavesSeries: savedIdSeries
+
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -95,21 +109,45 @@ const rootReducer =(state = initialState,action)=> {
             return { ...state, cartItems: action.payload };
 
         case FETCH_CART_CONTENT:
-            return { ...state, cartItems: action.payload };
+            return { ...state, carrito: action.payload };
 
-        case ACCESO:
+        case SAVE_ID_TO_SAVES: {
             return {
-            ...state,
-            Acceso: action.payload
-        }
+                    ...state,
+                    idSavesMovies: action.payload,
+                };
+            }
+        
+        case SAVE_ID_TO_SERIES: {
+                return {
+                        ...state,
+                        idSavesSeries: action.payload,
+                    };
+                }
+        
+        case UPDATE_CART_COUNT:
+            return { ...state, cartCount: action.payload };
 
-        case BLOQUEAR_ACCESO:
-            return {
-            ...state,
-            Acceso: ''
-        }
-        
-        
+        case ADD_PRODUCT_DETAILS_MOVIE: {
+                const newSavedProducts = [...state.savedProductsMovies, action.payload];
+                localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
+              
+                return {
+                  ...state,
+                  savedProductsMovies: newSavedProducts,
+                };
+              }
+            
+        case ADD_PRODUCT_DETAILS_SERIE: {
+                const newSavedProducts = [...state.savedProductsSeries, action.payload];
+                localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
+              
+                return {
+                  ...state,
+                  savedProductsSeries: newSavedProducts,
+                };
+              }
+
         default:
             return {...state}
     }

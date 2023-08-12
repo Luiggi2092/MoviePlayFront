@@ -1,33 +1,35 @@
 import style from './card.module.css'
 import { Link } from 'react-router-dom'
-import useLocalStorage from '../../useLocalStorage'
-// import { updateCartCount, saveId } from '../../redux/actions'
+import {addToCartAndSaveDetailsMovie} from '../../redux/actions'
 import {useDispatch} from "react-redux"
 import {useSelector} from "react-redux"
 
-const Card = ({image,id, price}) => {
+const Card = ({image, id, price, name}) => {
+
+    const user = 'marcos@gmail.com'
 
     const dispatch = useDispatch();
-    // const savesId = useSelector(state => state.idSaves)
+    const savesId = useSelector(state => state.idSaves)
+    const contador = useSelector(state => state.cartCount)
+    const objetosdeMovies = useSelector(state => state.savedProductsMovies)
+    const propiedades = {image, id, price , name}
 
-    // const handleclick = () => {     
-    //    if(!savesId.includes(id) ){
-    //        dispatch(updateCartCount(1));
-    //    }       
-    //        dispatch(saveId(id))  
+    const handleclick = () => {
+        dispatch(addToCartAndSaveDetailsMovie(propiedades, user)) 
+    }
+
     
-    // }
 
-    
-
-    // console.log(savesId)
+    console.log(savesId)
+    console.log(contador)
+    console.log(objetosdeMovies)
 
     return(
         <div className={style.containerMax}>
             <Link to={`/moviesdetail/${id}`}>
             <img src={image} className={style.image}/>
         </Link>
-        <button className={style.agg}  >{price} - Agregar al Carrito</button>
+        <button className={style.agg}  onClick={handleclick}>{price} - Agregar al Carrito</button>
         </div>
     )
 }
