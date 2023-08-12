@@ -5,8 +5,12 @@
     margin: 20px 10px;
 }
 
-img{
+.image{
     width: 216px;
     height: 276px;
     background-size: cover
+}
+
+.agg{
+    font-size: 15px;
 }
