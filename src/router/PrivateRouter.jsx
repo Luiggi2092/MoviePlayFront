@@ -1,11 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom"
 
 
-const PrivateRouter =  ({user, children, redirectPath = '/login'}) => {
+const PrivateRouter =  ({children, redirectPath = '/login'}) => {
 
     const acceso = localStorage.getItem('State')
 
-    if(user === 'true' || acceso) {
+
+    if(acceso) {
         return children ? children : <Outlet/>
     }
     

@@ -13,7 +13,6 @@ const Navbar = ({ isScrolled }) => {
 
   const cartCount = useSelector((state) => state.cartCount)
 
-
 const [busqueda,setbusqueda] = useState({
        search:""
 }); 
@@ -53,8 +52,11 @@ const links = [
 
   const cerrarSesion = () => {
     localStorage.clear()
-    dispatch(bloquearAcceso())
+    // dispatch(bloquearAcceso())
   }
+
+  let nombre = localStorage.getItem('name')
+  let foto = localStorage.getItem('foto')
 
   return (
 
@@ -89,6 +91,8 @@ const links = [
       <FaShoppingCart />
       <span className="cart-count">{'('}{cartCount}{')'}</span>
   </Link>
+  <p>{nombre}</p>
+  <img src={foto} alt="" />
   <Link to='/'>
     <button onClick={cerrarSesion}>Cerrar Sesion</button>
   </Link>

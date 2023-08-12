@@ -20,11 +20,11 @@ const Landing = () => {
 
   const navigate = useNavigate();
   const clickHandler = () => {
-    navigate("/login");
+    navigate("/home");
   };
 
   const registerHandler = () => {
-    navigate("/registro");
+    navigate("/register");
   };
 
 

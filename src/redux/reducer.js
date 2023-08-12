@@ -42,6 +42,7 @@ const initialState = {
      cantidadTemporadas: [],
      cantidadCapitulos: [],
      cartItems: [],
+     Acceso: ''
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -95,6 +96,18 @@ const rootReducer =(state = initialState,action)=> {
 
         case FETCH_CART_CONTENT:
             return { ...state, cartItems: action.payload };
+
+        case ACCESO:
+            return {
+            ...state,
+            Acceso: action.payload
+        }
+
+        case BLOQUEAR_ACCESO:
+            return {
+            ...state,
+            Acceso: ''
+        }
         
         
         default:

@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from 'sweetalert2'
 
+
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_MEDIA = "GET_MEDIA";
 export const GET_TODO = "GET_TODO";
