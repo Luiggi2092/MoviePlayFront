@@ -8,8 +8,7 @@ const Card = ({id, image, price, name}) => {
   const dispatch = useDispatch()
   const propiedades = {image, id, price , name}
   const user = 'marcos@gmail.com'
-  const seriesid = useSelector(state => state.idSavesSeries)
-// console.log(seriesid)
+  
   const handleclick = () => {
     dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 
 }
@@ -18,7 +17,7 @@ const Card = ({id, image, price, name}) => {
         <Link to={`/detailSeries/${id}`}>
         <img src={image} alt="Serie Poster" className={style.image}/>
         </Link>
-        <button className={style.agg} onClick={handleclick}>{price} - Agregar al Carrito</button>
+        <button className={style.agg} onClick={handleclick}>${price} - Agregar al Carrito</button>
       </div>
   );
 };

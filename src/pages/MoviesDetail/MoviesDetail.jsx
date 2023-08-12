@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import React, { useState,useEffect } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
-import {getMoviexid, clearMovieId} from "../../redux/actions"
+import {getMoviexid, clearMovieId, addToCartAndSaveDetailsMovie} from "../../redux/actions"
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
 import ReactPlayer from 'react-player/youtube'
@@ -11,9 +11,11 @@ import ReactPlayer from 'react-player/youtube'
 const MoviesDetail = () => {
     
       const {id} = useParams()
+      const user = 'marcos@gmail.com'
       const dispatch = useDispatch();
       const peliculaid = useSelector(state=> state.MovieId)
       const [isScrolled, setIsScrolled] = useState(false)
+      const propiedades = {image:peliculaid.image, id:+id, price:peliculaid.price , name:peliculaid.name}
 
       useEffect(()=> {
           dispatch(getMoviexid(id));
@@ -22,10 +24,9 @@ const MoviesDetail = () => {
           
     },[dispatch]) 
 
-    const handleclick = (event) => {
-        event.preventDefault()
-        addToCar(peliculaid)
 
+    const handleclick = () => {
+        dispatch(addToCartAndSaveDetailsMovie(propiedades, user)) 
     }
 
     window.onscroll = () => {
@@ -69,7 +70,7 @@ const MoviesDetail = () => {
                 </section>
 
                 <div className={style.botonContainer}>
-                    <button onClick={handleclick}>${peliculaid.price}</button>
+                    <button onClick={handleclick}>${peliculaid.price} - Agregar al carrito</button>
                 </div>
                 
             </div>
