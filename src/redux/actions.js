@@ -81,8 +81,10 @@ export const postMovie = (mov) => {
 
 export const getMoviexid = (id)=> {
       return async function (dispatch){
+        if(id > 0){
         const detmovie = (await axios.get(`/media/${id}`)).data;
         dispatch({type: GET_MOVIEXID, payload : detmovie })
+        }
       }
 }
 export const getTodoFillClean = ()=> {
