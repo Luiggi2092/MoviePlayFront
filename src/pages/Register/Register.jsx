@@ -116,11 +116,11 @@ const Register = () => {
         
             console.log(response)
         
-            localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
-            localStorage.setItem('email', JSON.stringify(userObject.email));
-            localStorage.setItem('nombre', JSON.stringify(userObject.given_name)); 
-            localStorage.setItem('name', JSON.stringify(userObject.name)); 
-            localStorage.setItem('foto', JSON.stringify(userObject.picture)); 
+            localStorage.setItem('TokenUsu', response.credential);
+            localStorage.setItem('email', userObject.email);
+            localStorage.setItem('nombre', userObject.given_name); 
+            localStorage.setItem('name', userObject.name); 
+            localStorage.setItem('foto', userObject.picture); 
             localStorage.setItem('State', 'true') 
         
             
