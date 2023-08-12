@@ -1,11 +1,14 @@
 import { Navigate, Outlet } from "react-router-dom"
+import { useSelector} from "react-redux"
 
 
-const PrivateRouter =  ({user, children, redirectPath = '/login'}) => {
+const PrivateRouter =  ({children, redirectPath = '/login'}) => {
 
     const acceso = localStorage.getItem('State')
+    const boolian = useSelector(state => state.Acceso)
 
-    if(user === 'true' || acceso) {
+
+    if(boolian === 'true' || acceso) {
         return children ? children : <Outlet/>
     }
     

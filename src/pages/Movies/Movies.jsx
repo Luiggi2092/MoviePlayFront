@@ -31,7 +31,7 @@ const Movies = () => {
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -158,7 +158,7 @@ const Movies = () => {
             
             <Card key={index} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
           ))}
-          {movies.length == 0 && <Loading/>}
+          {movies?.length == 0 && <Loading/>}
          </div>
          
         <div >
