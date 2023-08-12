@@ -1,0 +1,11 @@
+.image{
+    width: 116px;
+    height: 176px;
+    background-size: cover
+}
+
+.container{
+    border: 1px solid salmon;
+    display: flex;
+    justify-content: space-between;
+}
