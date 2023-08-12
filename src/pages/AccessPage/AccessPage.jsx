@@ -1,14 +1,14 @@
 import { useState,useEffect } from 'react'
+import { useDispatch } from "react-redux"
 import './accessPage.css'
 import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import Footer from '../../components/Footer/Footer'
 import {acceso} from "../../redux/actions";
-import { useDispatch} from "react-redux"
+import axios from 'axios';
 
 const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 const passwordRegex = /^[0-9a-zA-Z]+$/
-const google="";
 
 const AccessPage = () => {
 
@@ -17,11 +17,11 @@ const AccessPage = () => {
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [formCorrecto, setFormCorrecto] = useState(false)
-    
-    const [user, setUser] = useState({})
-    const navigate = useNavigate();
+    const [mensajeBack, setMensajeBack] = useState('')
+    const [mensajeTrue, setMensaje] = useState(false)
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const validateEmail = () => {
         if (!emailRegex.test(email)) {
@@ -31,7 +31,6 @@ const AccessPage = () => {
             setEmailError(false)
         }
     }
-
     const validatePassword = () => {
         if (!passwordRegex.test(password)) {
             setPasswordError(true)
@@ -40,18 +39,25 @@ const AccessPage = () => {
             setPasswordError(false)
         }
     }
-
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
         validateEmail()
     }
-
     const onChangePassword = (e) => {
         setPassword(e.target.value)
         validatePassword()
     }
 
-    const onSubmitForm = (event) => {
+
+    const redirectToHome = () => {
+        setTimeout(() => {
+            navigate('/home')
+        }, 1000);
+    }
+
+    
+    const onSubmitForm = async (event) => {
+        
         event.preventDefault();
 
         if (email === '' || password === '' || passwordError === true || emailError === true) {
@@ -62,36 +68,80 @@ const AccessPage = () => {
             }, 5000)
         
         } else {
-            setEmail('')
-            setPassword('')
-        } 
+
+            let userGet = {
+                email,
+                password
+            }
+
+            try {
+                const {data} = await axios.post('/usuario/login', userGet)
+
+                localStorage.setItem('id', data.id);
+                localStorage.setItem('name', data.nombre);
+                localStorage.setItem('email', data.email);
+                localStorage.setItem('State', 'true')
+                
+                
+                setEmail('')
+                setPassword('')
+                
+                redirectToHome()
+            
+            } catch (error) {
+                if (error.response.data.message) {
+                    setMensajeBack(error.response.data.message)
+                    setMensaje(true)
+                    setTimeout(() => {
+                        setMensaje(false)
+                    }, 5000)
+                
+                } else {
+                    setMensajeBack(error.response.data.errors)
+                    setMensaje(true)
+                    setTimeout(() => {
+                        setMensaje(false)
+                    }, 5000)
+                }
+            }
+
+        }
     } 
 
-    const redirectToHome = () => {
-        setTimeout(() => {
-            navigate('/home')
-        }, 1000);
-    }
-
-    function handleCallbackResponse(response) {
-        // console.log("Enconded JWT ID token" + response.credential)
-        const userObject = jwt_decode(response.credential);
-        console.log(userObject)
-        // console.log(response.credential)
-        localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
-        localStorage.setItem('TypoUsu', JSON.stringify(userObject.iss)); 
-        localStorage.setItem('State', "true");     
-        dispatch(acceso('true'))
-        setUser(userObject)
-        redirectToHome()
-    }
-
-    // const redirectToGoogle = () => {
-    //     const redirectUri = encodeURIComponent('http://localhost:/redirect-from-google');
-    //     const googleAuthUrl = `https://accounts.google.com/signin/oauth?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=${redirectUri}&scope=openid%20email%20profile`;
     
-    //     window.location.href = googleAuthUrl;
-    // }; 
+
+    async function handleCallbackResponse(response) {
+        
+        const userObject = jwt_decode(response.credential);
+
+        const email = {
+            email: userObject.email
+        }
+
+        try {
+
+            const responso = await axios.post('/usuario/google', email)  
+
+            console.log(responso)
+
+            localStorage.setItem('TokenUsu', JSON.stringify(response.credential));
+            localStorage.setItem('email', JSON.stringify(userObject.email));
+            localStorage.setItem('nombre', JSON.stringify(userObject.given_name)); 
+            localStorage.setItem('name', JSON.stringify(userObject.name)); 
+            localStorage.setItem('foto', JSON.stringify(userObject.picture)); 
+            localStorage.setItem('State', 'true')
+
+            setEmail('')
+            setPassword('')
+
+            dispatch(acceso('true'))
+
+            redirectToHome()
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
         // global google
@@ -118,6 +168,7 @@ const AccessPage = () => {
         };
       
         loadGoogleSignIn();
+        // google.accounts.id.prompt();
           
     }, [])
     
@@ -167,6 +218,10 @@ const AccessPage = () => {
 
                 {
                     formCorrecto === true && <p className='mensajeError'>❌ Error: Revise el formulario</p>
+                }
+
+                {
+                    mensajeTrue === true && <p className='mensajeError'>❌ Error: {mensajeBack}</p>
                 }
 
                     
