@@ -2,7 +2,7 @@ import style from './CardHome.module.css'
 import cardMovie from "../../components/CardMovie/CardMovie"
 import { Link } from 'react-router-dom'
 
-const CardHome = ({image,id,tipo}) => {
+const CardHome = ({image,id,tipo, price}) => {
 
      console.log(tipo);
 

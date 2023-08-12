@@ -62,12 +62,12 @@ const Home = () => {
           
          {buq.length > 0 ? buq.map(( hom, index ) => (
           hom.tipo == "Pelicula" ?
-          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />:
-          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo}/>
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>
           )) : listaTodo?.map(( hom, index ) => (
             hom.tipo == "Pelicula" ?
-          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} />:
-          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo}/>
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>
           )).slice(0,cantCard)}
           {listaTodo.length == 0 && <Loading/>}
             

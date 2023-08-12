@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch,useSelector} from "react-redux"
-import {getSeriesID, deleteSerieId, getSeriesTempCat} from "../../redux/actions";
+import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie} from "../../redux/actions";
 import ReactPlayer from 'react-player/youtube'
 
 import style from './seriedetail.module.css'
@@ -15,6 +15,7 @@ const SerieDetail = () => {
     const dispatch = useDispatch();
      
     const {id} = useParams()
+    const user = 'marcos@gmail.com'
 
     const [temporadaSelect, setTemporadaSelect] = useState(1)
     const [capituloSelect, setCapituloSelect] = useState(1)
@@ -26,9 +27,9 @@ const SerieDetail = () => {
     // const temporada = useSelector(state => state.temporadaSerie)
     // const capitulo = useSelector(state => state.catipuloSerie)
     const tituloepi = useSelector(state => state.tituloEpisodio)
-
     const cantidadTemporada = useSelector(state => state.cantidadTemporadas)
     const capitulo = useSelector(state => state.cantidadCapitulos)
+    const propiedades = {id:+id, image:serie.image, price:serie.price, name:serie.titulo}
 
  
     const [isScrolled, setIsScrolled] = useState(false)
@@ -43,6 +44,10 @@ const SerieDetail = () => {
 
     const handleCapitulo = (event) => {
         setCapituloSelect(event.target.value)
+    }
+
+    const handleclick = () => {
+        dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 
     }
 
     useEffect(() => {
@@ -99,7 +104,7 @@ const SerieDetail = () => {
                 </section>
 
                 <div className={style.botonContainer}>
-                    <button>${serie?.price}</button>
+                    <button onClick={handleclick}>${serie?.price} - Agregar al carrito</button>
                 </div>
                 
             </div>

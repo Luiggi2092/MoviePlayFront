@@ -29,7 +29,7 @@ const Card = ({image, id, price, name}) => {
             <Link to={`/moviesdetail/${id}`}>
             <img src={image} className={style.image}/>
         </Link>
-        <button className={style.agg}  onClick={handleclick}>{price} - Agregar al Carrito</button>
+        <button className={style.agg}  onClick={handleclick}>${price} - Agregar al Carrito</button>
         </div>
     )
 }
