@@ -57,7 +57,7 @@ const links = [
 
   let nombre = localStorage.getItem('name')
   let foto = localStorage.getItem('foto')
-
+ console.log(foto)
   return (
 
 <main>
