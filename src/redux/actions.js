@@ -21,6 +21,8 @@ export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
 export const SAVE_ID_TO_SAVES = 'SAVE_ID_TO_SAVES'
 export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
 export const ADD_PRODUCT_DETAILS_MOVIE = 'ADD_PRODUCT_DETAILS_MOVIE'
+export const ADD_PRODUCT_DETAILS_SERIE = 'ADD_PRODUCT_DETAILS_SERIE'
+export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -254,7 +256,8 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
         const newCartCount = state.cartCount + 1;
         dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
         localStorage.setItem('cartCount', newCartCount);
-    }else{
+    }
+    if(!idMovie){
       const response = await axios.post('/carroCompra', { emailUsuario, idSerie });
       dispatch({ type: ADD_TO_CART, payload: response.data });
       const state = getState();
@@ -277,7 +280,8 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatc
         const newCartCount = state.cart.cartCount - 1; 
         dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
         localStorage.setItem('cartCount', newCartCount);
-    }else{
+    }
+    if(!idMovie){
       const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idSerie}` );
       dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
       const state = getState();
@@ -330,6 +334,41 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 
     dispatch({
       type: ADD_PRODUCT_DETAILS_MOVIE,
+      payload: productDetails,
+    });
+  }
+};
+
+export const saveIdToSavesSerie = (id) => {
+  return (dispatch, getState) => {
+      const state = getState();
+      const existingId = state.idSavesSeries.find((savedId) => savedId === id);
+
+      if (!existingId) {
+          const updatedIdSaves = [...state.idSavesSeries, id];
+          localStorage.setItem('idSavesSeries', JSON.stringify(updatedIdSaves));
+          dispatch({
+              type: SAVE_ID_TO_SERIES,
+              payload: updatedIdSaves,
+          });
+      }
+  };
+};
+
+export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
+  const state = getState();
+  const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
+
+  if (!existingProduct) {
+    dispatch(addToCart(user, productDetails.id, null));
+    dispatch(saveIdToSavesSerie(productDetails.id));
+
+    const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+    savedProducts.push(productDetails);
+    localStorage.setItem('savedSeries', JSON.stringify(savedProducts));
+
+    dispatch({
+      type: ADD_PRODUCT_DETAILS_SERIE,
       payload: productDetails,
     });
   }

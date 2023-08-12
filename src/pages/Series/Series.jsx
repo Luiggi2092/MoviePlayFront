@@ -119,7 +119,7 @@ const Series = () => {
             <option defaultChecked hidden>Seleccionar</option>
             <option value="">Restaurar</option>
               {listaGenero?.map((gen,index)=>{
-                return <option key={index} value={gen.name}>{gen.name}</option>
+                return <option key={index} value={gen.name} >{gen.name}</option>
               })}
           </select>
         </div>
@@ -159,7 +159,7 @@ const Series = () => {
 
           {
             series?.map((element, index) => (
-              <Card key={index} id={element.id} image={element.image} />
+              <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name}/>
           ))}
           {series.length == 0 && <Loading/>}
         </div>

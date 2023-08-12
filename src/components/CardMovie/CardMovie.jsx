@@ -4,7 +4,7 @@ import {addToCartAndSaveDetailsMovie} from '../../redux/actions'
 import {useDispatch} from "react-redux"
 import {useSelector} from "react-redux"
 
-const Card = ({image, id, price, name, Genres}) => {
+const Card = ({image, id, price, name}) => {
 
     const user = 'marcos@gmail.com'
 
@@ -12,7 +12,7 @@ const Card = ({image, id, price, name, Genres}) => {
     const savesId = useSelector(state => state.idSaves)
     const contador = useSelector(state => state.cartCount)
     const objetosdeMovies = useSelector(state => state.savedProductsMovies)
-    const propiedades = {image, id, price , name, Genres}
+    const propiedades = {image, id, price , name}
 
     const handleclick = () => {
         dispatch(addToCartAndSaveDetailsMovie(propiedades, user)) 
