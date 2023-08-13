@@ -7,7 +7,7 @@ const Card = ({id, image, price, name}) => {
 
   const dispatch = useDispatch()
   const propiedades = {image, id, price , name}
-  const user = 'marcos@gmail.com'
+  const user = localStorage.getItem('email')
   
   const handleclick = () => {
     dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 

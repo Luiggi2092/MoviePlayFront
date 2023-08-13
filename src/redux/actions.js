@@ -25,7 +25,9 @@ export const ADD_PRODUCT_DETAILS_MOVIE = 'ADD_PRODUCT_DETAILS_MOVIE'
 export const ADD_PRODUCT_DETAILS_SERIE = 'ADD_PRODUCT_DETAILS_SERIE'
 export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
 export const BANMOVIE= 'BANMOVIE'
-const user = 'marcos@gmail.com'
+export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE'
+export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE'
+const user = localStorage.getItem('email')
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -368,8 +370,11 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatc
       localStorage.setItem('cartCount', newCartCount);
       const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
       const updatedSavedProducts = savedProducts.filter(product => product.id !== idMovie);
-      localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));
-        
+      if(updatedSavedProducts !== []){
+        localStorage.removeItem('savedProducts');
+        const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        localStorage.setItem('savedProducts',JSON.stringify(updatedSavedProducts)) ;
+      }        
     }
     if(!idMovie){
       const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idSerie=${idSerie}` );
@@ -378,9 +383,13 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatc
         const newCartCount = state.cartCount - 1; 
         dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
         localStorage.setItem('cartCount', newCartCount);
-        // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
-        // const updatedSavedProducts = savedProducts.filter(product => product.id !== idSerie);
-        // localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));
+        const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+        const updatedSavedProducts = savedProducts.filter(product => product.id !== idSerie);
+        if(updatedSavedProducts !== []){
+          localStorage.removeItem('savedSeries');
+          const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+          localStorage.setItem('savedSeries',JSON.stringify(updatedSavedProducts)) ;
+        } 
     }
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
@@ -397,32 +406,25 @@ export const fetchCartContent = (email) => async (dispatch) => {
   }
 };
 
-export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch, getState) => {
+export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, null, productId)); // Remover el producto del carrito
-    
-    const state = getState();
-    const updatedSavedProducts = state.savedProductsMovies.filter(product => product.id !== productId);
-    localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts)); // Actualizar LocaleStore    
+    await dispatch(removeFromCart(user, null, productId));   
     dispatch({
-      type: ADD_PRODUCT_DETAILS_MOVIE,
-      payload: updatedSavedProducts,
+      type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
+      payload: productId,
     });
   } catch (error) {
     console.error('Error al eliminar producto', error);
   }
 };
 
-export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch, getState) => {
+export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, productId, null)); // Remover el producto del carrito
-
-    const state = getState();
-    const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
-    localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts)); // Actualizar LocalStorage
+    await dispatch(removeFromCart(user, productId, null)); 
+    
     dispatch({
-      type: REMOVE_FROM_CART,
-      payload: updatedSavedProducts,
+      type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
+      payload: productId,
     });
   } catch (error) {
     console.error('Error al eliminar producto', error);

@@ -40,7 +40,7 @@ const Series = () => {
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/series?page=${page}`
+    let newUrl = `http://localhost:3001/media/series?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -106,7 +106,7 @@ const Series = () => {
     <section className={style.containerMax}>
       <Navbar isScrolled={isScrolled} /> 
       
-      <h1>Todas las series</h1>
+      <h1 className={style.texto}>Todas las series</h1>
       
       <div className={style.filters}>
         
