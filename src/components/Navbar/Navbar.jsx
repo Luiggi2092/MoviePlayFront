@@ -16,6 +16,10 @@ const Navbar = ({ isScrolled }) => {
 
   const isAdmin = useSelector((state) => state.isAdmin); // Cambia esto según tu estado actual
 
+
+  const nombre = localStorage.getItem('name')
+  const foto = localStorage.getItem('foto')
+
   const links = [
     { name: 'Home', link: '/home', icon: <FiHome /> },
     { name: 'Peliculas', link: '/peliculas', icon: <FiFilm /> },
@@ -85,11 +89,17 @@ const Navbar = ({ isScrolled }) => {
           </Link>
           <span className="cart-count">{'('}{cartCount}{')'}</span>
         </div>
+        <div>
+          <h5 className='nav-name'>{nombre}</h5>
+          <img src={foto} alt="" className='logo' />
+        </div>
         <div className={`nav-item profile ${showProfileMenu ? 'active' : ''}`} onClick={toggleProfileMenu}>
           <FiUser />
           <div className={`profile-menu ${showProfileMenu ? 'show' : ''}`}>
             <Link to="/profile" >Perfil</Link>
+            <Link to='/'> 
             <button onClick={cerrarSesion}>Cerrar Sesion</button>
+            </Link>
           </div>
         </div>
       </div>
@@ -98,7 +108,6 @@ const Navbar = ({ isScrolled }) => {
 };
 
 export default Navbar;
-
 
 
 

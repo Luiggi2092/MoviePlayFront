@@ -141,7 +141,7 @@ const Slider = styled.div`
        min-width: 100%;
        overflow: hidden;
        transition: .3s ease all;
-       z-index: 10;
+    //    z-index: 10;
        max-height: 500px;
        position: relative;
 
