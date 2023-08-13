@@ -108,8 +108,6 @@ const AccessPage = () => {
         }
     } 
 
-    
-
     async function handleCallbackResponse(response) {
         
         const userObject = jwt_decode(response.credential);

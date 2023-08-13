@@ -114,7 +114,6 @@ const Register = () => {
             const responso = await axios.post('/usuario', datos)
             
         
-            console.log(response)
         
             localStorage.setItem('TokenUsu', response.credential);
             localStorage.setItem('email', userObject.email);

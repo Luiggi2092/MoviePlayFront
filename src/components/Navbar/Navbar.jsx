@@ -106,14 +106,12 @@ const links = [
         </Link>
 
         <div className='usuario'>
-          <p className='NombreUser'>{nombre}</p>
-          <img src={foto} alt='' className='imgUser' />
+            <p className='NombreUser'>{nombre}</p>
+            <img src={foto} alt='' className='imgUser' />
         </div>
-      
         <Link to='/'>
-          <button className='buttonCerreSesionNav' onClick={cerrarSesion}>Cerrar Sesion</button>
-        </Link>
-    
+              <button className='buttonCerreSesionNav' onClick={cerrarSesion}>Cerrar Sesion</button>
+            </Link>
       </div>
       
     </nav>
