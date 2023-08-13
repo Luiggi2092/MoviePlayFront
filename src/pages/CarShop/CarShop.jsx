@@ -70,6 +70,7 @@ const CardShop = () => {
     const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     const contador = useSelector((state) => state.cartCount)
     const dispatch = useDispatch()
+    const user = 'marcos@gmail.com'
 
     const handleclick = (e) => {
         e.preventDefault()
@@ -77,7 +78,7 @@ const CardShop = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchCartContent('marcos@gmail.com'));
+        dispatch(fetchCartContent(user));
       }, [dispatch]);
 
 

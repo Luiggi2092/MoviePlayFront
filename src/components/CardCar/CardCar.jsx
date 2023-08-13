@@ -1,5 +1,5 @@
 import style from './CardCar.module.css'
-import { removeFromCartAndRemoveDetailsSerie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions'
+import { removeFromCartAndRemoveDetailsSerie, removeFromCart} from '../../redux/actions'
 import { useDispatch } from 'react-redux'
 
 const CardCar = (props) => {
@@ -11,7 +11,7 @@ const CardCar = (props) => {
             dispatch(removeFromCartAndRemoveDetailsSerie(props.id))            
         }
         if(props.tipo === 'movie'){
-            dispatch(removeFromCartAndRemoveDetailsMovie(props.id))
+            dispatch(removeFromCart(user, null, props.id))
         }
 
     }

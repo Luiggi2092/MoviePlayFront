@@ -21,7 +21,8 @@ import {GET_GENEROS,
         UPDATE_CART_COUNT,
         ADD_PRODUCT_DETAILS_MOVIE,
         ADD_PRODUCT_DETAILS_SERIE,
-        SAVE_ID_TO_SERIES
+        SAVE_ID_TO_SERIES,
+        REMOVE_FROM_CART_LS
         } from "./actions" 
 
 
@@ -106,36 +107,17 @@ const rootReducer =(state = initialState,action)=> {
         case ADD_TO_CART:
             return { ...state, cartItems: action.payload };
 
-        case REMOVE_FROM_CART:
-            const productIdToRemove = action.payload;
-  
-            const updatedMovies = state.savedProductsMovies.filter(movie => movie.id !== productIdToRemove);
-            const updatedSeries = state.savedProductsSeries.filter(serie => serie.id !== productIdToRemove);
-            localStorage.setItem('savedSeries', JSON.stringify(updatedSeries))
-            localStorage.setItem('savedProducts', JSON.stringify(updatedMovies))
-          
-            return {
-              ...state,
-              savedProductsMovies: updatedMovies,
-              savedProductsSeries: updatedSeries,
-            };
-
         case FETCH_CART_CONTENT:
             return { ...state, carrito: action.payload };
 
-        case SAVE_ID_TO_SAVES: {
-            return {
-                    ...state,
-                    idSavesMovies: action.payload,
-                };
-            }
+        case SAVE_ID_TO_SAVES: 
+            return {...state, idSavesMovies: action.payload};            
+
+        case REMOVE_FROM_CART_LS:
+                return {...state, savedProductsMovies: action.payload};          
         
-        case SAVE_ID_TO_SERIES: {
-                return {
-                        ...state,
-                        idSavesSeries: action.payload,
-                    };
-                }
+        case SAVE_ID_TO_SERIES: 
+                return {...state, idSavesSeries: action.payload}               
         
         case UPDATE_CART_COUNT:
             return { ...state, cartCount: action.payload };
@@ -144,20 +126,14 @@ const rootReducer =(state = initialState,action)=> {
                 const newSavedProducts = [...state.savedProductsMovies, action.payload];
                 localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
               
-                return {
-                  ...state,
-                  savedProductsMovies: newSavedProducts,
-                };
+                return {...state, savedProductsMovies: newSavedProducts };
               }
             
         case ADD_PRODUCT_DETAILS_SERIE: {
                 const newSavedProducts = [...state.savedProductsSeries, action.payload];
                 localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
               
-                return {
-                  ...state,
-                  savedProductsSeries: newSavedProducts,
-                };
+                return { ...state, savedProductsSeries: newSavedProducts };
               }
         case ACCESO:
             return {
