@@ -1,19 +1,28 @@
 import style from './CardCar.module.css'
 import { removeFromCartAndRemoveDetailsSerie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions'
-import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch , useSelector} from 'react-redux'
 
+
+const reload = () => {
+    window.location.reload(true);
+}
 const CardCar = (props) => {
 
     const dispatch = useDispatch()
 
+
     const handleClick = () => {
         if(props.tipo === 'serie'){
-            dispatch(removeFromCartAndRemoveDetailsSerie(props.id))            
+
+                dispatch(removeFromCartAndRemoveDetailsSerie(props.id))           
+
         }
         if(props.tipo === 'movie'){
-            dispatch(removeFromCartAndRemoveDetailsMovie(props.id))
-        }
 
+                dispatch(removeFromCartAndRemoveDetailsMovie(props.id))
+        }
+        // reload()
     }
 
     return(
