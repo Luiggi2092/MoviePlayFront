@@ -9,6 +9,10 @@ import axios from 'axios';
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
 
+const reload = () => {
+    window.location.reload(true);
+}
+
 const CheckoutForm = () => {
 
     const stripe = useStripe()
@@ -51,6 +55,11 @@ const CheckoutForm = () => {
               });
             console.log(paymentMethod)
             console.log(data)
+            localStorage.removeItem('savedProducts');
+            localStorage.removeItem('savedSeries');
+            localStorage.setItem('cartCount', 0)
+            alert('Pago relizado correctamente')
+            reload()
         }
 
     }
