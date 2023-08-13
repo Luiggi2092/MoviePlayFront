@@ -23,6 +23,16 @@ body {
         border-radius: none;
 }
 
+.allmovies{
+    font-size: 50px;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+}
+
 .filters div span{
 font-family: Inter;
     font-size: 20px;
