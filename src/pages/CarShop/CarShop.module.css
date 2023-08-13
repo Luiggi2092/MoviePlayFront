@@ -79,3 +79,9 @@
     align-items: center;
     height: 300px;
   }
+
+  .textSubmit{
+    color:  white;
+    font-weight: 700;
+    font-size: 30px;
+  }

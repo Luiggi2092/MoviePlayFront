@@ -20,17 +20,18 @@ const CheckoutForm = () => {
 
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
-            card: elements?.getElement(CardElement)
+            card: elements.getElement(CardElement)
 
         })
 
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('http://localhost:3001/pago',{
-                amount: 10000,
-                payment_method:id
-            });
+            const {data} = await axios.post('http://localhost:3001/api/checkout',{
+                  amount: 10000, 
+                  id: id,
+                  description:'pago de prueba'
+              });
             console.log(paymentMethod)
             console.log(data)
         }
@@ -69,7 +70,25 @@ const CardShop = () => {
     const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
     const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     const contador = useSelector((state) => state.cartCount)
+    const carrito = useSelector(state => state.carrito)
     const dispatch = useDispatch()
+    const user = 'marcos@gmail.com'
+    let allMoviesPrice = null
+    let allSeriesPrice = null
+
+    const calculateTotalPrice = (array) => {
+        return array.reduce((total, item) => total + item.price, 0);
+      };
+
+    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
+        allMoviesPrice = calculateTotalPrice(moviesLocalStorage);
+      }
+      
+      if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
+        allSeriesPrice = calculateTotalPrice(seriesLocalStorage);
+      }
+
+      console.log
 
     const handleclick = (e) => {
         e.preventDefault()
@@ -77,13 +96,15 @@ const CardShop = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchCartContent('marcos@gmail.com'));
+        dispatch(fetchCartContent(user));
       }, [dispatch]);
 
+      
 
-      let series = null; // Initialize as null
-    if (seriesLocalStorage) {
-        series = seriesLocalStorage.map(serie => {
+
+      let series = null;
+    if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
+        series = seriesLocalStorage?.map(serie => {
             const uniqueKey = `${serie.id}_${serie.tipo}`;
             return (
                 <CardCar
@@ -98,9 +119,9 @@ const CardShop = () => {
         });
     }
 
-    let movies = null; // Initialize as null
-    if (moviesLocalStorage) {
-        movies = moviesLocalStorage.map(movie => {
+    let movies = null;
+    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
+        movies = moviesLocalStorage?.map(movie => {
             const uniqueKey = `${movie.id}_${movie.tipo}`;
             return (
                 <CardCar
