@@ -20,7 +20,7 @@ const CheckoutForm = () => {
 
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
-            card: elements?.getElement(CardElement)
+            card: elements.getElement(CardElement)
 
         })
 
@@ -28,9 +28,10 @@ const CheckoutForm = () => {
 
             const {id} = paymentMethod;
             const {data} = await axios.post('http://localhost:3001/pago',{
-                amount: 10000,
-                payment_method:id
-            });
+                  amount: 10000, 
+                  payment_method: id,
+                  type:'card'
+              });
             console.log(paymentMethod)
             console.log(data)
         }
@@ -69,6 +70,7 @@ const CardShop = () => {
     const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
     const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     const contador = useSelector((state) => state.cartCount)
+    const carrito = useSelector(state => state.carrito)
     const dispatch = useDispatch()
     const user = 'marcos@gmail.com'
 
@@ -81,10 +83,12 @@ const CardShop = () => {
         dispatch(fetchCartContent(user));
       }, [dispatch]);
 
+      console.log(carrito)
 
-      let series = null; // Initialize as null
-    if (seriesLocalStorage) {
-        series = seriesLocalStorage.map(serie => {
+
+      let series = null;
+    if (carrito.Series) {
+        series = carrito.Series.map(serie => {
             const uniqueKey = `${serie.id}_${serie.tipo}`;
             return (
                 <CardCar
@@ -99,9 +103,9 @@ const CardShop = () => {
         });
     }
 
-    let movies = null; // Initialize as null
-    if (moviesLocalStorage) {
-        movies = moviesLocalStorage.map(movie => {
+    let movies = null;
+    if (carrito.Multimedia) {
+        movies = carrito.Multimedia.map(movie => {
             const uniqueKey = `${movie.id}_${movie.tipo}`;
             return (
                 <CardCar

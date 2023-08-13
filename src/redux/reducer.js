@@ -22,7 +22,8 @@ import {GET_GENEROS,
         ADD_PRODUCT_DETAILS_MOVIE,
         ADD_PRODUCT_DETAILS_SERIE,
         SAVE_ID_TO_SERIES,
-        REMOVE_FROM_CART_LS
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE
         } from "./actions" 
 
 
@@ -111,10 +112,7 @@ const rootReducer =(state = initialState,action)=> {
             return { ...state, carrito: action.payload };
 
         case SAVE_ID_TO_SAVES: 
-            return {...state, idSavesMovies: action.payload};            
-
-        case REMOVE_FROM_CART_LS:
-                return {...state, savedProductsMovies: action.payload};          
+            return {...state, idSavesMovies: action.payload};                   
         
         case SAVE_ID_TO_SERIES: 
                 return {...state, idSavesSeries: action.payload}               
@@ -128,12 +126,38 @@ const rootReducer =(state = initialState,action)=> {
               
                 return {...state, savedProductsMovies: newSavedProducts };
               }
+
+        case REMOVE_FROM_CART: 
+        return {...state, savedProductsMovies:action.payload}
             
         case ADD_PRODUCT_DETAILS_SERIE: {
                 const newSavedProducts = [...state.savedProductsSeries, action.payload];
                 localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
               
                 return { ...state, savedProductsSeries: newSavedProducts };
+              }
+        case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
+                const productId = action.payload;
+                const updatedSavedProducts = state.savedProductsMovies.filter(product => product.id !== productId);
+                localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));
+          
+                return {
+                  ...state,
+                  savedProductsMovies: updatedSavedProducts,
+                  savedProductsSeries: state.savedProductsSeries.filter(product => product.id !== productId),
+                };
+              }
+          
+        case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
+                const productId = action.payload;
+                const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
+                localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));
+          
+                return {
+                  ...state,
+                  savedProductsMovies: state.savedProductsMovies.filter(product => product.id !== productId),
+                  savedProductsSeries: updatedSavedProducts,
+                };
               }
         case ACCESO:
             return {

@@ -1,19 +1,32 @@
 import style from './CardCar.module.css'
-import { removeFromCartAndRemoveDetailsSerie, removeFromCart} from '../../redux/actions'
-import { useDispatch } from 'react-redux'
+import { removeFromCartAndRemoveDetailsSerie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions'
+import { useEffect } from 'react'
+import { useDispatch , useSelector} from 'react-redux'
 
+
+const reload = () => {
+    window.location.reload(false);
+}
 const CardCar = (props) => {
 
     const dispatch = useDispatch()
 
+
     const handleClick = () => {
         if(props.tipo === 'serie'){
-            dispatch(removeFromCartAndRemoveDetailsSerie(props.id))            
+
+                const updatedSavedProducts = JSON.parse(localStorage.getItem('idSavesSeries')) || [];;
+                localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts)); // Actualizar LocaleStore 
+                dispatch(removeFromCartAndRemoveDetailsSerie(props.id))           
+
         }
         if(props.tipo === 'movie'){
-            dispatch(removeFromCart(user, null, props.id))
-        }
 
+                const updatedSavedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+                localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts)); // Actualizar LocaleStore  
+                dispatch(removeFromCartAndRemoveDetailsMovie(props.id))
+        }
+        reload()
     }
 
     return(
