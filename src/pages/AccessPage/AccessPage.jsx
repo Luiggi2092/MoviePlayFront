@@ -31,6 +31,8 @@ const AccessPage = () => {
             setEmailError(false)
         }
     }
+
+
     const validatePassword = () => {
         if (!passwordRegex.test(password)) {
             setPasswordError(true)
@@ -77,6 +79,24 @@ const AccessPage = () => {
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
+                function getCookie(name) {
+                    const value = "; " + document.cookie;
+                    const parts = value.split("; " + name + "=");
+                    if (parts.length === 2) {
+                      return parts.pop().split(";").shift();
+                    }
+                  }
+                  
+                  // Leer el token de la cookie segura
+                  const token = getCookie("authToken");
+                  
+                  if (token) {
+                    // Hacer algo con el token, como enviarlo en las solicitudes de autenticación
+                    console.log("Token recuperado desde la cookie:", token);
+                  } else {
+                    console.log("Token no encontrado en la cookie");
+                  }   
+
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
                 localStorage.setItem('email', data.email);
@@ -85,7 +105,6 @@ const AccessPage = () => {
                 
                 setEmail('')
                 setPassword('')
-                
                 redirectToHome()
             
             } catch (error) {
@@ -122,7 +141,7 @@ const AccessPage = () => {
 
             const responso = await axios.post('/usuario/google', email)  
 
-            console.log(responso)
+            
 
             localStorage.setItem('TokenUsu', response.credential);
             localStorage.setItem('email', userObject.email);
