@@ -24,6 +24,7 @@ export const UPDATE_CART_COUNT = 'UPDATE_CART_COUNT'
 export const ADD_PRODUCT_DETAILS_MOVIE = 'ADD_PRODUCT_DETAILS_MOVIE'
 export const ADD_PRODUCT_DETAILS_SERIE = 'ADD_PRODUCT_DETAILS_SERIE'
 export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
+export const BANMOVIE= 'BANMOVIE'
 export const REMOVE_FROM_CART_LS = 'REMOVE_FROM_CART_LS'
 const user = 'marcos@gmail.com'
 
@@ -347,6 +348,13 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
     });
   }
 };
+
+export const ActivaroDesactivarMovies = (id)=> {
+       return async function (dispatch){
+          const banmov = axios.put(`/disableMovies/${id}`);
+          dispatch({type: BANMOVIE, payload: banmov})          
+       }
+}
 
 
 export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {

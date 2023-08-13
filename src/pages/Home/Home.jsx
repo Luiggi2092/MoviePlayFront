@@ -31,8 +31,6 @@ const Home = () => {
   },[])
 
 
-
-
   const AmpliarCards = ()=> {
     setCanCard(15);
     setShowMoreButton(false)
