@@ -27,10 +27,10 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('http://localhost:3001/pago',{
+            const {data} = await axios.post('http://localhost:3001/api/checkout',{
                   amount: 10000, 
-                  payment_method: id,
-                  type:'card'
+                  id: id,
+                  description:'pago de prueba'
               });
             console.log(paymentMethod)
             console.log(data)
@@ -73,6 +73,22 @@ const CardShop = () => {
     const carrito = useSelector(state => state.carrito)
     const dispatch = useDispatch()
     const user = 'marcos@gmail.com'
+    let allMoviesPrice = null
+    let allSeriesPrice = null
+
+    const calculateTotalPrice = (array) => {
+        return array.reduce((total, item) => total + item.price, 0);
+      };
+
+    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
+        allMoviesPrice = calculateTotalPrice(moviesLocalStorage);
+      }
+      
+      if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
+        allSeriesPrice = calculateTotalPrice(seriesLocalStorage);
+      }
+
+      console.log
 
     const handleclick = (e) => {
         e.preventDefault()
@@ -83,12 +99,12 @@ const CardShop = () => {
         dispatch(fetchCartContent(user));
       }, [dispatch]);
 
-      console.log(carrito)
+      
 
 
       let series = null;
-    if (carrito.Series) {
-        series = carrito.Series.map(serie => {
+    if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
+        series = seriesLocalStorage?.map(serie => {
             const uniqueKey = `${serie.id}_${serie.tipo}`;
             return (
                 <CardCar
@@ -104,8 +120,8 @@ const CardShop = () => {
     }
 
     let movies = null;
-    if (carrito.Multimedia) {
-        movies = carrito.Multimedia.map(movie => {
+    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
+        movies = moviesLocalStorage?.map(movie => {
             const uniqueKey = `${movie.id}_${movie.tipo}`;
             return (
                 <CardCar

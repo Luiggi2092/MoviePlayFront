@@ -5,7 +5,7 @@ import { useDispatch , useSelector} from 'react-redux'
 
 
 const reload = () => {
-    window.location.reload(false);
+    window.location.reload(true);
 }
 const CardCar = (props) => {
 
@@ -15,18 +15,14 @@ const CardCar = (props) => {
     const handleClick = () => {
         if(props.tipo === 'serie'){
 
-                const updatedSavedProducts = JSON.parse(localStorage.getItem('idSavesSeries')) || [];;
-                localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts)); // Actualizar LocaleStore 
                 dispatch(removeFromCartAndRemoveDetailsSerie(props.id))           
 
         }
         if(props.tipo === 'movie'){
 
-                const updatedSavedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
-                localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts)); // Actualizar LocaleStore  
                 dispatch(removeFromCartAndRemoveDetailsMovie(props.id))
         }
-        reload()
+        // reload()
     }
 
     return(

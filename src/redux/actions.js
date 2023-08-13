@@ -369,9 +369,11 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatc
       dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
       localStorage.setItem('cartCount', newCartCount);
       const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
-      const updatedSavedProducts = savedProducts.find(product => product.id !== idMovie);
-      if(updatedSavedProducts){
+      const updatedSavedProducts = savedProducts.filter(product => product.id !== idMovie);
+      if(updatedSavedProducts !== []){
         localStorage.removeItem('savedProducts');
+        const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        localStorage.setItem('savedProducts',JSON.stringify(updatedSavedProducts)) ;
       }        
     }
     if(!idMovie){
@@ -381,9 +383,13 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatc
         const newCartCount = state.cartCount - 1; 
         dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
         localStorage.setItem('cartCount', newCartCount);
-        // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
-        // const updatedSavedProducts = savedProducts.filter(product => product.id !== idSerie);
-        // localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));
+        const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+        const updatedSavedProducts = savedProducts.filter(product => product.id !== idSerie);
+        if(updatedSavedProducts !== []){
+          localStorage.removeItem('savedSeries');
+          const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+          localStorage.setItem('savedSeries',JSON.stringify(updatedSavedProducts)) ;
+        } 
     }
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
@@ -400,17 +406,9 @@ export const fetchCartContent = (email) => async (dispatch) => {
   }
 };
 
-export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch, getState) => {
+export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, null, productId)); // Remover el producto del carrito
-
-    const state = getState();
-        const newCartCount = state.cartCount - 1;
-        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
-        localStorage.setItem('cartCount', newCartCount);
-    
-    const updatedSavedProducts = state.savedProductsMovies.filter(product => product.id !== productId);
-    localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts)); // Actualizar LocaleStore    
+    await dispatch(removeFromCart(user, null, productId));   
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
       payload: productId,
@@ -420,17 +418,10 @@ export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatc
   }
 };
 
-export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch, getState) => {
+export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, productId, null)); // Remover el producto del carrito
-
-    const state = getState();
-        const newCartCount = state.cartCount - 1;
-        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
-        localStorage.setItem('cartCount', newCartCount);
-
-    const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
-    localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts)); // Actualizar LocalStorage
+    await dispatch(removeFromCart(user, productId, null)); 
+    
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
       payload: productId,

@@ -127,8 +127,6 @@ const rootReducer =(state = initialState,action)=> {
                 return {...state, savedProductsMovies: newSavedProducts };
               }
 
-        case REMOVE_FROM_CART: 
-        return {...state, savedProductsMovies:action.payload}
             
         case ADD_PRODUCT_DETAILS_SERIE: {
                 const newSavedProducts = [...state.savedProductsSeries, action.payload];
@@ -138,25 +136,27 @@ const rootReducer =(state = initialState,action)=> {
               }
         case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
                 const productId = action.payload;
-                const updatedSavedProducts = state.savedProductsMovies.filter(product => product.id !== productId);
-                localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));
+                const updatedSavedProducts = state.savedProductsMovies.length > 0 ?state.savedProductsMovies.filter(product => product.id !== productId): null;
+                const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+                if(updatedSavedProducts !== []){
+                    localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));}
           
                 return {
                   ...state,
-                  savedProductsMovies: updatedSavedProducts,
-                  savedProductsSeries: state.savedProductsSeries.filter(product => product.id !== productId),
+                  savedProductsMovies: moviesSaved,
                 };
               }
           
         case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
                 const productId = action.payload;
                 const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
-                localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));
+                const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+                if(updatedSavedProducts !== []){
+                    localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));}
           
                 return {
                   ...state,
-                  savedProductsMovies: state.savedProductsMovies.filter(product => product.id !== productId),
-                  savedProductsSeries: updatedSavedProducts,
+                  savedProductsSeries: seriesSaved,
                 };
               }
         case ACCESO:
