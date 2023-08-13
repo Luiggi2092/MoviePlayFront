@@ -13,7 +13,24 @@ const CheckoutForm = () => {
 
     const stripe = useStripe()
     const elements = useElements()
-    
+    const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
+    const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
+    let allMoviesPrice = null
+    let allSeriesPrice = null
+
+    const calculateTotalPrice = (array) => {
+        return array.reduce((total, item) => total + item.price, 0);
+      };
+
+    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
+        allMoviesPrice = calculateTotalPrice(moviesLocalStorage);
+      }
+      
+      if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
+        allSeriesPrice = calculateTotalPrice(seriesLocalStorage);
+      }
+
+      const totalAmount = (allMoviesPrice + allSeriesPrice)*100
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,7 +45,7 @@ const CheckoutForm = () => {
 
             const {id} = paymentMethod;
             const {data} = await axios.post('http://localhost:3001/api/checkout',{
-                  amount: 10000, 
+                  amount: totalAmount, 
                   id: id,
                   description:'pago de prueba'
               });
@@ -88,7 +105,7 @@ const CardShop = () => {
         allSeriesPrice = calculateTotalPrice(seriesLocalStorage);
       }
 
-      console.log
+      const totalAmount = allMoviesPrice + allSeriesPrice
 
     const handleclick = (e) => {
         e.preventDefault()
@@ -146,8 +163,12 @@ const CardShop = () => {
                 {movies}
             </div>
             <div className={style.submit}>
-                <p className={style.textSubmit}>Total: $precio</p>
-                <button className={style.continuar} onClick={handleclick}>Continuar compra</button>
+                <p className={style.textSubmit}>Total: ${totalAmount}</p>
+                {!continuePay && (
+                    <button className={style.continuar} onClick={handleclick}>
+                     Continuar compra
+                    </button>
+                    )}
             </div >
             {continuePay && <Pago/>}            
         </section>
