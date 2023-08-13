@@ -2,3 +2,7 @@
 .flexbar {
     display: flex;
 }
+
+.content {
+    height: 650px;
+}
