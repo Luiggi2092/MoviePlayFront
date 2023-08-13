@@ -107,7 +107,18 @@ const rootReducer =(state = initialState,action)=> {
             return { ...state, cartItems: action.payload };
 
         case REMOVE_FROM_CART:
-            return { ...state, cartItems: action.payload };
+            const productIdToRemove = action.payload;
+  
+            const updatedMovies = state.savedProductsMovies.filter(movie => movie.id !== productIdToRemove);
+            const updatedSeries = state.savedProductsSeries.filter(serie => serie.id !== productIdToRemove);
+            localStorage.setItem('savedSeries', JSON.stringify(updatedSeries))
+            localStorage.setItem('savedProducts', JSON.stringify(updatedMovies))
+          
+            return {
+              ...state,
+              savedProductsMovies: updatedMovies,
+              savedProductsSeries: updatedSeries,
+            };
 
         case FETCH_CART_CONTENT:
             return { ...state, carrito: action.payload };

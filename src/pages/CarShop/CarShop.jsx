@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import { fetchCartContent, addToCart, removeFromCart } from '../../redux/actions';
-// import { getCar } from '../../redux/actions';
+import CardCar from '../../components/CardCar/CardCar';
 import axios from 'axios';
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
@@ -20,7 +20,7 @@ const CheckoutForm = () => {
 
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
-            card: elements.getElement(CardElement)
+            card: elements?.getElement(CardElement)
 
         })
 
@@ -28,7 +28,8 @@ const CheckoutForm = () => {
 
             const {id} = paymentMethod;
             const {data} = await axios.post('http://localhost:3001/pago',{
-                amount: 10000
+                amount: 10000,
+                payment_method:id
             });
             console.log(paymentMethod)
             console.log(data)
@@ -64,7 +65,10 @@ const CardShop = () => {
 
 
     const [continuePay, setContinuePay] = useState(false)
-    const items = useSelector((state) => state.carrito)
+    const itemsFromDB = useSelector((state) => state.carrito)
+    const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
+    const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
+    const contador = useSelector((state) => state.cartCount)
     const dispatch = useDispatch()
 
     const handleclick = (e) => {
@@ -74,18 +78,51 @@ const CardShop = () => {
 
     useEffect(() => {
         dispatch(fetchCartContent('marcos@gmail.com'));
-        // dispatch(removeFromCart('marcos@gmail.com', null, 15))
       }, [dispatch]);
 
-      console.log(items)
+
+      let series = null; // Initialize as null
+    if (seriesLocalStorage) {
+        series = seriesLocalStorage.map(serie => {
+            const uniqueKey = `${serie.id}_${serie.tipo}`;
+            return (
+                <CardCar
+                    key={uniqueKey}
+                    id={serie.id}
+                    price={serie.price}
+                    name={serie.name}
+                    image={serie.image}
+                    tipo={'serie'}
+                />
+            );
+        });
+    }
+
+    let movies = null; // Initialize as null
+    if (moviesLocalStorage) {
+        movies = moviesLocalStorage.map(movie => {
+            const uniqueKey = `${movie.id}_${movie.tipo}`;
+            return (
+                <CardCar
+                    key={uniqueKey}
+                    id={movie.id}
+                    price={movie.price}
+                    name={movie.name}
+                    image={movie.image}
+                    tipo={'movie'}
+                />
+            );
+        });
+    }
 
     return(
         <section className={style.maxContainer}>
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {`(0)`}</p>
+                    <p className={style.textNav}>Carrito {`(${contador})`}</p>
                 </div>
-                <h1>aqui va el contenido</h1>
+                {series}
+                {movies}
             </div>
             <div className={style.submit}>
                 <p className={style.textSubmit}>Total: $precio</p>
