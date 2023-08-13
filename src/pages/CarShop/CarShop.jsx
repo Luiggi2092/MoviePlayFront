@@ -20,7 +20,7 @@ const CheckoutForm = () => {
 
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
-            card: elements.getElement(CardElement)
+            card: elements?.getElement(CardElement)
 
         })
 
@@ -28,7 +28,8 @@ const CheckoutForm = () => {
 
             const {id} = paymentMethod;
             const {data} = await axios.post('http://localhost:3001/pago',{
-                amount: 10000
+                amount: 10000,
+                payment_method:id
             });
             console.log(paymentMethod)
             console.log(data)
@@ -79,18 +80,40 @@ const CardShop = () => {
         dispatch(fetchCartContent('marcos@gmail.com'));
       }, [dispatch]);
 
-      if(moviesLocalStorage || seriesLocalStorage){
-        var series = seriesLocalStorage.map(serie => {
-            return(
+
+      let series = null; // Initialize as null
+    if (seriesLocalStorage) {
+        series = seriesLocalStorage.map(serie => {
+            const uniqueKey = `${serie.id}_${serie.tipo}`;
+            return (
                 <CardCar
-                key={serie.id}
-                id={serie.id}
-                price={serie.price}
-                name={serie.name}
-                image={serie.image}/>
-            )
-        })
-      }
+                    key={uniqueKey}
+                    id={serie.id}
+                    price={serie.price}
+                    name={serie.name}
+                    image={serie.image}
+                    tipo={'serie'}
+                />
+            );
+        });
+    }
+
+    let movies = null; // Initialize as null
+    if (moviesLocalStorage) {
+        movies = moviesLocalStorage.map(movie => {
+            const uniqueKey = `${movie.id}_${movie.tipo}`;
+            return (
+                <CardCar
+                    key={uniqueKey}
+                    id={movie.id}
+                    price={movie.price}
+                    name={movie.name}
+                    image={movie.image}
+                    tipo={'movie'}
+                />
+            );
+        });
+    }
 
     return(
         <section className={style.maxContainer}>
@@ -99,6 +122,7 @@ const CardShop = () => {
                     <p className={style.textNav}>Carrito {`(${contador})`}</p>
                 </div>
                 {series}
+                {movies}
             </div>
             <div className={style.submit}>
                 <p className={style.textSubmit}>Total: $precio</p>
