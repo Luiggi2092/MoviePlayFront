@@ -6,7 +6,7 @@ import {useSelector} from "react-redux"
 
 const Card = ({image, id, price, name}) => {
 
-    const user = 'marcos@gmail.com'
+    const user = localStorage.getItem('email')
 
     const dispatch = useDispatch();
     const savesId = useSelector(state => state.idSaves)

@@ -23,7 +23,7 @@ const App = () => {
 			<Route exact path='/' element={<Landing/>} />
 			<Route exact path='/login' element={<AccessPage/>}/>
 			<Route exact path='/register' element={<Register/>} />
-			 <Route element={<PrivateRouter/>}> 
+			<Route element={<PrivateRouter/>}>
             	<Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
 				<Route exact path='/home' element={<Home/>} />	
 				<Route exact path='/movies' element={<Movies/>} />
