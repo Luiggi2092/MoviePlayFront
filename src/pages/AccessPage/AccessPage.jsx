@@ -8,7 +8,6 @@ import {acceso} from "../../redux/actions";
 import axios from 'axios';
 
 const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
-const passwordRegex = /^[0-9a-zA-Z]+$/
 
 const AccessPage = () => {
 
@@ -31,16 +30,15 @@ const AccessPage = () => {
             setEmailError(false)
         }
     }
-
-
     const validatePassword = () => {
-        if (!passwordRegex.test(password)) {
+        if (password.length <= 8) {
             setPasswordError(true)
         
         }else {
             setPasswordError(false)
         }
     }
+
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
         validateEmail()
@@ -73,29 +71,30 @@ const AccessPage = () => {
 
             let userGet = {
                 email,
-                password
+                password,
+                // token: localStorage.getItem('token')
             }
 
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
-                function getCookie(name) {
-                    const value = "; " + document.cookie;
-                    const parts = value.split("; " + name + "=");
-                    if (parts.length === 2) {
-                      return parts.pop().split(";").shift();
-                    }
-                  }
+                // function getCookie(name) {
+                //     const value = "; " + document.cookie;
+                //     const parts = value.split("; " + name + "=");
+                //     if (parts.length === 2) {
+                //       return parts.pop().split(";").shift();
+                //     }
+                //   }
                   
-                  // Leer el token de la cookie segura
-                  const token = getCookie("authToken");
+                //   // Leer el token de la cookie segura
+                //   const token = getCookie("authToken");
                   
-                  if (token) {
-                    // Hacer algo con el token, como enviarlo en las solicitudes de autenticación
-                    console.log("Token recuperado desde la cookie:", token);
-                  } else {
-                    console.log("Token no encontrado en la cookie");
-                  }   
+                //   if (token) {
+                //     // Hacer algo con el token, como enviarlo en las solicitudes de autenticación
+                //     console.log("Token recuperado desde la cookie:", token);
+                //   } else {
+                //     console.log("Token no encontrado en la cookie");
+                //   }   
 
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
@@ -105,6 +104,7 @@ const AccessPage = () => {
                 
                 setEmail('')
                 setPassword('')
+
                 redirectToHome()
             
             } catch (error) {
@@ -215,7 +215,7 @@ const AccessPage = () => {
                     <label className='labelFormAccessPage'> Contraseña </label>
                     <input 
                         className='inputFormAccessPage' 
-                        type="text" 
+                        type="password" 
                         placeholder='Contraseña' 
                         name='password' 
                         value={password} 
@@ -223,7 +223,7 @@ const AccessPage = () => {
                         style={passwordError ? {border: '3px solid red'} : null}
                         />
                     {
-                        passwordError === true && <p className='pErrorEmailAccessPage'>Contraseña incorrecta. Corrobore que la contraseña sea la adecuada</p>
+                        passwordError === true && <p className='pErrorEmailAccessPage'>Contraseña incorrecta. Corrobore que la contraseña tenga 8 caracteres</p>
                     }
                     <br/>
                     <div id="signInDiv"></div>
