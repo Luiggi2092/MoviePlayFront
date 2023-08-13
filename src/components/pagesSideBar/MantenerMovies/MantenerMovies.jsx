@@ -187,7 +187,7 @@ const MantenerMovies = ()=> {
                         return (
                           <td {...cell.getCellProps()}  className="table-cell"> 
                             {cell.column.id === 'image' ? (
-                              <img src={cell.value} style={{ maxWidth: '50px', maxHeight: '60px' }}></img>
+                              <img src={cell.value} style={{ maxWidth: '40px', maxHeight: '40px' }}></img>
                             ): 
                             (cell.render("Cell"))}
                             </td>
