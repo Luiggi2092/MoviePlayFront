@@ -21,7 +21,9 @@ import {GET_GENEROS,
         UPDATE_CART_COUNT,
         ADD_PRODUCT_DETAILS_MOVIE,
         ADD_PRODUCT_DETAILS_SERIE,
-        SAVE_ID_TO_SERIES
+        SAVE_ID_TO_SERIES,
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE
         } from "./actions" 
 
 
@@ -106,25 +108,14 @@ const rootReducer =(state = initialState,action)=> {
         case ADD_TO_CART:
             return { ...state, cartItems: action.payload };
 
-        case REMOVE_FROM_CART:
-            return { ...state, cartItems: action.payload };
-
         case FETCH_CART_CONTENT:
             return { ...state, carrito: action.payload };
 
-        case SAVE_ID_TO_SAVES: {
-            return {
-                    ...state,
-                    idSavesMovies: action.payload,
-                };
-            }
+        case SAVE_ID_TO_SAVES: 
+            return {...state, idSavesMovies: action.payload};                   
         
-        case SAVE_ID_TO_SERIES: {
-                return {
-                        ...state,
-                        idSavesSeries: action.payload,
-                    };
-                }
+        case SAVE_ID_TO_SERIES: 
+                return {...state, idSavesSeries: action.payload}               
         
         case UPDATE_CART_COUNT:
             return { ...state, cartCount: action.payload };
@@ -133,19 +124,39 @@ const rootReducer =(state = initialState,action)=> {
                 const newSavedProducts = [...state.savedProductsMovies, action.payload];
                 localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
               
-                return {
-                  ...state,
-                  savedProductsMovies: newSavedProducts,
-                };
+                return {...state, savedProductsMovies: newSavedProducts };
               }
+
             
         case ADD_PRODUCT_DETAILS_SERIE: {
                 const newSavedProducts = [...state.savedProductsSeries, action.payload];
                 localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
               
+                return { ...state, savedProductsSeries: newSavedProducts };
+              }
+        case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
+                const productId = action.payload;
+                const updatedSavedProducts = state.savedProductsMovies.length > 0 ?state.savedProductsMovies.filter(product => product.id !== productId): null;
+                const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+                if(updatedSavedProducts !== []){
+                    localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));}
+          
                 return {
                   ...state,
-                  savedProductsSeries: newSavedProducts,
+                  savedProductsMovies: moviesSaved,
+                };
+              }
+          
+        case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
+                const productId = action.payload;
+                const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
+                const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+                if(updatedSavedProducts !== []){
+                    localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));}
+          
+                return {
+                  ...state,
+                  savedProductsSeries: seriesSaved,
                 };
               }
         case ACCESO:

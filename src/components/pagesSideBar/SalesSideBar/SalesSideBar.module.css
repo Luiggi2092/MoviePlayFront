@@ -1,0 +1,31 @@
+
+
+
+.charts{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    left: 10%;
+    top:10px;
+}
+
+ .chart{
+    position: relative;
+    left: 10%;
+    top:15%; 
+}
+
+
+.barchart{
+    position: relative;
+    left: 10%;
+    top: 15%;
+}
+
+
+.LinearChart{
+    position: relative;
+    top:30px;
+    left: 20%;
+}

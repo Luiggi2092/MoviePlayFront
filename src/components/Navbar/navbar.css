@@ -255,7 +255,7 @@ position: absolute;
 
 .shopping-cart {
     margin-left: 20px;
-
+    display: flex;
 }
 
 .shopping-cart a {
@@ -305,3 +305,8 @@ input[type="search"]:focus {
 input[type="search"]+button:hover svg {
     fill: #007bff;
 } */
+
+.buttonCerreSesionNav {
+    padding: 5px;
+    margin-top: 5px;
+}

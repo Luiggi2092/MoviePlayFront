@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import style from "./ModalEditarMovie.module.css"
-import {getMoviexid,getGeneros} from "../../redux/actions";
+import {getMoviexid,getGeneros,clearMovieId} from "../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
@@ -17,9 +17,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
     const dispatch = useDispatch();
     const listaGenero = useSelector(state=> state.Generos);
     const pelicula = useSelector(state => state.MovieId);
-  
-    console.log(pelicula);
-
+    
+    
 
     const [form,setForm] = useState({
         type: "movie",
@@ -54,6 +53,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
           if(Number(idpelicula) > 0){
           dispatch(getMoviexid(Number(idpelicula))); 
+          dispatch(clearMovieId()); 
           }
       
     
@@ -85,6 +85,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
     const BotonCerrar = () => {
         cambiarEstado(false);
         setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+        
         setAvance(0);
         setErrors({...errors,time: "",linkVideo:"",price:""})
 
@@ -206,7 +207,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                    <div className={style.contenedor}>
                       
                      <div>      
-                     <img src={pelicula.image} />  
+                     <img src={pelicula.image}  />  
                                 <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
                                 
                      </div>
