@@ -27,7 +27,7 @@ export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
 export const BANMOVIE= 'BANMOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE'
-const user = 'marcos@gmail.com'
+const user = localStorage.getItem('email')
 
 export const getGeneros = ()=> {
    return async function (dispatch){

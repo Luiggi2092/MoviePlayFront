@@ -58,7 +58,7 @@ const CheckoutForm = () => {
             localStorage.removeItem('savedProducts');
             localStorage.removeItem('savedSeries');
             localStorage.setItem('cartCount', 0)
-            alert('Pago relizado correctamente')
+            alert('Pago relizado correctament')
             reload()
         }
 

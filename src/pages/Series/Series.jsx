@@ -106,7 +106,7 @@ const Series = () => {
     <section className={style.containerMax}>
       <Navbar isScrolled={isScrolled} /> 
       
-      <h1>Todas las series</h1>
+      <h1 className={style.texto}>Todas las series</h1>
       
       <div className={style.filters}>
         
