@@ -4,9 +4,7 @@ import { useEffect } from 'react'
 import { useDispatch , useSelector} from 'react-redux'
 
 
-const reload = () => {
-    window.location.reload(true);
-}
+
 const CardCar = (props) => {
 
     const dispatch = useDispatch()
@@ -22,7 +20,7 @@ const CardCar = (props) => {
 
                 dispatch(removeFromCartAndRemoveDetailsMovie(props.id))
         }
-        // reload()
+        
     }
 
     return(
