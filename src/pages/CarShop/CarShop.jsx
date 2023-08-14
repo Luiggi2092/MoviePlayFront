@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import { fetchCartContent, addToCart, removeFromCart } from '../../redux/actions';
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
 import axios from 'axios';
 
@@ -66,7 +68,7 @@ const CheckoutForm = () => {
 
     return(
         <form className={style.card}>
-            <CardElement className={style.formControl}/>
+            <CardElement className={style.formControl} style={{'color':'white'}}/>
             <button className={style.button} onClick={handleSubmit}>
                 Comprar
             </button>
@@ -76,11 +78,11 @@ const CheckoutForm = () => {
 
 const Pago = () => {
     return (
-        <Elements stripe={stripePromise} >
+        <Elements stripe={stripePromise} className={style.texto}>
                 <div className={style.container4}>
                     <div className={style.row}>
                         <div className={style.element}>
-                            <CheckoutForm className={style.texto}/>
+                            <CheckoutForm />
                         </div>
                     </div>
                 </div>
@@ -89,6 +91,12 @@ const Pago = () => {
 }
 
 const CardShop = () => {
+
+    const [isScrolled, setIsScrolled] = useState(false)
+    window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+    }
 
 
     const [continuePay, setContinuePay] = useState(false)
@@ -157,8 +165,12 @@ const CardShop = () => {
         });
     }
 
-    return(
-        <section className={style.maxContainer}>
+    return(<section>
+
+            <Navbar isScrolled={isScrolled} /> 
+    <div className={style.maxContainer}>
+        <div className={style.container}>
+
             <div className={style.contenido}>
                 <div className={style.nav}>
                     <p className={style.textNav}>Carrito {`(${contador})`}</p>
@@ -174,8 +186,11 @@ const CardShop = () => {
                     </button>
                     )}
             </div >
-            {continuePay && <Pago/>}            
-        </section>
+            {continuePay && <Pago/>}
+        </div>
+            <Footer className={style.footer}/>            
+    </div>
+                    </section>
                       
     )
 }
