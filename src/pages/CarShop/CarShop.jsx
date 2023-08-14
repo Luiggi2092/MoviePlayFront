@@ -80,7 +80,7 @@ const Pago = () => {
                 <div className={style.container4}>
                     <div className={style.row}>
                         <div className={style.element}>
-                            <CheckoutForm />
+                            <CheckoutForm className={style.texto}/>
                         </div>
                     </div>
                 </div>
