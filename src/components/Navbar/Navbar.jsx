@@ -54,6 +54,9 @@ const Navbar = ({ isScrolled }) => {
   const cerrarSesion = () => {
     localStorage.clear();
     dispatch(bloquearAcceso());
+    localStorage.removeItem('savedProducts');
+    localStorage.removeItem('savedSeries');
+    localStorage.removeItem('cartCount', 0)
   };
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -92,8 +95,8 @@ const Navbar = ({ isScrolled }) => {
           <span className="cart-count">{'('}{cartCount}{')'}</span>
         </div>
         <div>
+          <img src={foto} alt="" className='logo-foto' />
           <h5 className='nav-name'>{nombre}</h5>
-          <img src={foto} alt="" className='logo' />
         </div>
         <div className={`nav-item profile ${showProfileMenu ? 'active' : ''}`} onClick={toggleProfileMenu}>
           <FiUser />
