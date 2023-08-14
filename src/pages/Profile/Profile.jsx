@@ -5,7 +5,7 @@ import './profile.css';
 const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [profileImage, setProfileImage] = useState(
-        localStorage.getItem('profileImage') ||
+        localStorage.getItem('foto') ||
         'https://media.istockphoto.com/id/500620030/es/vector/dibujos-animados-cara-con-entusiasmo-la-expresi%C3%B3n.jpg?s=612x612&w=0&k=20&c=fSHO3HwsT-afQGZb01hSgxGJeKILxXjUWklyTSMwSsc='
     );
     const [alias, setAlias] = useState(localStorage.getItem('alias') || '');
@@ -14,6 +14,9 @@ const Profile = () => {
     const [phone, setPhone] = useState(localStorage.getItem('phone') || '');
     const [email, setEmail] = useState(localStorage.getItem('email') || '');
     const [country, setCountry] = useState(localStorage.getItem('country') || '');
+
+    const foto = localStorage.getItem('foto')
+
 
 
     const [purchases, setPurchases] = useState([
@@ -73,7 +76,7 @@ const Profile = () => {
                     <label>
                         <img
                             className={`profile-image ${isEditing ? 'editable' : ''}`}
-                            src='https://i.pinimg.com/236x/66/82/93/6682931a0797e7a2f5e257eef835370b.jpg'
+                            src={foto ? foto : "https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png" }
                             alt='Profile'
                             onClick={isEditing ? () => document.getElementById('profile-image-input').click() : null}
                         />
