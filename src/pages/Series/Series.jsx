@@ -50,7 +50,7 @@ const Series = () => {
     if(order){
       newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
     }    
-
+    
     fetch(newUrl)
     .then(response => response.json())
     .then(data => {
