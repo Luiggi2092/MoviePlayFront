@@ -3,7 +3,7 @@
 .graficoven{
     position: relative;
     left: 30%;
-    top:-25%;
+    top:-40%;
 }
 
 .titu{
@@ -30,8 +30,10 @@
 
 .table2{
     position: relative;
-    left: 45%;
+    left: 65%;
+    width: 450px;
     height: 350px;
+    max-width: 350px;
     bottom:170px;
 }
 
@@ -39,5 +41,5 @@
     
     position: relative;
     bottom: 170px;
-    left: 53%;
+    left: 99%;
 }

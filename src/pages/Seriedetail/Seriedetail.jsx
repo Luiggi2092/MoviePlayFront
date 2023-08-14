@@ -15,7 +15,7 @@ const SerieDetail = () => {
     const dispatch = useDispatch();
      
     const {id} = useParams()
-    const user = 'marcos@gmail.com'
+    const user = localStorage.getItem('email')
 
     const [temporadaSelect, setTemporadaSelect] = useState(1)
     const [capituloSelect, setCapituloSelect] = useState(1)

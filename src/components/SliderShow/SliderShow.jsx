@@ -82,25 +82,25 @@ const anterior = ()=> {
                 <a>
                  <img src={image1}/>
                 </a>
-                <TextSlider>
+                {/* <TextSlider>
                     <a>$ 18.45</a>
-                </TextSlider>
+                </TextSlider> */}
             </Slider>
             <Slider>
                 <a>
                  <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
                 </a>
-                <TextSlider > 
+                {/* <TextSlider > 
                     <a>$ 18.45</a>
-                </TextSlider>
+                </TextSlider> */}
             </Slider>
             <Slider>
                 <a>
                  <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
                 </a>
-                <TextSlider >
+                {/* <TextSlider >
                     <a>$ 15.45</a>
-                </TextSlider>
+                </TextSlider> */}
             </Slider>
             </ContenedorSliderShow>
            

@@ -257,7 +257,7 @@ export const bloquearAcceso = () => {
 export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
     if(!idSerie){
-      const response = await axios.post('/carroCompra', { emailUsuario, idMovie });
+      const response = await axios.post(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idMovie}`);
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -265,7 +265,7 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
         localStorage.setItem('cartCount', newCartCount);
     }
     if(!idMovie){
-      const response = await axios.post('/carroCompra', { emailUsuario, idSerie });
+      const response = await axios.post(`/carroCompra?emailUsuario=${emailUsuario}&idSerie=${idSerie}`);
       dispatch({ type: ADD_TO_CART, payload: response.data });
       const state = getState();
         const newCartCount = state.cartCount + 1;
