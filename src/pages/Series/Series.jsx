@@ -40,7 +40,7 @@ const Series = () => {
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
-    let newUrl = `http://localhost:3001/media/series?page=${page}`
+    let newUrl = `https://movieplay.onrender.com/media/series?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -50,7 +50,7 @@ const Series = () => {
     if(order){
       newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
     }    
-
+    
     fetch(newUrl)
     .then(response => response.json())
     .then(data => {

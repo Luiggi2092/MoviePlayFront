@@ -48,7 +48,7 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('http://localhost:3001/api/checkout',{
+            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
                   amount: totalAmount, 
                   id: id,
                   description:'pago de prueba'
@@ -98,7 +98,6 @@ const CardShop = () => {
     const contador = useSelector((state) => state.cartCount)
     const carrito = useSelector(state => state.carrito)
     const dispatch = useDispatch()
-    const user = 'marcos@gmail.com'
     let allMoviesPrice = null
     let allSeriesPrice = null
 
@@ -120,10 +119,6 @@ const CardShop = () => {
         e.preventDefault()
         setContinuePay(true);
     }
-
-    useEffect(() => {
-        dispatch(fetchCartContent(user));
-      }, [dispatch]);
 
       
 
