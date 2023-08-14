@@ -7,7 +7,7 @@ import Footer from '../../components/Footer/Footer';
 import {getGeneros} from '../../redux/actions'
 import Loading from "../../components/Loading/Loading";
 
-const Movies = () => {
+const Peliculas = () => {
 
   const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ const Movies = () => {
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `http://localhost:3001/media/movies?page=${page}`
+    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -194,4 +194,4 @@ const Movies = () => {
   )
 }
 
-export default Movies
+export default Peliculas
