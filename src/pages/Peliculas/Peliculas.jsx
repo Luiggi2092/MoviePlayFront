@@ -7,7 +7,7 @@ import Footer from '../../components/Footer/Footer';
 import {getGeneros} from '../../redux/actions'
 import Loading from "../../components/Loading/Loading";
 
-const Movies = () => {
+const Peliculas = () => {
 
   const dispatch = useDispatch();
 
@@ -194,4 +194,4 @@ const Movies = () => {
   )
 }
 
-export default Movies
+export default Peliculas

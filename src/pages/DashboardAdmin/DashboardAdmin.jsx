@@ -10,6 +10,9 @@ import Sales from "../../components/pagesSideBar/SalesSideBar/SalesSideBar";
 import MantenerOrdenes from "../../components/pagesSideBar/MantenerOrdenes/MantenerOrdenes";
 
 
+
+
+
 const DashboardAdmin=()=> {
 
     const data = useParams();
