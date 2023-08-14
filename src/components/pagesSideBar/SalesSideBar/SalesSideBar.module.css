@@ -6,7 +6,7 @@
     align-items: center;
     justify-content: space-between;
     position: relative;
-    left: 10%;
+    left: 5%;
     top:10px;
 }
 
@@ -19,7 +19,7 @@
 
 .barchart{
     position: relative;
-    left: 10%;
+    left: -17%;
     top: 15%;
 }
 
@@ -27,5 +27,5 @@
 .LinearChart{
     position: relative;
     top:30px;
-    left: 20%;
+    left: 15%;
 }
