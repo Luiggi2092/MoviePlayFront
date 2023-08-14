@@ -68,7 +68,7 @@ const CheckoutForm = () => {
 
     return(
         <form className={style.card}>
-            <CardElement className={style.formControl} style={{'color':'white'}}/>
+            <CardElement className={style.formControl} />
             <button className={style.button} onClick={handleSubmit}>
                 Comprar
             </button>
