@@ -95,8 +95,8 @@ const Navbar = ({ isScrolled }) => {
           <span className="cart-count">{'('}{cartCount}{')'}</span>
         </div>
         <div>
+          <img src={foto} alt="" className='logo-foto' />
           <h5 className='nav-name'>{nombre}</h5>
-          <img src={foto} alt="" className='logo' />
         </div>
         <div className={`nav-item profile ${showProfileMenu ? 'active' : ''}`} onClick={toggleProfileMenu}>
           <FiUser />
