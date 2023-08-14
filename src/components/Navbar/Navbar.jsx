@@ -54,6 +54,9 @@ const Navbar = ({ isScrolled }) => {
   const cerrarSesion = () => {
     localStorage.clear();
     dispatch(bloquearAcceso());
+    localStorage.removeItem('savedProducts');
+    localStorage.removeItem('savedSeries');
+    localStorage.removeItem('cartCount', 0)
   };
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
