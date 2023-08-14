@@ -194,7 +194,7 @@ const HomeSideBar = ()=> {
   
 
   return (
-    <>
+    <div className={style.contentHome}>
     <div className={style.table1}>
       
     <h4>Top 5 Peliculas</h4>
@@ -260,7 +260,7 @@ const HomeSideBar = ()=> {
            legend: "none",
          }}  />
     </div>
-    </>
+    </div>
   )
 
 }

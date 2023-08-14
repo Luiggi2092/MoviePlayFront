@@ -77,6 +77,8 @@ const AccessPage = () => {
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
+                console.log(data);
+
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
                 localStorage.setItem('email', data.email);
@@ -120,6 +122,8 @@ const AccessPage = () => {
         try {
 
             const responso = await axios.post('/usuario/google', email)  
+
+            console.log(responso);
 
 
             localStorage.setItem('TokenUsu', response.credential);
