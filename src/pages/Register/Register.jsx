@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import validation from './validations'
+import { NavLink } from 'react-router-dom'
 
 const Register = () => {
 
@@ -203,6 +204,12 @@ const Register = () => {
                 }
                 
                 <button type='submit' className={style.buttonFormAccessPage}>Registrarse</button>
+
+                <p className='pFromAccessPage'>¿Ya tienes cuenta? 
+                    <NavLink to='/login'>
+                        <span className='spanFormAccessPage'>Login</span>
+                    </NavLink>
+                </p>
             </form>            
         </section>
     )
