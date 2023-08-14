@@ -24,7 +24,7 @@ const App = () => {
 			<Route exact path='/' element={<Landing/>} />
 			<Route exact path='/login' element={<AccessPage/>}/>
 			<Route exact path='/register' element={<Register/>} />
-			{/* <Route element={<PrivateRouter/>}> */}
+			<Route element={<PrivateRouter/>}>
             	<Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
 				<Route exact path='/home' element={<Home/>} />	
 				<Route exact path='/peliculas' element={<Peliculas/>} />
@@ -33,7 +33,7 @@ const App = () => {
 				<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
 				<Route exact path="/purchase-detail" element={<CarShop/>}/>
 				<Route exact path="/profile" element={<Profile/>} />
-			{/* </Route> */}
+			</Route>
 		</Routes>
 	</HashRouter>
 )
