@@ -11,7 +11,7 @@ import ReactPlayer from 'react-player/youtube'
 const MoviesDetail = () => {
     
       const {id} = useParams()
-      const user = 'marcos@gmail.com'
+      const user = localStorage.getItem('email')
       const dispatch = useDispatch();
       const peliculaid = useSelector(state=> state.MovieId)
       const [isScrolled, setIsScrolled] = useState(false)

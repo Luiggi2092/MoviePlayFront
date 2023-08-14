@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import {getTodobusqueda,getTodoFillClean} from "../../redux/actions"
 import Logo from '../../assets/Logo.ico.png';
 import './navbar.css';
 
@@ -32,8 +33,9 @@ const Navbar = ({ isScrolled }) => {
 
   const busquedaNav = () => {
     if (busqueda.search) {
+      console.log("buscas")
       dispatch(getTodobusqueda(busqueda.search));
-      navegate('/search'); // redirigir a una página de resultados de búsqueda
+      navegate('/home'); // redirigir a una página de resultados de búsqueda
     } else {
       dispatch(getTodoFillClean());
     }
