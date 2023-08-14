@@ -122,7 +122,7 @@ const AccessPage = () => {
 
             const responso = await axios.post('/usuario/google', email)  
 
-            
+            console.log(responso);
 
             localStorage.setItem('TokenUsu', response.credential);
             localStorage.setItem('email', userObject.email);
@@ -143,7 +143,7 @@ const AccessPage = () => {
             setTimeout(() => {
                 setMensajeGoogle(false)
             }, 5000)
-            // console.log(error)
+             console.log(error)
         }
     }
 
