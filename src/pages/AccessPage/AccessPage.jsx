@@ -8,7 +8,6 @@ import {acceso} from "../../redux/actions";
 import axios from 'axios';
 
 const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
-const passwordRegex = /^[0-9a-zA-Z]+$/
 
 const AccessPage = () => {
 
@@ -19,6 +18,7 @@ const AccessPage = () => {
     const [formCorrecto, setFormCorrecto] = useState(false)
     const [mensajeBack, setMensajeBack] = useState('')
     const [mensajeTrue, setMensaje] = useState(false)
+    const [mesajeGoogle, setMensajeGoogle] = useState(false)
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -31,16 +31,15 @@ const AccessPage = () => {
             setEmailError(false)
         }
     }
-
-
     const validatePassword = () => {
-        if (!passwordRegex.test(password)) {
+        if (password.length < 5) {
             setPasswordError(true)
         
         }else {
             setPasswordError(false)
         }
     }
+
     const onChangeEmail = (e) => {
         setEmail(e.target.value)
         validateEmail()
@@ -73,38 +72,22 @@ const AccessPage = () => {
 
             let userGet = {
                 email,
-                password
+                password,
             }
 
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
-                function getCookie(name) {
-                    const value = "; " + document.cookie;
-                    const parts = value.split("; " + name + "=");
-                    if (parts.length === 2) {
-                      return parts.pop().split(";").shift();
-                    }
-                  }
-                  
-                  // Leer el token de la cookie segura
-                  const token = getCookie("authToken");
-                  
-                  if (token) {
-                    // Hacer algo con el token, como enviarlo en las solicitudes de autenticación
-                    console.log("Token recuperado desde la cookie:", token);
-                  } else {
-                    console.log("Token no encontrado en la cookie");
-                  }   
-
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
                 localStorage.setItem('email', data.email);
+                localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
                 
                 
                 setEmail('')
                 setPassword('')
+
                 redirectToHome()
             
             } catch (error) {
@@ -126,8 +109,6 @@ const AccessPage = () => {
 
         }
     } 
-
-    
 
     async function handleCallbackResponse(response) {
         
@@ -158,7 +139,11 @@ const AccessPage = () => {
             redirectToHome()
 
         } catch (error) {
-            console.log(error)
+            setMensajeGoogle(true)
+            setTimeout(() => {
+                setMensajeGoogle(false)
+            }, 5000)
+            // console.log(error)
         }
     }
 
@@ -217,7 +202,7 @@ const AccessPage = () => {
                     <label className='labelFormAccessPage'> Contraseña </label>
                     <input 
                         className='inputFormAccessPage' 
-                        type="text" 
+                        type="password" 
                         placeholder='Contraseña' 
                         name='password' 
                         value={password} 
@@ -225,7 +210,7 @@ const AccessPage = () => {
                         style={passwordError ? {border: '3px solid red'} : null}
                         />
                     {
-                        passwordError === true && <p className='pErrorEmailAccessPage'>Contraseña incorrecta. Corrobore que la contraseña sea la adecuada</p>
+                        passwordError === true && <p className='pErrorEmailAccessPage'>Contraseña incorrecta. Corrobore que la contraseña tenga 8 caracteres</p>
                     }
                     <br/>
                     <div id="signInDiv"></div>
@@ -243,6 +228,10 @@ const AccessPage = () => {
                     mensajeTrue === true && <p className='mensajeError'>❌ Error: {mensajeBack}</p>
                 }
 
+                {
+                    mesajeGoogle === true && <p className='mensajeError'>❌ Error: el usuario no existe</p>
+                }
+
                     
                 <div className='divpFormAccessPage'>
                     <p className='pFromAccessPage'>¿Aún no tienes cuenta? 
@@ -251,11 +240,11 @@ const AccessPage = () => {
                         </NavLink>
                     </p>
 
-                    <p className='pFromAccessPage'>¿Olvidaste tu contraseña? 
+                    {/* <p className='pFromAccessPage'>¿Olvidaste tu contraseña? 
                         <NavLink to='/'>
                             <span className='spanFormAccessPage'>Click aquí</span>
                         </NavLink>
-                    </p>
+                    </p> */}
                 </div>
 
             </div>

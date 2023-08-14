@@ -58,7 +58,7 @@ const Home = () => {
             </div>
          <div className='containerCard'>
           
-         {buq.length > 0 ? buq.map(( hom, index ) => (
+         {buq?.length > 0 ? buq?.map(( hom, index ) => (
           hom.tipo == "Pelicula" ?
           <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>:
           <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>
@@ -67,7 +67,7 @@ const Home = () => {
           <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>:
           <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>
           )).slice(0,cantCard)}
-          {listaTodo.length == 0 && <Loading/>}
+          {listaTodo?.length == 0 && <Loading/>}
             
           {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
         </div>
