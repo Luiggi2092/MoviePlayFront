@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import './accessPage.css'
 import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
-import Footer from '../../components/Footer/Footer'
 import {acceso} from "../../redux/actions";
 import axios from 'axios';
 
@@ -122,7 +121,6 @@ const AccessPage = () => {
 
             const responso = await axios.post('/usuario/google', email)  
 
-            console.log(responso);
 
             localStorage.setItem('TokenUsu', response.credential);
             localStorage.setItem('email', userObject.email);
@@ -143,7 +141,6 @@ const AccessPage = () => {
             setTimeout(() => {
                 setMensajeGoogle(false)
             }, 5000)
-             console.log(error)
         }
     }
 
@@ -248,8 +245,6 @@ const AccessPage = () => {
                 </div>
 
             </div>
-            
-            <Footer/>
         </section>
     )
 }
