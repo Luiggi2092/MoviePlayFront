@@ -69,9 +69,13 @@ const Register = () => {
             try {
                 const {data} = await axios.post('/usuario', input)
 
+
+                // console.log(data)
+
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('name', data.nombre); 
-                localStorage.setItem('id', data.id);     
+                localStorage.setItem('id', data.id);  
+                localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
 
                 setInput({
@@ -113,9 +117,6 @@ const Register = () => {
         try {
             const responso = await axios.post('/usuario', datos)
             
-        
-            console.log(response)
-        
             localStorage.setItem('TokenUsu', response.credential);
             localStorage.setItem('email', userObject.email);
             localStorage.setItem('nombre', userObject.given_name); 
@@ -189,10 +190,10 @@ const Register = () => {
                 
                 <br/>
             
-                <div className={style.form}>
+                {/* <div className={style.form}>
                     <span className={style.labelFormAccessPage}>Ingrese una imagen {'(optional)'}</span>
                     <input className={style.file} type='file'/>
-                </div>
+                </div> */}
 
                 <br/>
                 <div id="signInDiv"></div>
