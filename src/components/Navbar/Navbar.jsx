@@ -1,128 +1,116 @@
-import React, { useState } from 'react'
-import { Link,Outlet,useNavigate } from "react-router-dom"
-import { FaShoppingCart } from 'react-icons/fa';
-import { getTodobusqueda,getTodoFillClean, bloquearAcceso } from '../../redux/actions';
-import { useDispatch,useSelector} from "react-redux"
-import useLocalStorage from '../../useLocalStorage';
-import './navbar.css'
-import Logo from "../../assets/Logo.ico.png"
-
-
+import React, { useState } from 'react';
+import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import Logo from '../../assets/Logo.ico.png';
+import './navbar.css';
 
 const Navbar = ({ isScrolled }) => {
+  const cartCount = useSelector((state) => state.cartCount);
 
-  const cartCount = useSelector((state) => state.cartCount)
+  const [busqueda, setBusqueda] = useState({
+    search: '',
+  });
+  const dispatch = useDispatch();
+  const navegate = useNavigate();
 
-const [busqueda,setbusqueda] = useState({
-       search:""
-}); 
-const dispatch = useDispatch();
-const buq = useSelector(state => state.TodoFill);
-const navegate = useNavigate();
+  const isAdmin = useSelector((state) => state.isAdmin); // Cambia esto según tu estado actual
 
-const links = [
-  { name: "Home", link: "/home" },
-  { name: "Movies", link: "/movies" },
-  { name: "Series", link: "/series" },
-  { name: "Dashboard", link: "/DashboardAdmin/content1"}
-  
-];
-
-
-  const busquedanav = ()=> {
-      if(busqueda.search){
-          dispatch(getTodobusqueda(busqueda.search));
-      }else{
-          dispatch(getTodoFillClean());
-      } 
-      
-      navegate("/home");
-  }
-
-
-  const ChangeHandle =(e)=> {
-      const property = e.target.name;
-      const value = e.target.value;
-
-      setbusqueda({...busqueda
-                ,[property]:value})
-
-
-  }
-
-  const cerrarSesion = () => {
-    localStorage.clear()
-    dispatch(bloquearAcceso())
-  }
 
   const nombre = localStorage.getItem('name')
   const foto = localStorage.getItem('foto')
 
+  const links = [
+    { name: 'Home', link: '/home', icon: <FiHome /> },
+    { name: 'Peliculas', link: '/peliculas', icon: <FiFilm /> },
+    { name: 'Series', link: '/series', icon: <FiTv /> },
+  ];
+
+  if (isAdmin) {
+    links.push({ name: 'Dashboard', link: '/DashboardAdmin/content1', icon: <FiUser /> });
+  } //para que aparezca solo en admin
+
+  const busquedaNav = () => {
+    if (busqueda.search) {
+      dispatch(getTodobusqueda(busqueda.search));
+      navegate('/search'); // redirigir a una página de resultados de búsqueda
+    } else {
+      dispatch(getTodoFillClean());
+    }
+  };
+
+  const changeHandle = (e) => {
+    const property = e.target.name;
+    const value = e.target.value;
+
+    setBusqueda({
+      ...busqueda,
+      [property]: value,
+    });
+  };
+
+  const cerrarSesion = () => {
+    localStorage.clear();
+    dispatch(bloquearAcceso());
+  };
+
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  const toggleProfileMenu = () => {
+    setShowProfileMenu(!showProfileMenu);
+  };
 
   return (
-
-    <main>
-      
-      <div> 
-        
-        <nav className={`flex ${isScrolled ? "scrolled nav" : "nav"} nav`} >
-        
-        <div className="left flex a-center">
-        
-        <div className="brand flex a-center j-center">
-          <img src={Logo} alt='logo.ico.png'/>    
-        </div>
-
-      <ul className='links flex'>
-        {links.map(({name, link})=> {
-
-          return(
-
-          <li key={name}><Link to={link}>{name}</Link></li>
-        );
-      })}
-      </ul>
-      
-      </div>
-        
-        <div className='buqNav'>
-        
-          <input type='search' placeholder='Buscar...' name="search" onChange={ChangeHandle}/>
-        
-          <button onClick={busquedanav} className='BotSearch'>
-              
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="12" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-            </svg>
-          </button>
-        
-        </div>
-      
-      <div className="shopping-cart">
-      
-        <Link to="/purchase-detail">
-            <FaShoppingCart />
-            <span className="cart-count">{'('}{cartCount}{')'}</span>
+    <nav className="navbar">
+      <div className="logo">
+        <Link to="/home">
+        <img src={Logo} alt="logo.ico.png" />
         </Link>
-
-        <div className='usuario'>
-          <p className='NombreUser'>{nombre}</p>
-          <img src={foto} alt='' className='imgUser' />
-        </div>
-      
-        <Link to='/'>
-          <button className='buttonCerreSesionNav' onClick={cerrarSesion}>Cerrar Sesion</button>
-        </Link>
-    
       </div>
-      
+      <div className="nav-items">
+        {links.map((link) => (
+          <Link to={link.link} className="nav-item" key={link.name}>
+            {link.icon} {link.name}
+          </Link>
+        ))}
+        <input
+          type="search"
+          placeholder="Buscar..."
+          name="search"
+          value={busqueda.search}
+          onChange={changeHandle}
+        />
+        <div className="nav-item">
+          <FiSearch onClick={busquedaNav} />
+        </div>
+        <div className="nav-item">
+          <Link to="/purchase-detail">
+            <FiShoppingCart />
+          </Link>
+          <span className="cart-count">{'('}{cartCount}{')'}</span>
+        </div>
+        <div>
+          <h5 className='nav-name'>{nombre}</h5>
+          <img src={foto} alt="" className='logo' />
+        </div>
+        <div className={`nav-item profile ${showProfileMenu ? 'active' : ''}`} onClick={toggleProfileMenu}>
+          <FiUser />
+          <div className={`profile-menu ${showProfileMenu ? 'show' : ''}`}>
+            <Link to="/profile" >Perfil</Link>
+            <Link to='/'> 
+            <button onClick={cerrarSesion}>Cerrar Sesion</button>
+            </Link>
+          </div>
+        </div>
+      </div>
     </nav>
-      
-    </div>
-      
-    <Outlet/>
-  </main>
-)
-}
+  );
+};
 
 export default Navbar;
+
+
+
+
+
+
