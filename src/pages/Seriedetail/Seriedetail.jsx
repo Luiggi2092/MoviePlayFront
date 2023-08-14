@@ -135,7 +135,7 @@ const SerieDetail = () => {
                     } controls={true} />
             </div>
 
-            <Footer/>
+            <Footer />
         </section>
     )
 }
