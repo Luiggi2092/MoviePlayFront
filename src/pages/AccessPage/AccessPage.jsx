@@ -5,49 +5,39 @@ import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import {acceso} from "../../redux/actions";
 import axios from 'axios';
+import validation from './validations'
 
-const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
 
 const AccessPage = () => {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [formCorrecto, setFormCorrecto] = useState(false)
     const [mensajeBack, setMensajeBack] = useState('')
     const [mensajeTrue, setMensaje] = useState(false)
     const [mesajeGoogle, setMensajeGoogle] = useState(false)
+    const [input, setInput] = useState({
+        email:'',
+        password:''
+    })
+    const [error, setErrors] = useState({})
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
-    const validateEmail = () => {
-        if (!emailRegex.test(email)) {
-            setEmailError(true)
+    const handleChange = (event) =>{
+        const { name, value } = event.target;
         
-        }else {
-            setEmailError(false)
-        }
-    }
-    const validatePassword = () => {
-        if (password.length < 5) {
-            setPasswordError(true)
-        
-        }else {
-            setPasswordError(false)
-        }
-    }
+        setInput({
+            ...input,
+            [name]: value
+        });
 
-    const onChangeEmail = (e) => {
-        setEmail(e.target.value)
-        validateEmail()
+        setErrors({
+            ...error,
+            [name]: validation({ ...input, [name]: value })[name]
+        });
     }
-    const onChangePassword = (e) => {
-        setPassword(e.target.value)
-        validatePassword()
-    }
-
 
     const redirectToHome = () => {
         setTimeout(() => {
@@ -60,7 +50,7 @@ const AccessPage = () => {
         
         event.preventDefault();
 
-        if (email === '' || password === '' || passwordError === true || emailError === true) {
+        if (input.email === '' || input.password === '' || error.email || error.password) {
 
             setFormCorrecto(true)
             setTimeout(() => {
@@ -70,12 +60,14 @@ const AccessPage = () => {
         } else {
 
             let userGet = {
-                email,
-                password,
+                email: input.email,
+                password: input.password,
             }
 
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
+
+                // console.log(data);
 
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
@@ -84,12 +76,15 @@ const AccessPage = () => {
                 localStorage.setItem('State', 'true')
                 
                 
-                setEmail('')
-                setPassword('')
+                setInput({
+                    email: '',
+                    password: ''
+                })
 
                 redirectToHome()
             
             } catch (error) {
+                console.log(error)
                 if (error.response.data.message) {
                     setMensajeBack(error.response.data.message)
                     setMensaje(true)
@@ -121,6 +116,8 @@ const AccessPage = () => {
 
             const responso = await axios.post('/usuario/google', email)  
 
+            // console.log(responso);
+
 
             localStorage.setItem('TokenUsu', response.credential);
             localStorage.setItem('email', userObject.email);
@@ -129,10 +126,12 @@ const AccessPage = () => {
             localStorage.setItem('foto', userObject.picture); 
             localStorage.setItem('State', 'true')
 
-            setEmail('')
-            setPassword('')
+            setInput({
+                email: '',
+                password: ''
+            })
 
-            dispatch(acceso('true'))
+        //  dispatch(acceso('true'))
 
             redirectToHome()
 
@@ -188,13 +187,11 @@ const AccessPage = () => {
                         type="text" 
                         placeholder='Email' 
                         name='email' 
-                        value={email} 
-                        onChange={onChangeEmail} 
+                        value={input.email} 
+                        onChange={handleChange} 
                         style={emailError ? {border: '3px solid red'} : null}
                         />
-                    {
-                        emailError === true && <p className='pErrorEmailAccessPage'>Email incorrecto. Corrobore que el email tenga @ y .com</p>
-                    }
+                        {error.email && <p className='pErrorEmailAccessPage'>{error.email}</p>}
 
                     <label className='labelFormAccessPage'> Contraseña </label>
                     <input 
@@ -202,13 +199,12 @@ const AccessPage = () => {
                         type="password" 
                         placeholder='Contraseña' 
                         name='password' 
-                        value={password} 
-                        onChange={onChangePassword} 
+                        value={input.password} 
+                        onChange={handleChange} 
                         style={passwordError ? {border: '3px solid red'} : null}
                         />
-                    {
-                        passwordError === true && <p className='pErrorEmailAccessPage'>Contraseña incorrecta. Corrobore que la contraseña tenga 8 caracteres</p>
-                    }
+                        {error.password && <p className='pErrorEmailAccessPage'>{error.password}</p>}
+
                     <br/>
                     <div id="signInDiv"></div>
                     {/* <button onClick={() => window.google.accounts.id.prompt()}>Sign in with Google</button> */}

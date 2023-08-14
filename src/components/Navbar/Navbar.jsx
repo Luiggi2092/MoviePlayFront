@@ -27,7 +27,10 @@ const Navbar = ({ isScrolled }) => {
     { name: 'Series', link: '/series', icon: <FiTv /> },
   ];
 
-  if (isAdmin) {
+  const admin = localStorage.getItem("email");
+  console.log(admin);
+
+  if (admin == "moviesplay@gmail.com") {
     links.push({ name: 'Dashboard', link: '/DashboardAdmin/content1', icon: <FiUser /> });
   } //para que aparezca solo en admin
 
@@ -53,7 +56,6 @@ const Navbar = ({ isScrolled }) => {
 
   const cerrarSesion = () => {
     localStorage.clear();
-    dispatch(bloquearAcceso());
     localStorage.removeItem('savedProducts');
     localStorage.removeItem('savedSeries');
     localStorage.removeItem('cartCount', 0)
