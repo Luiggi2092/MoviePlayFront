@@ -8,6 +8,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
 import axios from 'axios';
+const user = localStorage.getItem('email')
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
 
@@ -23,7 +24,7 @@ const CheckoutForm = () => {
     const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     let allMoviesPrice = null
     let allSeriesPrice = null
-    const user = localStorage.getItem('email')
+    
 
     const calculateTotalPrice = (array) => {
         return array.reduce((total, item) => total + item.price, 0);
@@ -130,6 +131,11 @@ const CardShop = () => {
         setContinuePay(true);
     }
 
+    useEffect(()=>{
+        dispatch(fetchCartContent(user))
+      },[dispatch]);
+      const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+
       
 
 
@@ -175,7 +181,7 @@ const CardShop = () => {
 
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {`(${contador})`}</p>
+                    <p className={style.textNav}>Carrito {`(${contadorDelCarrito})`}</p>
                 </div>
                 {series}
                 {movies}
