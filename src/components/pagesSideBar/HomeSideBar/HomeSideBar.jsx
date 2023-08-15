@@ -1,5 +1,5 @@
 import { Chart } from "react-google-charts";
-import style from './HomeSideBar.module.css';
+import './HomeSideBar.css';
 import { useTable } from "react-table";
 import TableSeries from "./TableSeries/TableSeries";
 import axios from "axios";
@@ -194,11 +194,12 @@ const HomeSideBar = ()=> {
   
 
   return (
-    <div className={style.contentHome}>
-    <div className={style.table1}>
+    <div className='contentHome'>
+      <div className="scrollable-container">
+    <div className='table1'>
       
     <h4>Top 5 Peliculas</h4>
-    <table {...getTableProps()} className={style.table} >
+    <table {...getTableProps()} className='table' >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "blue" }}>
@@ -222,7 +223,7 @@ const HomeSideBar = ()=> {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()} className={style.tbody}>
+            <tbody {...getTableBodyProps()} className='tbody'>
               {rows.map((row) => {
                  prepareRow(row);
                  return (
@@ -247,18 +248,25 @@ const HomeSideBar = ()=> {
           </table>
 
     </div>
-    <div className={style.table2}>
+    <div className='table2'>
      <TableSeries/>
     </div>
-    <div className={style.graficoven}>
-     <Chart chartType="ColumnChart" width="1000px"  height="400px" 
-        loader={<div>Cargando gráfico...</div>} data={data}  options={{
-          title: "Numero de Usuarios",
-          chartArea: { width: "50%" },
-         hAxis: { title: "Meses", minValue: 0 },
-           vAxis: { title: "N° Usuarios" },
-           legend: "none",
-         }}  />
+        <div className='graficoven'>
+          <Chart
+            chartType="ColumnChart"
+            width="500px"
+            height="400px"
+            loader={<div className="chart-loader">Cargando gráfico...</div>}
+            data={data}
+            options={{
+              title: "Numero de Usuarios",
+              chartArea: { width: "80%" },
+              hAxis: { title: "Meses", minValue: 0 },
+              vAxis: { title: "N° Usuarios", minValue: 0 },
+              legend: "none",
+            }}
+          />
+        </div>
     </div>
     </div>
   )
