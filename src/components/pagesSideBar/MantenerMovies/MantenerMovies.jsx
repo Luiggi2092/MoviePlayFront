@@ -57,8 +57,8 @@ const MantenerMovies = ()=> {
           accessor: "accion",
          Cell: ({ row }) => ( // Renderiza el botón en la celda
           <><button className={style.buttonAccion}  onClick={()=>handleModalMovieEdit(row)}>Editar</button>
-          
-          { mostrar !== row.id  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
+          {console.log(row.original.active)}
+          {  row.original.active !== "true"  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
            (<button className={style.buttonAccion2} onClick={()=>activar(row)}>Activar</button>)
             }</>
           
