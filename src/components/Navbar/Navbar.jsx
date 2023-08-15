@@ -58,9 +58,6 @@ const Navbar = ({ isScrolled }) => {
 
   const cerrarSesion = () => {
     localStorage.clear();
-    localStorage.removeItem('savedProducts');
-    localStorage.removeItem('savedSeries');
-    localStorage.removeItem('cartCount', 0)
   };
 
   const [showProfileMenu, setShowProfileMenu] = useState(false);
