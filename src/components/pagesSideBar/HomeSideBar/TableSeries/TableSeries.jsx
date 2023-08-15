@@ -1,9 +1,9 @@
 import { useTable,useSortBy  } from "react-table";
 import React from "react";
 import axios from "axios"
-import style from '../HomeSideBar.module.css';
 import { useMemo,useState,useEffect } from "react";
 import data from "../../../../data";
+import './tableSeries.css'
 
 
 
@@ -187,7 +187,7 @@ const tableSeries = () => {
         <>
     
     <h4>Top 5 Series</h4>
-    <table {...getTableProps()} className={style.table2} >
+    <table {...getTableProps()} className='table2' >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "blue" }}>
@@ -206,7 +206,7 @@ const tableSeries = () => {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()} className={style.tbody}>
+            <tbody {...getTableBodyProps()} className='tbody'>
               {rows.map((row) => {
                  prepareRow(row);
                  return (

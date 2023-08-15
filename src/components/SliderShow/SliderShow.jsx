@@ -1,7 +1,7 @@
 import React,{useRef,useEffect} from "react";
 import {useNavigate} from "react-router-dom"
 import img1 from "../../assets/caret-left-square.svg"
-import image1 from '../../assets/flash.jpg';
+import image1 from '../../assets/Mavka.jpg';
 import img2 from "../../assets/caret-left-square.svg"
 import styled from "styled-components"
 import './SliderShow.css';
