@@ -23,7 +23,7 @@ const Sidebar = ()=> {
                 <NavLink to="/DashboardAdmin/content4" ><FaIcons.FaUser/><a>Mantener Usuarios</a></NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content5"><FaIcons.FaCartPlus/><a>Compras</a></NavLink>
+                <NavLink to="/DashboardAdmin/content5"><FaIcons.FaCartPlus/><a>Ordenes de Compras</a></NavLink>
             </li>
             <li>
                 <NavLink to="/DashboardAdmin/content6" className="btn btn-primary" ><FaIcons.FaPoll/><a>Ventas</a></NavLink>
