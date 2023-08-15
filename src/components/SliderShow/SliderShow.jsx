@@ -1,7 +1,7 @@
 import React,{useRef,useEffect} from "react";
 import {useNavigate} from "react-router-dom"
 import img1 from "../../assets/caret-left-square.svg"
-import image1 from '../../assets/fondo.png';
+import image1 from '../../assets/Mavka.jpg';
 import img2 from "../../assets/caret-left-square.svg"
 import styled from "styled-components"
 import './SliderShow.css';
@@ -88,7 +88,7 @@ const anterior = ()=> {
             </Slider>
             <Slider>
                 <a>
-                 <img src="https://e00-mx-marca.uecdn.es/mx/assets/multimedia/imagenes/2023/07/18/16896920030084.jpg"/>
+                        <img src="https://hips.hearstapps.com/hmg-prod/images/barbie-margot-robbie-64b7997423918.jpg?crop=1xw:0.84375xh;center,top&resize=1200:*"/>
                 </a>
                 {/* <TextSlider > 
                     <a>$ 18.45</a>
@@ -96,7 +96,7 @@ const anterior = ()=> {
             </Slider>
             <Slider>
                 <a>
-                 <img src="https://www.themoviedb.org/t/p/original/9RJjixeI023s5UilkD7rSMFd1Yh.jpg"/>
+                        <img src="https://www.nintenderos.com/wp-content/uploads/2023/07/super-mario-bros.jpg"/>
                 </a>
                 {/* <TextSlider >
                     <a>$ 15.45</a>
@@ -148,7 +148,8 @@ const Slider = styled.div`
        img {
           width : 100%;
           vertical-align: top;
-          height : 500px;
+          height : 100%;
+          
        }
 `;
 

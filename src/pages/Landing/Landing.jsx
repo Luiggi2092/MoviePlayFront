@@ -1,5 +1,5 @@
 import React from 'react';
-import fondo from '../../assets/fondo.png';
+import fondo from '../../assets/the-flash.jpg';
 import Logo from '../../assets/Logo.ico.png';
 import img0 from '../../assets/camilo.jpeg';
 import img1 from '../../assets/amber1.jpg'
