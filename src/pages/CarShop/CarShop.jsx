@@ -12,7 +12,7 @@ import axios from 'axios';
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
 
 const reload = () => {
-    window.location.reload(true);
+    window.location.reload(false);
 }
 
 const CheckoutForm = () => {
@@ -23,6 +23,7 @@ const CheckoutForm = () => {
     const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     let allMoviesPrice = null
     let allSeriesPrice = null
+    const user = localStorage.getItem('email')
 
     const calculateTotalPrice = (array) => {
         return array.reduce((total, item) => total + item.price, 0);
@@ -53,14 +54,15 @@ const CheckoutForm = () => {
             const {data} = await axios.post('https://movieplay.onrender.com/pago',{
                   amount: totalAmount, 
                   id: id,
-                  description:'pago de prueba'
+                  description:'pago de prueba',
+                  emailUsuario:user
               });
             console.log(paymentMethod)
             console.log(data)
             localStorage.removeItem('savedProducts');
             localStorage.removeItem('savedSeries');
             localStorage.setItem('cartCount', 0)
-            alert('Pago relizado correctament')
+            alert('Pago relizado correctamente')
             reload()
         }
 
