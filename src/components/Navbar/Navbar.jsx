@@ -6,6 +6,8 @@ import {getTodobusqueda,getTodoFillClean} from "../../redux/actions"
 import Logo from '../../assets/Logo.ico.png';
 import './navbar.css';
 
+
+
 const Navbar = ({ isScrolled }) => {
   const cartCount = useSelector((state) => state.cartCount);
 
