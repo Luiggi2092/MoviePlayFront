@@ -49,3 +49,7 @@
 .boton{
     background-color: red;
 }
+
+.boton:hover{
+    background-color: brown;
+}
