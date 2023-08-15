@@ -7,6 +7,7 @@ import { fetchCartContent, addToCart, removeFromCart } from '../../redux/actions
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
+import CardCarSerie from '../../components/CardCarSeries/CardCarSerie';
 import axios from 'axios';
 const user = localStorage.getItem('email')
 
@@ -103,7 +104,6 @@ const CardShop = () => {
 
 
     const [continuePay, setContinuePay] = useState(false)
-    const itemsFromDB = useSelector((state) => state.carrito)
     const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
     const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     const contador = useSelector((state) => state.cartCount)
@@ -140,30 +140,30 @@ const CardShop = () => {
 
 
       let series = null;
-    if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
-        series = seriesLocalStorage?.map(serie => {
-            const uniqueKey = `${serie.id}_${serie.tipo}`;
+    if (carrito.Series && Array.isArray(carrito.Series)) {
+        series = carrito.Series?.map(serie => {
+            const uniqueKey = `${serie.seriesXcarro.serieId}_serie`;
             return (
-                <CardCar
+                <CardCarSerie
                     key={uniqueKey}
-                    id={serie.id}
+                    id={serie.seriesXcarro.serieId}
                     price={serie.price}
-                    name={serie.name}
+                    name={serie.titulo}
                     image={serie.image}
-                    tipo={'serie'}
                 />
             );
         });
     }
 
     let movies = null;
-    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
-        movies = moviesLocalStorage?.map(movie => {
-            const uniqueKey = `${movie.id}_${movie.tipo}`;
+    
+    if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+        movies = carrito.Multimedia?.map(movie => {
+            const uniqueKey = `${movie.peliculasXcarro.multimediaId}_movie`;
             return (
                 <CardCar
                     key={uniqueKey}
-                    id={movie.id}
+                    id={movie.peliculasXcarro.multimediaId}
                     price={movie.price}
                     name={movie.name}
                     image={movie.image}
@@ -172,6 +172,8 @@ const CardShop = () => {
             );
         });
     }
+
+    console.log(carrito.Multimedia)
 
     return(<section>
 
