@@ -28,6 +28,8 @@ export const BANMOVIE= 'BANMOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE'
 const usuario = localStorage.getItem('email')
+export const GETSEARCHBARADM = 'GETSEARCHBARADM';
+export const GETSEARCHBARCLEANADM = 'GETSEARCHBARCLEANADM';
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -352,7 +354,9 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
 
 export const ActivaroDesactivarMovies = (id)=> {
        return async function (dispatch){
-          const banmov = axios.put(`/disableMovies/${id}`);
+          const banmov = await axios.put(`/admin/disableMovies/${id}`);
+          console.log(banmov);
+          console.log("vamos")
           dispatch({type: BANMOVIE, payload: banmov})          
        }
 }
@@ -430,3 +434,30 @@ export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatc
     console.error('Error al eliminar producto', error);
   }
 };
+
+
+export const getTodobusquedaAdm = (name)=> {
+  console.log(name);
+  return async function (dispatch){
+      const todoSearchBar = (await axios.get(`/admin/disableMovies?busqueda=${name}`)).data.elementos;
+      dispatch({type: GETSEARCHBARADM, payload: todoSearchBar})
+  }
+}
+
+
+export const getTodoFillCleanAdm = ()=> {
+  return function (dispatch){
+    dispatch({type:GETSEARCHBARCLEANADM,payload: []})
+  }
+}
+
+export const ActualizarMovie = (id,form)=> {
+  return async function  (dispatch){
+    const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
+    dispatch({type:ActMov,payload:actions.payload})
+
+  }
+
+
+}
+

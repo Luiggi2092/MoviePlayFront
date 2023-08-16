@@ -2,13 +2,17 @@ import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import ModalEdit from "../../ModalEditarMovie/ModalEditarMovie"
 import { useState,useEffect, useMemo } from "react";
 import {ActivaroDesactivarMovies} from  "../../../redux/actions";
-import { useDispatch} from "react-redux"
+import { useDispatch,useSelector} from "react-redux"
 import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
 import style from "./MantenerMovies.module.css"
 import Loading from "../../Loading/Loading";
 
 
 const MantenerMovies = ()=> {
+
+  const dispatch = useDispatch();
+
+  const busquedaMov = useSelector((state)=> state.SearchAdmimovie)
    
     
   const [openModal, setOpenModal] = useState(false); 
@@ -22,27 +26,29 @@ const MantenerMovies = ()=> {
   const [selectedRows, setSelectedRows] = useState(1);
  
 
+
   
   const inativar =(row)=> {
     setMostrar(row.id)
     console.log("id de pelicula" + row.original.id);
+    dispatch(ActivaroDesactivarMovies(row.original.id));
 
   }
 
   const activar = (row)=> {
     setMostrar(null)
-    
+    dispatch(ActivaroDesactivarMovies(row.original.id));
     console.log("Activar" + row.id)
   }
 
   
    const columns = useMemo(
      ()=>[
-       {
+       /*{
          Header: "Id",
          accessor: "id",
          Cell: ({ value}) => <strong>{value}</strong>
-       },
+       },*/
        {
          Header: "Nombre",
          accessor: "name"
@@ -57,8 +63,7 @@ const MantenerMovies = ()=> {
           accessor: "accion",
          Cell: ({ row }) => ( // Renderiza el botón en la celda
           <><button className={style.buttonAccion}  onClick={()=>handleModalMovieEdit(row)}>Editar</button>
-          {console.log(row.original.active)}
-          {  row.original.active !== "true"  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
+          {  row.original.active == true  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
            (<button className={style.buttonAccion2} onClick={()=>activar(row)}>Activar</button>)
             }</>
           
@@ -71,7 +76,7 @@ const MantenerMovies = ()=> {
 
    const tableInstance = useTable({
      columns
-     ,data : movies}, useSortBy);
+     ,data : busquedaMov.length == 0 ? movies : busquedaMov}, useSortBy);
 
    const {
        getTableProps,
@@ -83,7 +88,7 @@ const MantenerMovies = ()=> {
 
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `https://movieplay.onrender.com/admin/disableMovies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -106,7 +111,7 @@ const MantenerMovies = ()=> {
 
    useEffect(()=>{
      getMovieAndPage(1, null, null, null)
-   },[]);
+   },[movies]);
 
 
    useEffect(() => {

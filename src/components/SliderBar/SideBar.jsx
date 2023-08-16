@@ -10,23 +10,23 @@ const Sidebar = ()=> {
         <div className={style.sidebar}>
            <ul className={style.ulSidebar}>
             <li>
-                <NavLink to={`/DashboardAdmin/content1`}><FaIcons.FaHome/><a>Inicio</a></NavLink>
+                <NavLink to={`/DashboardAdmin/content1`}><FaIcons.FaHome/>Inicio</NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content2"><FaIcons.FaPlayCircle/><a>Mantener Peliculas</a>
+                <NavLink to="/DashboardAdmin/content2"><FaIcons.FaPlayCircle/>Mantener Peliculas
                 </NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content3"><FaIcons.FaHammer/><a>Mantener Series</a></NavLink>
+                <NavLink to="/DashboardAdmin/content3"><FaIcons.FaHammer/>Mantener Series</NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content4" ><FaIcons.FaUser/><a>Mantener Usuarios</a></NavLink>
+                <NavLink to="/DashboardAdmin/content4" ><FaIcons.FaUser/>Mantener Usuarios</NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content5"><FaIcons.FaCartPlus/><a>Ordenes de Compras</a></NavLink>
+                <NavLink to="/DashboardAdmin/content5"><FaIcons.FaCartPlus/>Ordenes de Compras</NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content6" className="btn btn-primary" ><FaIcons.FaPoll/><a>Ventas</a></NavLink>
+                <NavLink to="/DashboardAdmin/content6" className="btn btn-primary" ><FaIcons.FaPoll/>Ventas</NavLink>
             </li>
            </ul>
         </div>
