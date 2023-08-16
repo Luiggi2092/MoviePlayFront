@@ -111,64 +111,64 @@ const CardShop = () => {
     let allMoviesPrice = null
     let allSeriesPrice = null
     
-    const calculateTotalPrice = (array) => {
-        return array.reduce((total, item) => total + item.price, 0);
-    };
+    // const calculateTotalPrice = (array) => {
+    //     return array.reduce((total, item) => total + item.price, 0);
+    // };
 
-    if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
-        allMoviesPrice = calculateTotalPrice(carrito.Multimedia);
-    }
+    // if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+    //     allMoviesPrice = calculateTotalPrice(carrito.Multimedia);
+    // }
       
-    if (carrito.Series && Array.isArray(carrito.Series)) {
-        allSeriesPrice = calculateTotalPrice(carrito.Series);
-      }
+    // if (carrito.Series && Array.isArray(carrito.Series)) {
+    //     allSeriesPrice = calculateTotalPrice(carrito.Series);
+    //   }
 
-      const totalAmount = allMoviesPrice + allSeriesPrice
+    //   const totalAmount = allMoviesPrice + allSeriesPrice
 
     const handleclick = (e) => {
         e.preventDefault()
         setContinuePay(true);
     }
 
-    useEffect(()=>{
-        dispatch(fetchCartContent(user))
-      },[dispatch]);
-      const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+    // useEffect(()=>{
+    //     dispatch(fetchCartContent(user))
+    //   },[dispatch]);
+    //   const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
 
       
 
 
-    let series = null;
-    if (carrito.Series && Array.isArray(carrito.Series)) {
-        series = carrito.Series?.map(serie => {
-            const uniqueKey = `${serie.seriesXcarro.serieId}_serie`;
-            return (
-                <CardCarSerie
-                    key={uniqueKey}
-                    id={serie.seriesXcarro.serieId}
-                    price={serie.price}
-                    name={serie.titulo}
-                    image={serie.image}
-                />
-            );
-        });
-    }
+    // let series = null;
+    // if (carrito.Series && Array.isArray(carrito.Series)) {
+    //     series = carrito.Series?.map(serie => {
+    //         const uniqueKey = `${serie.seriesXcarro.serieId}_serie`;
+    //         return (
+    //             <CardCarSerie
+    //                 key={uniqueKey}
+    //                 id={serie.seriesXcarro.serieId}
+    //                 price={serie.price}
+    //                 name={serie.titulo}
+    //                 image={serie.image}
+    //             />
+    //         );
+    //     });
+    // }
 
-    let movies = null;    
-    if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
-        movies = carrito.Multimedia?.map(movie => {
-            const uniqueKey = `${movie.peliculasXcarro.multimediaId}_movie`;
-            return (
-                <CardCar
-                    key={uniqueKey}
-                    id={movie.peliculasXcarro.multimediaId}
-                    price={movie.price}
-                    name={movie.name}
-                    image={movie.image}
-                />
-            );
-        });
-    }
+    // let movies = null;    
+    // if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+    //     movies = carrito.Multimedia?.map(movie => {
+    //         const uniqueKey = `${movie.peliculasXcarro.multimediaId}_movie`;
+    //         return (
+    //             <CardCar
+    //                 key={uniqueKey}
+    //                 id={movie.peliculasXcarro.multimediaId}
+    //                 price={movie.price}
+    //                 name={movie.name}
+    //                 image={movie.image}
+    //             />
+    //         );
+    //     });
+    // }
 
     return(<section>
 
@@ -178,13 +178,13 @@ const CardShop = () => {
 
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {`(${contadorDelCarrito})`}</p>
+                    <p className={style.textNav}>Carrito {`(${0})`}</p>
                 </div>
-                {series}
-                {movies}
+                {/* {series}
+                {movies} */}
             </div>
             <div className={style.submit}>
-                <p className={style.textSubmit}>Total: ${totalAmount}</p>
+                <p className={style.textSubmit}>Total: ${0}</p>
                 {!continuePay && (
                     <button className={style.continuar} onClick={handleclick}>
                      Continuar compra
