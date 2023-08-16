@@ -1,10 +1,10 @@
-
+import style from './MantenerUsuarios.module.css'
 
 
 const MantenerUsuarios = () => {
    return (
     <div>
-        <p>
+        <p className={style.pp}>
             Usuarios
         </p>
     </div>

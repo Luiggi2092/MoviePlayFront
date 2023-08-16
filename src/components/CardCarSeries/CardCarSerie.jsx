@@ -1,5 +1,5 @@
-import style from './CardCar.module.css'
-import { removeFromCartAndRemoveDetailsMovie} from '../../redux/actions'
+import style from './CardCarSeries.module.css'
+import { removeFromCartAndRemoveDetailsSerie} from '../../redux/actions'
 import { useDispatch } from 'react-redux'
 import Swal from 'sweetalert2'
 
@@ -8,14 +8,15 @@ const reload = () => {
     window.location.reload(false);
 }
 
-const CardCar = (props) => {
+const CardCarSerie = (props) => {
 
     const dispatch = useDispatch()
 
 
-    const handleClick = () => {    
+    const handleClick = () => {
         
-        dispatch(removeFromCartAndRemoveDetailsMovie(props.id))        
+        dispatch(removeFromCartAndRemoveDetailsSerie(props.id))         
+        
 
         Swal.fire({
             title:`Artículo eliminado carrito`,
@@ -42,4 +43,4 @@ const CardCar = (props) => {
     )
 }
 
-export default CardCar
+export default CardCarSerie

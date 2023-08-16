@@ -3,11 +3,13 @@ import {loadStripe} from '@stripe/stripe-js';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
-import { fetchCartContent, addToCart, removeFromCart } from '../../redux/actions';
+import { fetchCartContent } from '../../redux/actions';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
+import CardCarSerie from '../../components/CardCarSeries/CardCarSerie';
 import axios from 'axios';
+const user = localStorage.getItem('email')
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
 
@@ -16,33 +18,33 @@ const reload = () => {
 }
 
 const CheckoutForm = () => {
-
+    
     const stripe = useStripe()
     const elements = useElements()
-    const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
-    const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     let allMoviesPrice = null
-    let allSeriesPrice = null
-    const user = localStorage.getItem('email')
-
+    let allSeriesPrice = null    
+    const carrito = useSelector(state => state.carrito)
+    
+    
     const calculateTotalPrice = (array) => {
         return array.reduce((total, item) => total + item.price, 0);
-      };
-
-    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
-        allMoviesPrice = calculateTotalPrice(moviesLocalStorage);
-      }
+    };
+    
+    if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+        allMoviesPrice = calculateTotalPrice(carrito.Multimedia);
+    }
       
-      if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
-        allSeriesPrice = calculateTotalPrice(seriesLocalStorage);
+      if (carrito.Series && Array.isArray(carrito.Series)) {
+        allSeriesPrice = calculateTotalPrice(carrito.Series);
       }
 
       const totalAmount = (allMoviesPrice + allSeriesPrice)*100
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        const {error, paymentMethod} = await stripe.createPaymentMethod({
+      const handleSubmit = async (e) => {
+          e.preventDefault();
+
+          const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
             card: elements.getElement(CardElement)
 
@@ -57,7 +59,7 @@ const CheckoutForm = () => {
                   description:'pago de prueba',
                   emailUsuario:user
               });
-            console.log(paymentMethod)
+              console.log(paymentMethod)
             console.log(data)
             localStorage.removeItem('savedProducts');
             localStorage.removeItem('savedSeries');
@@ -67,7 +69,7 @@ const CheckoutForm = () => {
         }
 
     }
-
+    
     return(
         <form className={style.card}>
             <CardElement className={style.formControl} />
@@ -92,6 +94,7 @@ const Pago = () => {
     )
 }
 
+
 const CardShop = () => {
 
     const [isScrolled, setIsScrolled] = useState(false)
@@ -102,70 +105,70 @@ const CardShop = () => {
 
 
     const [continuePay, setContinuePay] = useState(false)
-    const itemsFromDB = useSelector((state) => state.carrito)
-    const moviesLocalStorage = useSelector((state) => state.savedProductsMovies)
-    const seriesLocalStorage = useSelector((state) => state.savedProductsSeries)
     const contador = useSelector((state) => state.cartCount)
     const carrito = useSelector(state => state.carrito)
     const dispatch = useDispatch()
     let allMoviesPrice = null
     let allSeriesPrice = null
+    
+    // const calculateTotalPrice = (array) => {
+    //     return array.reduce((total, item) => total + item.price, 0);
+    // };
 
-    const calculateTotalPrice = (array) => {
-        return array.reduce((total, item) => total + item.price, 0);
-      };
-
-    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
-        allMoviesPrice = calculateTotalPrice(moviesLocalStorage);
-      }
+    // if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+    //     allMoviesPrice = calculateTotalPrice(carrito.Multimedia);
+    // }
       
-      if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
-        allSeriesPrice = calculateTotalPrice(seriesLocalStorage);
-      }
+    // if (carrito.Series && Array.isArray(carrito.Series)) {
+    //     allSeriesPrice = calculateTotalPrice(carrito.Series);
+    //   }
 
-      const totalAmount = allMoviesPrice + allSeriesPrice
+    //   const totalAmount = allMoviesPrice + allSeriesPrice
 
     const handleclick = (e) => {
         e.preventDefault()
         setContinuePay(true);
     }
 
+    // useEffect(()=>{
+    //     dispatch(fetchCartContent(user))
+    //   },[dispatch]);
+    //   const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+
       
 
 
-      let series = null;
-    if (seriesLocalStorage && Array.isArray(seriesLocalStorage)) {
-        series = seriesLocalStorage?.map(serie => {
-            const uniqueKey = `${serie.id}_${serie.tipo}`;
-            return (
-                <CardCar
-                    key={uniqueKey}
-                    id={serie.id}
-                    price={serie.price}
-                    name={serie.name}
-                    image={serie.image}
-                    tipo={'serie'}
-                />
-            );
-        });
-    }
+    // let series = null;
+    // if (carrito.Series && Array.isArray(carrito.Series)) {
+    //     series = carrito.Series?.map(serie => {
+    //         const uniqueKey = `${serie.seriesXcarro.serieId}_serie`;
+    //         return (
+    //             <CardCarSerie
+    //                 key={uniqueKey}
+    //                 id={serie.seriesXcarro.serieId}
+    //                 price={serie.price}
+    //                 name={serie.titulo}
+    //                 image={serie.image}
+    //             />
+    //         );
+    //     });
+    // }
 
-    let movies = null;
-    if (moviesLocalStorage && Array.isArray(moviesLocalStorage)) {
-        movies = moviesLocalStorage?.map(movie => {
-            const uniqueKey = `${movie.id}_${movie.tipo}`;
-            return (
-                <CardCar
-                    key={uniqueKey}
-                    id={movie.id}
-                    price={movie.price}
-                    name={movie.name}
-                    image={movie.image}
-                    tipo={'movie'}
-                />
-            );
-        });
-    }
+    // let movies = null;    
+    // if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+    //     movies = carrito.Multimedia?.map(movie => {
+    //         const uniqueKey = `${movie.peliculasXcarro.multimediaId}_movie`;
+    //         return (
+    //             <CardCar
+    //                 key={uniqueKey}
+    //                 id={movie.peliculasXcarro.multimediaId}
+    //                 price={movie.price}
+    //                 name={movie.name}
+    //                 image={movie.image}
+    //             />
+    //         );
+    //     });
+    // }
 
     return(<section>
 
@@ -175,13 +178,13 @@ const CardShop = () => {
 
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {`(${contador})`}</p>
+                    <p className={style.textNav}>Carrito {`(${0})`}</p>
                 </div>
-                {series}
-                {movies}
+                {/* {series}
+                {movies} */}
             </div>
             <div className={style.submit}>
-                <p className={style.textSubmit}>Total: ${totalAmount}</p>
+                <p className={style.textSubmit}>Total: ${0}</p>
                 {!continuePay && (
                     <button className={style.continuar} onClick={handleclick}>
                      Continuar compra

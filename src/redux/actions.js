@@ -282,21 +282,21 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
 
 
 
-export const saveIdToSavesMovie = (id) => {
-  return (dispatch, getState) => {
-    const state = getState();
-      const existingId = state.idSavesMovies.find((savedId) => savedId === id);
+// export const saveIdToSavesMovie = (id) => {
+//   return (dispatch, getState) => {
+//     const state = getState();
+//       const existingId = state.idSavesMovies.find((savedId) => savedId === id);
 
-      if (!existingId) {
-          const updatedIdSaves = [...state.idSavesMovies, id];
-          localStorage.setItem('idSaves', JSON.stringify(updatedIdSaves));
-          dispatch({
-              type: SAVE_ID_TO_SAVES,
-              payload: updatedIdSaves,
-          });
-      }
-  };
-};
+//       if (!existingId) {
+//           const updatedIdSaves = [...state.idSavesMovies, id];
+//           localStorage.setItem('idSaves', JSON.stringify(updatedIdSaves));
+//           dispatch({
+//               type: SAVE_ID_TO_SAVES,
+//               payload: updatedIdSaves,
+//           });
+//       }
+//   };
+// };
 
 export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
   const state = getState();
@@ -304,11 +304,11 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 
   if (!existingProduct) {
     dispatch(addToCart(user, null, productDetails.id));
-    dispatch(saveIdToSavesMovie(productDetails.id));
+    // dispatch(saveIdToSavesMovie(productDetails.id));
 
-    const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
-    savedProducts.push(productDetails);
-    localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
+    // const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+    // savedProducts.push(productDetails);
+    // localStorage.setItem('savedProducts', JSON.stringify(savedProducts));
     
     dispatch({
       type: ADD_PRODUCT_DETAILS_MOVIE,
@@ -317,21 +317,21 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
   }
 };
 
-export const saveIdToSavesSerie = (id) => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const existingId = state.idSavesSeries.find((savedId) => savedId === id);
+// export const saveIdToSavesSerie = (id) => {
+//   return (dispatch, getState) => {
+//     const state = getState();
+//     const existingId = state.idSavesSeries.find((savedId) => savedId === id);
     
-    if (!existingId) {
-      const updatedIdSaves = [...state.idSavesSeries, id];
-      localStorage.setItem('idSavesSeries', JSON.stringify(updatedIdSaves));
-      dispatch({
-        type: SAVE_ID_TO_SERIES,
-        payload: updatedIdSaves,
-      });
-    }
-  };
-};
+//     if (!existingId) {
+//       const updatedIdSaves = [...state.idSavesSeries, id];
+//       localStorage.setItem('idSavesSeries', JSON.stringify(updatedIdSaves));
+//       dispatch({
+//         type: SAVE_ID_TO_SERIES,
+//         payload: updatedIdSaves,
+//       });
+//     }
+//   };
+// };
 
 export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
   const state = getState();
@@ -339,11 +339,11 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
   
   if (!existingProduct) {
     dispatch(addToCart(user, productDetails.id, null));
-    dispatch(saveIdToSavesSerie(productDetails.id));
+    // dispatch(saveIdToSavesSerie(productDetails.id));
     
-    const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
-    savedProducts.push(productDetails);
-    localStorage.setItem('savedSeries', JSON.stringify(savedProducts));
+    // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+    // savedProducts.push(productDetails);
+    // localStorage.setItem('savedSeries', JSON.stringify(savedProducts));
     
     dispatch({
       type: ADD_PRODUCT_DETAILS_SERIE,
@@ -368,32 +368,32 @@ export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatc
       const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idMovie}`);
       dispatch({ type: REMOVE_FROM_CART, payload: response.data });
 
-      const state = getState();
-      const newCartCount = state.cartCount - 1; 
-      dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
-      localStorage.setItem('cartCount', newCartCount);
-      const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
-      const updatedSavedProducts = savedProducts.filter(product => product.id !== idMovie);
-      if(updatedSavedProducts !== []){
-        localStorage.removeItem('savedProducts');
-        const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
-        localStorage.setItem('savedProducts',JSON.stringify(updatedSavedProducts)) ;
-      }        
+      // const state = getState();
+      // const newCartCount = state.cartCount - 1; 
+      // dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+      // localStorage.setItem('cartCount', newCartCount);
+      // const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+      // const updatedSavedProducts = savedProducts.filter(product => product.id !== idMovie);
+      // if(updatedSavedProducts !== []){
+      //   localStorage.removeItem('savedProducts');
+      //   const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
+      //   localStorage.setItem('savedProducts',JSON.stringify(updatedSavedProducts)) ;
+      // }        
     }
     if(!idMovie){
       const response = await axios.delete(`/carroCompra?emailUsuario=${emailUsuario}&idSerie=${idSerie}` );
       dispatch({ type: REMOVE_FROM_CART, payload: response.data }); 
-      const state = getState();
-        const newCartCount = state.cartCount - 1; 
-        dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
-        localStorage.setItem('cartCount', newCartCount);
-        const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
-        const updatedSavedProducts = savedProducts.filter(product => product.id !== idSerie);
-        if(updatedSavedProducts !== []){
-          localStorage.removeItem('savedSeries');
-          const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
-          localStorage.setItem('savedSeries',JSON.stringify(updatedSavedProducts)) ;
-        } 
+      // const state = getState();
+      //   const newCartCount = state.cartCount - 1; 
+      //   dispatch({ type: UPDATE_CART_COUNT, payload: newCartCount }); 
+      //   localStorage.setItem('cartCount', newCartCount);
+      //   const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+      //   const updatedSavedProducts = savedProducts.filter(product => product.id !== idSerie);
+      //   if(updatedSavedProducts !== []){
+      //     localStorage.removeItem('savedSeries');
+      //     const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
+      //     localStorage.setItem('savedSeries',JSON.stringify(updatedSavedProducts)) ;
+      //   } 
     }
   } catch (error) {
     console.error('Error al eliminar del carrito', error);
