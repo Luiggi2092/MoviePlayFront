@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import style from "./ModalEditarMovie.module.css"
-import {getMoviexid,getGeneros,clearMovieId} from "../../redux/actions";
+import {getMoviexid,getGeneros,clearMovieId,ActualizarMovie} from "../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
@@ -11,7 +11,6 @@ const UPLOAD_PRESET = 'Products'
 
 const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
-    console.log(idpelicula);
 
     const [avance, setAvance] = useState(0);
     const dispatch = useDispatch();
@@ -58,6 +57,10 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
       
     
     },[idpelicula])  
+
+    useEffect(()=> {
+
+    },[form.image])
   
    
 
@@ -177,7 +180,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
           form.linkVideo &&
           form.description &&
           form.price  ){
-            dispatch(postMovie(form));
+            dispatch(ActualizarMovie(form));
             cambiarEstado(false); 
             setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
             setAvance(0);
@@ -207,7 +210,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                    <div className={style.contenedor}>
                       
                      <div>      
-                     <img src={pelicula.image}  />  
+                     <img src={form.image == "" || form.image == "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" ? pelicula.image : form.image}  />  
                                 <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
                                 
                      </div>
