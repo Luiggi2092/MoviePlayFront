@@ -33,8 +33,8 @@ import {GET_GENEROS,
         // const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
         // const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
         // const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
-        const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
-        const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+        // const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        // const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
 const initialState = {
      Generos: [],
@@ -57,8 +57,8 @@ const initialState = {
      carrito:{},
     //  cartCount: savedCartCount,
     // //  idSavesMovies: savedIdSaves,
-     savedProductsMovies: moviesSaved,
-     savedProductsSeries: seriesSaved,
+     savedProductsMovies: [],
+     savedProductsSeries: [],
     //  idSavesSeries: savedIdSeries,
      Acceso: '',
      SearchAdmimovie:[],
@@ -124,18 +124,18 @@ const rootReducer =(state = initialState,action)=> {
             return { ...state, cartCount: action.payload };
 
         case ADD_PRODUCT_DETAILS_MOVIE: {
-                const newSavedProducts = [...state.savedProductsMovies, action.payload];
-                localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
+                // const newSavedProducts = [...state.savedProductsMovies, action.payload];
+                // localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
               
-                return {...state, savedProductsMovies: newSavedProducts };
+                return {...state, savedProductsMovies: action.payload };
               }
 
             
         case ADD_PRODUCT_DETAILS_SERIE: {
-                const newSavedProducts = [...state.savedProductsSeries, action.payload];
-                localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
+                // const newSavedProducts = [...state.savedProductsSeries, action.payload];
+                // localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
               
-                return { ...state, savedProductsSeries: newSavedProducts };
+                return { ...state, savedProductsSeries: action.payload };
               }
 
         // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {

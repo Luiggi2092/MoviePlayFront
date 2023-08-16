@@ -156,6 +156,7 @@ const Series = () => {
       <div className={style.Container}>
       
         <div className={style.serieContainer}>
+          
 
           {
             series?.map((element, index) => (
