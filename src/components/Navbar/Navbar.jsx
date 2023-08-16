@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {getTodobusqueda,getTodoFillClean} from "../../redux/actions"
+import {getTodobusqueda,getTodoFillClean,getTodobusquedaAdm,getTodoFillCleanAdm} from "../../redux/actions"
 import Logo from '../../assets/Logo.ico.png';
 import './navbar.css';
 
@@ -10,6 +10,11 @@ import './navbar.css';
 
 const Navbar = ({ isScrolled }) => {
   const cartCount = useSelector((state) => state.cartCount);
+
+  
+  const data = useParams();
+
+  console.log(data);
 
   const [busqueda, setBusqueda] = useState({
     search: '',
@@ -38,11 +43,22 @@ const Navbar = ({ isScrolled }) => {
 
   const busquedaNav = () => {
     if (busqueda.search) {
-      console.log("buscas")
       dispatch(getTodobusqueda(busqueda.search));
+
+      if(data.contentId == "content2"
+      ){
+        dispatch(getTodobusquedaAdm(busqueda.search));
+        
+
+      }else{
+        
       navegate('/home'); // redirigir a una página de resultados de búsqueda
+      
+    }
     } else {
       dispatch(getTodoFillClean());
+      dispatch(getTodoFillCleanAdm());
+        
     }
   };
 
