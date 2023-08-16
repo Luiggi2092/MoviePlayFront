@@ -147,10 +147,11 @@ const MantenerMovies = ()=> {
   };
 
     return (
-        <div className={style.tablecontainer} >
+      <div className={style.container} >
           <br/>
-          <button onClick={handleModalMovie} className={style.CreateNew}>Nueva Pelicula</button>
-          
+          <div className={style.CreateNew} > 
+          <button onClick={handleModalMovie} >Nueva Pelicula</button>
+        </div>
          <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
          <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula >= 1 && idpelicula}></ModalEdit>
          <br/>
@@ -159,7 +160,7 @@ const MantenerMovies = ()=> {
           <table {...getTableProps()} className={style.table} >
             <thead>
               {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "blue" }}>
+                <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "red" }}>
                    {headerGroup.headers.map((column) => (
                     <th {...column.getHeaderProps(column.getSortByToggleProps())}  >
                        <div
@@ -184,13 +185,13 @@ const MantenerMovies = ()=> {
               {rows.map((row) => {
                  prepareRow(row);
                  return (
-                  <tr {...row.getRowProps()}  className="table-row">
+                  <tr {...row.getRowProps()}  className={style.tablerow}>
                       {row.cells.map((cell) => {
                         
                         return (
-                          <td {...cell.getCellProps()}  className="table-cell"> 
+                          <td {...cell.getCellProps()}  className={style.tablecell}> 
                             {cell.column.id === 'image' ? (
-                              <img src={cell.value} style={{ maxWidth: '40px', maxHeight: '40px' }}></img>
+                              <img src={cell.value} style={{ maxWidth: '120px', maxHeight: '150px' }}></img>
                             ): 
                             (cell.render("Cell"))}
                             </td>

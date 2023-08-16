@@ -21,7 +21,7 @@ const DashboardAdmin=()=> {
     return (
         <>
             <Navbar/>
-            <div className={style.flexbar}>
+            <div className={style.container}>
            <Sidebar/>
             <div className={style.content}>
              {data.contentId == "content1" && <HomeSideBar/>}
