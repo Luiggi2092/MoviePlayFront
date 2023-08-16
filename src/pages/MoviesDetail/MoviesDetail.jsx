@@ -6,6 +6,7 @@ import {getMoviexid, clearMovieId, addToCartAndSaveDetailsMovie} from "../../red
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
 import ReactPlayer from 'react-player/youtube'
+import Swal from 'sweetalert2'
 
 
 const MoviesDetail = () => {
@@ -26,7 +27,15 @@ const MoviesDetail = () => {
 
 
     const handleclick = () => {
-        dispatch(addToCartAndSaveDetailsMovie(propiedades, user)) 
+        dispatch(addToCartAndSaveDetailsMovie(propiedades, user))
+        
+        Swal.fire({
+            title:`Artículo agregado al carrito`,
+             icon:'success'});
+        
+             setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
     }
 
     window.onscroll = () => {

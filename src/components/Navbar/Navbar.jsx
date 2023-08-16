@@ -67,12 +67,12 @@ const Navbar = ({ isScrolled }) => {
     setShowProfileMenu(!showProfileMenu);
   };
   
-  //Contador del carrito
-  // useEffect(()=>{
-  //   dispatch(fetchCartContent(user))
-  // },[dispatch]);
-  // const carrito = useSelector((state) => state.carrito)  ;
-  // const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+  // Contador del carrito
+  useEffect(()=>{
+    dispatch(fetchCartContent(user))
+  },[dispatch]);
+  const carrito = useSelector((state) => state.carrito)  ;
+  const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
   
   return (
     <nav className="navbar">
@@ -101,7 +101,7 @@ const Navbar = ({ isScrolled }) => {
           <Link to="/purchase-detail">
             <FiShoppingCart />
           </Link>
-          <span className="cart-count">{'('}{0}{')'}</span>
+          <span className="cart-count">{'('}{contadorDelCarrito}{')'}</span>
         </div>
         <div>
           <img src={foto} alt="" className='logo-foto' />

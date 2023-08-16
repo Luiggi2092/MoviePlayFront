@@ -27,7 +27,7 @@ export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
 export const BANMOVIE= 'BANMOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE'
-const user = localStorage.getItem('email')
+const usuario = localStorage.getItem('email')
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -297,11 +297,11 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
 // };
 
 export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
-  const state = getState();
-  const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
+  // const state = getState();
+  // const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
 
-  if (!existingProduct) {
-    dispatch(addToCart(user, null, productDetails.id));
+  // if (!existingProduct) {
+    dispatch(addToCart(usuario, null, productDetails.id));
     // dispatch(saveIdToSavesMovie(productDetails.id));
 
     // const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
@@ -312,7 +312,7 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
       type: ADD_PRODUCT_DETAILS_MOVIE,
       payload: productDetails,
     });
-  }
+
 };
 
 // export const saveIdToSavesSerie = (id) => {
@@ -332,11 +332,11 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 // };
 
 export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
-  const state = getState();
-  const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
+  // const state = getState();
+  // const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
   
-  if (!existingProduct) {
-    dispatch(addToCart(user, productDetails.id, null));
+  // if (!existingProduct) {
+    dispatch(addToCart(usuario, productDetails.id, null));
     // dispatch(saveIdToSavesSerie(productDetails.id));
     
     // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
@@ -347,7 +347,7 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
       type: ADD_PRODUCT_DETAILS_SERIE,
       payload: productDetails,
     });
-  }
+  // }
 };
 
 export const ActivaroDesactivarMovies = (id)=> {
@@ -408,7 +408,7 @@ export const fetchCartContent = (email) => async (dispatch) => {
 
 export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, null, productId));   
+    await dispatch(removeFromCart(usuario, null, productId));   
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
       payload: productId,
@@ -420,7 +420,7 @@ export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatc
 
 export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, productId, null)); 
+    await dispatch(removeFromCart(usuario, productId, null)); 
     
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
