@@ -28,7 +28,6 @@ const Navbar = ({ isScrolled }) => {
   ];
 
   const admin = localStorage.getItem("email");
-  console.log(admin);
 
   if (admin == "moviesplay@gmail.com") {
     links.push({ name: 'Dashboard', link: '/DashboardAdmin/content1', icon: <FiUser /> });
@@ -36,7 +35,7 @@ const Navbar = ({ isScrolled }) => {
 
   const busquedaNav = () => {
     if (busqueda.search) {
-      console.log("buscas")
+      // console.log("buscas")
       dispatch(getTodobusqueda(busqueda.search));
       navegate('/home'); // redirigir a una página de resultados de búsqueda
     } else {

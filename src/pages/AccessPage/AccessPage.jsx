@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux"
 import './accessPage.css'
 import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
-import {acceso} from "../../redux/actions";
 import axios from 'axios';
 import validation from './validations'
 
@@ -40,9 +39,7 @@ const AccessPage = () => {
     }
 
     const redirectToHome = () => {
-        setTimeout(() => {
-            navigate('/home')
-        }, 1000);
+        navigate('/home')
     }
 
     
@@ -130,8 +127,6 @@ const AccessPage = () => {
                 email: '',
                 password: ''
             })
-
-        //  dispatch(acceso('true'))
 
             redirectToHome()
 

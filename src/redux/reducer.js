@@ -12,8 +12,6 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ACCESO,
-        BLOQUEAR_ACCESO,
         ADD_TO_CART,
         REMOVE_FROM_CART,
         FETCH_CART_CONTENT,
@@ -58,8 +56,6 @@ const initialState = {
      savedProductsMovies: moviesSaved,
      savedProductsSeries: seriesSaved,
      idSavesSeries: savedIdSeries,
-     Acceso: ''
-
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -159,16 +155,6 @@ const rootReducer =(state = initialState,action)=> {
                   savedProductsSeries: seriesSaved,
                 };
               }
-        case ACCESO:
-            return {
-            ...state,
-            Acceso: action.payload
-        }
-        case BLOQUEAR_ACCESO:
-            return {
-            ...state,
-            Acceso: ''
-        }
 
         default:
             return {...state}

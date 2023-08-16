@@ -37,9 +37,7 @@ const Register = () => {
     }
 
     const redirectToHome = () => {
-        setTimeout(() => {
-            navigate('/home')
-        }, 1000);
+        navigate('/home')
     }
 
     function generarContrasenaAleatoria(longitud) {
@@ -189,13 +187,6 @@ const Register = () => {
                 <input placeholder='Contraseña' type='password' value={input.password} name='password' onChange={handleChange} className={style.inputFormAccessPage}/>
                 {error.password && <p className={style.error}>{error.password}</p>}
                 
-                <br/>
-            
-                {/* <div className={style.form}>
-                    <span className={style.labelFormAccessPage}>Ingrese una imagen {'(optional)'}</span>
-                    <input className={style.file} type='file'/>
-                </div> */}
-
                 <br/>
                 <div id="signInDiv"></div>
 
