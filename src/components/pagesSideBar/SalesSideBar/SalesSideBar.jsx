@@ -61,7 +61,7 @@ export const optionsBar = {
 
 const Sales = () => {
     return (
-        <div>
+      <div className="scrollable-container">
         <div className={style.charts}>
         <div className={style.chart}>
         <Chart 
@@ -69,13 +69,13 @@ const Sales = () => {
       data={dataPie}
       options={optionsPie}
       width={"100%"}
-      height={"400px"}
+      height={"300px"}
     />
     </div>
     <div className={style.barchart}>
     <Chart 
     chartType="Line"
-    width="600px"
+    width="500px"
     height="400px"
     data={dataMovie}
     options={optionsBar}
@@ -85,7 +85,7 @@ const Sales = () => {
   <div className={style.LinearChart}>
   <Chart
       chartType="LineChart"
-      width="1200px"
+      width="1000px"
       height="400px"
       data={dataVentasGastos}
       options={optionsVentasGastos}

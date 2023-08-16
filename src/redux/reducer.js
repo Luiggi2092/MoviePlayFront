@@ -21,14 +21,16 @@ import {GET_GENEROS,
         ADD_PRODUCT_DETAILS_SERIE,
         SAVE_ID_TO_SERIES,
         REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
-        REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
+        GETSEARCHBARADM,
+        GETSEARCHBARCLEANADM
         } from "./actions" 
 
 
         //Para guardar en el localStorage el contador del carrito , id de series y movies
-        const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
-        const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
-        const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
+        // const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        // const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
+        // const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
         const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
         const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
@@ -51,11 +53,18 @@ const initialState = {
      cantidadCapitulos: [],
      cartItems: [],
      carrito:{},
-     cartCount: savedCartCount,
-     idSavesMovies: savedIdSaves,
+    //  cartCount: savedCartCount,
+    // //  idSavesMovies: savedIdSaves,
      savedProductsMovies: moviesSaved,
      savedProductsSeries: seriesSaved,
+<<<<<<< HEAD
      idSavesSeries: savedIdSeries,
+=======
+    //  idSavesSeries: savedIdSeries,
+     Acceso: '',
+     SearchAdmimovie:[],
+
+>>>>>>> ea3267223c5d720cfc522ea75ae608fbe6eb9955
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -130,31 +139,64 @@ const rootReducer =(state = initialState,action)=> {
               
                 return { ...state, savedProductsSeries: newSavedProducts };
               }
-        case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
-                const productId = action.payload;
-                const updatedSavedProducts = state.savedProductsMovies.length > 0 ?state.savedProductsMovies.filter(product => product.id !== productId): null;
-                const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
-                if(updatedSavedProducts !== []){
-                    localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));}
+
+        // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
+        //         const productId = action.payload;
+        //         const updatedSavedProducts = state.savedProductsMovies.length > 0 ?state.savedProductsMovies.filter(product => product.id !== productId): null;
+        //         const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        //         if(updatedSavedProducts !== []){
+        //             localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));}
           
-                return {
-                  ...state,
-                  savedProductsMovies: moviesSaved,
-                };
-              }
+        //         return {
+        //           ...state,
+        //           savedProductsMovies: moviesSaved,
+        //         };
+        //       }
           
-        case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
-                const productId = action.payload;
-                const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
-                const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
-                if(updatedSavedProducts !== []){
-                    localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));}
+        // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
+        //         const productId = action.payload;
+        //         const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
+        //         const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+        //         if(updatedSavedProducts !== []){
+        //             localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));}
           
+<<<<<<< HEAD
                 return {
                   ...state,
                   savedProductsSeries: seriesSaved,
                 };
               }
+=======
+        //         return {
+        //           ...state,
+        //           savedProductsSeries: seriesSaved,
+        //         };
+        //       }
+
+        case ACCESO:
+            return {
+            ...state,
+            Acceso: action.payload
+        }
+        case BLOQUEAR_ACCESO:
+            return {
+            ...state,
+            Acceso: ''
+        }
+>>>>>>> ea3267223c5d720cfc522ea75ae608fbe6eb9955
+
+        case GETSEARCHBARADM:
+            return {
+                ...state,
+                SearchAdmimovie: action.payload
+
+            }
+
+        case GETSEARCHBARCLEANADM:
+            return {
+                ...state,
+                SearchAdmimovie: []
+            }
 
         default:
             return {...state}

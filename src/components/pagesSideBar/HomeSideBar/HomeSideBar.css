@@ -1,0 +1,160 @@
+
+.scrollable-container {
+    max-height: calc(100vh - 100px);
+    /* Ajusta la altura máxima según sea necesario */
+    overflow-y: auto;
+    padding: 20px;
+    width: 100%;
+    
+}
+
+.table1,
+.table2 {
+    flex: 1;
+    padding: 20px;
+    border-radius: 12px;
+    color: black;
+    background-color: #fff;
+    margin: 0 10px;
+    box-shadow: 0px 4px 8px rgb(18, 0, 91);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.table1:hover,
+.table2:hover,
+.graficoven:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(20, 0, 72, 0.831);
+}
+
+.table1 h4,
+.table2 h4 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.table2 {
+    box-shadow: 0px 4px 8px rgb(13, 0, 70);
+}
+
+.table th,
+.table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    color: #555;
+}
+
+
+.graficoven {
+    flex: 1;
+background-color: #fff;
+display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 400px;
+    background-color: #f5f5f5;
+    margin: 20px 0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgb(13, 0, 70);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.contentHome {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 100px;
+    min-height: 10vh;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+
+}
+
+.table1 {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgb(23, 1, 96);
+    border-radius: 8px;
+}
+
+.table2 {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgb(23, 1, 96);
+    border-radius: 8px;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0px 4px 8px rgb(23, 1, 96);
+}
+
+.table th,
+.table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+.table tr:hover {
+    background-color: #e0e0e0;
+    transition: background-color 0.3s;
+}
+
+.graficoven .chart-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 18px;
+    color: #aaa;
+}
+
+.react-google-charts {
+    width: 100%;
+    height: 100%;
+}
+
+
+.table1:hover,
+.table2:hover,
+.table,
+.graficoven:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgb(13, 0, 70);
+}
+
+
+
+

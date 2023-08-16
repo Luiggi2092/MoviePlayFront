@@ -4,7 +4,7 @@ import SliderShow from '../../components/SliderShow/SliderShow'
 import CardMov from '../../components/CardMovie/CardMovie'
 import CardSer from '../../components/CardSerie/Card'
 import data from '../../data'
-import {getTodo,getTodoFillClean} from "../../redux/actions"
+import {getTodo,getTodoFillClean, fetchCartContent} from "../../redux/actions"
 import { useSelector,useDispatch } from 'react-redux'
 import styled from "styled-components"
 import Navbar from "../../components/Navbar/Navbar"
@@ -16,6 +16,7 @@ const Home = () => {
   
   
   const series = data
+  const user = localStorage.getItem('email')
   
   const [cantCard,setCanCard] = useState(12);
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ const Home = () => {
      dispatch(getTodoFillClean());
      dispatch(getTodo());
   },[])
+
+  useEffect(() => {
+    dispatch(fetchCartContent(user))
+  }, [])
 
 
   const AmpliarCards = ()=> {
