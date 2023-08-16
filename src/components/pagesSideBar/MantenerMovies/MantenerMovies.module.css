@@ -1,104 +1,106 @@
-.tablecontainer {
-      position: absolute;
-      left: 620px;
-      width: 800px; 
-      margin-top: 10px;
-      margin-bottom: 20px;
-      padding: 10px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      
+
+.container {
+max-height: calc(100vh - 100px);
+overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: black;
+  box-shadow: 0px 4px 8px rgb(23, 1, 96);
+  margin-bottom: 50px;
+}
+
+
+.CreateNew {
+  margin-top: 40px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 0.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  color: rgb(6, 6, 6);
   
-  }
-
-
-
-  .tbody{
-    background-color: white;
-    color:black;
-  }
-
-  .table{
-    
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-  }
-  
-  .table-row:hover {
-    background-color: #f5f5f5;
-  }
-
-  
-  .tableheader {
-  background-color: red;
-  color: white;
- border: none;
-  padding: 8px;
-  }
-
-
-  .CreateNew {
-    position: relative;
-    left: 0px;
 }
 
 
-.table-cell {
-  border: 1px solid #ccc;
-  padding: 8px;
-
-}
-
-.buttonAccion1{
-    position: relative;
-    left: 10px;
-    background-color: red;
-    margin-top: 10px;
-    font-size: 10px;
-    
-
-}
-
-.buttonAccion2{
-  position: relative;
-  left: 10px;
-  background-color: rgb(27, 181, 7);
-  font-size: 10px;
-
+.tablerow-header {
+  background-color: #007bff;
+  color: rgb(6, 6, 6);
 }
 
 
+.tablerow {
+  background-color: #f9f9f9;
+}
 
-  .table th,.table td {
-    margin: 0;
-    text-align: center;
-    border-bottom: 1px solid black;
-    border-right: 1px solid black;
+
+.tablecell {
+  padding: 50px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 
 .paginado {
-    position: relative;
-    top:20px;
-    text-align: center;
-    
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.paginado button:hover{
-  color: red;
+.but {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.paginado button {
-  padding: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 50px;
-    margin-top: 50px;
-   padding-left: 10px;
+.but[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
-.but{
-  padding-left: 10px;
-  
+.buttonAccion {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttonAccion1 {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.buttonAccion2 {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
 }
