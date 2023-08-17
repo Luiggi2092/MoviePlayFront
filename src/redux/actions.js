@@ -27,7 +27,11 @@ export const SAVE_ID_TO_SERIES = 'SAVE_ID_TO_SERIES'
 export const BANMOVIE= 'BANMOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE'
 export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE = 'REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE'
-const user = localStorage.getItem('email')
+const usuario = localStorage.getItem('email')
+export const GETSEARCHBARADM = 'GETSEARCHBARADM';
+export const GETSEARCHBARCLEANADM = 'GETSEARCHBARCLEANADM';
+export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
+export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -297,11 +301,11 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
 // };
 
 export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
-  const state = getState();
-  const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
+  // const state = getState();
+  // const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
 
-  if (!existingProduct) {
-    dispatch(addToCart(user, null, productDetails.id));
+  // if (!existingProduct) {
+    dispatch(addToCart(usuario, null, productDetails.id));
     // dispatch(saveIdToSavesMovie(productDetails.id));
 
     // const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
@@ -312,7 +316,7 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
       type: ADD_PRODUCT_DETAILS_MOVIE,
       payload: productDetails,
     });
-  }
+
 };
 
 // export const saveIdToSavesSerie = (id) => {
@@ -332,11 +336,11 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 // };
 
 export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
-  const state = getState();
-  const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
+  // const state = getState();
+  // const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
   
-  if (!existingProduct) {
-    dispatch(addToCart(user, productDetails.id, null));
+  // if (!existingProduct) {
+    dispatch(addToCart(usuario, productDetails.id, null));
     // dispatch(saveIdToSavesSerie(productDetails.id));
     
     // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
@@ -347,12 +351,14 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
       type: ADD_PRODUCT_DETAILS_SERIE,
       payload: productDetails,
     });
-  }
+  // }
 };
 
 export const ActivaroDesactivarMovies = (id)=> {
        return async function (dispatch){
-          const banmov = axios.put(`/disableMovies/${id}`);
+          const banmov = await axios.put(`/admin/disableMovies/${id}`);
+          console.log(banmov);
+          console.log("vamos")
           dispatch({type: BANMOVIE, payload: banmov})          
        }
 }
@@ -408,7 +414,7 @@ export const fetchCartContent = (email) => async (dispatch) => {
 
 export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, null, productId));   
+    await dispatch(removeFromCart(usuario, null, productId));   
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
       payload: productId,
@@ -420,7 +426,7 @@ export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatc
 
 export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(user, productId, null)); 
+    await dispatch(removeFromCart(usuario, productId, null)); 
     
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
@@ -430,3 +436,41 @@ export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatc
     console.error('Error al eliminar producto', error);
   }
 };
+
+
+export const getTodobusquedaAdm = (name)=> {
+  console.log(name);
+  return async function (dispatch){
+      const todoSearchBar = (await axios.get(`/admin/disableMovies?busqueda=${name}`)).data.elementos;
+      dispatch({type: GETSEARCHBARADM, payload: todoSearchBar})
+  }
+}
+
+
+export const getTodoFillCleanAdm = ()=> {
+  return function (dispatch){
+    dispatch({type:GETSEARCHBARCLEANADM,payload: []})
+  }
+}
+
+export const ActualizarMovie = (id,form)=> {
+  return async function  (dispatch){
+    const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
+    dispatch({type:ActMov,payload:actions.payload})
+
+  }
+}
+
+export const todosLosProductosXidUser = (id) => {
+return async function (dispatch){
+  const productos = await axios.get(`/ordenCompra/getTodoxUser?idUser=${id}`)
+  dispatch({type:GET_TODOS_LOS_PRODUCTOS, payload:productos})
+}
+}
+
+export const todasLasOrdenesDeCompra = (id) => {
+  return async function(dispatch){
+    const productos = await axios.get(`/ordenCompra/getOCsxUser?idUser=${id}`)
+    dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos})
+  }
+}

@@ -78,6 +78,7 @@ const Register = () => {
                 localStorage.setItem('id', data.id);  
                 localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
+                localStorage.setItem('recargado', 'no')
 
                 setInput({
                     nombre: '',

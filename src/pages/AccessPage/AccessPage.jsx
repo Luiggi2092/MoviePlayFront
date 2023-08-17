@@ -67,13 +67,14 @@ const AccessPage = () => {
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
-                // console.log(data);
+                 console.log(data);
 
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
+                localStorage.setItem('recargado', 'no')
                 
                 
                 setInput({
@@ -125,6 +126,7 @@ const AccessPage = () => {
             localStorage.setItem('name', userObject.name); 
             localStorage.setItem('foto', userObject.picture); 
             localStorage.setItem('State', 'true')
+            localStorage.setItem('recargado', 'no')
 
             setInput({
                 email: '',
