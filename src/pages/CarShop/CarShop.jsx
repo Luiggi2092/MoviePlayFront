@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import { fetchCartContent } from '../../redux/actions';
+import imagen from '../../assets/pngegg.png'
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
 import CardCarSerie from '../../components/CardCarSeries/CardCarSerie';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 const user = localStorage.getItem('email')
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
@@ -56,16 +58,18 @@ const CheckoutForm = () => {
             const {data} = await axios.post('http://localhost:3001/pago',{
                   amount: totalAmount, 
                   id: id,
-                  description:'pago de prueba',
+                  description:'pago de producto',
                   emailUsuario:user
               });
               console.log(paymentMethod)
             console.log(data)
-            localStorage.removeItem('savedProducts');
-            localStorage.removeItem('savedSeries');
-            localStorage.setItem('cartCount', 0)
-            alert('Pago relizado correctamente')
-            reload()
+            Swal.fire({
+                title:`Compra realizada correctamente`,
+                 icon:'success'});
+            
+                 setTimeout(() => {
+                    reload();
+                }, 1500); // 1.5 segundos
         }
 
     }
@@ -85,6 +89,7 @@ const Pago = () => {
         <Elements stripe={stripePromise} className={style.texto}>
                 <div className={style.container4}>
                     <h1 className={style.textoTargeta}>Paga en línea sin comisión ✔</h1>
+                    <img src={imagen} className={style.imagen}/>
                     <div className={style.row}>
                         <div className={style.element}>
                             <CheckoutForm />
