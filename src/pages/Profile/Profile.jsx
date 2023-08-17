@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch , useSelector} from 'react-redux';
+import { todosLosProductosXidUser } from '../../redux/actions';
 import './profile.css';
 
 const Profile = () => {
@@ -46,6 +47,13 @@ const Profile = () => {
             setProfileImage(storedImage);
         }
     }, []);
+
+    useEffect(() => {
+        dispatch(todosLosProductosXidUser(1))
+    }, [])
+
+    const productos = useSelector(state => state.productosComprados)
+    console.log(productos)
 
 
 
