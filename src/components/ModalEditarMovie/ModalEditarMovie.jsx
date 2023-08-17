@@ -24,7 +24,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
         name: "",
         image: "",
         genres: [],
-        time: 0,
+        time: "",
         linkVideo: "",
         description: "",
         price : ""
@@ -59,8 +59,17 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
     },[idpelicula])  
 
     useEffect(()=> {
-
-    },[form.image])
+       
+        if(pelicula){
+            
+        setForm({...form,name : pelicula.name,
+                 image: pelicula.image,
+                 time: pelicula.time,
+                 linkVideo: pelicula.linkVideo,
+                 description: pelicula.description,
+                 price : pelicula.price})
+        }
+    },[pelicula])
   
    
 
@@ -210,7 +219,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                    <div className={style.contenedor}>
                       
                      <div>      
-                     <img src={form.image == "" || form.image == "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" ? pelicula.image : form.image}  />  
+                     <img src={form.image}  />  
                                 <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
                                 
                      </div>
@@ -223,7 +232,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                      <div>
                         <label>Titulo :  </label>
                         <br/>
-                        <input type="text" name="name" onChange={ChangeHandle} value={pelicula.name}/>
+                        <input type="text" name="name" onChange={ChangeHandle} value={form.name}/>
                      </div> 
                      <div className={style.genero}>
                         <label>Genero :    </label>
@@ -238,21 +247,21 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                      <div>
                         <label>Duracion :   </label>
                         <br/>
-                        <input type="text" name="time" onChange={ChangeHandle} value={pelicula.time}></input>
+                        <input type="text" name="time" onChange={ChangeHandle} value={form.time}></input>
                         <br/>
                         <span className={style.error}>{errors.time}</span>
                      </div> 
                      <div>
                         <label>Url Video :   </label>
                         <br/>
-                        <input type="url" name="linkVideo" onChange={ChangeHandle} value={pelicula.linkVideo}></input>
+                        <input type="url" name="linkVideo" onChange={ChangeHandle} value={form.linkVideo}></input>
                         <br/>
                         <span className={style.error}>{errors.linkVideo}</span>
                      </div>
                      <div>
                         <label>Precio $ : </label>
                         <br/>
-                        <input type="text" name="price"  onChange={ChangeHandle} id="texto" value={pelicula.price}  />
+                        <input type="text" name="price"  onChange={ChangeHandle} id="texto" value={form.price}  />
                          <br/>
                          <span className={style.error}>{errors.price}</span>
                      </div>

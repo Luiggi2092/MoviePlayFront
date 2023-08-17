@@ -50,6 +50,7 @@ const Navbar = ({ isScrolled }) => {
       ){
         dispatch(getTodobusquedaAdm(busqueda.search));
         
+      dispatch(getTodoFillCleanAdm());
 
       }else{
         

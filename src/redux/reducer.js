@@ -27,7 +27,9 @@ import {GET_GENEROS,
         GETSEARCHBARADM,
         GETSEARCHBARCLEANADM,
         GET_TODOS_LOS_PRODUCTOS,
-        TODAS_LAS_ORDENES_DE_COMPRA
+        TODAS_LAS_ORDENES_DE_COMPRA,
+        MOVIESXPAGE,
+        SEARCHNAV
         } from "./actions" 
 
 
@@ -65,7 +67,10 @@ const initialState = {
      Acceso: '',
      SearchAdmimovie:[],
      productosComprados:[],
-     todasLasCompras:[]
+     todasLasCompras:[],
+     Movies:[],
+     numPage: 1,
+     Search: "",
 
 }
 
@@ -201,6 +206,19 @@ const rootReducer =(state = initialState,action)=> {
                 ...state,
                 todasLasCompras:action.payload
             }
+        case MOVIESXPAGE:
+            return {
+                
+                ...state,
+                Movies:action.payload
+            }    
+  
+         case SEARCHNAV : 
+            return {
+                 ...state,
+                 Search : action.payload
+            }   
+
 
         default:
             return {...state}

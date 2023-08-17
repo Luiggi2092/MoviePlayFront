@@ -1,4 +1,5 @@
 import axios from "axios";
+import { actions } from "react-table";
 import Swal from 'sweetalert2'
 
 
@@ -32,6 +33,8 @@ export const GETSEARCHBARADM = 'GETSEARCHBARADM';
 export const GETSEARCHBARCLEANADM = 'GETSEARCHBARCLEANADM';
 export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
 export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
+export const MOVIESXPAGE = "MOVIESXPAGE"
+export const SEARCHNAV = "SEARCHNAV"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -456,6 +459,7 @@ export const getTodoFillCleanAdm = ()=> {
 export const ActualizarMovie = (id,form)=> {
   return async function  (dispatch){
     const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
+    console.log(ActMov);
     dispatch({type:ActMov,payload:actions.payload})
 
   }
@@ -475,4 +479,20 @@ export const todasLasOrdenesDeCompra = (id) => {
     )
     dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos})
   }
+}
+
+export const moviesxPage =(page)=> {
+  return async function(dispatch){
+    const mov = (await axios.get(`/admin/disableMovies?page=${page}`)).data;
+
+    dispatch({type:MOVIESXPAGE,payload: mov.elementos})
+  }
+}
+
+export const BusquedaAdmin = (Searchbuq) => {
+
+    return function (dispatch) {
+      dispatch({type:SEARCHNAV,
+        payload: Searchbuq
+ })     } 
 }
