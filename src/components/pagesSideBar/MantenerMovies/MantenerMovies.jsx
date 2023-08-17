@@ -23,22 +23,29 @@ const MantenerMovies = ()=> {
   const [itemsPage, setItemsPage] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
-  const [selectedRows, setSelectedRows] = useState(1);
- 
+  const [tempPage,settempPage] = useState(0);
+  const [movieAct,setMoviAct] = useState([]);
+
 
 
   
   const inativar =(row)=> {
     setMostrar(row.id)
+    settempPage(currentPage)
     console.log("id de pelicula" + row.original.id);
     dispatch(ActivaroDesactivarMovies(row.original.id));
+    
 
   }
 
   const activar = (row)=> {
     setMostrar(null)
+    settempPage(currentPage)
     dispatch(ActivaroDesactivarMovies(row.original.id));
+   
+    
     console.log("Activar" + row.id)
+    
   }
 
   
@@ -108,10 +115,19 @@ const MantenerMovies = ()=> {
     })
   };
 
+  useEffect(()=>{
+    
+    getMovieAndPage(1,null,null,null);
+   
+  },[]);
 
-   useEffect(()=>{
-     getMovieAndPage(1, null, null, null)
-   },[movies]);
+ useEffect(()=> {
+    
+  getMovieAndPage(1,null,null,null);
+
+ },[movies])
+
+
 
 
    useEffect(() => {
@@ -139,7 +155,8 @@ const MantenerMovies = ()=> {
 
 
  
-  const handlePreviousPage = () => {      
+  const handlePreviousPage = () => {  
+        
     if (currentPage > 1) {
       getMovieAndPage(currentPage - 1, null);
     }
