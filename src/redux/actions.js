@@ -463,14 +463,16 @@ export const ActualizarMovie = (id,form)=> {
 
 export const todosLosProductosXidUser = (id) => {
 return async function (dispatch){
-  const productos = await axios.get(`/ordenCompra/getTodoxUser?idUser=${id}`)
+  const productos = await axios.get(`/ordenCompra/getTodoxUser`, {id: id }
+  )
   dispatch({type:GET_TODOS_LOS_PRODUCTOS, payload:productos})
 }
 }
 
 export const todasLasOrdenesDeCompra = (id) => {
   return async function(dispatch){
-    const productos = await axios.get(`/ordenCompra/getOCsxUser?idUser=${id}`)
+    const productos = await axios.get(`/ordenCompra/getOCsxUser`, {id: id }
+    )
     dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos})
   }
 }
