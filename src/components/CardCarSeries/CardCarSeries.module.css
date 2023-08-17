@@ -1,4 +1,89 @@
-.image{
+/* CardCarSeries.module.css */
+
+.container {
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 6px; /* Reducido el valor del border-radius */
+    padding: 20px; /* Reducido el valor del padding */
+    background-color: white;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1); /* Reducido el valor del box-shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.containerName {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.name {
+    font-size: 18px;
+    color: #333;
+}
+
+.priceContainer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+.containerBoton {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.boton {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.boton:hover {
+    background-color: #c0392b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .image{
     width: 116px;
     height: 176px;
     background-size: cover
@@ -29,10 +114,18 @@
 }
 
 .priceContainer{
-    width: 200px;    
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 10px;
+        padding: 8px 12px;
+        background-color: #036379;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.2s ease-in-out;
+}
+
+.priceContainer:hover {
+    background-color: #e0e0e0;
 }
 
 .boton{
@@ -52,4 +145,4 @@
 
 .boton:hover{
     background-color: brown;
-}
+} */
