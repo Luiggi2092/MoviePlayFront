@@ -14,7 +14,6 @@ export const GET_SERIES = "GET_SERIES"
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
-export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
@@ -29,6 +28,7 @@ export const REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE = 'REMOVE_FROM_CART_AND_R
 const user = localStorage.getItem('email')
 export const GETSEARCHBARADM = 'GETSEARCHBARADM';
 export const GETSEARCHBARCLEANADM = 'GETSEARCHBARCLEANADM';
+export const GET_BUSQUEDA_USER_ADMIN = 'GET_BUSQUEDA_USER_ADMIN'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -56,7 +56,7 @@ export const getTodo = ()=> {
 }
 
 export const getTodobusqueda = (name)=> {
-    console.log(name);
+    // console.log(name);
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;
         dispatch({type: GETSEARCHBAR, payload: todoSearchBar})
@@ -419,7 +419,7 @@ export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatc
 
 
 export const getTodobusquedaAdm = (name)=> {
-  console.log(name);
+  // console.log(name);
   return async function (dispatch){
       const todoSearchBar = (await axios.get(`/admin/disableMovies?busqueda=${name}`)).data.elementos;
       dispatch({type: GETSEARCHBARADM, payload: todoSearchBar})
@@ -443,3 +443,11 @@ export const ActualizarMovie = (id,form)=> {
 
 }
 
+export const getUserAdmin = (busqueda) => {
+  return async function (dispatch) {
+    
+    const {data} = await axios.get(`/admin/allUser?busqueda=${busqueda}`)
+
+    dispatch({type: GET_BUSQUEDA_USER_ADMIN, payload: data})
+  }
+} 

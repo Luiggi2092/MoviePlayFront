@@ -1,51 +1,59 @@
 import style from './MantenerUsuarios.module.css'
 import { useState, useEffect} from "react";
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+
 
 const MantenerUsuarios = () => {
 
 
   const [data, setData] = useState();
-  const [infoPage, setInfoPage] = useState({})
   const [currentPage, setCurrentPage] = useState(1)
+  
+  const usuario = useSelector((state) => state.GetUserAdmin)
 
+  const datos = usuario.length ? usuario : data
 
-  const handleToggle = (id) => {
-    const updatedData = data.map(item => {
-      if (item.id === id) {
-        return { ...item, activo: !item.activo };
-      }
-      return item;
-    });
-    setData(updatedData);
+  function ordenarPorIdAscendente(elementos) {
+    return elementos.slice().sort((a, b) => a.id - b.id);
+  }
+
+  const getUserAndPage = async (page) =>{
+    const {data} = await axios.get(`/admin/allUser?page=${page}`)
+    const orde = ordenarPorIdAscendente(data) 
+    setData(orde)
+    setCurrentPage(page)
   };
-  
 
-  const getUserAndPage = (page) =>{
-      let newUrl = `http://localhost:3001/admin/allUser?page=${page}`
-  
-      fetch(newUrl)
-      .then(response => response.json())
-      .then(data => {
-        setData(data)
-        setCurrentPage(page)
-      })
-    };
+  const handleDesactivar = async (id) => {
+    const {data} = await axios.delete(`/admin/disableUser/${id}`)
+    getUserAndPage(currentPage)
+  }
+
+  const handleActivar = async (id) => {
+    const {data} = await axios.put(`/admin/enableUser/${id}`)
+    getUserAndPage(currentPage)
+  }
+
+  const handleAdmin = async (id) => {
+    const {data} = await axios.put(`/admin/transform/${id}`)
+    getUserAndPage(currentPage)
+  }
 
   useEffect(() => {
-      getUserAndPage(1)
+    getUserAndPage(1)
   }, [])
 
 
   const handlePreviousPage = () => {      
-      getUserAndPage(currentPage - 1);
-    };
+    getUserAndPage(currentPage - 1);
+  };
   
   const handleNextPage = () => {
     getUserAndPage(currentPage + 1);
   };
 
-   return (
+  return (
    
     <div>
         <table className={style.table}>
@@ -59,35 +67,40 @@ const MantenerUsuarios = () => {
             </tr>
             </thead>
             <tbody>
-            {data?.map(item => (
+            {
+              datos?.map(item => (
                 <tr key={item.id}>
                 <td className={style.td}>{item.id}</td>
                 <td className={style.td}>{item.nombre}</td>
                 <td className={style.td}>{item.apellido}</td>
                 <td className={style.td}>{item.email}</td>
                 <td className={style.td}>
-                  <button className={style.button} onClick={() => handleToggle(item.id)}>
-                    {item.activo ? 'Activar' : 'Desactivar'}
-                  </button>
-                  <button className={style.button}>Admin</button>
+                  {
+                    item.estadoActivo === true ? <button className={style.button} style={{ backgroundColor: "red" }} onClick={() => handleDesactivar(item.id)}>Desactivar</button> : <button className={style.button} style={{ backgroundColor: "green" }} onClick={() => handleActivar(item.id)}>Activar</button>
+                  }
+                  {
+                    item.rol == "Usuario" ? <button className={style.button} onClick={() => handleAdmin(item.id)}>Hacer admin</button> : <span className={style.button} style={{ backgroundColor: "green" }}>Admin</span>
+                  }
                 </td>
                 </tr>
             ))}
             </tbody>
         </table>
         <div className={style.paginado}>
-            <button
-              className={style.but}
-              onClick={handlePreviousPage}
-              disabled={currentPage === 1}> Prev 
-            </button>
-            
-            <button
-              className={style.but}
-              onClick={handleNextPage}> Next 
-            </button>
-           
-           </div>
+          <button
+            className={style.butP}
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}> Prev 
+          </button>
+          <p className={style.pPage}>
+            Pagina {currentPage}
+          </p>
+          <button
+            className={style.butN}
+            onClick={handleNextPage}
+            disabled={data?.length < 10}> Next 
+          </button>
+        </div>
     </div>
    )
 }

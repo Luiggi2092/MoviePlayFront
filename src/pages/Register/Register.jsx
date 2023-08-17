@@ -70,7 +70,7 @@ const Register = () => {
 
 
                 // console.log(data)
-
+                localStorage.setItem('id', data.id);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('name', data.nombre); 
                 localStorage.setItem('id', data.id);  

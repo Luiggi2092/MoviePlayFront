@@ -12,8 +12,6 @@ import {GET_GENEROS,
     POST_SERIE,
     CLEAR_MOVIE_ID,
     DELETE_SERIE_ID,
-    ACCESO,
-    BLOQUEAR_ACCESO,
     ADD_TO_CART,
     REMOVE_FROM_CART,
     FETCH_CART_CONTENT,
@@ -25,7 +23,8 @@ import {GET_GENEROS,
     REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
     REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
     GETSEARCHBARADM,
-    GETSEARCHBARCLEANADM
+    GETSEARCHBARCLEANADM,
+    GET_BUSQUEDA_USER_ADMIN
     } from "./actions" 
 
 
@@ -60,9 +59,8 @@ const initialState = {
  savedProductsMovies: moviesSaved,
  savedProductsSeries: seriesSaved,
 //  idSavesSeries: savedIdSeries,
- Acceso: '',
  SearchAdmimovie:[],
-
+ GetUserAdmin: []
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -164,17 +162,6 @@ switch(action.type){
     //         };
     //       }
 
-    case ACCESO:
-        return {
-        ...state,
-        Acceso: action.payload
-    }
-    case BLOQUEAR_ACCESO:
-        return {
-        ...state,
-        Acceso: ''
-    }
-
     case GETSEARCHBARADM:
         return {
             ...state,
@@ -186,6 +173,12 @@ switch(action.type){
         return {
             ...state,
             SearchAdmimovie: []
+        }
+    
+    case GET_BUSQUEDA_USER_ADMIN: 
+        return {
+            ...state,
+            GetUserAdmin: action.payload
         }
 
     default:

@@ -181,7 +181,7 @@ const tableSeries = () => {
           prepareRow,
       } = tableInstance
      
-        console.log(rows);
+        // console.log(rows);
 
     return (
         <>
