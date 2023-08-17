@@ -1,7 +1,7 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import ModalEdit from "../../ModalEditarMovie/ModalEditarMovie"
 import { useState,useEffect, useMemo } from "react";
-import {ActivaroDesactivarMovies,moviesxPage} from  "../../../redux/actions";
+import {ActivaroDesactivarMovies,moviesxPage,getTodoFillCleanAdm,getTodobusquedaAdm} from  "../../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
 import { Column,useTable } from "react-table";
 import style from "./MantenerMovies.module.css"
@@ -16,18 +16,19 @@ const MantenerMovies = ()=> {
 
   const busquedaMov = useSelector((state)=> state.SearchAdmimovie)
   const Movies = useSelector((state)=> state.Movies);
+  const numPage = useSelector((state)=> state.numPage);
+  const [page,setPage] = useState(numPage);
+  const busqueda = useSelector((state)=> state.Search);
 
-  console.log(Movies)
 
   useEffect(()=>{
     
-    dispatch(moviesxPage());
+    dispatch(moviesxPage(numPage));
+    dispatch(getTodoFillCleanAdm());
    
   
   },[]);
 
-  console.log(Movies);
-    
   const [openModal, setOpenModal] = useState(false); 
   const [openModalEdit,setOpenModalEdit] = useState(false);
   const [mostrar,setMostrar] = useState(null);
@@ -38,23 +39,32 @@ const MantenerMovies = ()=> {
   const [movieAct,setMoviAct] = useState([]);
 
 
+
   
   const inativar =(row)=> {
     setMostrar(row.id)
     //settempPage(currentPage)
+    console.log("Tbmentro");
     console.log("id de pelicula" + row.original.id);
     dispatch(ActivaroDesactivarMovies(row.original.id));
+    
+    dispatch(getTodobusquedaAdm(busqueda.search));
+        
+    dispatch(getTodoFillCleanAdm());
     
 
   }
 
   const activar = (row)=> {
+    console.log("Tbmentro");
     setMostrar(null)
-   // settempPage(currentPage)
     dispatch(ActivaroDesactivarMovies(row.original.id));
-   
     
-    console.log("Activar" + row.id)
+      dispatch(getTodobusquedaAdm(busqueda.search));
+          
+      dispatch(getTodoFillCleanAdm());
+      
+    
     
   }
 
@@ -93,7 +103,7 @@ const MantenerMovies = ()=> {
 
    const tableInstance = useTable({
      columns
-     ,manualPagination : true,data : busquedaMov.length == 0 ? Movies: busquedaMov}
+     ,manualPagination : true,data : busquedaMov.length == 0 ? Movies : busquedaMov}
      );
 
    const {
@@ -126,13 +136,12 @@ const MantenerMovies = ()=> {
   
 
 
-//  useEffect(()=> {
+  useEffect(()=> {
     
-     
-//      getMovieAndPage(currentPage,null,null,null);
+    dispatch(moviesxPage(page));
       
 
-//   },[currentPage,movies])
+   },[numPage,Movies])
 
 
 
@@ -164,19 +173,18 @@ const MantenerMovies = ()=> {
  
   const handlePreviousPage = () => {  
         
-    if (currentPage > 1) {
+    if (page > 1) {
      //getMovieAndPage(currentPage - 1, null);
      // setCurrentPage(Number(currentPage - 1))
-      console.log("previus" + currentPage)
+       setPage(page - 1)
     }
   };
 
   const handleNextPage = () => {
    
-    if (currentPage < infoPage || currentPage == infoPage) {
       //getMovieAndPage(currentPage + 1, null);
-      
-    }
+          
+        setPage( page + 1);
 
   };
 
