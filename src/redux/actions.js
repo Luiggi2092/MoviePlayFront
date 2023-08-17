@@ -1,4 +1,5 @@
 import axios from "axios";
+import { actions } from "react-table";
 import Swal from 'sweetalert2'
 
 
@@ -32,6 +33,7 @@ export const GETSEARCHBARADM = 'GETSEARCHBARADM';
 export const GETSEARCHBARCLEANADM = 'GETSEARCHBARCLEANADM';
 export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
 export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
+export const MOVIESXPAGE = "MOVIESXPAGE"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -472,5 +474,15 @@ export const todasLasOrdenesDeCompra = (id) => {
   return async function(dispatch){
     const productos = await axios.get(`/ordenCompra/getOCsxUser?idUser=${id}`)
     dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos})
+  }
+}
+
+export const moviesxPage =()=> {
+  return async function(dispatch){
+    const mov = await fetch(`/admin/disableMovies?page=1`)
+    .then(response => response.json())
+    .then( data =>  
+    
+    dispatch({type:MOVIESXPAGE,payload: data.elementos}))
   }
 }
