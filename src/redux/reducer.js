@@ -25,7 +25,9 @@ import {GET_GENEROS,
         REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
         REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
         GETSEARCHBARADM,
-        GETSEARCHBARCLEANADM
+        GETSEARCHBARCLEANADM,
+        GET_TODOS_LOS_PRODUCTOS,
+        TODAS_LAS_ORDENES_DE_COMPRA
         } from "./actions" 
 
 
@@ -62,6 +64,8 @@ const initialState = {
     //  idSavesSeries: savedIdSeries,
      Acceso: '',
      SearchAdmimovie:[],
+     productosComprados:[],
+     todasLasCompras:[]
 
 }
 
@@ -186,6 +190,16 @@ const rootReducer =(state = initialState,action)=> {
             return {
                 ...state,
                 SearchAdmimovie: []
+            }
+        case GET_TODOS_LOS_PRODUCTOS:
+            return{
+                ...state,
+                productosComprados: action.payload
+            }
+        case TODAS_LAS_ORDENES_DE_COMPRA:
+            return{
+                ...state,
+                todasLasCompras:action.payload
             }
 
         default:

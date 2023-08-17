@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
+import { useDispatch , useSelector} from 'react-redux';
 import './profile.css';
 
 const Profile = () => {
@@ -14,7 +15,7 @@ const Profile = () => {
     const [phone, setPhone] = useState(localStorage.getItem('phone') || '');
     const [email, setEmail] = useState(localStorage.getItem('email') || '');
     const [country, setCountry] = useState(localStorage.getItem('country') || '');
-
+    const dispatch = useDispatch()
     const foto = localStorage.getItem('foto')
 
 
@@ -45,6 +46,8 @@ const Profile = () => {
             setProfileImage(storedImage);
         }
     }, []);
+
+
 
     const handleEdit = () => {
         setIsEditing(true);
