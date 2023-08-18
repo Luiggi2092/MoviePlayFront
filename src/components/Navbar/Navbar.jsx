@@ -48,9 +48,13 @@ const Navbar = ({ isScrolled }) => {
         
         dispatch(getTodobusquedaAdm(busqueda.search));
         
-      dispatch(getTodoFillCleanAdm());
+        dispatch(getTodoFillCleanAdm());
 
-      }else{
+      } else if (data.contentId == "content4") {
+        
+        dispatch(getUserAdmin(busqueda.search)) 
+      
+      } else{
         
       navegate('/home'); // redirigir a una página de resultados de búsqueda
       

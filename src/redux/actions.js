@@ -33,6 +33,7 @@ export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
 export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
 export const MOVIESXPAGE = "MOVIESXPAGE"
 export const SEARCHNAV = "SEARCHNAV"
+export const GET_BUSQUEDA_USER_ADMIN = 'GET_BUSQUEDA_USER_ADMIN'
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -477,3 +478,12 @@ export const BusquedaAdmin = (Searchbuq) => {
         payload: Searchbuq
  })     } 
 }
+
+export const getUserAdmin = (busqueda) => {
+  return async function (dispatch) {
+    
+    const {data} = await axios.get(`/admin/allUser?busqueda=${busqueda}`)
+
+    dispatch({type: GET_BUSQUEDA_USER_ADMIN, payload: data})
+  }
+} 

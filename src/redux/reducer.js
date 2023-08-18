@@ -12,8 +12,6 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ACCESO,
-        BLOQUEAR_ACCESO,
         ADD_TO_CART,
         REMOVE_FROM_CART,
         FETCH_CART_CONTENT,
@@ -29,7 +27,8 @@ import {GET_GENEROS,
         GET_TODOS_LOS_PRODUCTOS,
         TODAS_LAS_ORDENES_DE_COMPRA,
         MOVIESXPAGE,
-        SEARCHNAV
+        SEARCHNAV,
+        GET_BUSQUEDA_USER_ADMIN
         } from "./actions" 
 
 
@@ -71,6 +70,7 @@ const initialState = {
      Movies:[],
      numPage: 1,
      Search: "",
+     GetUserAdmin: []
 
 }
 
@@ -206,7 +206,14 @@ switch(action.type){
             return {
                  ...state,
                  Search : action.payload
-            }   
+            }  
+
+        
+        case GET_BUSQUEDA_USER_ADMIN: 
+        return {
+            ...state,
+            GetUserAdmin: action.payload
+        }
 
 
         default:

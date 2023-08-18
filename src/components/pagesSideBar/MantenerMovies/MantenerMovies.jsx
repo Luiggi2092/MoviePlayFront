@@ -183,7 +183,6 @@ const MantenerMovies = ()=> {
   const handleNextPage = () => {
    
       //getMovieAndPage(currentPage + 1, null);
-          
         setPage( page + 1);
 
   };
@@ -267,6 +266,7 @@ const MantenerMovies = ()=> {
             <button
               className={style.but}
               onClick={handleNextPage}
+              disabled={Movies.length < 10}
              // disabled={currentPage === infoPage}
             >Next</button>
            </div>

@@ -64,7 +64,7 @@ const AccessPage = () => {
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
-                 console.log(data);
+                //  console.log(data);
 
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('name', data.nombre);
