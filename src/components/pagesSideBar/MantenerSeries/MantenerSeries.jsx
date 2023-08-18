@@ -2,7 +2,7 @@ import Modal from "../../ModalCreateSerie/ModalCreateSerie"
 import ModalEdit from "../../ModalEditSerie/ModalEditSerie"
 import style from './MantenerSeries.module.css'
 import { useEffect, useMemo, useState } from "react";
-import {SeriesxPage} from "../../../redux/actions"
+import {SeriesxPage,ActivarDesactivarSeries,getTodoBusqedaAdmSeries,getTodoFillCleanAdm} from "../../../redux/actions"
 import { useSearchParams } from "react-router-dom";
 import { useSelector,useDispatch } from "react-redux";
 import { Column,useTable } from "react-table";
@@ -18,13 +18,44 @@ const MantenerSeries = ()=> {
   const Series = useSelector((state)=> state.Series);
   const numPage = useSelector((state)=> state.numPage);
   const [page,setPage] = useState(numPage);
-  
+  const busquedaSer = useSelector((state)=> state.SearchAdmiSerie);
+  const busqueda = useSelector((state)=> state.Search);
+
   const [mostrar,setMostrar] = useState(null);
   
   
   const handleModalSerie = () => {
     setOpenModalSerie(!openModalSerie)
    }
+
+   const inativar =(row)=> {
+    setMostrar(row.id)
+    //settempPage(currentPage)
+    console.log("Tbmentro");
+    console.log("id de pelicula" + row.original.id);
+    dispatch(ActivarDesactivarSeries(row.original.id));
+     dispatch(getTodoBusqedaAdmSeries(busqueda.search));
+        
+    dispatch(getTodoFillCleanAdm());
+    
+
+  }
+
+  const activar = (row)=> {
+    console.log("Tbmentro");
+    setMostrar(null)
+    dispatch(ActivarDesactivarSeries(row.original.id));
+    
+     dispatch(getTodoBusqedaAdmSeries(busqueda.search));
+          
+    dispatch(getTodoFillCleanAdm());
+      
+    
+    
+  }
+
+
+
 
    useEffect(()=> {
 
@@ -47,8 +78,8 @@ const MantenerSeries = ()=> {
         Cell: ({row}) => (
           <>
           <button>Editar</button>
-          {row.original.active == true ? (<button>Desactivar</button>):
-          (<button>Activar</button>)}
+          {row.original.active == true ? (<button onClick={()=> inativar(row)}>Desactivar</button>):
+          (<button onClick={()=> activar(row)}>Activar</button>)}
           </>
         )}
         
@@ -58,7 +89,7 @@ const MantenerSeries = ()=> {
    const tableInstance = useTable({
      columns,
      manualPagination:true
-     ,data: Series}
+     ,data: busquedaSer.length == 0 ? Series : busquedaSer}
 
    )
 
