@@ -35,6 +35,7 @@ export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
 export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
 export const MOVIESXPAGE = "MOVIESXPAGE"
 export const SEARCHNAV = "SEARCHNAV"
+export const SERIESXPAGE = "SERIESXPAGE"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -457,6 +458,8 @@ export const getTodoFillCleanAdm = ()=> {
 }
 
 export const ActualizarMovie = (id,form)=> {
+  console.log(id)
+  console.log(form)
   return async function  (dispatch){
     const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
     console.log(ActMov);
@@ -495,4 +498,15 @@ export const BusquedaAdmin = (Searchbuq) => {
       dispatch({type:SEARCHNAV,
         payload: Searchbuq
  })     } 
+}
+
+
+export const SeriesxPage =(page)=> {
+  console.log("gooll");
+   return async function(dispatch)
+   {
+    const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data;
+    console.log(ser);
+    dispatch({type :SERIESXPAGE, payload: ser.elementos})
+   }   
 }
