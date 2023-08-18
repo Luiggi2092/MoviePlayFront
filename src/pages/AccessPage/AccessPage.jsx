@@ -105,14 +105,16 @@ const AccessPage = () => {
     async function handleCallbackResponse(response) {
         
         const userObject = jwt_decode(response.credential);
-
+        
+        // console.log(userObject)
+        
         const email = {
             email: userObject.email
         }
 
         try {
 
-            const responso = await axios.post('/usuario/google', email)  
+            const responso = await axios.post(`/usuario/google?email=${email.email}`)  
 
             // console.log(responso);
 
