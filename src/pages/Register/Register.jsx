@@ -76,6 +76,7 @@ const Register = () => {
                 localStorage.setItem('id', data.id);  
                 localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
+                //para evitar bugs del carrito
                 localStorage.setItem('recargado', 'no')
 
                 setInput({
@@ -104,7 +105,7 @@ const Register = () => {
         
         const userObject = jwt_decode(response.credential);
         
-        // console.log(userObject)
+        console.log(userObject)
 
         const datos = {
             nombre: userObject.given_name,
@@ -112,6 +113,7 @@ const Register = () => {
             email: userObject.email,
             password: contrasenaGenerada,
             image: userObject.picture
+        
         }
         
         try {
@@ -125,7 +127,9 @@ const Register = () => {
             localStorage.setItem('nombre', userObject.given_name); 
             localStorage.setItem('name', userObject.name); 
             localStorage.setItem('foto', userObject.picture); 
-            localStorage.setItem('State', 'true') 
+            localStorage.setItem('State', 'true')
+            //para evitar bugs del carrito
+            localStorage.setItem('recargado', 'no')
         
             
             redirectToHome()
