@@ -33,6 +33,7 @@ export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
 export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
 export const MOVIESXPAGE = "MOVIESXPAGE"
 export const SEARCHNAV = "SEARCHNAV"
+export const SERIESXPAGE = "SERIESXPAGE"
 export const GET_BUSQUEDA_USER_ADMIN = 'GET_BUSQUEDA_USER_ADMIN'
 
 export const getGeneros = ()=> {
@@ -246,7 +247,7 @@ export function deleteSerieId() {
 export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
     if(!idSerie){
-      const response = await axios.post(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idMovie}`);
+      const response = await axios.post(`/carroCompra`,{emailUsuario, idMovie});
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -254,7 +255,7 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
         localStorage.setItem('cartCount', newCartCount);
     }
     if(!idMovie){
-      const response = await axios.post(`/carroCompra?emailUsuario=${emailUsuario}&idSerie=${idSerie}`);
+      const response = await axios.post(`/carroCompra`, {emailUsuario, idSerie});
       dispatch({ type: ADD_TO_CART, payload: response.data });
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -439,6 +440,8 @@ export const getTodoFillCleanAdm = ()=> {
 }
 
 export const ActualizarMovie = (id,form)=> {
+  console.log(id)
+  console.log(form)
   return async function  (dispatch){
     const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
     console.log(ActMov);
@@ -477,6 +480,17 @@ export const BusquedaAdmin = (Searchbuq) => {
       dispatch({type:SEARCHNAV,
         payload: Searchbuq
  })     } 
+}
+
+
+export const SeriesxPage =(page)=> {
+  console.log("gooll");
+   return async function(dispatch)
+   {
+    const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data;
+    console.log(ser);
+    dispatch({type :SERIESXPAGE, payload: ser.elementos})
+   }   
 }
 
 export const getUserAdmin = (busqueda) => {

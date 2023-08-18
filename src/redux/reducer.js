@@ -28,6 +28,7 @@ import {GET_GENEROS,
         TODAS_LAS_ORDENES_DE_COMPRA,
         MOVIESXPAGE,
         SEARCHNAV,
+        SERIESXPAGE,
         GET_BUSQUEDA_USER_ADMIN
         } from "./actions" 
 
@@ -70,6 +71,7 @@ const initialState = {
      Movies:[],
      numPage: 1,
      Search: "",
+     Series:[],
      GetUserAdmin: []
 
 }
@@ -206,7 +208,12 @@ switch(action.type){
             return {
                  ...state,
                  Search : action.payload
-            }  
+            }   
+        case SERIESXPAGE: 
+          return {
+             ...state,
+             Series:action.payload
+         }
 
         
         case GET_BUSQUEDA_USER_ADMIN: 
