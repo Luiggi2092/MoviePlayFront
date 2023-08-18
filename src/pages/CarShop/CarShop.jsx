@@ -4,11 +4,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import {Elements, CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import { fetchCartContent } from '../../redux/actions';
+import imagen from '../../assets/pngegg.png'
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
 import CardCarSerie from '../../components/CardCarSeries/CardCarSerie';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 const user = localStorage.getItem('email')
 
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
@@ -53,19 +55,21 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
+            const {data} = await axios.post('http://localhost:3001/pago',{
                   amount: totalAmount, 
                   id: id,
-                  description:'pago de prueba',
+                  description:'pago de producto',
                   emailUsuario:user
               });
               console.log(paymentMethod)
             console.log(data)
-            localStorage.removeItem('savedProducts');
-            localStorage.removeItem('savedSeries');
-            localStorage.setItem('cartCount', 0)
-            alert('Pago relizado correctamente')
-            reload()
+            Swal.fire({
+                title:`Compra realizada correctamente`,
+                 icon:'success'});
+            
+                 setTimeout(() => {
+                    reload();
+                }, 1500); // 1.5 segundos
         }
 
     }
@@ -84,6 +88,8 @@ const Pago = () => {
     return (
         <Elements stripe={stripePromise} className={style.texto}>
                 <div className={style.container4}>
+                    <h1 className={style.textoTargeta}>Paga en línea sin comisión ✔</h1>
+                    <img src={imagen} className={style.imagen}/>
                     <div className={style.row}>
                         <div className={style.element}>
                             <CheckoutForm />
@@ -96,6 +102,15 @@ const Pago = () => {
 
 
 const CardShop = () => {
+
+    useEffect(() => {
+        const recargadoValue = localStorage.getItem('recargado');
+
+        if (recargadoValue === 'no') {
+            localStorage.setItem('recargado', 'si');
+            reload(); // Recarga la página para evitar bugs
+        }
+    }, []);
 
     const [isScrolled, setIsScrolled] = useState(false)
     window.onscroll = () => {
@@ -111,64 +126,64 @@ const CardShop = () => {
     let allMoviesPrice = null
     let allSeriesPrice = null
     
-    // const calculateTotalPrice = (array) => {
-    //     return array.reduce((total, item) => total + item.price, 0);
-    // };
+    const calculateTotalPrice = (array) => {
+        return array.reduce((total, item) => total + item.price, 0);
+    };
 
-    // if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
-    //     allMoviesPrice = calculateTotalPrice(carrito.Multimedia);
-    // }
+    if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+        allMoviesPrice = calculateTotalPrice(carrito.Multimedia);
+    }
       
-    // if (carrito.Series && Array.isArray(carrito.Series)) {
-    //     allSeriesPrice = calculateTotalPrice(carrito.Series);
-    //   }
+    if (carrito.Series && Array.isArray(carrito.Series)) {
+        allSeriesPrice = calculateTotalPrice(carrito.Series);
+      }
 
-    //   const totalAmount = allMoviesPrice + allSeriesPrice
+      const totalAmount = allMoviesPrice + allSeriesPrice
 
     const handleclick = (e) => {
         e.preventDefault()
         setContinuePay(true);
     }
 
-    // useEffect(()=>{
-    //     dispatch(fetchCartContent(user))
-    //   },[dispatch]);
-    //   const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+    useEffect(()=>{
+        dispatch(fetchCartContent(user))
+      },[dispatch]);
+      const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
 
       
 
 
-    // let series = null;
-    // if (carrito.Series && Array.isArray(carrito.Series)) {
-    //     series = carrito.Series?.map(serie => {
-    //         const uniqueKey = `${serie.seriesXcarro.serieId}_serie`;
-    //         return (
-    //             <CardCarSerie
-    //                 key={uniqueKey}
-    //                 id={serie.seriesXcarro.serieId}
-    //                 price={serie.price}
-    //                 name={serie.titulo}
-    //                 image={serie.image}
-    //             />
-    //         );
-    //     });
-    // }
+    let series = null;
+    if (carrito.Series && Array.isArray(carrito.Series)) {
+        series = carrito.Series?.map(serie => {
+            const uniqueKey = `${serie.seriesXcarro.serieId}_serie`;
+            return (
+                <CardCarSerie
+                    key={uniqueKey}
+                    id={serie.seriesXcarro.serieId}
+                    price={serie.price}
+                    name={serie.titulo}
+                    image={serie.image}
+                />
+            );
+        });
+    }
 
-    // let movies = null;    
-    // if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
-    //     movies = carrito.Multimedia?.map(movie => {
-    //         const uniqueKey = `${movie.peliculasXcarro.multimediaId}_movie`;
-    //         return (
-    //             <CardCar
-    //                 key={uniqueKey}
-    //                 id={movie.peliculasXcarro.multimediaId}
-    //                 price={movie.price}
-    //                 name={movie.name}
-    //                 image={movie.image}
-    //             />
-    //         );
-    //     });
-    // }
+    let movies = null;    
+    if (carrito.Multimedia && Array.isArray(carrito.Multimedia)) {
+        movies = carrito.Multimedia?.map(movie => {
+            const uniqueKey = `${movie.peliculasXcarro.multimediaId}_movie`;
+            return (
+                <CardCar
+                    key={uniqueKey}
+                    id={movie.peliculasXcarro.multimediaId}
+                    price={movie.price}
+                    name={movie.name}
+                    image={movie.image}
+                />
+            );
+        });
+    }
 
     return(<section>
 
@@ -178,13 +193,13 @@ const CardShop = () => {
 
             <div className={style.contenido}>
                 <div className={style.nav}>
-                    <p className={style.textNav}>Carrito {`(${0})`}</p>
+                    <p className={style.textNav}>Carrito {`(${contadorDelCarrito})`}</p>
                 </div>
-                {/* {series}
-                {movies} */}
+                {series}
+                {movies}
             </div>
             <div className={style.submit}>
-                <p className={style.textSubmit}>Total: ${0}</p>
+                <p className={style.textSubmit}>Total: ${totalAmount}</p>
                 {!continuePay && (
                     <button className={style.continuar} onClick={handleclick}>
                      Continuar compra

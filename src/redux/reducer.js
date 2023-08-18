@@ -1,66 +1,77 @@
 import {GET_GENEROS,
-    GET_MEDIA,
-    GET_TODO,
-    POST_MOVIE,
-    GET_MOVIEXID, 
-    GET_SERIES_ID,
-    GET_SERIES, 
-    // GET_SERIES_PAGE, 
-    // GET_GENEROS_SERIES,
-    GETSEARCHBAR,
-    GETSEARCHBARCLEAN,
-    POST_SERIE,
-    CLEAR_MOVIE_ID,
-    DELETE_SERIE_ID,
-    ADD_TO_CART,
-    REMOVE_FROM_CART,
-    FETCH_CART_CONTENT,
-    SAVE_ID_TO_SAVES,
-    UPDATE_CART_COUNT,
-    ADD_PRODUCT_DETAILS_MOVIE,
-    ADD_PRODUCT_DETAILS_SERIE,
-    SAVE_ID_TO_SERIES,
-    REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
-    REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
-    GETSEARCHBARADM,
-    GETSEARCHBARCLEANADM,
-    GET_BUSQUEDA_USER_ADMIN
-    } from "./actions" 
+        GET_MEDIA,
+        GET_TODO,
+        POST_MOVIE,
+        GET_MOVIEXID, 
+        GET_SERIES_ID,
+        GET_SERIES, 
+        // GET_SERIES_PAGE, 
+        // GET_GENEROS_SERIES,
+        GETSEARCHBAR,
+        GETSEARCHBARCLEAN,
+        POST_SERIE,
+        CLEAR_MOVIE_ID,
+        DELETE_SERIE_ID,
+        ACCESO,
+        BLOQUEAR_ACCESO,
+        ADD_TO_CART,
+        REMOVE_FROM_CART,
+        FETCH_CART_CONTENT,
+        SAVE_ID_TO_SAVES,
+        UPDATE_CART_COUNT,
+        ADD_PRODUCT_DETAILS_MOVIE,
+        ADD_PRODUCT_DETAILS_SERIE,
+        SAVE_ID_TO_SERIES,
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
+        REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
+        GETSEARCHBARADM,
+        GETSEARCHBARCLEANADM,
+        GET_TODOS_LOS_PRODUCTOS,
+        TODAS_LAS_ORDENES_DE_COMPRA,
+        MOVIESXPAGE,
+        SEARCHNAV
+        } from "./actions" 
 
 
-    //Para guardar en el localStorage el contador del carrito , id de series y movies
-    // const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
-    // const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
-    // const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
-    const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
-    const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+        //Para guardar en el localStorage el contador del carrito , id de series y movies
+        // const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
+        // const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
+        // const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
+        const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
 const initialState = {
- Generos: [],
- Media:[],
- Todo:[],
- TodoFill:[],
- NewMovie:[],
- MovieId:[],
- SerieID: [],
- NewSerie:[],
- UrlSerie: '',
- ActoresSeries: '',
- generos: '',
- temporadaSerie: '',
- catipuloSerie: '',
- tituloEpisodio: '',
- cantidadTemporadas: [],
- cantidadCapitulos: [],
- cartItems: [],
- carrito:{},
-//  cartCount: savedCartCount,
-// //  idSavesMovies: savedIdSaves,
- savedProductsMovies: moviesSaved,
- savedProductsSeries: seriesSaved,
-//  idSavesSeries: savedIdSeries,
- SearchAdmimovie:[],
- GetUserAdmin: []
+     Generos: [],
+     Media:[],
+     Todo:[],
+     TodoFill:[],
+     NewMovie:[],
+     MovieId:[],
+     SerieID: [],
+     NewSerie:[],
+     UrlSerie: '',
+     ActoresSeries: '',
+     generos: '',
+     temporadaSerie: '',
+     catipuloSerie: '',
+     tituloEpisodio: '',
+     cantidadTemporadas: [],
+     cantidadCapitulos: [],
+     cartItems: [],
+     carrito:{},
+    //  cartCount: savedCartCount,
+    // //  idSavesMovies: savedIdSaves,
+     savedProductsMovies: [],
+     savedProductsSeries: [],
+    //  idSavesSeries: savedIdSeries,
+     Acceso: '',
+     SearchAdmimovie:[],
+     productosComprados:[],
+     todasLasCompras:[],
+     Movies:[],
+     numPage: 1,
+     Search: "",
+
 }
 
 const rootReducer =(state = initialState,action)=> {
@@ -121,20 +132,20 @@ switch(action.type){
     case UPDATE_CART_COUNT:
         return { ...state, cartCount: action.payload };
 
-    case ADD_PRODUCT_DETAILS_MOVIE: {
-            const newSavedProducts = [...state.savedProductsMovies, action.payload];
-            localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
-          
-            return {...state, savedProductsMovies: newSavedProducts };
-          }
+        case ADD_PRODUCT_DETAILS_MOVIE: {
+                // const newSavedProducts = [...state.savedProductsMovies, action.payload];
+                // localStorage.setItem('savedProducts', JSON.stringify(newSavedProducts));
+              
+                return {...state, savedProductsMovies: action.payload };
+              }
 
-        
-    case ADD_PRODUCT_DETAILS_SERIE: {
-            const newSavedProducts = [...state.savedProductsSeries, action.payload];
-            localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
-          
-            return { ...state, savedProductsSeries: newSavedProducts };
-          }
+            
+        case ADD_PRODUCT_DETAILS_SERIE: {
+                // const newSavedProducts = [...state.savedProductsSeries, action.payload];
+                // localStorage.setItem('savedSeries', JSON.stringify(newSavedProducts));
+              
+                return { ...state, savedProductsSeries: action.payload };
+              }
 
     // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
     //         const productId = action.payload;
@@ -169,21 +180,38 @@ switch(action.type){
 
         }
 
-    case GETSEARCHBARCLEANADM:
-        return {
-            ...state,
-            SearchAdmimovie: []
-        }
-    
-    case GET_BUSQUEDA_USER_ADMIN: 
-        return {
-            ...state,
-            GetUserAdmin: action.payload
-        }
+        case GETSEARCHBARCLEANADM:
+            return {
+                ...state,
+                SearchAdmimovie: []
+            }
+        case GET_TODOS_LOS_PRODUCTOS:
+            return{
+                ...state,
+                productosComprados: action.payload
+            }
+        case TODAS_LAS_ORDENES_DE_COMPRA:
+            return{
+                ...state,
+                todasLasCompras:action.payload
+            }
+        case MOVIESXPAGE:
+            return {
+                
+                ...state,
+                Movies:action.payload
+            }    
+  
+         case SEARCHNAV : 
+            return {
+                 ...state,
+                 Search : action.payload
+            }   
 
-    default:
-        return {...state}
-}
+
+        default:
+            return {...state}
+    }
 
 }
 

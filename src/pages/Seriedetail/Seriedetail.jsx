@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useDispatch,useSelector} from "react-redux"
 import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie} from "../../redux/actions";
 import ReactPlayer from 'react-player/youtube'
-
+import Swal from 'sweetalert2'
 import style from './seriedetail.module.css'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer";
@@ -29,7 +29,7 @@ const SerieDetail = () => {
     const tituloepi = useSelector(state => state.tituloEpisodio)
     const cantidadTemporada = useSelector(state => state.cantidadTemporadas)
     const capitulo = useSelector(state => state.cantidadCapitulos)
-    const propiedades = {id:+id, image:serie.image, price:serie.price, name:serie.titulo}
+    const propiedades = {image:serie.image, id:+id, price:serie.price, name:serie.titulo}
 
  
     const [isScrolled, setIsScrolled] = useState(false)
@@ -48,6 +48,15 @@ const SerieDetail = () => {
 
     const handleclick = () => {
         dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 
+
+        Swal.fire({
+            title:`Artículo agregado al carrito`,
+             icon:'success'});
+        
+             setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+      
     }
 
     useEffect(() => {
