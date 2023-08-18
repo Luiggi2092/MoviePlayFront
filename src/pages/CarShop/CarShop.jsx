@@ -103,14 +103,7 @@ const Pago = () => {
 
 const CardShop = () => {
 
-    useEffect(() => {
-        const recargadoValue = localStorage.getItem('recargado');
-
-        if (recargadoValue === 'no') {
-            localStorage.setItem('recargado', 'si');
-            reload(); // Recarga la página para evitar bugs
-        }
-    }, []);
+    
 
     const [isScrolled, setIsScrolled] = useState(false)
     window.onscroll = () => {

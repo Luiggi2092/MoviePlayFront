@@ -114,7 +114,7 @@ const AccessPage = () => {
 
             const responso = await axios.post('/usuario/google', email)  
 
-            // console.log(responso);
+            console.log(responso);
 
 
             localStorage.setItem('TokenUsu', response.credential);
