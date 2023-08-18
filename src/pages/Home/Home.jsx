@@ -16,14 +16,14 @@ const reload = () => {
 }
 
 const Home = () => {
-//   useEffect(() => {
-//     const recargadoValue = localStorage.getItem('recargado');
+  useEffect(() => {
+    const recargadoValue = localStorage.getItem('recargado');
 
-//     if (recargadoValue === 'no') {
-//         localStorage.setItem('recargado', 'si');
-//         reload(); // Recarga la página para evitar bugs
-//     }
-// }, []);
+    if (recargadoValue === 'no') {
+        localStorage.setItem('recargado', 'si');
+        reload(); // Recarga la página para evitar bugs
+    }
+}, []);
   
   
   const series = data
