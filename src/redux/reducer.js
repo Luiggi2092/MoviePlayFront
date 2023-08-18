@@ -29,7 +29,8 @@ import {GET_GENEROS,
         GET_TODOS_LOS_PRODUCTOS,
         TODAS_LAS_ORDENES_DE_COMPRA,
         MOVIESXPAGE,
-        SEARCHNAV
+        SEARCHNAV,
+        SERIESXPAGE
         } from "./actions" 
 
 
@@ -71,6 +72,7 @@ const initialState = {
      Movies:[],
      numPage: 1,
      Search: "",
+     Series:[],
 
 }
 
@@ -218,6 +220,11 @@ const rootReducer =(state = initialState,action)=> {
                  ...state,
                  Search : action.payload
             }   
+        case SERIESXPAGE: 
+          return {
+             ...state,
+             Series:action.payload
+         }
 
 
         default:
