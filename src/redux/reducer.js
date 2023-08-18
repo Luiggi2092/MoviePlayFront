@@ -12,8 +12,6 @@ import {GET_GENEROS,
         POST_SERIE,
         CLEAR_MOVIE_ID,
         DELETE_SERIE_ID,
-        ACCESO,
-        BLOQUEAR_ACCESO,
         ADD_TO_CART,
         REMOVE_FROM_CART,
         FETCH_CART_CONTENT,
@@ -30,7 +28,8 @@ import {GET_GENEROS,
         TODAS_LAS_ORDENES_DE_COMPRA,
         MOVIESXPAGE,
         SEARCHNAV,
-        SERIESXPAGE
+        SERIESXPAGE,
+        GET_BUSQUEDA_USER_ADMIN
         } from "./actions" 
 
 
@@ -38,8 +37,8 @@ import {GET_GENEROS,
         // const savedCartCount = parseInt(localStorage.getItem('cartCount')) || 0;
         // const savedIdSaves = JSON.parse(localStorage.getItem('idSaves')) || [];
         // const savedIdSeries = JSON.parse(localStorage.getItem('idSavesSeries')) || [];
-        // const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
-        // const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+        const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+        const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
 const initialState = {
      Generos: [],
@@ -73,66 +72,67 @@ const initialState = {
      numPage: 1,
      Search: "",
      Series:[],
+     GetUserAdmin: []
 
 }
 
 const rootReducer =(state = initialState,action)=> {
- 
-    switch(action.type){
 
-        case GET_GENEROS:
-            return {...state, Generos:action.payload}
+switch(action.type){
 
-        case GET_MEDIA:
-            return {...state, Media: action.payload}   
-            
-        case GET_TODO:
-            return {...state, Todo: action.payload}
+    case GET_GENEROS:
+        return {...state, Generos:action.payload}
 
-        case POST_MOVIE:
-            return {...state, NewMovie : action.payload}     
-        case GET_MOVIEXID:
-            return {...state, MovieId:action.payload}
+    case GET_MEDIA:
+        return {...state, Media: action.payload}   
         
-        case GETSEARCHBAR:
-            return {...state, TodoFill: action.payload}
-        case GETSEARCHBARCLEAN:
-            return {...state, TodoFill: action.payload}  
-        case POST_SERIE:
-             return {...state, NewSerie: action.payload}   
-        case CLEAR_MOVIE_ID:
-             return { ...state, MovieId: [] }
-        case GET_SERIES_ID: {
-            return {...state, 
-                SerieID: action.payload.series,
-                UrlSerie: action.payload.link,
-                ActoresSeries: action.payload.actoresP,
-                generos: action.payload.generos,
-                temporadaSerie: action.payload.temp,
-                temporadaSerie: action.payload.temp,
-                catipuloSerie: action.payload.catp,
-                tituloEpisodio: action.payload.tituloEpi,
-                cantidadTemporadas: action.payload.cantidadTemporadas,
-                cantidadCapitulos: action.payload.cantidadCapitulos
-            }
+    case GET_TODO:
+        return {...state, Todo: action.payload}
+
+    case POST_MOVIE:
+        return {...state, NewMovie : action.payload}     
+    case GET_MOVIEXID:
+        return {...state, MovieId:action.payload}
+    
+    case GETSEARCHBAR:
+        return {...state, TodoFill: action.payload}
+    case GETSEARCHBARCLEAN:
+        return {...state, TodoFill: action.payload}  
+    case POST_SERIE:
+         return {...state, NewSerie: action.payload}   
+    case CLEAR_MOVIE_ID:
+         return { ...state, MovieId: [] }
+    case GET_SERIES_ID: {
+        return {...state, 
+            SerieID: action.payload.series,
+            UrlSerie: action.payload.link,
+            ActoresSeries: action.payload.actoresP,
+            generos: action.payload.generos,
+            temporadaSerie: action.payload.temp,
+            temporadaSerie: action.payload.temp,
+            catipuloSerie: action.payload.catp,
+            tituloEpisodio: action.payload.tituloEpi,
+            cantidadTemporadas: action.payload.cantidadTemporadas,
+            cantidadCapitulos: action.payload.cantidadCapitulos
         }
-        case DELETE_SERIE_ID: {
-            return {...state, SerieID: [], UrlSerie: ''}
-        }
-        case ADD_TO_CART:
-            return { ...state, cartItems: action.payload };
+    }
+    case DELETE_SERIE_ID: {
+        return {...state, SerieID: [], UrlSerie: ''}
+    }
+    case ADD_TO_CART:
+        return { ...state, cartItems: action.payload };
 
-        case FETCH_CART_CONTENT:
-            return { ...state, carrito: action.payload };
+    case FETCH_CART_CONTENT:
+        return { ...state, carrito: action.payload };
 
-        case SAVE_ID_TO_SAVES: 
-            return {...state, idSavesMovies: action.payload};                   
-        
-        case SAVE_ID_TO_SERIES: 
-                return {...state, idSavesSeries: action.payload}               
-        
-        case UPDATE_CART_COUNT:
-            return { ...state, cartCount: action.payload };
+    case SAVE_ID_TO_SAVES: 
+        return {...state, idSavesMovies: action.payload};                   
+    
+    case SAVE_ID_TO_SERIES: 
+            return {...state, idSavesSeries: action.payload}               
+    
+    case UPDATE_CART_COUNT:
+        return { ...state, cartCount: action.payload };
 
         case ADD_PRODUCT_DETAILS_MOVIE: {
                 // const newSavedProducts = [...state.savedProductsMovies, action.payload];
@@ -149,49 +149,38 @@ const rootReducer =(state = initialState,action)=> {
                 return { ...state, savedProductsSeries: action.payload };
               }
 
-        // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
-        //         const productId = action.payload;
-        //         const updatedSavedProducts = state.savedProductsMovies.length > 0 ?state.savedProductsMovies.filter(product => product.id !== productId): null;
-        //         const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
-        //         if(updatedSavedProducts !== []){
-        //             localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));}
-          
-        //         return {
-        //           ...state,
-        //           savedProductsMovies: moviesSaved,
-        //         };
-        //       }
-          
-        // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
-        //         const productId = action.payload;
-        //         const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
-        //         const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
-        //         if(updatedSavedProducts !== []){
-        //             localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));}
-          
-        //         return {
-        //           ...state,
-        //           savedProductsSeries: seriesSaved,
-        //         };
-        //       }
+    // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE: {
+    //         const productId = action.payload;
+    //         const updatedSavedProducts = state.savedProductsMovies.length > 0 ?state.savedProductsMovies.filter(product => product.id !== productId): null;
+    //         const moviesSaved = JSON.parse(localStorage.getItem('savedProducts')) || [];
+    //         if(updatedSavedProducts !== []){
+    //             localStorage.setItem('savedProducts', JSON.stringify(updatedSavedProducts));}
+      
+    //         return {
+    //           ...state,
+    //           savedProductsMovies: moviesSaved,
+    //         };
+    //       }
+      
+    // case REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE: {
+    //         const productId = action.payload;
+    //         const updatedSavedProducts = state.savedProductsSeries.filter(product => product.id !== productId);
+    //         const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
+    //         if(updatedSavedProducts !== []){
+    //             localStorage.setItem('savedSeries', JSON.stringify(updatedSavedProducts));}
+      
+    //         return {
+    //           ...state,
+    //           savedProductsSeries: seriesSaved,
+    //         };
+    //       }
 
-        case ACCESO:
-            return {
+    case GETSEARCHBARADM:
+        return {
             ...state,
-            Acceso: action.payload
-        }
-        case BLOQUEAR_ACCESO:
-            return {
-            ...state,
-            Acceso: ''
-        }
+            SearchAdmimovie: action.payload
 
-        case GETSEARCHBARADM:
-            return {
-                ...state,
-                SearchAdmimovie: action.payload
-
-            }
+        }
 
         case GETSEARCHBARCLEANADM:
             return {
@@ -225,6 +214,13 @@ const rootReducer =(state = initialState,action)=> {
              ...state,
              Series:action.payload
          }
+
+        
+        case GET_BUSQUEDA_USER_ADMIN: 
+        return {
+            ...state,
+            GetUserAdmin: action.payload
+        }
 
 
         default:
