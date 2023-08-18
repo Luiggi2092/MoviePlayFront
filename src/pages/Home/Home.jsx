@@ -11,8 +11,19 @@ import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
 import Loading from "../../components/Loading/Loading";
 
+const reload = () => {
+  window.location.reload(false);
+}
 
 const Home = () => {
+//   useEffect(() => {
+//     const recargadoValue = localStorage.getItem('recargado');
+
+//     if (recargadoValue === 'no') {
+//         localStorage.setItem('recargado', 'si');
+//         reload(); // Recarga la página para evitar bugs
+//     }
+// }, []);
   
   
   const series = data
