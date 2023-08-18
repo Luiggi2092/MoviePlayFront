@@ -37,9 +37,7 @@ const Register = () => {
     }
 
     const redirectToHome = () => {
-        setTimeout(() => {
-            navigate('/home')
-        }, 1000);
+        navigate('/home')
     }
 
     function generarContrasenaAleatoria(longitud) {
@@ -72,7 +70,7 @@ const Register = () => {
 
 
                 // console.log(data)
-
+                localStorage.setItem('id', data.id);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('name', data.nombre); 
                 localStorage.setItem('id', data.id);  
@@ -118,8 +116,11 @@ const Register = () => {
         
         try {
             const responso = await axios.post('/usuario', datos)
+
+            console.log(responso)
             
             localStorage.setItem('TokenUsu', response.credential);
+            localStorage.setItem('id', responso.data.id)
             localStorage.setItem('email', userObject.email);
             localStorage.setItem('nombre', userObject.given_name); 
             localStorage.setItem('name', userObject.name); 
@@ -190,13 +191,6 @@ const Register = () => {
                 <input placeholder='Contraseña' type='password' value={input.password} name='password' onChange={handleChange} className={style.inputFormAccessPage}/>
                 {error.password && <p className={style.error}>{error.password}</p>}
                 
-                <br/>
-            
-                {/* <div className={style.form}>
-                    <span className={style.labelFormAccessPage}>Ingrese una imagen {'(optional)'}</span>
-                    <input className={style.file} type='file'/>
-                </div> */}
-
                 <br/>
                 <div id="signInDiv"></div>
 
