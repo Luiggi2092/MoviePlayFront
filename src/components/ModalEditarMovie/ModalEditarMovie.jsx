@@ -60,15 +60,22 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
     useEffect(()=> {
        
-        if(pelicula){
-            
-        setForm({...form,name : pelicula.name,
+        
+        if(pelicula.length !== 0){
+        console.log(pelicula)
+        let array = []
+        pelicula.Genres.map(e => array.push(e.name)) 
+        console.log(array);
+
+            setForm({...form,name : pelicula.name,
                  image: pelicula.image,
                  time: pelicula.time,
                  linkVideo: pelicula.linkVideo,
+                 genres: array,
                  description: pelicula.description,
                  price : pelicula.price})
-        }
+        
+    }
     },[pelicula])
   
    
@@ -237,10 +244,10 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                      <div className={style.genero}>
                         <label>Genero :    </label>
                         <br/>
-                        <select name="genres" onChange={ChangeHandleCombo}>
+                        <select name="genres" onChange={ChangeHandleCombo} value={form.genres[0]}>
                             <option>Seleccione :</option>
                             {listaGenero?.map((gen,index)=>{
-                                  return <option key={index}>{gen.name}</option>
+                                  return <option key={index} >{gen.name}</option>
                             })}  
                         </select> 
                      </div>
