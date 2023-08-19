@@ -488,7 +488,7 @@ export const SeriesxPage =(page)=> {
    return async function(dispatch)
    {
     const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data;
-    console.log(ser);
+    // console.log(ser);
     dispatch({type :SERIESXPAGE, payload: ser.elementos})
    }   
 }
