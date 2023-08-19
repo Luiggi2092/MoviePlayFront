@@ -30,7 +30,7 @@ const Peliculas = () => {
 }, [])
 
 useEffect(() => {
-    dispatch(todosLosProductosXidUser(1))
+    dispatch(todosLosProductosXidUser(2))
 },[])
   
  
