@@ -16,7 +16,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
     const dispatch = useDispatch();
     const listaGenero = useSelector(state=> state.Generos);
     const pelicula = useSelector(state => state.MovieId);
-    
+    const [array,setArray] = useState([]);
+
     
 
     const [form,setForm] = useState({
@@ -63,15 +64,16 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
         
         if(pelicula.length !== 0){
         console.log(pelicula)
-        let array = []
+      
         pelicula.Genres.map(e => array.push(e.name)) 
+        const uniqueArray = Array.from(new Set(array));
         console.log(array);
 
             setForm({...form,name : pelicula.name,
                  image: pelicula.image,
                  time: pelicula.time,
                  linkVideo: pelicula.linkVideo,
-                 genres: array,
+                 genres: uniqueArray,
                  description: pelicula.description,
                  price : pelicula.price})
         
@@ -103,7 +105,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
     const BotonCerrar = () => {
         cambiarEstado(false);
-        setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+        //setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
         
         setAvance(0);
         setErrors({...errors,time: "",linkVideo:"",price:""})
@@ -112,11 +114,14 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
     const ChangeHandleCombo = (event)=> {
           
-        let value = event.target.value;
+        let value = event.target.value; 
         
-        let array=[];
         array.push(...form.genres,value);
-        setForm({...form,genres:[...array]});
+        
+        const uniqueArray = Array.from(new Set(array));
+         console.log(uniqueArray);
+        setForm({...form,genres:[]})
+        setForm({...form,genres:uniqueArray});
 
     }
 
@@ -186,6 +191,13 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
     }
 
+
+    const remover = (e)=> {
+         e.preventDefault()
+         setForm({...form,genres: []})
+         setArray([]);
+    }
+
     const submitHandler =(event)=> {
        event.preventDefault();
        if(form.type && 
@@ -198,7 +210,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
           form.price  ){
             dispatch(ActualizarMovie(pelicula.id,form));
             cambiarEstado(false); 
-            setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+            //setForm({...form,image: "" })
             setAvance(0);
             setErrors({...errors,time: "",linkVideo:"",price:""})
         }else{
@@ -244,12 +256,13 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                      <div className={style.genero}>
                         <label>Genero :    </label>
                         <br/>
-                        <select name="genres" onChange={ChangeHandleCombo} value={form.genres[0]}>
+                        <select name="genres" onChange={ChangeHandleCombo} >
                             <option>Seleccione :</option>
                             {listaGenero?.map((gen,index)=>{
-                                  return <option key={index} >{gen.name}</option>
+                                  return <option key={index}  >{gen.name}</option>
                             })}  
                         </select> 
+                        <button onClick={remover}>Remover Generos</button>
                      </div>
                      <div>
                         <label>Duracion :   </label>
