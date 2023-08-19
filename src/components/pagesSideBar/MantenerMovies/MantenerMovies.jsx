@@ -269,7 +269,7 @@ const MantenerMovies = ()=> {
               disabled={Movies.length < 10}
              // disabled={currentPage === infoPage}
             >Next</button>
-           </div>
+           </div >
         </div>
     )
 }

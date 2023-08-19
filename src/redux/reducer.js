@@ -29,7 +29,9 @@ import {GET_GENEROS,
         MOVIESXPAGE,
         SEARCHNAV,
         SERIESXPAGE,
-        GET_BUSQUEDA_USER_ADMIN
+        GET_BUSQUEDA_USER_ADMIN,
+        BUQSERIES,
+        BUQSERIESMOD
         } from "./actions" 
 
 
@@ -72,7 +74,9 @@ const initialState = {
      numPage: 1,
      Search: "",
      Series:[],
-     GetUserAdmin: []
+     GetUserAdmin: [],
+     SearchAdmiSerie : [],
+     SearchAdminSerieCreate:[],
 
 }
 
@@ -185,7 +189,8 @@ switch(action.type){
         case GETSEARCHBARCLEANADM:
             return {
                 ...state,
-                SearchAdmimovie: []
+                SearchAdmimovie: [],
+                SearchAdmiSerie: [],
             }
         case GET_TODOS_LOS_PRODUCTOS:
             return{
@@ -222,6 +227,17 @@ switch(action.type){
             GetUserAdmin: action.payload
         }
 
+        case BUQSERIES:
+            return {
+             ...state,
+             SearchAdmiSerie: action.payload
+            }
+        
+        case BUQSERIESMOD:
+            return {
+                ...state,
+                SearchAdminSerieCreate : action.payload
+            }    
 
         default:
             return {...state}

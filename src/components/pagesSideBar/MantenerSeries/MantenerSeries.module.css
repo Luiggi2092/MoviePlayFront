@@ -27,7 +27,7 @@
     .tbody{
       color:black
     }
-
+    
 
     .table {
       width: 100%;
@@ -110,5 +110,8 @@
       cursor: pointer;
     }
     
-
+.addButtons {
+  display: grid;
+  margin-top: 25px;
+}
     
