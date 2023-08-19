@@ -45,7 +45,10 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
     })
 
-    
+     useEffect(()=> {
+        dispatch(getMoviexid(Number(idpelicula))); 
+        
+    },[])
 
 
     useEffect(()=> {
@@ -62,13 +65,14 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
     useEffect(()=> {
        
         
-        if(pelicula.length !== 0){
+        if(pelicula.length !==0){
         console.log(pelicula)
       
         pelicula.Genres.map(e => array.push(e.name)) 
         const uniqueArray = Array.from(new Set(array));
-        console.log(array);
-
+        console.log(uniqueArray);
+        document.getElementById("selectgen").value=uniqueArray[0];
+        
             setForm({...form,name : pelicula.name,
                  image: pelicula.image,
                  time: pelicula.time,
@@ -76,7 +80,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                  genres: uniqueArray,
                  description: pelicula.description,
                  price : pelicula.price})
-        
+         
     }
     },[pelicula])
   
@@ -105,10 +109,10 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
 
     const BotonCerrar = () => {
         cambiarEstado(false);
-        //setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
-        
+        setForm({...form,genres: [] })
+        setArray([]);
         setAvance(0);
-        setErrors({...errors,time: "",linkVideo:"",price:""})
+        setErrors({...errors,time: "",linkVideo:"",price:"",genres:[]})
 
     }
 
@@ -196,6 +200,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
          e.preventDefault()
          setForm({...form,genres: []})
          setArray([]);
+         
+        document.getElementById("selectgen").value="0"
     }
 
     const submitHandler =(event)=> {
@@ -210,9 +216,10 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
           form.price  ){
             dispatch(ActualizarMovie(pelicula.id,form));
             cambiarEstado(false); 
-            //setForm({...form,image: "" })
+            setArray([]);
             setAvance(0);
-            setErrors({...errors,time: "",linkVideo:"",price:""})
+            setErrors({...errors,time: "",linkVideo:"",price:""})  
+         
         }else{
             Swal.fire({
                 title:`Debe llenar correctamente los campos`,
@@ -256,8 +263,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                      <div className={style.genero}>
                         <label>Genero :    </label>
                         <br/>
-                        <select name="genres" onChange={ChangeHandleCombo} >
-                            <option>Seleccione :</option>
+                        <select name="genres" onChange={ChangeHandleCombo} id="selectgen">
+                            <option value="0">Seleccione :</option>
                             {listaGenero?.map((gen,index)=>{
                                   return <option key={index}  >{gen.name}</option>
                             })}  
