@@ -28,30 +28,32 @@ const MantenerUsuarios = () => {
 
   const handleDesactivar = async (id) => {
     
-    const {data} = await axios.delete(`/admin/disableUser/${id}`)
+    const response = await axios.delete(`/admin/disableUser/${id}`)
     getUserAndPage(currentPage)
-    
   }
 
   const handleActivar = async (id) => {
 
-    const {data} = await axios.put(`/admin/enableUser/${id}`) 
+    const response = await axios.put(`/admin/enableUser/${id}`) 
     getUserAndPage(currentPage)
-    
   }
 
+  // Hacer admin
   const handleAdmin = async (id) => {
     const {data} = await axios.put(`/admin/transform/${id}`)
     getUserAndPage(currentPage)
   }
 
+
+  //Paginado
   const handlePreviousPage = () => {      
     getUserAndPage(currentPage - 1);
   };
-  
+  //Paginado
   const handleNextPage = () => {
     getUserAndPage(currentPage + 1);
   };
+
 
   useEffect(() => {
     getUserAndPage(1)
