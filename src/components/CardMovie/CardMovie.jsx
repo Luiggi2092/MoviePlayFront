@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
-import { addToCartAndSaveDetailsMovie, fetchCartContent, todosLosProductosXidUser,removeFromCartAndRemoveDetailsMovie } from '../../redux/actions';
+import { addToCartAndSaveDetailsMovie,removeFromCartAndRemoveDetailsMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -14,29 +14,44 @@ const Card = ({ image, id, price, name }) => {
     const propiedades = { image, id, price, name };
     const carrito = useSelector(state => state.carrito)
     const compras = useSelector(state => state.productosComprados)
-    console.log(compras)
+    const multimedia = carrito.Multimedia
+    const peliculas = compras.peliculas
 
+    //Peliculas en el carrito
+    const isAddedToCart = multimedia.some(producto => producto.peliculasXcarro.multimediaId === id)
+
+    //Peliculas Compradas
+    const isPurchased = peliculas.some(producto => producto.id === id);
+    
     const handleclick = () => {
-        dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
+        if (isAddedToCart) {
+            dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
+            Swal.fire({
+                title: `Artículo eliminado del carrito`,
+                icon: 'success'
+            });
 
-        Swal.fire({
-            title: `Artículo agregado al carrito`,
-            icon: 'success'
-        });
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        
+        } else {
+            // Producto no en el carrito ni comprado, agregar al carrito
+            dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
 
-        setTimeout(() => {
-            window.location.reload(false);
-        }, 1500); // 1.5 segundos
+            Swal.fire({
+                title: `Artículo agregado al carrito`,
+                icon: 'success'
+            });
+
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        }
     };
     
-    useEffect(() => {
-        dispatch(fetchCartContent(user))
-    }, [])
-
-    useEffect(() => {
-        dispatch(todosLosProductosXidUser(1))
-    },[])
-
+    
+    
     return (
         <div className={style.containerMax}>
             <Link to={`/moviesdetail/${id}`}>
@@ -48,9 +63,17 @@ const Card = ({ image, id, price, name }) => {
                 <FontAwesomeIcon icon={faThumbsDown} className={style.icon} />
                 
             </div>
-            <button className={style.agg} onClick={handleclick}>
-                ${price} - Agregar al Carrito
-            </button>
+            {isAddedToCart ? (
+                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
+            ) : isPurchased ? (
+                <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver} >Ver Película</button>
+                </Link>
+            ) : (
+                <button className={style.agg} onClick={handleclick}>
+                    ${price} - Agregar al Carrito
+                </button>
+            )}
         </div>
     );
 };
