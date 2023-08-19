@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch,useSelector} from "react-redux"
-import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie} from "../../redux/actions";
+import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie} from "../../redux/actions";
 import ReactPlayer from 'react-player/youtube'
 import Swal from 'sweetalert2'
 import style from './seriedetail.module.css'
@@ -30,6 +30,41 @@ const SerieDetail = () => {
     const cantidadTemporada = useSelector(state => state.cantidadTemporadas)
     const capitulo = useSelector(state => state.cantidadCapitulos)
     const propiedades = {image:serie.image, id:+id, price:serie.price, name:serie.titulo}
+    const carrito = useSelector(state => state.carrito)
+    const compras = useSelector(state => state.productosComprados)
+    const seriesCarrito = carrito.Series
+    const seriesCompradas = compras.series
+
+    const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);
+    const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === +id);
+
+    const handleclick = () => {
+        if (isAddedToCart) {
+            dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
+            Swal.fire({
+                title: `Artículo eliminado del carrito`,
+                icon: 'success'
+            });
+    
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        
+        } else {
+            // Producto no en el carrito ni comprado, agregar al carrito
+            dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
+    
+            Swal.fire({
+                title: `Artículo agregado al carrito`,
+                icon: 'success'
+            });
+    
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        }
+    };
+    
 
  
     const [isScrolled, setIsScrolled] = useState(false)
@@ -46,18 +81,7 @@ const SerieDetail = () => {
         setCapituloSelect(event.target.value)
     }
 
-    const handleclick = () => {
-        dispatch(addToCartAndSaveDetailsSerie(propiedades, user)) 
-
-        Swal.fire({
-            title:`Artículo agregado al carrito`,
-             icon:'success'});
-        
-             setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
-      
-    }
+    
 
     useEffect(() => {
         dispatch(getSeriesTempCat(id, temporadaSelect, capituloSelect))
@@ -112,9 +136,17 @@ const SerieDetail = () => {
                 </div>
                 </section>
 
-                <div className={style.botonContainer}>
-                    <button onClick={handleclick}>${serie?.price} - Agregar al carrito</button>
-                </div>
+                {isAddedToCart? (
+                    <div className={style.botonContainer}>
+                    <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
+                    </div>
+                ):isPurchased? (
+                    null
+                ): (
+                    <div className={style.botonContainer}>
+                    <button onClick={handleclick} className={style.button}>${serie.price} - Agregar al carrito</button>
+                    </div>
+                )}
                 
             </div>
  
