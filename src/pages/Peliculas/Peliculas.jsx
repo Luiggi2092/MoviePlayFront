@@ -4,13 +4,13 @@ import Card from '../../components/CardMovie/CardMovie';
 import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
-import {getGeneros} from '../../redux/actions'
+import {getGeneros, fetchCartContent, todosLosProductosXidUser} from '../../redux/actions'
 import Loading from "../../components/Loading/Loading";
 
 const Peliculas = () => {
 
   const dispatch = useDispatch();
-
+  const user = localStorage.getItem('email')
   const [movies, setMovies] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [itemsPage, setItemsPage] = useState([])
@@ -24,6 +24,14 @@ const Peliculas = () => {
   useEffect(() => {
     dispatch(getGeneros())
   },[dispatch])
+
+  useEffect(() => {
+    dispatch(fetchCartContent(user))
+}, [])
+
+useEffect(() => {
+    dispatch(todosLosProductosXidUser(1))
+},[])
   
  
 
@@ -31,7 +39,7 @@ const Peliculas = () => {
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
