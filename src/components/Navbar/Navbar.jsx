@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
 import { Link, useNavigate,useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {getTodobusqueda,getTodoFillClean,getTodobusquedaAdm,getTodoFillCleanAdm, fetchCartContent, getUserAdmin} from "../../redux/actions"
+import {getTodobusqueda,getTodoFillClean,getTodobusquedaAdm,getTodoFillCleanAdm, fetchCartContent, getUserAdmin,getTodoBusqedaAdmSeries} from "../../redux/actions"
 import Logo from '../../assets/Logo.ico.png';
 import './navbar.css';
 
@@ -53,7 +53,14 @@ const Navbar = ({ isScrolled }) => {
       } else if (data.contentId == "content4") {
         
         dispatch(getUserAdmin(busqueda.search)) 
+        
       
+      } else if (data.contentId == "content3"){
+         
+        dispatch(getTodoBusqedaAdmSeries(busqueda.search))
+        
+        dispatch(getTodoFillCleanAdm());
+
       } else{
         
       navegate('/home'); // redirigir a una página de resultados de búsqueda
