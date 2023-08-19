@@ -71,7 +71,6 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
         pelicula.Genres.map(e => array.push(e.name)) 
         const uniqueArray = Array.from(new Set(array));
         console.log(uniqueArray);
-        document.getElementById("selectgen").value=uniqueArray[0];
         
             setForm({...form,name : pelicula.name,
                  image: pelicula.image,
@@ -201,7 +200,6 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
          setForm({...form,genres: []})
          setArray([]);
          
-        document.getElementById("selectgen").value="0"
     }
 
     const submitHandler =(event)=> {
@@ -216,7 +214,6 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
           form.price  ){
             dispatch(ActualizarMovie(pelicula.id,form));
             cambiarEstado(false); 
-            setArray([]);
             setAvance(0);
             setErrors({...errors,time: "",linkVideo:"",price:""})  
          
@@ -261,7 +258,9 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                         <input type="text" name="name" onChange={ChangeHandle} value={form.name}/>
                      </div> 
                      <div className={style.genero}>
-                        <label>Genero :    </label>
+                        
+                        <label>Genero :  
+                            {form.genres.map(e => <p>{e}</p>)}  </label>
                         <br/>
                         <select name="genres" onChange={ChangeHandleCombo} id="selectgen">
                             <option value="0">Seleccione :</option>
