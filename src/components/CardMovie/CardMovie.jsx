@@ -17,11 +17,8 @@ const Card = ({ image, id, price, name }) => {
     const multimedia = carrito.Multimedia
     const peliculas = compras.peliculas
 
-    //Peliculas en el carrito
-    const isAddedToCart = multimedia.some(producto => producto.peliculasXcarro.multimediaId === id)
-
-    //Peliculas Compradas
-    const isPurchased = peliculas.some(producto => producto.id === id);
+    const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === id);
+    const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
     
     const handleclick = () => {
         if (isAddedToCart) {
