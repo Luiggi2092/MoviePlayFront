@@ -4,6 +4,12 @@
     padding: 20px;
 }
 
+.container-compras{
+    display: flex;
+    flex-wrap: wrap;
+    width: 1350px;
+}
+
 .titlePerf {
     text-align: center;
     margin-bottom: 20px;

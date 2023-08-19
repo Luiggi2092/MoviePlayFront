@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch , useSelector} from 'react-redux';
 import { todosLosProductosXidUser } from '../../redux/actions';
+import { Link } from 'react-router-dom';
 import './profile.css';
 
 const Profile = () => {
@@ -18,16 +19,6 @@ const Profile = () => {
     const [country, setCountry] = useState(localStorage.getItem('country') || '');
     const dispatch = useDispatch()
     const foto = localStorage.getItem('foto')
-
-
-
-    const [purchases, setPurchases] = useState([
-        { id: 1, movie: 'Pelicula 1', date: '2023-08-10', cost: 10.99 },
-        { id: 2, movie: 'Pelicula 2', date: '2023-08-09', cost: 8.99 },
-        { id: 2, movie: 'Pelicula 2', date: '2023-08-08', cost: 12.99 },
-        { id: 4, movie: 'Pelicula 4', date: '2023-08-08', cost: 12.99 },
-        // ... Más compras
-    ]);
 
     const movieImages = [
         'https://i0.wp.com/elplanetaurbano.com/wp-content/uploads/2023/04/super-mario-planeta-urbano-00.png?resize=1250%2C781&ssl=1',
@@ -54,6 +45,10 @@ const Profile = () => {
 
     const productos = useSelector(state => state.productosComprados)
     console.log(productos)
+
+    const movies = productos.peliculas || []
+
+   const series = productos.series || []
 
 
 
@@ -169,15 +164,27 @@ const Profile = () => {
                             </button>
                         )}
                     </div>
-                    <div>
+                    <div className='container-compras'>
                         <h1 className='conth1'>Mis Compras</h1>
                         <div className='purchase-carousel'>
-                            {purchases.map((purchase) => (
+                        {movies.length > 0 && movies.map((purchase) => (
+                            <div key={purchase.id} className='purchase-card'>
+                                <Link to={`/moviesdetail/${purchase.id}`}>
+                                    <img src={purchase.image} />
+                                    <h3>{purchase.name}</h3>
+                                    <p>Costo: ${purchase.price}</p>
+                                    <p>Pelicula</p>
+                                    </Link>
+                                </div>
+                            ))}
+                        {series.length > 0 &&series.map((purchase) => (
                                 <div key={purchase.id} className='purchase-card'>
-                                    <img src={movieImages[purchase.id - 1]} alt={`Pelicula ${purchase.id}`} />
-                                    <h3>{purchase.movie}</h3>
-                                    <p>Fecha: {purchase.date}</p>
-                                    <p>Costo: ${purchase.cost}</p>
+                                    <Link to={`/detailSeries/${purchase.id}`}>
+                                    <img src={purchase.image} />
+                                    <h3>{purchase.name}</h3>
+                                    <p>Costo: ${purchase.price}</p>
+                                    <p>Serie</p>
+                                    </Link>
                                 </div>
                             ))}
                         </div>
