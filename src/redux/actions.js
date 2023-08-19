@@ -461,9 +461,24 @@ export const ActualizarMovie = (id,form)=> {
   console.log(id)
   console.log(form)
   return async function  (dispatch){
+    try{
+       
     const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
     console.log(ActMov);
     dispatch({type:ActMov,payload:actions.payload})
+    Swal.fire({
+      title:`${ActMov.data.message}`,
+       icon:'success',
+       confirmButtonText:'Ok'});
+     
+
+    }catch(error){
+      Swal.fire({
+        title:`${error.response.data.error}`,
+         icon:'error',
+         confirmButtonText:'Ok'});
+
+    }
 
   }
 }
@@ -487,7 +502,7 @@ export const todasLasOrdenesDeCompra = (id) => {
 export const moviesxPage =(page)=> {
   return async function(dispatch){
     const mov = (await axios.get(`/admin/disableMovies?page=${page}`)).data;
-
+    console.log(mov);
     dispatch({type:MOVIESXPAGE,payload: mov.elementos})
   }
 }

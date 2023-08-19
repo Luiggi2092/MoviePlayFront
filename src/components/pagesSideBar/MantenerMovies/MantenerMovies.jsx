@@ -138,7 +138,7 @@ const MantenerMovies = ()=> {
 
   useEffect(()=> {
     
-    dispatch(moviesxPage(page));
+    //dispatch(moviesxPage(page));
       
 
    },[numPage,Movies])
