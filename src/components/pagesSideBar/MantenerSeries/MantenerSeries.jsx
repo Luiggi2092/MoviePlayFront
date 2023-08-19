@@ -1,5 +1,6 @@
 import Modal from "../../ModalCreateSerie/ModalCreateSerie"
 import ModalEdit from "../../ModalEditSerie/ModalEditSerie"
+import ModalEpi from "../../ModalNewEpisodios/ModalNewEpisodios"
 import style from './MantenerSeries.module.css'
 import { useEffect, useMemo, useState } from "react";
 import {SeriesxPage,ActivarDesactivarSeries,getTodoBusqedaAdmSeries,getTodoFillCleanAdm} from "../../../redux/actions"
@@ -15,18 +16,30 @@ const MantenerSeries = ()=> {
 
   const [openModalSerie,setOpenModalSerie] = useState(false);
   const [openModalSerieEdit,setopenModalSerieEdit] = useState(false);
+  const [openModalEpi,setOpenModalEpi] = useState(false);
   const Series = useSelector((state)=> state.Series);
   const numPage = useSelector((state)=> state.numPage);
   const [page,setPage] = useState(numPage);
   const busquedaSer = useSelector((state)=> state.SearchAdmiSerie);
   const busqueda = useSelector((state)=> state.Search);
-
+  const [itemsPage, setItemsPage] = useState([])
+  
   const [mostrar,setMostrar] = useState(null);
   
   
   const handleModalSerie = () => {
     setOpenModalSerie(!openModalSerie)
    }
+
+  const handleModalSerieEdit = () => {
+    setopenModalSerieEdit(!openModalSerieEdit)
+  } 
+
+
+  const handleModalEpisodio = () => {
+    setOpenModalEpi(!openModalEpi)
+  }
+
 
    const inativar =(row)=> {
     setMostrar(row.id)
@@ -60,6 +73,8 @@ const MantenerSeries = ()=> {
    useEffect(()=> {
 
     dispatch(SeriesxPage(numPage));
+    
+    dispatch(getTodoFillCleanAdm());
   },[])
 
    const columns = useMemo(
@@ -77,9 +92,9 @@ const MantenerSeries = ()=> {
         accessor: "accion",
         Cell: ({row}) => (
           <>
-          <button>Editar</button>
-          {row.original.active == true ? (<button onClick={()=> inativar(row)}>Desactivar</button>):
-          (<button onClick={()=> activar(row)}>Activar</button>)}
+          <button className={style.buttonAccion} onClick={()=> handleModalSerieEdit(row)}>Editar</button>
+          {row.original.active == true ? (<button className={style.buttonAccion1} onClick={()=> inativar(row)}>Desactivar</button>):
+          (<button className={style.buttonAccion2} onClick={()=> activar(row)}>Activar</button>)}
           </>
         )}
         
@@ -106,13 +121,33 @@ const MantenerSeries = ()=> {
    },[numPage,Series])
   
 
+   
+  const handlePreviousPage = () => {  
+        
+    if (page > 1) {
+     //getMovieAndPage(currentPage - 1, null);
+     // setCurrentPage(Number(currentPage - 1))
+       setPage(page - 1)
+    }
+  };
+
+  const handleNextPage = () => {
+   
+      //getMovieAndPage(currentPage + 1, null);
+        setPage( page + 1);
+
+  };
+
+
        return (
         <div className={style.container}>
-          <div>
-          <button onClick={handleModalSerie} className={style.CreateNew}>Nueva Serie</button>
+          <div className={style.addButtons}>
+          <button onClick={handleModalSerie} >Nueva Serie</button>
+          <button onClick={handleModalEpisodio}>Agregar Episodios</button>
           </div>
           <Modal  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></Modal>
           <ModalEdit openModalSerieEdit={openModalSerieEdit} cambiarEstadoSerie={setopenModalSerieEdit}></ModalEdit>   
+          <ModalEpi openModalEpi={openModalEpi} cambiarEstado={setOpenModalEpi}></ModalEpi>
           <br/>
           <br/>
           <div>
@@ -157,6 +192,30 @@ const MantenerSeries = ()=> {
 
             </table>
           </div>
+          <div className={style.paginado}>
+         <button
+              className={style.but}
+              onClick={handlePreviousPage}
+             // disabled={currentPage === 1}
+            >Prev</button>
+             {itemsPage.map((item) => 
+            <button
+            key={item.key}
+            className={style.but}
+            onClick={() => {
+              //setCurrentPage(parseInt(item.key));
+              //getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
+            }}
+          >
+            {item.key}
+          </button>)}
+            <button
+              className={style.but}
+              onClick={handleNextPage}
+              disabled={Series.length < 10}
+             // disabled={currentPage === infoPage}
+            >Next</button>
+           </div >
         </div>
        )
 

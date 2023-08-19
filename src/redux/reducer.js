@@ -30,7 +30,8 @@ import {GET_GENEROS,
         SEARCHNAV,
         SERIESXPAGE,
         GET_BUSQUEDA_USER_ADMIN,
-        BUQSERIES
+        BUQSERIES,
+        BUQSERIESMOD
         } from "./actions" 
 
 
@@ -75,6 +76,7 @@ const initialState = {
      Series:[],
      GetUserAdmin: [],
      SearchAdmiSerie : [],
+     SearchAdminSerieCreate:[],
 
 }
 
@@ -230,7 +232,12 @@ switch(action.type){
              ...state,
              SearchAdmiSerie: action.payload
             }
-
+        
+        case BUQSERIESMOD:
+            return {
+                ...state,
+                SearchAdminSerieCreate : action.payload
+            }    
 
         default:
             return {...state}

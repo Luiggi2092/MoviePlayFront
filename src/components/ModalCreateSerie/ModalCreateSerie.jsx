@@ -1,7 +1,7 @@
 import "./ModalCreateSerie.css"
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch} from "react-redux"
-import {getGeneros,postSerie,getSeries} from "../../redux/actions"
+import {getGeneros,postSerie,getSeries,getTodoBusquedaSerieModal} from "../../redux/actions"
 import axios from "axios";
 import Swal from 'sweetalert2'
 
@@ -14,6 +14,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
     const [actor,setActor] = useState("");
     const listaGenero = useSelector(state=> state.Generos);
     const series = useSelector(state => state.Series)
+    const busquedaSer = useSelector((state) => state.SearchAdminSerieCreate);
 
     const dispatch = useDispatch();
     const [form, setForm] = useState({
@@ -50,6 +51,17 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
          dispatch(getSeries());
     },[])
 
+
+    useEffect(()=> {
+        
+         if(busquedaSer){
+           for(let dat of busquedaSer){
+               console.log(dat.price)
+         setForm({...form,image: dat.image,price: dat.price})
+        
+           }
+         }
+    },[busquedaSer])
     
 
     const ChangeHandle = (event) => {
@@ -173,6 +185,9 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
             setActor('');
             
     }
+
+
+
 
 
 
@@ -338,7 +353,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  <div>
                     <label>Precio de Serie $ :</label>
                     <br/>
-                    <input type="text" name="price" onChange={ChangeHandle}/>
+                    <input type="text" name="price" onChange={ChangeHandle} value={form.price}/>
                     <span className="error">{errors.price}</span>
                  </div>
                  

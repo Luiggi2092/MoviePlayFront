@@ -37,6 +37,7 @@ export const SERIESXPAGE = "SERIESXPAGE"
 export const GET_BUSQUEDA_USER_ADMIN = 'GET_BUSQUEDA_USER_ADMIN'
 export const BAN_SERIE = "BAN_SERIE"
 export const BUQSERIES = "BUQSERIES"
+export const BUQSERIESMOD = "BUQSERIESMOD"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -344,12 +345,25 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
 
 export const ActivaroDesactivarMovies = (id)=> {
        return async function (dispatch){
+
+        try{
           const banmov = await axios.put(`/admin/disableMovies/${id}`);
           console.log(banmov);
           console.log("vamos")
-          dispatch({type: BANMOVIE, payload: banmov})          
+          dispatch({type: BANMOVIE, payload: banmov})    
+          Swal.fire({
+            title:`${banmov.data.message}`,
+             icon:'success',
+             confirmButtonText:'Ok'});
+             
+
+       }catch(error){
+        Swal.fire({
+          title:`${error.response.data.error}`,
+           icon:'error',
+           confirmButtonText:'Ok'}); 
        }
-}
+}}
 
 
 export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
@@ -508,15 +522,28 @@ export const getUserAdmin = (busqueda) => {
 export const ActivarDesactivarSeries = (id)=> {
    return async function (dispatch) {
 
+    try{
      const banserie = await axios.put(`/admin/disableSeries/${id}`);
      console.log(banserie);
      dispatch({type: BAN_SERIE, payload: banserie});
+     Swal.fire({
+      title:`${banserie.data.message}`,
+       icon:'success',
+       confirmButtonText:'Ok'});
+      
+    }catch(error){
+      Swal.fire({
+        title:`${error.response.data.error}`,
+         icon:'error',
+         confirmButtonText:'Ok'});
 
+    } 
+    }
   
    }
 
 
-}
+
 
 export const getTodoBusqedaAdmSeries = (name)=> {
     return async function (dispatch){
@@ -529,4 +556,16 @@ export const getTodoBusqedaAdmSeries = (name)=> {
     
    
 
+}
+
+
+export const getTodoBusquedaSerieModal = (name) => {
+    return async function (dispatch){
+      
+      const buqtodoSeries = (await axios.get(`/admin/disableSeries/?busqueda=${name}`)).data;
+      console.log(buqtodoSeries);
+      dispatch({type: BUQSERIESMOD, payload: buqtodoSeries.elementos})
+  
+
+    }
 }
