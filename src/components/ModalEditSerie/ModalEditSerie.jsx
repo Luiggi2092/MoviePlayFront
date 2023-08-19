@@ -1,20 +1,19 @@
-import "./ModalCreateSerie.css"
+import "./ModalEditSerie.css"
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch} from "react-redux"
-import {getGeneros,postSerie,getSeries,getTodoBusquedaSerieModal} from "../../redux/actions"
+import {getGeneros,postSerie,getSeries} from "../../redux/actions"
 import axios from "axios";
 import Swal from 'sweetalert2'
 
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
 
-const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
+const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
     
     const [avance,setAvance] = useState(0);
     const [actor,setActor] = useState("");
     const listaGenero = useSelector(state=> state.Generos);
     const series = useSelector(state => state.Series)
-    const busquedaSer = useSelector((state) => state.SearchAdminSerieCreate);
 
     const dispatch = useDispatch();
     const [form, setForm] = useState({
@@ -51,17 +50,6 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
          dispatch(getSeries());
     },[])
 
-
-    useEffect(()=> {
-        
-         if(busquedaSer){
-           for(let dat of busquedaSer){
-               console.log(dat.price)
-         setForm({...form,image: dat.image,price: dat.price})
-        
-           }
-         }
-    },[busquedaSer])
     
 
     const ChangeHandle = (event) => {
@@ -189,9 +177,6 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
 
 
 
-
-
-
     const handleImagenUpload = async(event) => {
        const file = event.target.files && event.target.files[0];
 
@@ -251,7 +236,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
 
     return (
         <>
-         {openModalSerie && <form>
+         {openModalSerieEdit && <form>
            <div className="Overlay">
             <div className="ContenedorModal">
                 <div className="EncabezadoModal">
@@ -353,13 +338,13 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  <div>
                     <label>Precio de Serie $ :</label>
                     <br/>
-                    <input type="text" name="price" onChange={ChangeHandle} value={form.price}/>
+                    <input type="text" name="price" onChange={ChangeHandle}/>
                     <span className="error">{errors.price}</span>
                  </div>
                  
                 
                  <button type="submit" className="botonMovie" onClick={submitHandler} >
-                            Crear Serie
+                            Editar Serie
                      </button>
                      <div className="BotonCerrar" onClick={BotonCerrar}>
                             X
@@ -376,4 +361,4 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
     )
 }
 
-export default ModalCreateSerie;
+export default ModalEditSerie;

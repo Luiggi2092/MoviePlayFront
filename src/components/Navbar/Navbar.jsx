@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser, FiStar } from 'react-icons/fi';
 import { Link, useNavigate,useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {getTodobusqueda,getTodoFillClean,getTodobusquedaAdm,getTodoFillCleanAdm, fetchCartContent} from "../../redux/actions"
+import {getTodobusqueda,getTodoFillClean,getTodobusquedaAdm,getTodoFillCleanAdm, fetchCartContent, getUserAdmin,getTodoBusqedaAdmSeries} from "../../redux/actions"
 import Logo from '../../assets/Logo.ico.png';
 import './navbar.css';
 
@@ -13,7 +13,7 @@ const Navbar = ({ isScrolled }) => {
   
   const data = useParams();
 
-  console.log(data);
+  // console.log(data);
 
   const [busqueda, setBusqueda] = useState({
     search: '',
@@ -35,9 +35,7 @@ const Navbar = ({ isScrolled }) => {
     { name: 'Favoritos', link: '/favoritos', icon: <FiStar /> },
   ];
   
-  // const admin = localStorage.getItem("email");
-  const admin = "moviesplay@gmail.com"
-  console.log(admin);
+  const admin = localStorage.getItem("email");
   
   if (admin == "moviesplay@gmail.com") {
     links.push({ name: 'Dashboard', link: '/DashboardAdmin/content1', icon: <FiUser /> });
@@ -47,12 +45,24 @@ const Navbar = ({ isScrolled }) => {
     if (busqueda.search) {
       dispatch(getTodobusqueda(busqueda.search));
 
-      if(data.contentId == "content2"
-      ){
+      if(data.contentId == "content2"){
+        
         dispatch(getTodobusquedaAdm(busqueda.search));
         
+        dispatch(getTodoFillCleanAdm());
 
-      }else{
+      } else if (data.contentId == "content4") {
+        
+        dispatch(getUserAdmin(busqueda.search)) 
+        
+      
+      } else if (data.contentId == "content3"){
+         
+        dispatch(getTodoBusqedaAdmSeries(busqueda.search))
+        
+        dispatch(getTodoFillCleanAdm());
+
+      } else{
         
       navegate('/home'); // redirigir a una página de resultados de búsqueda
       
@@ -139,7 +149,6 @@ const Navbar = ({ isScrolled }) => {
 };
 
 export default Navbar;
-
 
 
 

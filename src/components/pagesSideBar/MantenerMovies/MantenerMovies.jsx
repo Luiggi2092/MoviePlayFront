@@ -1,9 +1,9 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import ModalEdit from "../../ModalEditarMovie/ModalEditarMovie"
 import { useState,useEffect, useMemo } from "react";
-import {ActivaroDesactivarMovies} from  "../../../redux/actions";
+import {ActivaroDesactivarMovies,moviesxPage,getTodoFillCleanAdm,getTodobusquedaAdm} from  "../../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
-import { Column,useTable, useSortBy,useGlobalFilter } from "react-table";
+import { Column,useTable } from "react-table";
 import style from "./MantenerMovies.module.css"
 import Loading from "../../Loading/Loading";
 
@@ -12,33 +12,60 @@ const MantenerMovies = ()=> {
 
   const dispatch = useDispatch();
 
+  
+
   const busquedaMov = useSelector((state)=> state.SearchAdmimovie)
-   
+  const Movies = useSelector((state)=> state.Movies);
+  const numPage = useSelector((state)=> state.numPage);
+  const [page,setPage] = useState(numPage);
+  const busqueda = useSelector((state)=> state.Search);
+
+
+  useEffect(()=>{
     
+    dispatch(moviesxPage(numPage));
+    dispatch(getTodoFillCleanAdm());
+   
+  
+  },[]);
+
   const [openModal, setOpenModal] = useState(false); 
   const [openModalEdit,setOpenModalEdit] = useState(false);
   const [mostrar,setMostrar] = useState(null);
-  const [movies, setMovies] = useState([])
   const [idpelicula,setidPelicula] = useState(0);
   const [itemsPage, setItemsPage] = useState([])
   const [infoPage, setInfoPage] = useState({})
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selectedRows, setSelectedRows] = useState(1);
- 
+  const [tempPage,settempPage] = useState(0);
+  const [movieAct,setMoviAct] = useState([]);
+
 
 
   
   const inativar =(row)=> {
     setMostrar(row.id)
+    //settempPage(currentPage)
+    console.log("Tbmentro");
     console.log("id de pelicula" + row.original.id);
     dispatch(ActivaroDesactivarMovies(row.original.id));
+    
+    dispatch(getTodobusquedaAdm(busqueda.search));
+        
+    dispatch(getTodoFillCleanAdm());
+    
 
   }
 
   const activar = (row)=> {
+    console.log("Tbmentro");
     setMostrar(null)
     dispatch(ActivaroDesactivarMovies(row.original.id));
-    console.log("Activar" + row.id)
+    
+      dispatch(getTodobusquedaAdm(busqueda.search));
+          
+      dispatch(getTodoFillCleanAdm());
+      
+    
+    
   }
 
   
@@ -76,7 +103,8 @@ const MantenerMovies = ()=> {
 
    const tableInstance = useTable({
      columns
-     ,data : busquedaMov.length == 0 ? movies : busquedaMov}, useSortBy);
+     ,manualPagination : true,data : busquedaMov.length == 0 ? Movies : busquedaMov}
+     );
 
    const {
        getTableProps,
@@ -87,43 +115,47 @@ const MantenerMovies = ()=> {
    } = tableInstance
 
 
-  const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/admin/disableMovies?page=${page}`
-    if (genre) {
-      newUrl += `&genre=${genre}`;
-    }
-    if (price) {
-      newUrl += `&ordprecio=${price === 'up' ? 'up' : 'down'}`;
-    }
-    if(order){
-      newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
-    }    
+  // const getMovieAndPage = async(page, genre, price, order) =>{
+  //   let newUrl = `https://movieplay.onrender.com/admin/disableMovies?page=${page}`
+  //   if (genre) {
+  //     newUrl += `&genre=${genre}`;
+  //   }
+  //   if (price) {
+  //     newUrl += `&ordprecio=${price === 'up' ? 'up' : 'down'}`;
+  //   }
+  //   if(order){
+  //     newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
+  //   }    
 
-    fetch(newUrl)
-    .then(response => response.json())
-    .then(data => {
-      setMovies(data.elementos)
-      setInfoPage(data.totalPages)
-      setCurrentPage(page)
-    })
-  };
-
-
-   useEffect(()=>{
-     getMovieAndPage(1, null, null, null)
-   },[movies]);
+  //   const response = await axios.get(newUrl)
+    
+  //     setMovies(response.data.elementos)
+  //     setInfoPage(response.data.totalPages)
+  //     //setCurrentPage(response.data.currentPage)
+  //   }
+  
 
 
-   useEffect(() => {
-    let items = []
-    for(let i = 1; i <= infoPage; i++){
-      items.push(<button key={i} onClick={(event) =>{
-        setCurrentPage(parseInt(event.target.text))
-        getMovieAndPage(parseInt(event.target.text), null)}}>{i}</button>)
+  useEffect(()=> {
+    
+    dispatch(moviesxPage(page));
+      
 
-      }
-      setItemsPage(items)   
-    },[infoPage, currentPage]);
+   },[numPage,Movies])
+
+
+
+
+  //  useEffect(() => {
+  //   let items = []
+  //   for(let i = 1; i <= infoPage; i++){
+  //     items.push(<button key={i} onClick={(event) =>{
+  //      // setCurrentPage(parseInt(event.target.text))
+  //      // getMovieAndPage(parseInt(event.target.text), null)}}>{i}</button>)
+
+  //     }
+  //     setItemsPage(items)   
+  //   },[infoPage, currentPage]);
 
   
   const handleModalMovie = () => {
@@ -139,16 +171,20 @@ const MantenerMovies = ()=> {
 
 
  
-  const handlePreviousPage = () => {      
-    if (currentPage > 1) {
-      getMovieAndPage(currentPage - 1, null);
+  const handlePreviousPage = () => {  
+        
+    if (page > 1) {
+     //getMovieAndPage(currentPage - 1, null);
+     // setCurrentPage(Number(currentPage - 1))
+       setPage(page - 1)
     }
   };
 
   const handleNextPage = () => {
-    if (currentPage < infoPage) {
-      getMovieAndPage(currentPage + 1, null);
-    }
+   
+      //getMovieAndPage(currentPage + 1, null);
+        setPage( page + 1);
+
   };
 
     return (
@@ -167,7 +203,7 @@ const MantenerMovies = ()=> {
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "red" }}>
                    {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps(column.getSortByToggleProps())}  >
+                    <th {...column.getHeaderProps()}  >
                        <div
                   
                 >
@@ -214,15 +250,15 @@ const MantenerMovies = ()=> {
          <button
               className={style.but}
               onClick={handlePreviousPage}
-              disabled={currentPage === 1}
+             // disabled={currentPage === 1}
             >Prev</button>
              {itemsPage.map((item) => 
             <button
             key={item.key}
             className={style.but}
             onClick={() => {
-              setCurrentPage(parseInt(item.key));
-              getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
+              //setCurrentPage(parseInt(item.key));
+              //getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
             }}
           >
             {item.key}
@@ -230,9 +266,10 @@ const MantenerMovies = ()=> {
             <button
               className={style.but}
               onClick={handleNextPage}
-              disabled={currentPage === infoPage}
+              disabled={Movies.length < 10}
+             // disabled={currentPage === infoPage}
             >Next</button>
-           </div>
+           </div >
         </div>
     )
 }

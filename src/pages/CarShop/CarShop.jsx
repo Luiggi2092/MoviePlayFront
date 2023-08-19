@@ -55,7 +55,7 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('http://localhost:3001/pago',{
+            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
                   amount: totalAmount, 
                   id: id,
                   description:'pago de producto',
@@ -103,14 +103,7 @@ const Pago = () => {
 
 const CardShop = () => {
 
-    useEffect(() => {
-        const recargadoValue = localStorage.getItem('recargado');
-
-        if (recargadoValue === 'no') {
-            localStorage.setItem('recargado', 'si');
-            reload(); // Recarga la página para evitar bugs
-        }
-    }, []);
+    
 
     const [isScrolled, setIsScrolled] = useState(false)
     window.onscroll = () => {

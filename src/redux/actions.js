@@ -1,4 +1,5 @@
 import axios from "axios";
+import { actions } from "react-table";
 import Swal from 'sweetalert2'
 
 
@@ -14,8 +15,6 @@ export const GET_SERIES = "GET_SERIES"
 export const POST_SERIE = "POST_SERIE";
 export const CLEAR_MOVIE_ID = "CLEAR_MOVIE_ID";
 export const DELETE_SERIE_ID = 'DELETE_SERIE_ID'
-export const ACCESO = 'ACCESO'
-export const BLOQUEAR_ACCESO = 'BLOQUEAR_ACCESO'
 export const ADD_TO_CART = 'ADD_TO_CART'
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
 export const FETCH_CART_CONTENT = 'FETCH_CART_CONTENT'
@@ -32,6 +31,13 @@ export const GETSEARCHBARADM = 'GETSEARCHBARADM';
 export const GETSEARCHBARCLEANADM = 'GETSEARCHBARCLEANADM';
 export const GET_TODOS_LOS_PRODUCTOS = 'GET_TODOS_LOS_PRODUCTOS'
 export const TODAS_LAS_ORDENES_DE_COMPRA = 'TODAS_LAS_ORDENES_DE_COMPRA'
+export const MOVIESXPAGE = "MOVIESXPAGE"
+export const SEARCHNAV = "SEARCHNAV"
+export const SERIESXPAGE = "SERIESXPAGE"
+export const GET_BUSQUEDA_USER_ADMIN = 'GET_BUSQUEDA_USER_ADMIN'
+export const BAN_SERIE = "BAN_SERIE"
+export const BUQSERIES = "BUQSERIES"
+export const BUQSERIESMOD = "BUQSERIESMOD"
 
 export const getGeneros = ()=> {
    return async function (dispatch){
@@ -59,7 +65,7 @@ export const getTodo = ()=> {
 }
 
 export const getTodobusqueda = (name)=> {
-    console.log(name);
+    // console.log(name);
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;
         dispatch({type: GETSEARCHBAR, payload: todoSearchBar})
@@ -241,27 +247,10 @@ export function deleteSerieId() {
   }
 }
 
-
-export const acceso = (boolian) => {
-  return function accesoBoolian(dispatch){
-
-    dispatch({
-      type: ACCESO,
-      payload: boolian
-    })
-  }
-}
-
-export const bloquearAcceso = () => {
-  return {
-    type: BLOQUEAR_ACCESO
-  }
-}
-
 export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
   try {
     if(!idSerie){
-      const response = await axios.post(`/carroCompra?emailUsuario=${emailUsuario}&idMovie=${idMovie}`);
+      const response = await axios.post(`/carroCompra`,{emailUsuario, idMovie});
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -269,7 +258,7 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
         localStorage.setItem('cartCount', newCartCount);
     }
     if(!idMovie){
-      const response = await axios.post(`/carroCompra?emailUsuario=${emailUsuario}&idSerie=${idSerie}`);
+      const response = await axios.post(`/carroCompra`, {emailUsuario, idSerie});
       dispatch({ type: ADD_TO_CART, payload: response.data });
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -356,12 +345,25 @@ export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch,
 
 export const ActivaroDesactivarMovies = (id)=> {
        return async function (dispatch){
+
+        try{
           const banmov = await axios.put(`/admin/disableMovies/${id}`);
           console.log(banmov);
           console.log("vamos")
-          dispatch({type: BANMOVIE, payload: banmov})          
+          dispatch({type: BANMOVIE, payload: banmov})    
+          Swal.fire({
+            title:`${banmov.data.message}`,
+             icon:'success',
+             confirmButtonText:'Ok'});
+             
+
+       }catch(error){
+        Swal.fire({
+          title:`${error.response.data.error}`,
+           icon:'error',
+           confirmButtonText:'Ok'}); 
        }
-}
+}}
 
 
 export const removeFromCart = (emailUsuario, idSerie, idMovie) => async (dispatch, getState )=> {
@@ -439,7 +441,7 @@ export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatc
 
 
 export const getTodobusquedaAdm = (name)=> {
-  console.log(name);
+  // console.log(name);
   return async function (dispatch){
       const todoSearchBar = (await axios.get(`/admin/disableMovies?busqueda=${name}`)).data.elementos;
       dispatch({type: GETSEARCHBARADM, payload: todoSearchBar})
@@ -454,8 +456,11 @@ export const getTodoFillCleanAdm = ()=> {
 }
 
 export const ActualizarMovie = (id,form)=> {
+  console.log(id)
+  console.log(form)
   return async function  (dispatch){
     const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
+    console.log(ActMov);
     dispatch({type:ActMov,payload:actions.payload})
 
   }
@@ -463,16 +468,104 @@ export const ActualizarMovie = (id,form)=> {
 
 export const todosLosProductosXidUser = (id) => {
 return async function (dispatch){
-  const productos = await axios.get(`/ordenCompra/getTodoxUser`, {id: id }
+  const {data} = await axios.get(`/ordenCompra/getTodoxUser?idUser=${id}` 
   )
-  dispatch({type:GET_TODOS_LOS_PRODUCTOS, payload:productos})
+  dispatch({type:GET_TODOS_LOS_PRODUCTOS, payload:data})
 }
 }
 
 export const todasLasOrdenesDeCompra = (id) => {
   return async function(dispatch){
-    const productos = await axios.get(`/ordenCompra/getOCsxUser`, {id: id }
+    const productos = await axios.get(`/ordenCompra/getOCsxUser?idUser=${id}`
     )
-    dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos})
+    dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos.data})
   }
+}
+
+export const moviesxPage =(page)=> {
+  return async function(dispatch){
+    const mov = (await axios.get(`/admin/disableMovies?page=${page}`)).data;
+
+    dispatch({type:MOVIESXPAGE,payload: mov.elementos})
+  }
+}
+
+export const BusquedaAdmin = (Searchbuq) => {
+
+    return function (dispatch) {
+      dispatch({type:SEARCHNAV,
+        payload: Searchbuq
+ })     } 
+}
+
+
+export const SeriesxPage =(page)=> {
+
+   return async function(dispatch)
+   {
+    const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data;
+   
+    dispatch({type :SERIESXPAGE, payload: ser.elementos})
+   }   
+}
+
+export const getUserAdmin = (busqueda) => {
+  return async function (dispatch) {
+    
+    const {data} = await axios.get(`/admin/allUser?busqueda=${busqueda}`)
+
+    dispatch({type: GET_BUSQUEDA_USER_ADMIN, payload: data})
+  }
+} 
+
+
+export const ActivarDesactivarSeries = (id)=> {
+   return async function (dispatch) {
+
+    try{
+     const banserie = await axios.put(`/admin/disableSeries/${id}`);
+     console.log(banserie);
+     dispatch({type: BAN_SERIE, payload: banserie});
+     Swal.fire({
+      title:`${banserie.data.message}`,
+       icon:'success',
+       confirmButtonText:'Ok'});
+      
+    }catch(error){
+      Swal.fire({
+        title:`${error.response.data.error}`,
+         icon:'error',
+         confirmButtonText:'Ok'});
+
+    } 
+    }
+  
+   }
+
+
+
+
+export const getTodoBusqedaAdmSeries = (name)=> {
+    return async function (dispatch){
+
+    const buqtodoSeries = (await axios.get(`/admin/disableSeries/?busqueda=${name}`)).data.elementos;
+    console.log(buqtodoSeries);
+    dispatch({type: BUQSERIES, payload: buqtodoSeries})
+
+    }  
+    
+   
+
+}
+
+
+export const getTodoBusquedaSerieModal = (name) => {
+    return async function (dispatch){
+      
+      const buqtodoSeries = (await axios.get(`/admin/disableSeries/?busqueda=${name}`)).data;
+      console.log(buqtodoSeries);
+      dispatch({type: BUQSERIESMOD, payload: buqtodoSeries.elementos})
+  
+
+    }
 }

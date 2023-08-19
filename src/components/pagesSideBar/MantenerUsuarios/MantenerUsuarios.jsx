@@ -1,12 +1,112 @@
 import style from './MantenerUsuarios.module.css'
-
+import { useState, useEffect} from "react";
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import {getUserAdmin} from "../../../redux/actions"
 
 const MantenerUsuarios = () => {
-   return (
+
+  const dispatch = useDispatch();
+
+  const [data, setData] = useState();
+  const [currentPage, setCurrentPage] = useState(1)
+  
+  const usuario = useSelector((state) => state.GetUserAdmin)
+
+  const datos = usuario.length ? usuario : data
+
+  function ordenarPorIdAscendente(elementos) {
+    return elementos.slice().sort((a, b) => a.id - b.id);
+  }
+
+  const getUserAndPage = async (page) =>{
+    const {data} = await axios.get(`/admin/allUser?page=${page}`)
+    const orde = ordenarPorIdAscendente(data) 
+    setData(orde)
+    setCurrentPage(page)
+  };
+
+  const handleDesactivar = async (id) => {
+    
+    const response = await axios.delete(`/admin/disableUser/${id}`)
+    getUserAndPage(currentPage)
+  }
+
+  const handleActivar = async (id) => {
+
+    const response = await axios.put(`/admin/enableUser/${id}`) 
+    getUserAndPage(currentPage)
+  }
+
+  // Hacer admin
+  const handleAdmin = async (id) => {
+    const {data} = await axios.put(`/admin/transform/${id}`)
+    getUserAndPage(currentPage)
+  }
+
+
+  //Paginado
+  const handlePreviousPage = () => {      
+    getUserAndPage(currentPage - 1);
+  };
+  //Paginado
+  const handleNextPage = () => {
+    getUserAndPage(currentPage + 1);
+  };
+
+
+  useEffect(() => {
+    getUserAndPage(1)
+  }, [])
+
+  return (
+   
     <div>
-        <p className={style.pp}>
-            Usuarios
-        </p>
+        <table className={style.table}>
+            <thead>
+            <tr>
+                <th className={style.th}>ID</th>
+                <th className={style.th}>Nombre</th>
+                <th className={style.th}>Apellido</th>
+                <th className={style.th}>Email</th>
+                <th className={style.th}>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              datos?.map(item => (
+                <tr key={item.id}>
+                <td className={style.td}>{item.id}</td>
+                <td className={style.td}>{item.nombre}</td>
+                <td className={style.td}>{item.apellido}</td>
+                <td className={style.td}>{item.email}</td>
+                <td className={style.td}>
+                  {
+                    item.estadoActivo === true ? <button className={style.button} style={{ backgroundColor: "red" }} onClick={() => handleDesactivar(item.id)}>Desactivar</button> : <button className={style.button} style={{ backgroundColor: "green" }} onClick={() => handleActivar(item.id)}>Activar</button>
+                  }
+                  {
+                    item.rol == "Usuario" ? <button className={style.button} onClick={() => handleAdmin(item.id)}>Hacer admin</button> : <span className={style.button} style={{ backgroundColor: "green" }}>Admin</span>
+                  }
+                </td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+        <div className={style.paginado}>
+          <button
+            className={style.butP}
+            onClick={handlePreviousPage}
+            disabled={currentPage === 1}> Prev 
+          </button>
+          <p className={style.pPage}>
+            Pagina {currentPage}
+          </p>
+          <button
+            className={style.butN}
+            onClick={handleNextPage}
+            disabled={data?.length < 10}> Next 
+          </button>
+        </div>
     </div>
    )
 }

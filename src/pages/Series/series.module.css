@@ -62,18 +62,18 @@ font-family: Inter;
 }
 
 .serieContainer{
-display: flex;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 20px;
-    justify-content: center;
-    width: 120%;
-    height: 1200px;
-    max-width: 1200px;
-    background-color: #000000;
-    margin-top: 10px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-    margin-bottom: 80px;
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  width: 120%;
+  height: auto;
+  max-width: 1200px;
+  background-color: #000000;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 80px;
 
 }
 
