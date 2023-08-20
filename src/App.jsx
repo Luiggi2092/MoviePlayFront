@@ -28,9 +28,9 @@ const App = () => {
 			<Route exact path='/' element={<Landing/>} />
 			<Route exact path='/login' element={<AccessPage/>}/>
 			<Route exact path='/register' element={<Register/>} />
-
+            <Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
             <Route element={<PrivateRouterDashbor/>}>
-				<Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
+				
 			</Route>
 			
 			<Route element={<PrivateRouter/>}>

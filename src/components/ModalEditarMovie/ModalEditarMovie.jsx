@@ -2,14 +2,14 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import style from "./ModalEditarMovie.module.css"
-import {getMoviexid,getGeneros,clearMovieId,ActualizarMovie} from "../../redux/actions";
+import {getMoviexid,getGeneros,clearMovieId,ActualizarMovie,moviesxPage} from "../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
 
 
 
-const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
+const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
 
 
     const [avance, setAvance] = useState(0);
@@ -44,6 +44,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
         price: ""
 
     })
+
+
 
      useEffect(()=> {
         dispatch(getMoviexid(Number(idpelicula))); 
@@ -82,6 +84,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
          
     }
     },[pelicula])
+
+
   
    
 
@@ -212,7 +216,8 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
           form.linkVideo &&
           form.description &&
           form.price  ){
-            dispatch(ActualizarMovie(pelicula.id,form));
+            dispatch(ActualizarMovie(pelicula.id,form,page));
+            
             cambiarEstado(false); 
             setAvance(0);
             setErrors({...errors,time: "",linkVideo:"",price:""})  
@@ -260,7 +265,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula})=> {
                      <div className={style.genero}>
                         
                         <label>Genero :  
-                            {form.genres.map(e => <p>{e}</p>)}  </label>
+                            {form.genres.map((e,index) => <p key={index}>{e}</p>)}  </label>
                         <br/>
                         <select name="genres" onChange={ChangeHandleCombo} id="selectgen">
                             <option value="0">Seleccione :</option>
