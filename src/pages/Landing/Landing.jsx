@@ -89,7 +89,7 @@ const Landing = () => {
 
     <div className={style.imageContainer}>
     <img src={img5} alt="nico.png" className={style.img2} />
-          <p className={style.name}>Nicolas <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p> 
+          <p className={style.name}>Nicolas Solans <br></br><span className={style.spandd}>Desarrollador Full Stack (Backend)</span></p> 
     </div> 
 
     <div className={style.imageContainer}>
