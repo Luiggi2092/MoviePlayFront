@@ -4,12 +4,19 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 // import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
-import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie } from '../../redux/actions';
+import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Swal from 'sweetalert2';
 
 const Card = ({ image, id, price, name }) => {
     const user = localStorage.getItem('email');
+    const carrito = useSelector(state => state.carrito);
+    const compras = useSelector(state => state.productosComprados);
+    const multimedia = carrito.Multimedia;
+    const peliculas = compras.peliculas;
+    const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === id);
+    const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
     const dispatch = useDispatch();
     const propiedades = { image, id, price, name };
 
@@ -52,6 +59,9 @@ const Card = ({ image, id, price, name }) => {
         }
     };
 
+    
+
+
     return (
         <div className={style.containerMax}>
             <Link to={`/moviesdetail/${id}`}>
@@ -76,9 +86,17 @@ const Card = ({ image, id, price, name }) => {
                     ))}
                 </div>
             </div>
-            <button className={style.agg} onClick={handleclick}>
-                ${price} - Agregar al Carrito
-            </button>
+            {isAddedToCart ? (
+                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
+            ) : isPurchased ? (
+                <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver}>Ver Película</button>
+                </Link>
+            ) : (
+                <button className={style.agg} onClick={handleclick}>
+                    ${price} - Agregar al Carrito
+                </button>
+            )}
         </div>
     );
 };

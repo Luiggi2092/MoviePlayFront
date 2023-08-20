@@ -39,8 +39,11 @@ const Profile = () => {
         }
     }, []);
 
-    useEffect(() => {
-        dispatch(todosLosProductosXidUser(2))
+    
+    const idUser = localStorage.getItem('id')
+
+    useEffect(() => {    
+        dispatch(todosLosProductosXidUser(idUser))
     }, [])
 
     const productos = useSelector(state => state.productosComprados)
