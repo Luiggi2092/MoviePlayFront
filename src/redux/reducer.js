@@ -31,13 +31,13 @@ import {GET_GENEROS,
         SERIESXPAGE,
         GET_BUSQUEDA_USER_ADMIN,
         BUQSERIES,
-        BUQSERIESMOD,
+        GETTOP5MOVIES,
+        GETTOP5SERIES,
+        ACTMOV,
         TOGGLE_FAVORITE,
         RATE_MOVIE,
         SET_FAVORITES,
         SET_RATINGS,
-        GETTOP5SERIES,
-        GETTOP5MOVIES
         } from "./actions" 
 
 
@@ -79,13 +79,15 @@ const initialState = {
      productosComprados:[],
      todasLasCompras:[],
      Movies:[],
-     numPage: 1,
+     Page: 1,
      Search: "",
      Series:[],
      GetUserAdmin: [],
      SearchAdmiSerie : [],
      Top5Mov: [],
-     Top5Ser: []
+     Top5Ser: [],
+     TotalPag:1,
+
 
 }
 
@@ -259,7 +261,10 @@ return {
             return {
                 
                 ...state,
-                Movies:action.payload
+                Movies:action.payload.dato1,
+                Page: action.payload.dato2,
+                TotalPag: action.payload.dato3
+
             }    
   
          case SEARCHNAV : 
@@ -296,6 +301,12 @@ return {
                  ...state,
                  Top5Ser : action.payload
              }
+        case ACTMOV: 
+             return {
+                ...state,
+                Movies:action.payload.data1,
+
+        }     
         default:
             return {...state}
     }

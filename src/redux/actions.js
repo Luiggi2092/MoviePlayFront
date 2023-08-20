@@ -43,6 +43,7 @@ export const BUQSERIES = "BUQSERIES"
 export const BUQSERIESMOD = "BUQSERIESMOD"
 export const GETTOP5MOVIES = "GETTOP5MOVIES"
 export const GETTOP5SERIES = "GETTOP5SERIES"
+export const ACTMOV= "ACTMOV"
 
 
 export const toggleFavorite = movieId => ({
@@ -481,13 +482,27 @@ export const getTodoFillCleanAdm = ()=> {
   }
 }
 
-export const ActualizarMovie = (id,form)=> {
-  console.log(id)
-  console.log(form)
+export const ActualizarMovie = (id,form,page)=> {
   return async function  (dispatch){
+    try{
+       
     const ActMov = await axios.put(`/admin/updateMovies/${id}`,form) ;
+    const Movies = (await axios.get(`/admin/disableMovies?page=${page}`)).data.elementos
     console.log(ActMov);
-    dispatch({type:ActMov,payload:actions.payload})
+    dispatch({type:ACTMOV,payload:{ data : ActMov, data1: Movies}})
+    Swal.fire({
+      title:`${ActMov.data.message}`,
+       icon:'success',
+       confirmButtonText:'Ok'});
+     
+
+    }catch(error){
+      Swal.fire({
+        title:`${error.response.data.error}`,
+         icon:'error',
+         confirmButtonText:'Ok'});
+
+    }
 
   }
 }
@@ -511,8 +526,8 @@ export const todasLasOrdenesDeCompra = (id) => {
 export const moviesxPage =(page)=> {
   return async function(dispatch){
     const mov = (await axios.get(`/admin/disableMovies?page=${page}`)).data;
-
-    dispatch({type:MOVIESXPAGE,payload: mov.elementos})
+    console.log(mov.totalPages + "llego");
+    dispatch({type:MOVIESXPAGE,payload: { dato1:mov.elementos,dato2:mov.currentPage,dato3:mov.totalPages }})
   }
 }
 
