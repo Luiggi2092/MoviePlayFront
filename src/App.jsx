@@ -11,12 +11,15 @@ import Register from './pages/Register/Register'
 import AccessPage from './pages/AccessPage/AccessPage'
 import DashboardAdmin from './pages/DashboardAdmin/DashboardAdmin'
 import Profile from './pages/Profile/Profile'
+import Favoritos from './pages/Favoritos/Favoritos'
 
 import CarShop from './pages/CarShop/CarShop'
 import PrivateRouter from './router/PrivateRouter'
 import PrivateRouterDashbor from './router/PrivateDashbor'
 
 const App = () => {
+	
+	
 
   	return (
 
@@ -38,6 +41,7 @@ const App = () => {
 				<Route exact path='/detailSeries/:id' element={<SerieDetail/>}/>
 				<Route exact path="/purchase-detail" element={<CarShop/>}/>
 				<Route exact path="/profile" element={<Profile/>} />
+				<Route exact path="/favoritos" element={<Favoritos/>} />
 			</Route>
 		</Routes>
 	</HashRouter>

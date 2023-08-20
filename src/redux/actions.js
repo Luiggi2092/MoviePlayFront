@@ -1,8 +1,11 @@
 import axios from "axios";
 import { actions } from "react-table";
 import Swal from 'sweetalert2'
+export const RATE_MOVIE = 'RATE_MOVIE';
 
-
+export const SET_RATINGS = 'SET_RATINGS';
+export const SET_FAVORITES = 'SET_FAVORITES';
+export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
 export const GET_GENEROS = "GET_GENEROS";
 export const GET_MEDIA = "GET_MEDIA";
 export const GET_TODO = "GET_TODO";
@@ -40,6 +43,27 @@ export const BUQSERIES = "BUQSERIES"
 export const BUQSERIESMOD = "BUQSERIESMOD"
 export const GETTOP5MOVIES = "GETTOP5MOVIES"
 export const GETTOP5SERIES = "GETTOP5SERIES"
+
+
+export const toggleFavorite = movieId => ({
+    type: TOGGLE_FAVORITE,
+    payload: movieId
+});
+
+export const setRatings = ratings => ({
+  type: SET_RATINGS,
+  payload: ratings,
+});
+
+export const setFavorites = favorites => ({
+  type: SET_FAVORITES,
+  payload: favorites,
+});
+
+export const rateMovie = (movieId, rating) => ({
+    type: RATE_MOVIE,
+    payload: { movieId, rating },
+});
 
 export const getGeneros = ()=> {
    return async function (dispatch){
