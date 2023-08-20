@@ -5,6 +5,7 @@ import img0 from '../../assets/camilo.jpeg';
 import img4 from '../../assets/amber1.jpg'
 import img5 from '../../assets/nico.png'
 import img6 from '../../assets/luis.jpeg'
+import img7 from '../../assets/marcos.jpeg'
 import disfruta from '../../assets/peli2023.jpg'
 import descarga from '../../assets/840_560.jpg'
 import disfruta2 from '../../assets/tendencias.jpg'
@@ -87,6 +88,11 @@ const Landing = () => {
       <p className={style.name}>Luis Seminario <br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend-Backend)</span></p> 
     </div>    
 
+     <div className={style.imageContainer}>
+          <img src={img7} alt="marcos.jpeg" className={style.img0} />
+          <p className={style.name}>Marcos Castillo <br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend)</span></p>
+       </div> 
+
     <div className={style.imageContainer}>
     <img src={img5} alt="nico.png" className={style.img2} />
           <p className={style.name}>Nicolas Solans <br></br><span className={style.spandd}>Desarrollador Full Stack (Backend)</span></p> 
@@ -94,13 +100,10 @@ const Landing = () => {
 
     <div className={style.imageContainer}>
        <img src={img0} alt="camilo.jpeg" className={style.img0} />
-          <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+          <p className={style.name}>Camilo Parada <br></br><span className={style.spandd}>Desarrollador Full Stack (Backend)</span></p>
           </div> 
 
- <div className={style.imageContainer}>
-   <img src={img0} alt="camilo.jpeg" className={style.img0} />
-          <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
-            </div> 
+ 
 
     <div className={style.imageContainer}>
        <img src={img0} alt="camilo.jpeg" className={style.img0} />
