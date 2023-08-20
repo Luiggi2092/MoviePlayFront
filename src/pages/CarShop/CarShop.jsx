@@ -41,6 +41,7 @@ const CheckoutForm = () => {
       }
 
       const totalAmount = (allMoviesPrice + allSeriesPrice)*100
+      const totalAmountParseado = parseInt(totalAmount)
 
 
       const handleSubmit = async (e) => {
@@ -56,7 +57,7 @@ const CheckoutForm = () => {
 
             const {id} = paymentMethod;
             const {data} = await axios.post('http://localhost:3001/pago',{
-                  amount: totalAmount, 
+                  amount: totalAmountParseado, 
                   id: id,
                   description:'pago de producto',
                   emailUsuario:user
@@ -132,6 +133,7 @@ const CardShop = () => {
       }
 
       const totalAmount = allMoviesPrice + allSeriesPrice
+      const totalAmountParseado = parseFloat(totalAmount.toFixed(2))
 
     const handleclick = (e) => {
         e.preventDefault()
@@ -192,7 +194,7 @@ const CardShop = () => {
                 {movies}
             </div>
             <div className={style.submit}>
-                <p className={style.textSubmit}>Total: ${totalAmount}</p>
+                <p className={style.textSubmit}>Total: ${totalAmountParseado}</p>
                 {!continuePay && (
                     <button className={style.continuar} onClick={handleclick}>
                      Continuar compra
