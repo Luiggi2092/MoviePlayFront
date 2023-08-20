@@ -38,6 +38,7 @@ import {GET_GENEROS,
         RATE_MOVIE,
         SET_FAVORITES,
         SET_RATINGS,
+        TODAS_LAS_COMPRAS
         } from "./actions" 
 
 
@@ -87,6 +88,7 @@ const initialState = {
      Top5Mov: [],
      Top5Ser: [],
      TotalPag:1,
+     comprasAdmin:[]
 
 
 }
@@ -304,9 +306,14 @@ return {
         case ACTMOV: 
              return {
                 ...state,
-                Movies:action.payload.data1,
+                Movies:action.payload.data1,     
 
         }     
+        case TODAS_LAS_COMPRAS:
+            return {
+                ...state,
+                comprasAdmin:action.payload
+            }
         default:
             return {...state}
     }
