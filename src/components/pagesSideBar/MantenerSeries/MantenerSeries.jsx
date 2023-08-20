@@ -16,16 +16,19 @@ const MantenerSeries = ()=> {
 
   const [openModalSerie,setOpenModalSerie] = useState(false);
   const [openModalSerieEdit,setopenModalSerieEdit] = useState(false);
+  const [accionOcurrida,setAccionOcurrida] = useState(false);
   const [openModalEpi,setOpenModalEpi] = useState(false);
   const Series = useSelector((state)=> state.Series);
   const numPage = useSelector((state)=> state.numPage);
-  const [page,setPage] = useState(numPage);
+  const [page,setPage] = useState(1);
   const busquedaSer = useSelector((state)=> state.SearchAdmiSerie);
   const busqueda = useSelector((state)=> state.Search);
   const [itemsPage, setItemsPage] = useState([])
   
   const [mostrar,setMostrar] = useState(null);
   
+
+  console.log(numPage)
   
   const handleModalSerie = () => {
     setOpenModalSerie(!openModalSerie)
@@ -43,6 +46,8 @@ const MantenerSeries = ()=> {
 
    const inativar =(row)=> {
     setMostrar(row.id)
+    
+    setAccionOcurrida(true);
     //settempPage(currentPage)
     dispatch(ActivarDesactivarSeries(row.original.id));
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
@@ -54,6 +59,8 @@ const MantenerSeries = ()=> {
 
   const activar = (row)=> {
     setMostrar(null)
+    
+    setAccionOcurrida(true);
     dispatch(ActivarDesactivarSeries(row.original.id));
     
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
@@ -69,10 +76,15 @@ const MantenerSeries = ()=> {
 
    useEffect(()=> {
 
-    dispatch(SeriesxPage(numPage));
+    dispatch(SeriesxPage(page));
     
     dispatch(getTodoFillCleanAdm());
   },[])
+
+
+  useEffect(()=> {
+        dispatch(SeriesxPage(page))
+  },[page])
 
    const columns = useMemo(
     ()=>[
@@ -113,10 +125,16 @@ const MantenerSeries = ()=> {
        prepareRow
    } = tableInstance
 
-   useEffect(()=> {
-      dispatch(SeriesxPage(page));
-   },[numPage,Series])
+    useEffect(()=> {
+       if(accionOcurrida){
+          
+       dispatch(SeriesxPage(page));
+       setAccionOcurrida(false);
+       }
+    },[accionOcurrida])
   
+
+     
 
    
   const handlePreviousPage = () => {  
@@ -124,14 +142,14 @@ const MantenerSeries = ()=> {
     if (page > 1) {
      //getMovieAndPage(currentPage - 1, null);
      // setCurrentPage(Number(currentPage - 1))
-       setPage(page - 1)
+       dispatch(SeriesxPage(page - 1))
     }
   };
 
   const handleNextPage = () => {
    
       //getMovieAndPage(currentPage + 1, null);
-        setPage( page + 1);
+        dispatch(SeriesxPage(page + 1))
 
   };
 

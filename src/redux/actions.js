@@ -553,7 +553,7 @@ export const SeriesxPage =(page)=> {
    {
     const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data;
    
-    dispatch({type :SERIESXPAGE, payload: ser.elementos})
+    dispatch({type :SERIESXPAGE, payload: {dato1: ser.elementos,dato2: ser.currentPage,dato3:ser.totalPages}})
    }   
 }
 
