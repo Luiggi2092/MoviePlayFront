@@ -32,7 +32,8 @@ import {GET_GENEROS,
         GET_BUSQUEDA_USER_ADMIN,
         BUQSERIES,
         GETTOP5MOVIES,
-        GETTOP5SERIES
+        GETTOP5SERIES,
+        ACTMOV
         } from "./actions" 
 
 
@@ -78,7 +79,9 @@ const initialState = {
      GetUserAdmin: [],
      SearchAdmiSerie : [],
      Top5Mov: [],
-     Top5Ser: []
+     Top5Ser: [],
+     TotalPag:1,
+
 
 }
 
@@ -210,6 +213,8 @@ switch(action.type){
                 ...state,
                 Movies:action.payload.dato1,
                 Page: action.payload.dato2,
+                TotalPag: action.payload.dato3
+
             }    
   
          case SEARCHNAV : 
@@ -245,6 +250,12 @@ switch(action.type){
                  ...state,
                  Top5Ser : action.payload
              }
+        case ACTMOV: 
+             return {
+                ...state,
+                Movies:action.payload.data1,
+
+        }     
         default:
             return {...state}
     }
