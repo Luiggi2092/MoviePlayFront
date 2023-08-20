@@ -1,7 +1,7 @@
 import "./ModalCreateSerie.css"
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch} from "react-redux"
-import {getGeneros,postSerie,getSeries,getTodoBusquedaSerieModal} from "../../redux/actions"
+import {getGeneros,postSerie,getSeries} from "../../redux/actions"
 import axios from "axios";
 import Swal from 'sweetalert2'
 

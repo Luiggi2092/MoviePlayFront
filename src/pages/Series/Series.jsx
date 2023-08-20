@@ -4,7 +4,7 @@ import style from './series.module.css'
 
 import { useDispatch,useSelector} from "react-redux"
 import { useState,useEffect } from "react";
-import {getGeneros} from "../../redux/actions";
+import {getGeneros, fetchCartContent, todosLosProductosXidUser} from "../../redux/actions";
 
 import Card from '../../components/CardSerie/Card'
 import Navbar from "../../components/Navbar/Navbar"
@@ -16,7 +16,7 @@ const Series = () => {
   const dispatch = useDispatch();
 
   const listaGenero = useSelector(state=> state.Generos);
-
+  const user = localStorage.getItem('email')
   const [series, setSeries] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [itemsPage, setItemsPage] = useState([])
@@ -37,6 +37,14 @@ const Series = () => {
   useEffect(()=> {
       dispatch(getGeneros()); 
   },[])
+
+  useEffect(() => {
+    dispatch(fetchCartContent(user))
+}, [])
+
+useEffect(() => {
+    dispatch(todosLosProductosXidUser(2))
+},[])
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{

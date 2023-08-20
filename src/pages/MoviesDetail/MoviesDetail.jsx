@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom"
 import React, { useState,useEffect } from 'react'
 import Navbar from "../../components/Navbar/Navbar"
 import style from './moviesDetail.module.css'
-import {getMoviexid, clearMovieId, addToCartAndSaveDetailsMovie} from "../../redux/actions"
+import {getMoviexid, clearMovieId, addToCartAndSaveDetailsMovie, fetchCartContent, todosLosProductosXidUser, removeFromCartAndRemoveDetailsMovie} from "../../redux/actions"
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
 import ReactPlayer from 'react-player/youtube'
@@ -17,31 +17,52 @@ const MoviesDetail = () => {
       const peliculaid = useSelector(state=> state.MovieId)
       const [isScrolled, setIsScrolled] = useState(false)
       const propiedades = {image:peliculaid.image, id:+id, price:peliculaid.price , name:peliculaid.name}
+      const carrito = useSelector(state => state.carrito)
+      const compras = useSelector(state => state.productosComprados)
+      const multimedia = carrito.Multimedia
+      const peliculas = compras.peliculas
+
+      const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === +id);
+      const isPurchased = peliculas && peliculas.some(producto => producto.id === +id);
+      console.log(isAddedToCart)
+    
+    const handleclick = () => {
+        if (isAddedToCart) {
+            dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
+            Swal.fire({
+                title: `Artículo eliminado del carrito`,
+                icon: 'success'
+            });
+
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        
+        } else {
+            // Producto no en el carrito ni comprado, agregar al carrito
+            dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
+
+            Swal.fire({
+                title: `Artículo agregado al carrito`,
+                icon: 'success'
+            });
+
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        }
+    };
 
       useEffect(()=> {
           dispatch(getMoviexid(id));
 
           dispatch(clearMovieId());
+          dispatch(fetchCartContent(user))
+          dispatch(todosLosProductosXidUser(2))
           
     },[dispatch]) 
 
 
-    const handleclick = () => {
-        dispatch(addToCartAndSaveDetailsMovie(propiedades, user))
-        
-        Swal.fire({
-            title:`Artículo agregado al carrito`,
-             icon:'success'});
-        
-             setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
-    }
-
-    window.onscroll = () => {
-    setIsScrolled(window.pageYOffset === 0 ? false : true);
-    return () => (window.onscroll = null);
-  }
 
 
 
@@ -77,10 +98,17 @@ const MoviesDetail = () => {
                     
                 </div>
                 </section>
-
-                <div className={style.botonContainer}>
-                    <button onClick={handleclick}>${peliculaid.price} - Agregar al carrito</button>
-                </div>
+                {isAddedToCart? (
+                    <div className={style.botonContainer}>
+                    <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
+                    </div>
+                ):isPurchased? (
+                    null
+                ): (
+                    <div className={style.botonContainer}>
+                    <button onClick={handleclick} className={style.button}>${peliculaid.price} - Agregar al carrito</button>
+                    </div>
+                )}
                 
             </div>
             <div className={style.peliculaContainer}>
