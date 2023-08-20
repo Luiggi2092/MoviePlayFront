@@ -17,6 +17,7 @@ const Series = () => {
 
   const listaGenero = useSelector(state=> state.Generos);
   const user = localStorage.getItem('email')
+  const idUser = localStorage.getItem('id')
   const [series, setSeries] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [itemsPage, setItemsPage] = useState([])
@@ -43,7 +44,7 @@ const Series = () => {
 }, [])
 
 useEffect(() => {
-    dispatch(todosLosProductosXidUser(2))
+    dispatch(todosLosProductosXidUser(idUser))
 },[])
 
 

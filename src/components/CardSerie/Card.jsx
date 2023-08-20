@@ -1,11 +1,12 @@
 import style from './card.module.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
 import { toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie } from '../../redux/actions';
+import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie,} from '../../redux/actions';
 import Swal from 'sweetalert2';
 
 const Card = ({ image, id, price, name }) => {
@@ -24,11 +25,11 @@ const Card = ({ image, id, price, name }) => {
     dispatch(rateMovie(id, newRating)); // Actualiza la calificación en el estado
   };
   const user = localStorage.getItem('email');
+  const idUser = localStorage.getItem('id')
   const carrito = useSelector(state => state.carrito)
   const compras = useSelector(state => state.productosComprados)
   const seriesCarrito = carrito.Series
   const seriesCompradas = compras.series
-
   const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === id);
   const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === id);
 
@@ -58,12 +59,20 @@ const Card = ({ image, id, price, name }) => {
       }, 1500); // 1.5 segundos
     }
   };
+
+//   useEffect(() => {
+//     dispatch(fetchCartContent(user))
+// }, []);
+
+// useEffect(() => {
+//     dispatch(todosLosProductosXidUser(idUser))
+// }, []);
   
 
 
   return (
     <div className={style.containerMax}>
-      <Link to={`/moviesdetail/${id}`}>
+      <Link to={`/detailSeries/${id}`}>
         <img src={image} className={style.image} alt={`Movie ${id}`} />
       </Link>
       <div className={style.iconsContainer}>
@@ -85,9 +94,17 @@ const Card = ({ image, id, price, name }) => {
           ))}
         </div>
       </div>
-      <button className={style.agg} onClick={handleclick}>
-        ${price} - Agregar al Carrito
-      </button>
+      {isAddedToCart ? (
+                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
+            ) : isPurchased ? (
+              <Link to={`/detailSeries/${id}`}>
+                <button className={style.ver}>Ver serie</button>
+              </Link>
+            ) : (
+                <button className={style.agg} onClick={handleclick}>
+                    ${price} - Agregar al Carrito
+                </button>
+            )}
     </div>
   );
 };

@@ -18,8 +18,9 @@ const Peliculas = () => {
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
   const [selectedOrder, setSelectedOrder] = useState('')
-
+  const idUser = localStorage.getItem('id')
   const generos = useSelector(state => state.Generos)
+
 
   useEffect(() => {
     dispatch(getGeneros())
@@ -30,7 +31,7 @@ const Peliculas = () => {
 }, [])
 
 useEffect(() => {
-    dispatch(todosLosProductosXidUser(2))
+    dispatch(todosLosProductosXidUser(idUser))
 },[])
   
  
