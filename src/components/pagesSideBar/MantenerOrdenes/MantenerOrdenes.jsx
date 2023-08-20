@@ -24,13 +24,13 @@ const MantenerOrdenes =()=> {
    return (
       <div className={style.maxContainer}>
          <h1 className={style.h1}>Todas las órdenes de compra</h1>
-         <h1 className={style.h12}>Recaudo de todas compras: {allSales.ventaTotal}</h1>
+         <h1 className={style.h12}>Recaudo de todas compras: ${allSales.ventaTotal}</h1>
 
          {allSales.OCs && allSales.OCs.map((order) => (
             <div key={order.id} className={style.contenedor}>
                <h2>Orden de Compra #{order.id}</h2>
                <p className={style.p}>ID de usuario: {order.usuarioId}</p>
-               <p className={style.p}>Total de la compra: {convertirNumero(order.total)}</p>
+               <p className={style.p}>Total de la compra: ${convertirNumero(order.total)}</p>
 
                <table className={style.table}>
                   <thead>
