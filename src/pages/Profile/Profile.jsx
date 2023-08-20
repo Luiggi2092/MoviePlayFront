@@ -167,8 +167,8 @@ const Profile = () => {
                             </button>
                         )}
                     </div>
-                    <div className='container-compras'>
                         <h1 className='conth1'>Mis Compras</h1>
+                    <div className='container-compras'>
                         <div className='purchase-carousel'>
                         {movies.length > 0 && movies.map((purchase) => (
                             <div key={purchase.id} className='purchase-card'>

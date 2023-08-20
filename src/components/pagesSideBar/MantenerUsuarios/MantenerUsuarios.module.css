@@ -20,13 +20,15 @@
   .button {
     padding: 5px 10px;
     margin-right: 5px;
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 3px;
     cursor: pointer;
   }
   
-  button:hover {
+  .button:hover {
     background-color: #0056b3;
   }
 
@@ -38,11 +40,23 @@
   .butN {
     margin-top: 10px;
     margin-left: 30px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
   }
 
   .butP{
     margin-top: 10px;
     margin-right: 30px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    border-radius: 3px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
   }
 
   .pPage {
