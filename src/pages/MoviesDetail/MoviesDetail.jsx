@@ -21,10 +21,9 @@ const MoviesDetail = () => {
       const compras = useSelector(state => state.productosComprados)
       const multimedia = carrito.Multimedia
       const peliculas = compras.peliculas
-
+      const idUser = localStorage.getItem('id')
       const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === +id);
       const isPurchased = peliculas && peliculas.some(producto => producto.id === +id);
-      console.log(isAddedToCart)
     
     const handleclick = () => {
         if (isAddedToCart) {
@@ -58,7 +57,7 @@ const MoviesDetail = () => {
 
           dispatch(clearMovieId());
           dispatch(fetchCartContent(user))
-          dispatch(todosLosProductosXidUser(2))
+          dispatch(todosLosProductosXidUser(idUser))
           
     },[dispatch]) 
 

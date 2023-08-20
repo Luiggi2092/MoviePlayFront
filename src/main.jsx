@@ -9,7 +9,7 @@ import store from './redux/store';
 
 
 axios.defaults.baseURL = "http://localhost:3001"  
-// axios.defaults.baseURL = "https://movieplay.onrender.com/"
+//axios.defaults.baseURL = "https://movieplay.onrender.com/"
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

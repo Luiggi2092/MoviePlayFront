@@ -5,6 +5,7 @@ import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
 import validation from './validations'
+import { setFavorites, setRatings } from '../../redux/actions';
 
 
 const AccessPage = () => {
@@ -173,6 +174,15 @@ const AccessPage = () => {
         // google.accounts.id.prompt();
           
     }, [])
+
+    const handleLogin = () => {
+        // Luego de autenticar al usuario, obtén los favoritos asociados con el usuario desde el servidor
+        const userFavorites = ['movie1', 'movie2']; // Ejemplo de favoritos recuperados
+        const userRatings = { movie1: 4, movie2: 3 }; 
+
+        dispatch(setFavorites(userFavorites)); // Establece los favoritos en el estado de Redux
+        dispatch(setRatings(userRatings));
+    };
     
     return (
         <section className='containerDivAccessPage'>
@@ -211,7 +221,7 @@ const AccessPage = () => {
                     <div id="signInDiv"></div>
                     {/* <button onClick={() => window.google.accounts.id.prompt()}>Sign in with Google</button> */}
               
-                    <button className='buttonFormAccessPage'>Acceder</button>
+                    <button onClick={handleLogin} className='buttonFormAccessPage'>Acceder</button>
                     
                 </form>
 

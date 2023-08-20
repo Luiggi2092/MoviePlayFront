@@ -18,8 +18,9 @@ const Peliculas = () => {
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
   const [selectedOrder, setSelectedOrder] = useState('')
-
+  const idUser = localStorage.getItem('id')
   const generos = useSelector(state => state.Generos)
+
 
   useEffect(() => {
     dispatch(getGeneros())
@@ -30,7 +31,7 @@ const Peliculas = () => {
 }, [])
 
 useEffect(() => {
-    dispatch(todosLosProductosXidUser(2))
+    dispatch(todosLosProductosXidUser(idUser))
 },[])
   
  
@@ -39,7 +40,7 @@ useEffect(() => {
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }

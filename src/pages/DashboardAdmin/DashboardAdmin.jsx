@@ -18,6 +18,7 @@ const DashboardAdmin=()=> {
     const data = useParams();
 
 
+
     return (
         <>
             <Navbar/>

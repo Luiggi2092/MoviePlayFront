@@ -1,7 +1,7 @@
 import Modal from "../../ModalCreateMovie/ModalCreateMovie"
 import ModalEdit from "../../ModalEditarMovie/ModalEditarMovie"
 import { useState,useEffect, useMemo } from "react";
-import {ActivaroDesactivarMovies,moviesxPage,getTodoFillCleanAdm,getTodobusquedaAdm} from  "../../../redux/actions";
+import {ActivaroDesactivarMovies,moviesxPage,getTodoFillCleanAdm,getTodobusquedaAdm, getMovies} from  "../../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
 import { Column,useTable } from "react-table";
 import style from "./MantenerMovies.module.css"
@@ -16,134 +16,148 @@ const MantenerMovies = ()=> {
 
   const busquedaMov = useSelector((state)=> state.SearchAdmimovie)
   const Movies = useSelector((state)=> state.Movies);
-  const numPage = useSelector((state)=> state.numPage);
-  const [page,setPage] = useState(numPage);
+  const numPage = useSelector((state)=> state.Page);
+  const totalPages = useSelector((state)=> state.TotalPag);
+  const  [page,setPage] = useState(1);
   const busqueda = useSelector((state)=> state.Search);
+  const numberArray = [...Array(totalPages)].map((_, index) => index + 1);
 
 
   useEffect(()=>{
     
-    dispatch(moviesxPage(numPage));
+    dispatch(moviesxPage(page));
     dispatch(getTodoFillCleanAdm());
-   
+
+
   
   },[]);
 
+
+
   const [openModal, setOpenModal] = useState(false); 
   const [openModalEdit,setOpenModalEdit] = useState(false);
+  const [accionOcurrida,setAccionOcurrida] = useState(false);
   const [mostrar,setMostrar] = useState(null);
-  const [idpelicula,setidPelicula] = useState(0);
+  let [idpelicula,setidPelicula] = useState(0);
+  
   const [itemsPage, setItemsPage] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [tempPage,settempPage] = useState(0);
   const [movieAct,setMoviAct] = useState([]);
+  const [active,setActive] = useState(false);
 
 
 
-  
-  const inativar =(row)=> {
-    setMostrar(row.id)
-    //settempPage(currentPage)
-    console.log("Tbmentro");
-    console.log("id de pelicula" + row.original.id);
-    dispatch(ActivaroDesactivarMovies(row.original.id));
+
+   const inativar =(id,act)=> {
+    console.log(id)
     
-    dispatch(getTodobusquedaAdm(busqueda.search));
+    setAccionOcurrida(true);
+  //   console.log("no entra");
+  //   console.log(row.original.active)
+    
+     setidPelicula(id);
+    
+     dispatch(ActivaroDesactivarMovies(id));
+    
+     dispatch(getTodobusquedaAdm(busqueda.search));
         
-    dispatch(getTodoFillCleanAdm());
+     dispatch(getTodoFillCleanAdm());
     
-
-  }
-
-  const activar = (row)=> {
-    console.log("Tbmentro");
-    setMostrar(null)
-    dispatch(ActivaroDesactivarMovies(row.original.id));
     
-      dispatch(getTodobusquedaAdm(busqueda.search));
+     dispatch(moviesxPage(page));
+     
+     setidPelicula(0)
+    
+   }
+
+  const activar = (id,act)=> {
+    
+     console.log(id)
+   
+    setidPelicula(id)
+
+    
+    setAccionOcurrida(true);
+     
+    
+    dispatch(ActivaroDesactivarMovies(id));
+
+    
+       dispatch(getTodobusquedaAdm(busqueda.search));
           
-      dispatch(getTodoFillCleanAdm());
+       dispatch(getTodoFillCleanAdm());
       
+     dispatch(moviesxPage(page));
+     
     
     
-  }
+   }
 
   
-   const columns = useMemo(
-     ()=>[
-       /*{
-         Header: "Id",
-         accessor: "id",
-         Cell: ({ value}) => <strong>{value}</strong>
-       },*/
-       {
-         Header: "Nombre",
-         accessor: "name"
+  //  const columns = useMemo(
+  //    ()=>[
+  //      /*{
+  //        Header: "Id",
+  //        accessor: "id",
+  //        Cell: ({ value}) => <strong>{value}</strong>
+  //      },*/
+  //      {
+  //        Header: "Nombre",
+  //        accessor: "name"
 
-       },
-       { Header: "Imagen",
-         accessor: "image"
-       },
-       { Header: "Precio",
-         accessor: "price"},
-      { Header: "Accion",
-          accessor: "accion",
-         Cell: ({ row }) => ( // Renderiza el botón en la celda
-          <><button className={style.buttonAccion}  onClick={()=>handleModalMovieEdit(row)}>Editar</button>
-          {  row.original.active == true  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
-           (<button className={style.buttonAccion2} onClick={()=>activar(row)}>Activar</button>)
-            }</>
+  //      },
+  //      { Header: "Imagen",
+  //        accessor: "image"
+  //      },
+  //      { Header: "Precio",
+  //        accessor: "price"},
+  //     { Header: "Accion",
+  //         accessor: "accion",
+  //        Cell: ({ row }) => ( // Renderiza el botón en la celda
           
-      )   },
+  //         <><button className={style.buttonAccion}  onClick={()=>handleModalMovieEdit(row)}>Editar</button>
+  //         {  row.original.active == true  ? (<button className={style.buttonAccion1} onClick={()=>inativar(row)}>Desactivar</button> ):
+  //          (<button className={style.buttonAccion2} onClick={()=>activar(row)}>Activar</button>)
+  //           }</>
+          
+  //     )   },
       
 
-     ]
-     ,[mostrar]
-   );
+  //    ]
+  //    ,[mostrar]
+  //  );
 
-   const tableInstance = useTable({
-     columns
-     ,manualPagination : true,data : busquedaMov.length == 0 ? Movies : busquedaMov}
-     );
+  //  const tableInstance = useTable({
+  //    columns
+  //    ,manualPagination : true,data : busquedaMov.length == 0 ? Movies : busquedaMov}
+  //    );
 
-   const {
-       getTableProps,
-       getTableBodyProps,
-       headerGroups,
-       rows,
-       prepareRow
-   } = tableInstance
-
-
-  // const getMovieAndPage = async(page, genre, price, order) =>{
-  //   let newUrl = `https://movieplay.onrender.com/admin/disableMovies?page=${page}`
-  //   if (genre) {
-  //     newUrl += `&genre=${genre}`;
-  //   }
-  //   if (price) {
-  //     newUrl += `&ordprecio=${price === 'up' ? 'up' : 'down'}`;
-  //   }
-  //   if(order){
-  //     newUrl += `&ordalfa=${order === 'up' ? 'up' : 'down'}`
-  //   }    
-
-  //   const response = await axios.get(newUrl)
-    
-  //     setMovies(response.data.elementos)
-  //     setInfoPage(response.data.totalPages)
-  //     //setCurrentPage(response.data.currentPage)
-  //   }
-  
+  //  const {
+  //      getTableProps,
+  //      getTableBodyProps,
+  //      headerGroups,
+  //      rows,
+  //      prepareRow
+  //  } = tableInstance
 
 
-  useEffect(()=> {
-    
-    dispatch(moviesxPage(page));
-      
-
-   },[numPage,Movies])
 
 
+
+   useEffect(()=> {
+
+      if(accionOcurrida){ 
+     dispatch(moviesxPage(page));
+       setAccionOcurrida(false);
+      }
+
+      },[accionOcurrida])
+
+
+    useEffect(()=> {
+       dispatch(moviesxPage(page))
+    },[page])    
 
 
   //  useEffect(() => {
@@ -158,34 +172,72 @@ const MantenerMovies = ()=> {
   //   },[infoPage, currentPage]);
 
   
-  const handleModalMovie = () => {
-    setOpenModal(!openModal);
-  }
+   const handleModalMovie = () => {
+     setOpenModal(!openModal);
+   }
 
 
-  const handleModalMovieEdit = (row)=> {
-    console.log(row.original.id);
-    setidPelicula(row.original.id);
-    setOpenModalEdit(!openModalEdit);
-  }
+   
+//   useEffect(()=> {
+     
+//     if(Movies){
+//        dispatch(moviesxPage(numPage));
+
+//     } 
+    
+//  },[Movies,numPage])
+
+
+
+// useEffect(() => {
+//   if (shouldUpdateMovies) {
+//     dispatch(moviesxPage(numPage));
+//     setShouldUpdateMovies(false);
+//   }
+// }, [shouldUpdateMovies, numPage]);
+
+// useEffect(() => {
+//   if (Movies) {
+//     setShouldUpdateMovies(true);
+//   }
+// }, [Movies]);
+
+   const handleModalMovieEdit = (id)=> {
+     setidPelicula(id);
+     setOpenModalEdit(!openModalEdit);
+   }
 
 
  
-  const handlePreviousPage = () => {  
-        
-    if (page > 1) {
-     //getMovieAndPage(currentPage - 1, null);
-     // setCurrentPage(Number(currentPage - 1))
-       setPage(page - 1)
-    }
-  };
-
-  const handleNextPage = () => {
+   const handlePreviousPage = () => {  
+       
+  
+      //getMovieAndPage(currentPage - 1, null);
+      // setCurrentPage(Number(currentPage - 1))
+      setidPelicula(0)
+  //    console.log(numPage);
    
-      //getMovieAndPage(currentPage + 1, null);
-        setPage( page + 1);
+   dispatch(moviesxPage(numPage - 1));
+   setPage(numPage - 1);
+        
+     
+    
+   };
 
-  };
+   const handleNextPage = () => {
+   
+       //getMovieAndPage(currentPage + 1, null);
+        // setPage( page + 1);
+        setidPelicula(0)
+        console.log(numPage);
+        dispatch(moviesxPage(numPage + 1));
+        setPage(numPage + 1);
+        
+       
+
+   };
+
+
 
     return (
       <div className={style.container} >
@@ -194,55 +246,61 @@ const MantenerMovies = ()=> {
           <button onClick={handleModalMovie} >Nueva Pelicula</button>
         </div>
          <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
-         <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula >= 1 && idpelicula}></ModalEdit>
+         <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula}  page={page}></ModalEdit>
          <br/>
          <br/>
          <div>
-          <table {...getTableProps()} className={style.table} >
+          <table className={style.table} >
             <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()} style={{ backgroundColor: "red" }}>
-                   {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}  >
-                       <div
-                  
-                >
-                  {column.render('Header')}
-                  <br/>
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc 
-                      ? "D"
-                      : "A" : ""}
-                  </span>
-                </div>
-                    </th>
-                   ))}
-
-                </tr>
-              ))}
+              <tr style={{backgroundColor: "#011f69",color:"white"}}>
+                <th>
+                  id
+                </th>
+                <th>
+                  Nombre
+                </th>
+                <th>
+                  Imagen
+                </th>
+                <th>
+                  Precio
+                </th>
+                <th>
+                  Edicion
+                </th>
+                <th>
+                  Activación
+                </th>
+              </tr>
             </thead>
-            <tbody {...getTableBodyProps()} className={style.tbody}>
-              {rows.map((row) => {
-                 prepareRow(row);
-                 return (
-                  <tr {...row.getRowProps()}  className={style.tablerow}>
-                      {row.cells.map((cell) => {
-                        
-                        return (
-                          <td {...cell.getCellProps()}  className={style.tablecell}> 
-                            {cell.column.id === 'image' ? (
-                              <img src={cell.value} style={{ maxWidth: '120px', maxHeight: '150px' }}></img>
-                            ): 
-                            (cell.render("Cell"))}
-                            </td>
+            <tbody className={style.tbody}>
 
-                        )
-                      } )}
-                   </tr>
-                 )
-              })}
-              
+              {busquedaMov.length == 0 ? (Movies.map((item) => (
+                <tr key={item.id} className={style.tablerow} >
+                <td className={style.tablecell} value={idpelicula=item.id}>{item.id}</td>  
+                <td className={style.tablecell}>{item.name}</td>
+                <td className={style.tablecell}><img src={item.image} style={{width:"50px",height:"50px"}}/></td>
+                <td className={style.tablecell}>{item.price}</td>
+                <td className={style.tablecell}><button className={style.buttonAccion} onClick={()=>handleModalMovieEdit(item.id)} >Editar</button></td>
+                <td>
+                  {item.active == true ? (<button className={style.buttonAccion1} onClick={()=>inativar(item.id,item.active)} >Desactivar</button>) : 
+                  (<button className={style.buttonAccion2} onClick={()=> activar(item.id,item.active)} >Activar</button>)}</td>
+                </tr>
+              ))): busquedaMov.map((item) => (
+                <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.name}</td>
+                <td><img src={item.image} style={{width: "50px", height:"50px"}}/></td>
+                <td>{item.price}</td>
+                <td>
+                  <button onClick={()=>handleModalMovieEdit(item.id)}>Editar</button>
+                  </td>
+                <td className={style.tablecell}>
+                {item.active == true ? (<button className={style.buttonAccion1} onClick={()=>inativar(item.id,item.active)} >Desactivar</button>) : 
+                  (<button className={style.buttonAccion2} onClick={()=> activar(item.id,item.active)} >Activar</button>)}</td>
+                </tr>
+
+              ))}
             </tbody>
           </table>
          </div>
@@ -250,19 +308,24 @@ const MantenerMovies = ()=> {
          <button
               className={style.but}
               onClick={handlePreviousPage}
-             // disabled={currentPage === 1}
+             disabled={numPage === 1}
             >Prev</button>
-             {itemsPage.map((item) => 
-            <button
-            key={item.key}
-            className={style.but}
-            onClick={() => {
-              //setCurrentPage(parseInt(item.key));
-              //getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
-            }}
-          >
-            {item.key}
-          </button>)}
+              
+             {
+             numberArray.length > 0 && numberArray.map(
+              (e)=>{
+               return <button onClick={()=> setPage(parseInt(e))}
+                 key={e}
+                 className={style.but}
+               >{e}
+                
+               </button>
+              })
+                
+              }
+              
+          
+
             <button
               className={style.but}
               onClick={handleNextPage}

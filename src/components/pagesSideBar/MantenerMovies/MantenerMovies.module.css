@@ -89,8 +89,8 @@ overflow-y: auto;
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 5px 10px;
-  margin-right: 5px;
+  padding: 5px 5px;
+  margin-right: 25px;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -100,7 +100,7 @@ overflow-y: auto;
   color: white;
   border: none;
   padding: 5px 10px;
-  margin-right: 5px;
+  margin-right: 25px;
   border-radius: 4px;
   cursor: pointer;
 }

@@ -44,8 +44,6 @@ const MantenerSeries = ()=> {
    const inativar =(row)=> {
     setMostrar(row.id)
     //settempPage(currentPage)
-    console.log("Tbmentro");
-    console.log("id de pelicula" + row.original.id);
     dispatch(ActivarDesactivarSeries(row.original.id));
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
         
@@ -55,7 +53,6 @@ const MantenerSeries = ()=> {
   }
 
   const activar = (row)=> {
-    console.log("Tbmentro");
     setMostrar(null)
     dispatch(ActivarDesactivarSeries(row.original.id));
     
