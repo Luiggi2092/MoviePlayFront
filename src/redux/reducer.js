@@ -277,7 +277,9 @@ return {
         case SERIESXPAGE: 
           return {
              ...state,
-             Series:action.payload
+             Series:action.payload.dato1,
+             Page: action.payload.dato2,
+             TotalPag: action.payload.dato3,
          }
 
         

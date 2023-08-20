@@ -89,6 +89,11 @@ const MantenerSeries = ()=> {
    const columns = useMemo(
     ()=>[
       {
+         Header: "Id",
+         accessor: "serieId",
+        //Cell: ({ value}) => <strong>{value}</strong>
+      },
+      {
         Header: "Nombre",
         accessor: "name"
       },
