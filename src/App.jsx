@@ -14,6 +14,7 @@ import Profile from './pages/Profile/Profile'
 
 import CarShop from './pages/CarShop/CarShop'
 import PrivateRouter from './router/PrivateRouter'
+import PrivateRouterDashbor from './router/PrivateDashbor'
 
 const App = () => {
 
@@ -24,8 +25,12 @@ const App = () => {
 			<Route exact path='/' element={<Landing/>} />
 			<Route exact path='/login' element={<AccessPage/>}/>
 			<Route exact path='/register' element={<Register/>} />
+
+            <Route element={<PrivateRouterDashbor/>}>
+				<Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
+			</Route>
+			
 			<Route element={<PrivateRouter/>}>
-            	<Route exact path='/DashboardAdmin/:contentId' element={<DashboardAdmin/>}/>
 				<Route exact path='/home' element={<Home/>} />	
 				<Route exact path='/peliculas' element={<Peliculas/>} />
 				<Route exact path='/series' element={<Series/>} />
