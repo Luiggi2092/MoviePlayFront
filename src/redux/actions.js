@@ -44,7 +44,7 @@ export const BUQSERIESMOD = "BUQSERIESMOD"
 export const GETTOP5MOVIES = "GETTOP5MOVIES"
 export const GETTOP5SERIES = "GETTOP5SERIES"
 export const ACTMOV= "ACTMOV"
-
+export const TODAS_LAS_COMPRAS = "TODAS_LAS_COMPRAS"
 
 export const toggleFavorite = movieId => ({
     type: TOGGLE_FAVORITE,
@@ -520,6 +520,13 @@ export const todasLasOrdenesDeCompra = (id) => {
     const productos = await axios.get(`/ordenCompra/getOCsxUser?idUser=${id}`
     )
     dispatch({type:TODAS_LAS_ORDENES_DE_COMPRA, payload:productos.data})
+  }
+}
+
+export const todasLasComprasAdmin = () => {
+  return async function(dispatch){
+    const {data} = await axios.get('/ordenCompra/getAllOCs')
+    dispatch({type:TODAS_LAS_COMPRAS, payload:data})
   }
 }
 
