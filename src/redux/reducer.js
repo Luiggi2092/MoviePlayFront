@@ -38,8 +38,6 @@ import {GET_GENEROS,
         RATE_MOVIE,
         SET_FAVORITES,
         SET_RATINGS,
-        GETTOP5SERIES,
-        GETTOP5MOVIES
         } from "./actions" 
 
 
