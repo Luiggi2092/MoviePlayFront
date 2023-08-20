@@ -5,6 +5,7 @@ import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
 import validation from './validations'
+import { setFavorites, setRatings } from '../../redux/actions';
 
 
 const AccessPage = () => {
@@ -64,11 +65,12 @@ const AccessPage = () => {
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
-                //  console.log(data);
+                // console.log(data);
 
                 localStorage.setItem('id', data.id);
-                localStorage.setItem('name', data.nombre);
                 localStorage.setItem('email', data.email);
+                localStorage.setItem('name', data.nombre);
+                localStorage.setItem('rol', data.rol)
                 localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
                 localStorage.setItem('recargado', 'no')
@@ -114,9 +116,9 @@ const AccessPage = () => {
 
         try {
 
-            const responso = await axios.post(`/usuario/google?email=${email.email}`)  
+            const {data} = await axios.post(`/usuario/google?email=${email.email}`)  
 
-            // console.log(responso);
+            // console.log(data);
 
 
             localStorage.setItem('TokenUsu', response.credential);
@@ -124,6 +126,8 @@ const AccessPage = () => {
             localStorage.setItem('nombre', userObject.given_name); 
             localStorage.setItem('name', userObject.name); 
             localStorage.setItem('foto', userObject.picture); 
+            localStorage.setItem('rol', data.rol);
+            localStorage.setItem('id', data.id);
             localStorage.setItem('State', 'true')
             localStorage.setItem('recargado', 'no')
 
@@ -170,6 +174,15 @@ const AccessPage = () => {
         // google.accounts.id.prompt();
           
     }, [])
+
+    const handleLogin = () => {
+        // Luego de autenticar al usuario, obtén los favoritos asociados con el usuario desde el servidor
+        const userFavorites = ['movie1', 'movie2']; // Ejemplo de favoritos recuperados
+        const userRatings = { movie1: 4, movie2: 3 }; 
+
+        dispatch(setFavorites(userFavorites)); // Establece los favoritos en el estado de Redux
+        dispatch(setRatings(userRatings));
+    };
     
     return (
         <section className='containerDivAccessPage'>
@@ -208,7 +221,7 @@ const AccessPage = () => {
                     <div id="signInDiv"></div>
                     {/* <button onClick={() => window.google.accounts.id.prompt()}>Sign in with Google</button> */}
               
-                    <button className='buttonFormAccessPage'>Acceder</button>
+                    <button onClick={handleLogin} className='buttonFormAccessPage'>Acceder</button>
                     
                 </form>
 

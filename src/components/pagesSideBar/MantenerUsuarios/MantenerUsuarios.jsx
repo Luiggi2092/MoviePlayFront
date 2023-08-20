@@ -1,12 +1,9 @@
 import style from './MantenerUsuarios.module.css'
 import { useState, useEffect} from "react";
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import {getUserAdmin} from "../../../redux/actions"
+import { useSelector } from 'react-redux';
 
 const MantenerUsuarios = () => {
-
-  const dispatch = useDispatch();
 
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1)
@@ -15,14 +12,9 @@ const MantenerUsuarios = () => {
 
   const datos = usuario.length ? usuario : data
 
-  function ordenarPorIdAscendente(elementos) {
-    return elementos.slice().sort((a, b) => a.id - b.id);
-  }
-
   const getUserAndPage = async (page) =>{
     const {data} = await axios.get(`/admin/allUser?page=${page}`)
-    const orde = ordenarPorIdAscendente(data) 
-    setData(orde)
+    setData(data)
     setCurrentPage(page)
   };
 

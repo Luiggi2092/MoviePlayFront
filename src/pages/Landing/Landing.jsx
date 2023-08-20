@@ -67,7 +67,11 @@ const Landing = () => {
         <h2 className={style.title2}>Descarga tus series para verlas forever</h2>
         <h4>Ingresa tu email para crear una cuenta o reiniciar tu membresía</h4>
         <input className={style.input} type="text" placeholder='' />
-        <button className={style.input2}> INGRESAR</button>
+        <Link to='/register'>
+          <button className={style.input2}> INGRESAR</button>
+        </Link>
+
+        
       </div>
 {/* 
       <div className={style.div2}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser } from 'react-icons/fi';
+import { FiHome, FiFilm, FiTv, FiSearch, FiShoppingCart, FiUser, FiStar } from 'react-icons/fi';
 import { Link, useNavigate,useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getTodobusqueda,getTodoFillClean,getTodobusquedaAdm,getTodoFillCleanAdm, fetchCartContent, getUserAdmin,getTodoBusqedaAdmSeries} from "../../redux/actions"
@@ -32,11 +32,12 @@ const Navbar = ({ isScrolled }) => {
     { name: 'Home', link: '/home', icon: <FiHome /> },
     { name: 'Peliculas', link: '/peliculas', icon: <FiFilm /> },
     { name: 'Series', link: '/series', icon: <FiTv /> },
+    { name: 'Favoritos', link: '/favoritos', icon: <FiStar /> },
   ];
   
-  const admin = localStorage.getItem("email");
+  const admin = localStorage.getItem("rol");
   
-  if (admin == "moviesplay@gmail.com") {
+  if (admin == "Administrador") {
     links.push({ name: 'Dashboard', link: '/DashboardAdmin/content1', icon: <FiUser /> });
   } //para que aparezca solo en admin
   

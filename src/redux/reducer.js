@@ -31,9 +31,19 @@ import {GET_GENEROS,
         SERIESXPAGE,
         GET_BUSQUEDA_USER_ADMIN,
         BUQSERIES,
+<<<<<<< HEAD
         GETTOP5MOVIES,
         GETTOP5SERIES,
         ACTMOV
+=======
+        BUQSERIESMOD,
+        TOGGLE_FAVORITE,
+        RATE_MOVIE,
+        SET_FAVORITES,
+        SET_RATINGS,
+        GETTOP5SERIES,
+        GETTOP5MOVIES
+>>>>>>> 84968503ce7184df5f89c186b414435dc619198f
         } from "./actions" 
 
 
@@ -45,6 +55,8 @@ import {GET_GENEROS,
         const seriesSaved = JSON.parse(localStorage.getItem('savedSeries')) || [];
 
 const initialState = {
+    favoriteMovies: JSON.parse(localStorage.getItem('favoriteMovies')) || [],
+    movieRatings: JSON.parse(localStorage.getItem('movieRatings')) || {},
      Generos: [],
      Media:[],
      Todo:[],
@@ -88,6 +100,50 @@ const initialState = {
 const rootReducer =(state = initialState,action)=> {
 
 switch(action.type){
+
+
+    case TOGGLE_FAVORITE:
+            const movieId = action.payload;
+           const updatedFavorites = state.favoriteMovies.includes(movieId)
+        ? state.favoriteMovies.filter(id => id !== movieId)
+        : [...state.favoriteMovies, movieId];     
+   
+localStorage.setItem('favoriteMovies', JSON.stringify(updatedFavorites));
+
+
+    return {
+                ...state,
+                favoriteMovies: updatedFavorites, 
+                    
+};
+
+ case SET_FAVORITES:
+      return {
+        ...state,
+        favoriteMovies: action.payload,
+      };
+
+
+case SET_RATINGS:
+      return {
+        ...state,
+        movieRatings: action.payload,
+      };
+    
+
+case RATE_MOVIE:
+           const { movieId: newMovieId, rating: newRating } = action.payload;
+      const updatedRatings = {
+        ...state.movieRatings,
+        [newMovieId]: newRating,
+      };
+
+      localStorage.setItem('movieRatings', JSON.stringify(updatedRatings));
+
+return {
+        ...state,
+        movieRatings: updatedRatings,
+      };
 
     case GET_GENEROS:
         return {...state, Generos:action.payload}
@@ -245,6 +301,7 @@ switch(action.type){
                 ...state,
                 Top5Mov: action.payload
              }
+
         case GETTOP5SERIES:
              return {
                  ...state,

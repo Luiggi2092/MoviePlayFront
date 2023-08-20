@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 15px 20px;
     background-color: #020202;
     color: #fff;
     font-family: 'Arial', sans-serif;
@@ -25,6 +25,8 @@
 .nav-items {
     display: flex;
     align-items: center;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 
 .nav-item {
@@ -38,14 +40,14 @@ display: flex;
 }
 
 .nav-name{
-    margin-right: 10px;
-        font-size: small;
+    margin-right: 5px;
+        font-size: xx-small;
         text-decoration: none;
         color: #fff;
         align-items: center;
         transition: color 0.3s;
        justify-content: space-between;
-        /* margin-top: 25%; */
+       position: relative;
 }
 
 .nav-item:hover {
@@ -85,6 +87,7 @@ input[type="search"] {
     cursor: pointer;
     color: white;
     margin-left: 15px;
+   
 }
 
 .profile-menu {
