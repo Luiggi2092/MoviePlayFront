@@ -14,7 +14,7 @@ const Card = ({ image, id, price, name }) => {
     const propiedades = { image, id, price, name };
     const carrito = useSelector(state => state.carrito)
     const compras = useSelector(state => state.productosComprados)
-    console.log(compras)
+    // console.log(compras)
 
     const handleclick = () => {
         dispatch(addToCartAndSaveDetailsMovie(propiedades, user));

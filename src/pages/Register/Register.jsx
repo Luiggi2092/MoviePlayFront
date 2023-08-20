@@ -72,8 +72,10 @@ const Register = () => {
                 // console.log(data)
                 localStorage.setItem('id', data.id);
                 localStorage.setItem('email', data.email);
+                localStorage.setItem('rol', data.rol)
                 localStorage.setItem('name', data.nombre); 
-                localStorage.setItem('id', data.id);  
+                localStorage.setItem('id', data.id); 
+                localStorage.setItem('rol', data.rol); 
                 localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
                 //para evitar bugs del carrito
@@ -117,16 +119,17 @@ const Register = () => {
         }
         
         try {
-            const responso = await axios.post('/usuario', datos)
+            const response = await axios.post('/usuario', datos)
 
-            console.log(responso)
+            // console.log(data)
             
             localStorage.setItem('TokenUsu', response.credential);
-            localStorage.setItem('id', responso.data.id)
+            localStorage.setItem('id', response.data.id)
             localStorage.setItem('email', userObject.email);
             localStorage.setItem('nombre', userObject.given_name); 
             localStorage.setItem('name', userObject.name); 
-            localStorage.setItem('foto', userObject.picture); 
+            localStorage.setItem('foto', userObject.picture);
+            localStorage.setItem('rol', response.data.rol);  
             localStorage.setItem('State', 'true')
             //para evitar bugs del carrito
             localStorage.setItem('recargado', 'no')
@@ -135,6 +138,7 @@ const Register = () => {
             redirectToHome()
         
         } catch (error) {
+            // console.log(error)
             setMensajeBack(error.response.data.error)
             setMensaje(true)
             setTimeout(() => {

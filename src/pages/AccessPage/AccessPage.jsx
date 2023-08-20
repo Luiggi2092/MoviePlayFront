@@ -64,11 +64,12 @@ const AccessPage = () => {
             try {
                 const {data} = await axios.post('/usuario/login', userGet)
 
-                //  console.log(data);
+                // console.log(data);
 
                 localStorage.setItem('id', data.id);
-                localStorage.setItem('name', data.nombre);
                 localStorage.setItem('email', data.email);
+                localStorage.setItem('name', data.nombre);
+                localStorage.setItem('rol', data.rol)
                 localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
                 localStorage.setItem('recargado', 'no')
@@ -114,9 +115,9 @@ const AccessPage = () => {
 
         try {
 
-            const responso = await axios.post(`/usuario/google?email=${email.email}`)  
+            const {data} = await axios.post(`/usuario/google?email=${email.email}`)  
 
-            // console.log(responso);
+            // console.log(data);
 
 
             localStorage.setItem('TokenUsu', response.credential);
@@ -124,6 +125,8 @@ const AccessPage = () => {
             localStorage.setItem('nombre', userObject.given_name); 
             localStorage.setItem('name', userObject.name); 
             localStorage.setItem('foto', userObject.picture); 
+            localStorage.setItem('rol', data.rol);
+            localStorage.setItem('id', data.id);
             localStorage.setItem('State', 'true')
             localStorage.setItem('recargado', 'no')
 
