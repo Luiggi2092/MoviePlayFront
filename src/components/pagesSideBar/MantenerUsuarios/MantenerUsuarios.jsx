@@ -1,9 +1,12 @@
 import style from './MantenerUsuarios.module.css'
 import { useState, useEffect} from "react";
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {getUserAdmin} from "../../../redux/actions"
 
 const MantenerUsuarios = () => {
+
+  const dispatch = useDispatch();
 
   const [data, setData] = useState();
   const [currentPage, setCurrentPage] = useState(1)
@@ -22,12 +25,14 @@ const MantenerUsuarios = () => {
     
     const response = await axios.delete(`/admin/disableUser/${id}`)
     getUserAndPage(currentPage)
+    dispatch(getUserAdmin()) 
   }
 
   const handleActivar = async (id) => {
 
     const response = await axios.put(`/admin/enableUser/${id}`) 
     getUserAndPage(currentPage)
+    dispatch(getUserAdmin()) 
   }
 
   // Hacer admin
