@@ -16,10 +16,9 @@ const MantenerMovies = ()=> {
 
   const busquedaMov = useSelector((state)=> state.SearchAdmimovie)
   const Movies = useSelector((state)=> state.Movies);
-  const numPage = useSelector((state)=> state.numPage);
-  const [page,setPage] = useState(numPage);
+  const numPage = useSelector((state)=> state.Page);
   const busqueda = useSelector((state)=> state.Search);
-
+  
 
   useEffect(()=>{
     
@@ -28,6 +27,7 @@ const MantenerMovies = ()=> {
    
   
   },[]);
+
 
   const [openModal, setOpenModal] = useState(false); 
   const [openModalEdit,setOpenModalEdit] = useState(false);
@@ -39,31 +39,37 @@ const MantenerMovies = ()=> {
   const [movieAct,setMoviAct] = useState([]);
 
 
-
+  console.log(idpelicula);
   
   const inativar =(row)=> {
     setMostrar(row.id)
     //settempPage(currentPage)
-    console.log("Tbmentro");
-    console.log("id de pelicula" + row.original.id);
+
+    setidPelicula(row.original.id);
+    
     dispatch(ActivaroDesactivarMovies(row.original.id));
     
     dispatch(getTodobusquedaAdm(busqueda.search));
         
     dispatch(getTodoFillCleanAdm());
     
+    
+    dispatch(moviesxPage(numPage));
+    
 
   }
 
   const activar = (row)=> {
-    console.log("Tbmentro");
     setMostrar(null)
     dispatch(ActivaroDesactivarMovies(row.original.id));
     
+     
+    setidPelicula(row.original.id);
       dispatch(getTodobusquedaAdm(busqueda.search));
           
       dispatch(getTodoFillCleanAdm());
       
+    dispatch(moviesxPage(numPage));
     
     
   }
@@ -138,10 +144,14 @@ const MantenerMovies = ()=> {
 
   useEffect(()=> {
     
-    //dispatch(moviesxPage(page));
-      
+    if(idpelicula > 0){
+      console.log("entra");
+    dispatch(moviesxPage(numPage));
+    
+    }
+    setidPelicula(0)
 
-   },[numPage,Movies])
+   },[Movies])
 
 
 
@@ -172,18 +182,22 @@ const MantenerMovies = ()=> {
 
  
   const handlePreviousPage = () => {  
-        
-    if (page > 1) {
+       
+  
      //getMovieAndPage(currentPage - 1, null);
      // setCurrentPage(Number(currentPage - 1))
-       setPage(page - 1)
-    }
+    
+     console.log(numPage);
+     dispatch(moviesxPage(numPage - 1));
+    
   };
 
   const handleNextPage = () => {
    
       //getMovieAndPage(currentPage + 1, null);
-        setPage( page + 1);
+       // setPage( page + 1);
+       console.log(numPage);
+       dispatch(moviesxPage(numPage + 1));
 
   };
 

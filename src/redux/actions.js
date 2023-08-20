@@ -503,7 +503,7 @@ export const moviesxPage =(page)=> {
   return async function(dispatch){
     const mov = (await axios.get(`/admin/disableMovies?page=${page}`)).data;
     console.log(mov);
-    dispatch({type:MOVIESXPAGE,payload: mov.elementos})
+    dispatch({type:MOVIESXPAGE,payload: { dato1:mov.elementos,dato2:mov.currentPage }})
   }
 }
 

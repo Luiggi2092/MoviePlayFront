@@ -72,7 +72,7 @@ const initialState = {
      productosComprados:[],
      todasLasCompras:[],
      Movies:[],
-     numPage: 1,
+     Page: 1,
      Search: "",
      Series:[],
      GetUserAdmin: [],
@@ -208,7 +208,8 @@ switch(action.type){
             return {
                 
                 ...state,
-                Movies:action.payload
+                Movies:action.payload.dato1,
+                Page: action.payload.dato2,
             }    
   
          case SEARCHNAV : 
