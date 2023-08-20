@@ -30,7 +30,7 @@ const Favoritos = () => {
 
   return (
     <div className={style.favorites}>
-      <h1 className={style.h1Fav}>Mis Películas Favoritas</h1>
+      <h1 className={style.h1Fav}>Mi Lista</h1>
       <Link className={style.barra} to="/home">←</Link> 
       <div className={style.containFav}>
         <Slider {...settings}>
