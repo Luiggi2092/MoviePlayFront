@@ -31,19 +31,15 @@ import {GET_GENEROS,
         SERIESXPAGE,
         GET_BUSQUEDA_USER_ADMIN,
         BUQSERIES,
-<<<<<<< HEAD
         GETTOP5MOVIES,
         GETTOP5SERIES,
-        ACTMOV
-=======
-        BUQSERIESMOD,
+        ACTMOV,
         TOGGLE_FAVORITE,
         RATE_MOVIE,
         SET_FAVORITES,
         SET_RATINGS,
         GETTOP5SERIES,
         GETTOP5MOVIES
->>>>>>> 84968503ce7184df5f89c186b414435dc619198f
         } from "./actions" 
 
 
