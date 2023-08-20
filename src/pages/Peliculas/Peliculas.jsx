@@ -4,13 +4,13 @@ import Card from '../../components/CardMovie/CardMovie';
 import {useSelector,useDispatch} from "react-redux"
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer';
-import {getGeneros} from '../../redux/actions'
+import {getGeneros, fetchCartContent, todosLosProductosXidUser} from '../../redux/actions'
 import Loading from "../../components/Loading/Loading";
 
 const Peliculas = () => {
 
   const dispatch = useDispatch();
-
+  const user = localStorage.getItem('email')
   const [movies, setMovies] = useState([])
   const [infoPage, setInfoPage] = useState({})
   const [itemsPage, setItemsPage] = useState([])
@@ -24,6 +24,14 @@ const Peliculas = () => {
   useEffect(() => {
     dispatch(getGeneros())
   },[dispatch])
+
+  useEffect(() => {
+    dispatch(fetchCartContent(user))
+}, [])
+
+useEffect(() => {
+    dispatch(todosLosProductosXidUser(2))
+},[])
   
  
 

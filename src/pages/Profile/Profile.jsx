@@ -40,7 +40,7 @@ const Profile = () => {
     }, []);
 
     useEffect(() => {
-        dispatch(todosLosProductosXidUser(1))
+        dispatch(todosLosProductosXidUser(2))
     }, [])
 
     const productos = useSelector(state => state.productosComprados)

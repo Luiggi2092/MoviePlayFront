@@ -82,7 +82,8 @@ const initialState = {
      Series:[],
      GetUserAdmin: [],
      SearchAdmiSerie : [],
-     SearchAdminSerieCreate:[],
+     Top5Mov: [],
+     Top5Ser: []
 
 }
 
@@ -282,13 +283,16 @@ return {
              ...state,
              SearchAdmiSerie: action.payload
             }
-        
-        case BUQSERIESMOD:
-            return {
+        case GETTOP5MOVIES:
+             return {
                 ...state,
-                SearchAdminSerieCreate : action.payload
-            }    
-
+                Top5Mov: action.payload
+             }
+        case GETTOP5SERIES:
+             return {
+                 ...state,
+                 Top5Ser : action.payload
+             }
         default:
             return {...state}
     }

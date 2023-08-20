@@ -41,6 +41,8 @@ export const GET_BUSQUEDA_USER_ADMIN = 'GET_BUSQUEDA_USER_ADMIN'
 export const BAN_SERIE = "BAN_SERIE"
 export const BUQSERIES = "BUQSERIES"
 export const BUQSERIESMOD = "BUQSERIESMOD"
+export const GETTOP5MOVIES = "GETTOP5MOVIES"
+export const GETTOP5SERIES = "GETTOP5SERIES"
 
 
 export const toggleFavorite = movieId => ({
@@ -583,13 +585,22 @@ export const getTodoBusqedaAdmSeries = (name)=> {
 }
 
 
-export const getTodoBusquedaSerieModal = (name) => {
-    return async function (dispatch){
-      
-      const buqtodoSeries = (await axios.get(`/admin/disableSeries/?busqueda=${name}`)).data;
-      console.log(buqtodoSeries);
-      dispatch({type: BUQSERIESMOD, payload: buqtodoSeries.elementos})
-  
+export const getTopFiveMovies =()=> {
+   return async function(dispatch){
 
+    const Top5Movies = (await axios.get(`/admin/topFiveMovies`)).data
+    dispatch({type: GETTOP5MOVIES, payload: Top5Movies})
+
+   }
+}
+
+
+export const getTopFiveSeries = ()=> {
+
+    return async function(dispatch){
+
+      const Top5Series = (await axios.get(`/admin/topFiveSeries`)).data
+      dispatch({type: GETTOP5SERIES, payload: Top5Series})
     }
 }
+

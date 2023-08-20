@@ -35,9 +35,9 @@ const Navbar = ({ isScrolled }) => {
     { name: 'Favoritos', link: '/favoritos', icon: <FiStar /> },
   ];
   
-  const admin = localStorage.getItem("email");
+  const admin = localStorage.getItem("rol");
   
-  if (admin == "moviesplay@gmail.com") {
+  if (admin == "Administrador") {
     links.push({ name: 'Dashboard', link: '/DashboardAdmin/content1', icon: <FiUser /> });
   } //para que aparezca solo en admin
   

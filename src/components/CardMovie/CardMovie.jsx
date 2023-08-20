@@ -26,16 +26,30 @@ const Card = ({ image, id, price, name }) => {
     };
 
     const handleclick = () => {
-        dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
+        if (isAddedToCart) {
+            dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
+            Swal.fire({
+                title: `Artículo eliminado del carrito`,
+                icon: 'success'
+            });
 
-        Swal.fire({
-            title: `Artículo agregado al carrito`,
-            icon: 'success'
-        });
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        
+        } else {
+            // Producto no en el carrito ni comprado, agregar al carrito
+            dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
 
-        setTimeout(() => {
-            window.location.reload(false);
-        }, 1500); // 1.5 segundos
+            Swal.fire({
+                title: `Artículo agregado al carrito`,
+                icon: 'success'
+            });
+
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        }
     };
 
     return (
@@ -62,9 +76,17 @@ const Card = ({ image, id, price, name }) => {
           ))}
         </div>
             </div>
-            <button className={style.agg} onClick={handleclick}>
-                ${price} - Agregar al Carrito
-            </button>
+            {isAddedToCart ? (
+                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
+            ) : isPurchased ? (
+                <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver} >Ver Película</button>
+                </Link>
+            ) : (
+                <button className={style.agg} onClick={handleclick}>
+                    ${price} - Agregar al Carrito
+                </button>
+            )}
         </div>
     );
 };
