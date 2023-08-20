@@ -1,0 +1,59 @@
+/* favoritos.module.css */
+.favorites {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.barra {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 5rem;
+    color: rgb(29, 232, 215);
+}
+
+.h1Fav {
+    font-size: 3rem;
+    margin-bottom: 5px;
+    margin-top: 40px;
+}
+
+.containFav {
+    width: 80%;
+    margin: 0 auto;
+    background-color: black;
+}
+
+.cardSlide {
+    padding: 0 10px;}
+
+
+.cardContainer {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardImage {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cardRating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.starIcon {
+    color: yellow;
+    margin-right: 4px;
+}
+
+/* Puedes agregar más estilos aquí según sea necesario */
