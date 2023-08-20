@@ -35,7 +35,9 @@ import {GET_GENEROS,
         TOGGLE_FAVORITE,
         RATE_MOVIE,
         SET_FAVORITES,
-        SET_RATINGS
+        SET_RATINGS,
+        GETTOP5SERIES,
+        GETTOP5MOVIES
         } from "./actions" 
 
 
@@ -288,6 +290,7 @@ return {
                 ...state,
                 Top5Mov: action.payload
              }
+
         case GETTOP5SERIES:
              return {
                  ...state,

@@ -66,27 +66,19 @@ const Card = ({ image, id, price, name }) => {
                 />
                 <div className={style.rating}>
                     {[1, 2, 3, 4, 5].map(value => (
-            <FontAwesomeIcon
-              key={value}
-              icon={faStar}
-              className={style.ratingStar}
-              style={{ color: value <= rating ? 'yellow' : 'blue' }}
-              onClick={() => handleRating(value)}
-            />
-          ))}
-        </div>
+                        <FontAwesomeIcon
+                            key={value}
+                            icon={faStar}
+                            className={style.ratingStar}
+                            style={{ color: value <= rating ? 'yellow' : 'blue' }}
+                            onClick={() => handleRating(value)}
+                        />
+                    ))}
+                </div>
             </div>
-            {isAddedToCart ? (
-                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
-            ) : isPurchased ? (
-                <Link to={`/moviesdetail/${id}`}>
-                <button className={style.ver} >Ver Película</button>
-                </Link>
-            ) : (
-                <button className={style.agg} onClick={handleclick}>
-                    ${price} - Agregar al Carrito
-                </button>
-            )}
+            <button className={style.agg} onClick={handleclick}>
+                ${price} - Agregar al Carrito
+            </button>
         </div>
     );
 };
