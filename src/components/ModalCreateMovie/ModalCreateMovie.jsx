@@ -189,6 +189,12 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
     }
 
 
+    const remover =(e) =>{
+    e.preventDefault();
+       setForm({...form,genres:[]});
+
+    } 
+
     return (
         <>
         
@@ -217,7 +223,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                         <input type="text" name="name" onChange={ChangeHandle}/>
                      </div> 
                      <div className={style.genero}>
-                        <label>Genero :    </label>
+                        <label>Genero :  
+                        {form.genres.map((e,index) => <p key={index}>{e}</p>)}  </label>
                         <br/>
                         <select name="genres" onChange={ChangeHandleCombo}>
                             <option>Seleccione :</option>
@@ -225,6 +232,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado})=> {
                                   return <option key={index}>{gen.name}</option>
                             })}  
                         </select> 
+                        <button onClick={remover}>Remover Generos</button>
                      </div>
                      <div>
                         <label>Duracion :   </label>

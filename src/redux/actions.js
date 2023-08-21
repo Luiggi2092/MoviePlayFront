@@ -45,6 +45,9 @@ export const GETTOP5MOVIES = "GETTOP5MOVIES"
 export const GETTOP5SERIES = "GETTOP5SERIES"
 export const ACTMOV= "ACTMOV"
 export const TODAS_LAS_COMPRAS = "TODAS_LAS_COMPRAS"
+export const ACTSER = "ACTSER"
+export const ALLSERNAME = "ALLSERNAME"
+export const EMAILSUS = "EMAILSUS"
 
 export const toggleFavorite = movieId => ({
     type: TOGGLE_FAVORITE,
@@ -150,9 +153,10 @@ export const postSerie =(Serie)=>{
         try {
             
         const PostSerie = await axios.post(`/series/series`,Serie);
+        console.log(PostSerie)
         dispatch({type: POST_SERIE,payload: PostSerie});
           Swal.fire({
-          title:`La Serie se Creo con Exito`,
+          title:`La Serie o Episodio se Creo con Exito`,
            icon:'success',
            confirmButtonText:'Ok'});
            
@@ -176,7 +180,7 @@ export const clearMovieId = () => {
 export const getSeriesID = (id, temp, capit)=> {
   return async function (dispatch){
     const seriesId = (await axios.get(`/media/series/${id}`)).data;
-
+     console.log(seriesId)
     // Utilizamos un objeto para almacenar las temporadas únicas
     const temporadasUnicas = {};
     // Utilizamos reduce para contar las temporadas únicas
@@ -626,3 +630,57 @@ export const getTopFiveSeries = ()=> {
     }
 }
 
+export const ActualizarSeries = (id,form,page)=> {
+
+   return async function(dispatch){
+
+    try{
+    
+      const ActSer = await axios.put(`/admin/updateSeries/${id}`,form);
+      console.log(ActSer)
+      const Series = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos
+
+      dispatch({type:ACTSER, payload: {dato: ActSer,dato1: Series} })
+
+      Swal.fire({
+        title:`${ActSer.data.message}`,
+         icon:'success',
+         confirmButtonText:'Ok'});
+       
+  
+
+    }catch(error){
+
+      Swal.fire({
+        title:`${error.response.data.error}`,
+         icon:'error',
+         confirmButtonText:'Ok'});
+
+    }
+
+    
+      
+
+   }
+}
+
+export const AllNameSeries = ()=> {
+      return async function(dispatch){
+         
+        const AllSeries = (await axios.get(`/media/allSeries`)).data;
+        console.log(AllSeries);
+
+        dispatch({type: ALLSERNAME,payload: AllSeries})
+     
+
+      }
+    
+}
+
+export const emailSuscripcion = (email)=> {
+      return {
+         type:EMAILSUS,
+         payload:email
+      }
+     
+}

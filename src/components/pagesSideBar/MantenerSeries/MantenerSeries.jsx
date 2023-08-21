@@ -19,22 +19,27 @@ const MantenerSeries = ()=> {
   const [accionOcurrida,setAccionOcurrida] = useState(false);
   const [openModalEpi,setOpenModalEpi] = useState(false);
   const Series = useSelector((state)=> state.Series);
-  const numPage = useSelector((state)=> state.numPage);
+  const numPage = useSelector((state)=> state.Page);
+  const totalPages = useSelector((state)=> state.TotalPag);
   const [page,setPage] = useState(1);
   const busquedaSer = useSelector((state)=> state.SearchAdmiSerie);
   const busqueda = useSelector((state)=> state.Search);
+  let [idSerie,setidSerie] = useState(0);
   const [itemsPage, setItemsPage] = useState([])
+  const numberArray = [...Array(totalPages)].map((_, index) => index + 1);
+ 
   
   const [mostrar,setMostrar] = useState(null);
   
 
-  console.log(numPage)
   
+
   const handleModalSerie = () => {
     setOpenModalSerie(!openModalSerie)
    }
 
-  const handleModalSerieEdit = () => {
+  const handleModalSerieEdit = (row) => {
+    setidSerie(row.original.id)
     setopenModalSerieEdit(!openModalSerieEdit)
   } 
 
@@ -48,7 +53,7 @@ const MantenerSeries = ()=> {
     setMostrar(row.id)
     
     setAccionOcurrida(true);
-    //settempPage(currentPage)
+    setidSerie(row.original.id)
     dispatch(ActivarDesactivarSeries(row.original.id));
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
         
@@ -61,6 +66,8 @@ const MantenerSeries = ()=> {
     setMostrar(null)
     
     setAccionOcurrida(true);
+    
+    setidSerie(row.original.id)
     dispatch(ActivarDesactivarSeries(row.original.id));
     
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
@@ -76,7 +83,8 @@ const MantenerSeries = ()=> {
 
    useEffect(()=> {
 
-    dispatch(SeriesxPage(page));
+
+    dispatch(SeriesxPage(numPage));
     
     dispatch(getTodoFillCleanAdm());
   },[])
@@ -90,7 +98,7 @@ const MantenerSeries = ()=> {
     ()=>[
       {
          Header: "Id",
-         accessor: "serieId",
+         accessor: "id",
         //Cell: ({ value}) => <strong>{value}</strong>
       },
       {
@@ -133,7 +141,7 @@ const MantenerSeries = ()=> {
     useEffect(()=> {
        if(accionOcurrida){
           
-       dispatch(SeriesxPage(page));
+       dispatch(SeriesxPage(numPage));
        setAccionOcurrida(false);
        }
     },[accionOcurrida])
@@ -147,14 +155,16 @@ const MantenerSeries = ()=> {
     if (page > 1) {
      //getMovieAndPage(currentPage - 1, null);
      // setCurrentPage(Number(currentPage - 1))
-       dispatch(SeriesxPage(page - 1))
+       dispatch(SeriesxPage(numPage - 1))
+       setPage(numPage - 1)
     }
   };
 
   const handleNextPage = () => {
    
       //getMovieAndPage(currentPage + 1, null);
-        dispatch(SeriesxPage(page + 1))
+        dispatch(SeriesxPage(numPage + 1))
+        setPage(numPage + 1)
 
   };
 
@@ -166,7 +176,7 @@ const MantenerSeries = ()=> {
           <button onClick={handleModalEpisodio}>Agregar Episodios</button>
           </div>
           <Modal  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></Modal>
-          <ModalEdit openModalSerieEdit={openModalSerieEdit} cambiarEstadoSerie={setopenModalSerieEdit}></ModalEdit>   
+          <ModalEdit openModalSerieEdit={openModalSerieEdit} cambiarEstadoSerie={setopenModalSerieEdit} idSerie={idSerie > 0 ? idSerie : 1} page={page}></ModalEdit>   
           <ModalEpi openModalEpi={openModalEpi} cambiarEstado={setOpenModalEpi}></ModalEpi>
           <br/>
           <br/>
@@ -216,24 +226,23 @@ const MantenerSeries = ()=> {
          <button
               className={style.but}
               onClick={handlePreviousPage}
-             // disabled={currentPage === 1}
+              disabled={page === 1}
             >Prev</button>
-             {itemsPage.map((item) => 
+             {numberArray.map((item) => 
             <button
-            key={item.key}
+            key={item}
             className={style.but}
             onClick={() => {
-              //setCurrentPage(parseInt(item.key));
-              //getMovieAndPage(parseInt(item.key)/*, selectedGenre, selectedPrice, selectedOrder*/);
+               setPage(parseInt(item))
             }}
           >
-            {item.key}
+            {item}
           </button>)}
             <button
               className={style.but}
               onClick={handleNextPage}
-              disabled={Series.length < 10}
-             // disabled={currentPage === infoPage}
+              //disabled={Series.length < 10}
+              disabled={page === totalPages}
             >Next</button>
            </div >
         </div>

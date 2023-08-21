@@ -16,6 +16,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
     const series = useSelector(state => state.Series)
     const busquedaSer = useSelector((state) => state.SearchAdminSerieCreate);
 
+
     const dispatch = useDispatch();
     const [form, setForm] = useState({
         titulo: "",
@@ -249,6 +250,17 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
             }
     }
 
+
+    const remover = (e) => {
+       e.preventDefault();
+       setForm({...form,genres:[]})
+    }
+
+    const remover2 = (e)=> {
+       e.preventDefault();
+       setForm({...form,actores:[]})
+    }
+
     return (
         <>
          {openModalSerie && <form>
@@ -278,19 +290,26 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <span className="error">{errors.yearEstreno}</span>
                  </div>
                  <div>
-                    <label>Genero :</label>
+                    <label>Genero :
+                    {form.genres.map((e,index) => <p key={index}>{e}</p>)}
+                    </label>
                     <br/>
                     <select name="genres" onChange={ChangeHandleCombo}>
                     {listaGenero?.map((gen,index)=>{
                                   return <option key={index}>{gen.name}</option>
                             })}   
                     </select>
+                    <button onClick={remover}>Remover Generos</button>
                  </div>
                  <div>
-                    <label>Actores :</label>
+                    <label>Actores :
+                      
+                    {form.actores.map((e,index) => <p key={index}>{e}</p>)}
+                    </label>
                     <br/>
                     <input type="text" name="actores" onChange={CrearActores}/>
                     <button onClick={AgregandoActores}>Crear Actor</button>
+                    <button onClick={remover2}>Remover Actores</button>
                  </div>
                  <div>
                     <label> N° Temporadas :</label>
