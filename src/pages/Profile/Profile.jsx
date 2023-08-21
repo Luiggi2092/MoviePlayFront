@@ -175,9 +175,10 @@ const Profile = () => {
                                 <Link to={`/moviesdetail/${purchase.id}`}>
                                     <img src={purchase.image} />
                                     <h3 className='h3'>{purchase.name}</h3>
+                                    </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Pelicula</p>
-                                    </Link>
+                                    <button className='boton'>Calificar</button>
                                 </div>
                             ))}
                         {series.length > 0 &&series.map((purchase) => (
@@ -185,9 +186,10 @@ const Profile = () => {
                                     <Link to={`/detailSeries/${purchase.id}`}>
                                     <img src={purchase.image} />
                                     <h3 className='h3'>{purchase.name}</h3>
+                                    </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Serie</p>
-                                    </Link>
+                                    <button className='boton'>Calificar</button>
                                 </div>
                             ))}
                         </div>
