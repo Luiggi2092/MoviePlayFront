@@ -174,9 +174,9 @@ const Profile = () => {
                             <div key={purchase.id} className='purchase-card'>
                                 <Link to={`/moviesdetail/${purchase.id}`}>
                                     <img src={purchase.image} />
-                                    <h3>{purchase.name}</h3>
-                                    <p>Costo: ${purchase.price}</p>
-                                    <p>Pelicula</p>
+                                    <h3 className='h3'>{purchase.name}</h3>
+                                    <p className='p'>Costo: ${purchase.price}</p>
+                                    <p className='p'>Pelicula</p>
                                     </Link>
                                 </div>
                             ))}
@@ -184,9 +184,9 @@ const Profile = () => {
                                 <div key={purchase.id} className='purchase-card'>
                                     <Link to={`/detailSeries/${purchase.id}`}>
                                     <img src={purchase.image} />
-                                    <h3>{purchase.name}</h3>
-                                    <p>Costo: ${purchase.price}</p>
-                                    <p>Serie</p>
+                                    <h3 className='h3'>{purchase.name}</h3>
+                                    <p className='p'>Costo: ${purchase.price}</p>
+                                    <p className='p'>Serie</p>
                                     </Link>
                                 </div>
                             ))}
