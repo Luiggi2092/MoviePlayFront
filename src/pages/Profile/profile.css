@@ -18,6 +18,12 @@
 .titlePerf {
     text-align: center;
     margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.boton{
+    width: 100px;
+    font-size: 16px;
 }
 
 .purchase-carousel {
