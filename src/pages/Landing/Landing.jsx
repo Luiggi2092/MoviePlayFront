@@ -6,6 +6,7 @@ import img4 from '../../assets/amber1.jpg'
 import img5 from '../../assets/nico.png'
 import img6 from '../../assets/luis.jpeg'
 import img7 from '../../assets/marcos.jpeg'
+import img8 from '../../assets/david.jpeg'
 import disfruta from '../../assets/peli2023.jpg'
 import descarga from '../../assets/840_560.jpg'
 import disfruta2 from '../../assets/tendencias.jpg'
@@ -38,8 +39,8 @@ const Landing = () => {
   const suscripcion = ()=> {
 
     if(emailSus != ""){
-    dispatch(emailSuscripcion(emailSus))
-    navigate("/register");
+      dispatch(emailSuscripcion(emailSus))
+      navigate("/register");
     }else{
       Swal.fire({
         title:`Debe llenar su correo en la suscripción`,
@@ -101,7 +102,7 @@ const Landing = () => {
       </div> 
 
   <div className={style.contaain}>
-    <p className={style.title3}>Quiénes Somos.?</p>
+    <p className={style.title3}>¿Quiénes Somos?</p>
     
 <div className={style.imageContainer}>
     <img src={img4} alt="amber1.jpg" className={style.img1} />
@@ -131,8 +132,8 @@ const Landing = () => {
  
 
     <div className={style.imageContainer}>
-       <img src={img0} alt="camilo.jpeg" className={style.img0} />
-      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+       <img src={img8} alt="david.jpeg" className={style.img0} />
+      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend)</span></p>
             </div> 
 
 
