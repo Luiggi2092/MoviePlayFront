@@ -38,7 +38,10 @@ import {GET_GENEROS,
         RATE_MOVIE,
         SET_FAVORITES,
         SET_RATINGS,
-        TODAS_LAS_COMPRAS
+        TODAS_LAS_COMPRAS,
+        ACTSER,
+        ALLSERNAME,
+        EMAILSUS
         } from "./actions" 
 
 
@@ -88,7 +91,10 @@ const initialState = {
      Top5Mov: [],
      Top5Ser: [],
      TotalPag:1,
-     comprasAdmin:[]
+     comprasAdmin:[],
+     AllNameSer:[],
+     EmailSUSCRIPTO:"",
+     
 
 
 }
@@ -277,7 +283,9 @@ return {
         case SERIESXPAGE: 
           return {
              ...state,
-             Series:action.payload
+             Series:action.payload.dato1,
+             Page: action.payload.dato2,
+             TotalPag: action.payload.dato3,
          }
 
         
@@ -314,6 +322,21 @@ return {
                 ...state,
                 comprasAdmin:action.payload
             }
+        case ACTSER: 
+             return {
+                ...state,
+                Series:action.payload.dato1,
+             }
+        case ALLSERNAME:
+            return {
+                ...state,
+                AllNameSer: action.payload,
+            } 
+         case EMAILSUS:
+            return {
+                ...state,
+                EmailSUSCRIPTO:action.payload
+            }      
         default:
             return {...state}
     }

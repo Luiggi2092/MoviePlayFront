@@ -1,19 +1,31 @@
 import "./ModalEditSerie.css"
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch} from "react-redux"
-import {getGeneros,postSerie,getSeries} from "../../redux/actions"
+import {getGeneros,postSerie,getSeries,getSeriesID,ActualizarSeries} from "../../redux/actions"
 import axios from "axios";
 import Swal from 'sweetalert2'
 
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
 
-const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
+const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie,idSerie,page}) => {
     
     const [avance,setAvance] = useState(0);
     const [actor,setActor] = useState("");
     const listaGenero = useSelector(state=> state.Generos);
-    const series = useSelector(state => state.Series)
+    console.log(idSerie)
+    const serie = useSelector(state => state.SerieID);
+    const url = useSelector(state => state.UrlSerie);
+    const actores = useSelector(state => state.ActoresSeries)
+    const generos = useSelector(state => state.generos)
+    // const temporada = useSelector(state => state.temporadaSerie)
+    // const capitulo = useSelector(state => state.catipuloSerie)
+    const tituloepi = useSelector(state => state.tituloEpisodio)
+    const cantidadTemporada = useSelector(state => state.cantidadTemporadas)
+    const capitulo = useSelector(state => state.cantidadCapitulos)
+    const propiedades = {image:serie.image, id:+idSerie, price:serie.price, name:serie.titulo}
+    const [array,setArray] = useState([]);
+    
 
     const dispatch = useDispatch();
     const [form, setForm] = useState({
@@ -44,13 +56,55 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
 
     })
 
+    console.log(url);
+
     useEffect(()=> {
         
          dispatch(getGeneros());
-         dispatch(getSeries());
+         dispatch(getSeriesID(idSerie))
     },[])
 
-    
+    useEffect(()=> {
+       if(Number(idSerie)> 0){
+         dispatch(getSeriesID(idSerie))
+
+       }
+    },[idSerie])
+
+    useEffect(()=> {
+
+       if(serie.length !== 0){
+          console.log(serie.Episodios[0].numTemporada)
+
+           serie.Genres.map(e=> array.push(e.name))
+           const uniqueArray = Array.from(new Set(array));
+           console.log(uniqueArray)
+         setForm({
+              ...form,
+              image:serie.image,
+              titulo:serie.titulo,
+              yearEstreno:serie.yearEstreno,
+              genres:uniqueArray,
+              actores:serie.actores,
+              numTemporada:serie.Episodios[0].numTemporada,
+              numEpisodio:serie.Episodios[0].numEpisodio,
+              tituloEpisodio:serie.Episodios[0].tituloEpisodio,
+              descripcionEpisodio:serie.Episodios[0].descripcionEpisodio,
+              duracion:serie.Episodios[0].duracion,
+              linkVideo:serie.Episodios[0].linkVideo,
+              descripcion:serie.descripcion,
+              price:serie.price
+
+
+              
+
+
+         })
+         
+
+       }
+          
+    },[serie])
 
     const ChangeHandle = (event) => {
         
@@ -87,7 +141,7 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
       var RegExUrl = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
       var RegExUrlPrecio = /^\d*\.?\d*$/;
       
-      if(property == "yearEstreno"){
+     /* if(property == "yearEstreno"){
 
          
           
@@ -99,7 +153,7 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
             setErrors({...errors,yearEstreno : ""})
          }
 
-      }
+      }*/
 
       if(property == "numTemporada"){
 
@@ -199,7 +253,7 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
     
     const BotonCerrar = () => {
         cambiarEstadoSerie(false);
-        setForm({...form,image:"https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps"})
+        //setForm({...form,image:"https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps"})
         setAvance(0);
 
     }
@@ -221,9 +275,9 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
            form.duracion,
            form.descripcion,
            form.yearEstreno ){
-            dispatch(postSerie(form));
+            dispatch(ActualizarSeries(idSerie,form,page));
         cambiarEstadoSerie(false)
-        setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+        //setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
         setAvance(0);
         setErrors({...errors,duracion: "",linkVideo:"",price:"",numEpisodio:"",numTemporada: "",yearEstreno:""})
             }else{
@@ -232,6 +286,20 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
                      icon:'error',
                      confirmButtonText:'Ok'});
             }
+    }
+
+    const remover =(e)=>{
+      e.preventDefault()
+      setForm({...form,genres: []})
+      setArray([]);
+
+
+    }
+
+
+    const remover2 =(e)=>{
+        e.preventDefault()
+        setForm({...form,actores:[]})
     }
 
     return (
@@ -254,33 +322,42 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
                  <div>
                     <label>Titulo de Serie : </label>
                     <br/>
-                    <input type="text" name="titulo" onChange={ChangeHandle}/>
+                    <input type="text" name="titulo" onChange={ChangeHandle} value={form.titulo}/>
                  </div> 
                  <div>
                     <label>Año Estreno :</label>
                     <br/>
-                    <input type="text" name="yearEstreno" onChange={ChangeHandle}/>
+                    <input type="text" name="yearEstreno" onChange={ChangeHandle} value={form.yearEstreno} />
                     <span className="error">{errors.yearEstreno}</span>
                  </div>
                  <div>
-                    <label>Genero :</label>
+                    <label>Genero :
+                     
+                    {form.genres.map((e,index) => <p key={index}>{e}</p>)}
+                    </label>
                     <br/>
                     <select name="genres" onChange={ChangeHandleCombo}>
+                     <option>Seleccione :</option>
                     {listaGenero?.map((gen,index)=>{
                                   return <option key={index}>{gen.name}</option>
-                            })}   
+                            })} 
+
                     </select>
+                    <button onClick={remover}>Remover Generos</button>
                  </div>
                  <div>
-                    <label>Actores :</label>
+                    <label>Actores :
+                    {form.actores.map((e,index) => <p key={index}>{e}</p>)}
+                    </label>
                     <br/>
                     <input type="text" name="actores" onChange={CrearActores}/>
                     <button onClick={AgregandoActores}>Crear Actor</button>
+                    <button onClick={remover2}>Remover Actores</button>
                  </div>
                  <div>
                     <label> N° Temporadas :</label>
                     <br/>
-                    <input type="text" name="numTemporada" onChange={ChangeHandle} />
+                    <input type="text" name="numTemporada" onChange={ChangeHandle} value={form.numTemporada} />
                     <span className="error">{errors.numTemporada}</span> 
                  </div>
                  <br/>
@@ -298,33 +375,33 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
                  <div>
                     <label>N° Episodio :</label>
                     <br/>
-                    <input type="text" name="numEpisodio" onChange={ChangeHandle} />
+                    <input type="text" name="numEpisodio" onChange={ChangeHandle} value={form.numEpisodio} />
                     <span className="error">{errors.numEpisodio}</span> 
                  </div>
                  <div>
                     <label>Titulo de Episodio :</label>
                     <br/>
-                    <input type="text" name="tituloEpisodio" onChange={ChangeHandle}/>
+                    <input type="text" name="tituloEpisodio" onChange={ChangeHandle} value={form.tituloEpisodio}/>
                  </div>
                  <div>
                  <br/>
                  <br/>
                     <label>Descripcion de Episodio :</label>
                     <br/>
-                    <textarea name="descripcionEpisodio" onChange={ChangeHandle}/>
+                    <textarea name="descripcionEpisodio" onChange={ChangeHandle} value={form.descripcionEpisodio}/>
                  </div>
                  
                  <div>
                     <label>Duracion de Episodio : </label>
                     <br/>
-                    <input type="text" name="duracion" onChange={ChangeHandle}/>
+                    <input type="text" name="duracion" onChange={ChangeHandle} value={form.duracion}/>
                     <span className="error">{errors.duracion}</span>
                  </div>
                  <br/>
                  <br/>
                  <div>
                     <label>Url de Episodio</label>
-                    <input type="text" name="linkVideo" onChange={ChangeHandle}/>
+                    <input type="text" name="linkVideo" onChange={ChangeHandle} value={form.linkVideo}/>
                     <span className="error">{errors.linkVideo}</span>
                  </div>
                  </fieldset>
@@ -332,14 +409,14 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie}) => {
                  <div className="textArea">
                      <label>Descripcion de la Serie :</label> 
                      <br/>
-                     <textarea name="descripcion" onChange={ChangeHandle}></textarea>     
+                     <textarea name="descripcion" onChange={ChangeHandle} value={form.descripcion}></textarea>     
                  </div>
                  <br/>
                  <div>
                     <label>Precio de Serie $ :</label>
                     <br/>
-                    <input type="text" name="price" onChange={ChangeHandle}/>
-                    <span className="error">{errors.price}</span>
+                    <input type="text" name="price" onChange={ChangeHandle} value={form.price}/>
+                    <span className="error">{errors.price} </span>
                  </div>
                  
                 
