@@ -6,20 +6,27 @@ import img4 from '../../assets/amber1.jpg'
 import img5 from '../../assets/nico.png'
 import img6 from '../../assets/luis.jpeg'
 import img7 from '../../assets/marcos.jpeg'
+import img8 from '../../assets/david.jpeg'
 import disfruta from '../../assets/peli2023.jpg'
 import descarga from '../../assets/840_560.jpg'
 import disfruta2 from '../../assets/tendencias.jpg'
 import '@fortawesome/fontawesome-free/css/all.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import { useState } from 'react';
+import Footer from '../../components/Footer/Footer'
+import { useState } from 'react';
 import style from './landing.module.css';
+import {useDispatch} from "react-redux"
+import {emailSuscripcion} from "../../redux/actions"
+import Swal from 'sweetalert2'
 
 
 
 const Landing = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [emailSus,setEmailSus] = useState("");
   const clickHandler = () => {
     navigate("/home");
   };
@@ -28,6 +35,26 @@ const Landing = () => {
     navigate("/register");
   };
 
+
+  const suscripcion = ()=> {
+
+    if(emailSus != ""){
+      dispatch(emailSuscripcion(emailSus))
+      navigate("/register");
+    }else{
+      Swal.fire({
+        title:`Debe llenar su correo en la suscripción`,
+          icon:'warning',
+          confirmButtonText:'Ok'});
+
+    }
+  }
+
+
+  const ChangleHandle = (event) => {
+     
+    setEmailSus(event.target.value); 
+  }
 
   return (
     <div className={style.container}>
@@ -68,15 +95,14 @@ const Landing = () => {
       <div className={style.div3}>
         <h2 className={style.title2}>Descarga tus series para verlas forever</h2>
         <h4>Ingresa tu email para crear una cuenta</h4>
-        <input className={style.input} type="text" placeholder='' />
-        <Link to='/register'>
-          <button className={style.input2}> INGRESAR</button>
-        </Link>
+        <input className={style.input} type="text" placeholder='' onChange={ChangleHandle} />
+          <button className={style.input2} onClick={suscripcion}> INGRESAR</button>
+        
       </div>
       </div> 
 
   <div className={style.contaain}>
-    <p className={style.title3}>Quiénes Somos.?</p>
+    <p className={style.title3}>¿Quiénes Somos?</p>
     
 <div className={style.imageContainer}>
     <img src={img4} alt="amber1.jpg" className={style.img1} />
@@ -106,8 +132,8 @@ const Landing = () => {
  
 
     <div className={style.imageContainer}>
-       <img src={img0} alt="camilo.jpeg" className={style.img0} />
-      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+       <img src={img8} alt="david.jpeg" className={style.img0} />
+      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend)</span></p>
             </div> 
 
 
@@ -122,7 +148,7 @@ const Landing = () => {
       </div>
 
       </div>
-            <div className={style.footer}>
+            {/* <div className={style.footer}>
       <footer className={style.footer}>
         <h1 className={style.titlefo}>¿Preguntas?,  envía un email a moviesplay@gmail.com</h1>
         <Link to="/suscripciones">Suscripciones</Link>
@@ -136,7 +162,8 @@ const Landing = () => {
       </footer>
          
 
-</div> 
+</div>  */}
+      <Footer/>
     </div>
 
 
