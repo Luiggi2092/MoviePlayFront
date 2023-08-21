@@ -35,6 +35,14 @@
 .continuar{
     margin-left: 770px;
     margin-top: 20px;
+    height: 50px;
+    width: 200px;
+    color: white;
+    background-color: #007bff;
+    font-size: 18px;
+    border: 0px;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 .textSubmit{
