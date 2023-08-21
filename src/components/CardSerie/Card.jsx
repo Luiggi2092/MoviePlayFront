@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
 import { toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie,} from '../../redux/actions';
+import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todosLosProductosXidUser, fetchCartContent} from '../../redux/actions';
 import Swal from 'sweetalert2';
 
 const Card = ({ image, id, price, name }) => {
@@ -32,42 +32,47 @@ const Card = ({ image, id, price, name }) => {
   const seriesCompradas = compras.series
   const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === id);
   const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === id);
+  const [buttonStateAdd, setButtonStateAdd] = useState(false);
+  const [buttonStateRemove, setButtonStateRemove] = useState(false);
 
   const handleclick = () => {
     if (isAddedToCart) {
       dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
+      setButtonStateRemove(true)
       Swal.fire({
         title: `Artículo eliminado del carrito`,
         icon: 'success'
       });
 
-      setTimeout(() => {
-        window.location.reload(false);
-      }, 1500); // 1.5 segundos
-
     } else {
       // Producto no en el carrito ni comprado, agregar al carrito
       dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
-
+      setButtonStateAdd(true)
       Swal.fire({
         title: `Artículo agregado al carrito`,
         icon: 'success'
       });
 
-      setTimeout(() => {
-        window.location.reload(false);
-      }, 1500); // 1.5 segundos
     }
   };
 
-//   useEffect(() => {
-//     dispatch(fetchCartContent(user))
-// }, []);
+  useEffect(() => {
+    if(buttonStateAdd){
+      dispatch(todosLosProductosXidUser(idUser))
+      dispatch(fetchCartContent(user))
+      setButtonStateRemove(false)
+    }
 
-// useEffect(() => {
-//     dispatch(todosLosProductosXidUser(idUser))
-// }, []);
-  
+  },[buttonStateAdd])
+
+  useEffect(() => {
+    if(buttonStateRemove){
+      dispatch(todosLosProductosXidUser(idUser))
+      dispatch(fetchCartContent(user))
+      setButtonStateAdd(false)
+    }
+
+  },[buttonStateRemove])
 
 
   return (
