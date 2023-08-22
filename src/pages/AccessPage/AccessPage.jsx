@@ -5,7 +5,7 @@ import { NavLink,useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
 import validation from './validations'
-import { setFavorites, setRatings } from '../../redux/actions';
+import { setFavorites} from '../../redux/actions';
 
 
 const AccessPage = () => {
@@ -181,7 +181,7 @@ const AccessPage = () => {
         const userRatings = { movie1: 4, movie2: 3 }; 
 
         dispatch(setFavorites(userFavorites)); // Establece los favoritos en el estado de Redux
-        dispatch(setRatings(userRatings));
+        // dispatch(setRatings(userRatings));
     };
     
     return (
