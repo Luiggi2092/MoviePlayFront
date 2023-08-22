@@ -74,6 +74,7 @@ const Profile = () => {
     const handleImageChange = (e) => {
         const newImage = URL.createObjectURL(e.target.files[0]);
         setProfileImage(newImage);
+        localStorage.setItem('profileImage', newImage); 
     };
 
     return (

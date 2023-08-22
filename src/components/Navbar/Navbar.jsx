@@ -23,10 +23,12 @@ const Navbar = ({ isScrolled }) => {
 
   const isAdmin = useSelector((state) => state.isAdmin); // Cambia esto según tu estado actual
   
-  
+  const profileImage = localStorage.getItem('profileImage') || "default-profile-image-url";
   const nombre = localStorage.getItem('name')
   const foto = localStorage.getItem('foto')
   const user = localStorage.getItem('email')
+
+  
   
   const links = [
     { name: 'Home', link: '/home', icon: <FiHome /> },

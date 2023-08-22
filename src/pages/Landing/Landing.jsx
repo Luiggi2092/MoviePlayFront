@@ -6,7 +6,8 @@ import img4 from '../../assets/amber1.jpg'
 import img5 from '../../assets/nico.png'
 import img6 from '../../assets/luis.jpeg'
 import img7 from '../../assets/marcos.jpeg'
-import img8 from '../../assets/david.jpeg'
+import img8 from '../../assets/Gonzalo.jpeg'
+import img9 from '../../assets/man.webp'
 import disfruta from '../../assets/peli2023.jpg'
 import descarga from '../../assets/840_560.jpg'
 import disfruta2 from '../../assets/tendencias.jpg'
@@ -24,6 +25,8 @@ import Swal from 'sweetalert2'
 
 const Landing = () => {
 
+  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [emailSus,setEmailSus] = useState("");
@@ -36,25 +39,42 @@ const Landing = () => {
   };
 
 
-  const suscripcion = ()=> {
+  const suscripcion = () => {
+    if (emailSus !== "") {
+      // Verificar si el correo electrónico es válido
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      const isValidEmail = emailPattern.test(emailSus);
 
-    if(emailSus != ""){
-      dispatch(emailSuscripcion(emailSus))
-      navigate("/register");
-    }else{
+
+      if (isValidEmail) {
+        dispatch(emailSuscripcion(emailSus));
+        navigate("/register");
+      } else {
+        Swal.fire({
+          title: "El correo ingresado no es válido",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+    } else {
       Swal.fire({
-        title:`Debe llenar su correo en la suscripción`,
-          icon:'warning',
-          confirmButtonText:'Ok'});
-
+        title: "Debe ingresar su correo",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
     }
-  }
+  };
 
 
   const ChangleHandle = (event) => {
      
     setEmailSus(event.target.value); 
   }
+
+
+
+
+
 
   return (
     <div className={style.container}>
@@ -78,7 +98,7 @@ const Landing = () => {
       </div>
 
       <div className={style.div1}>
-        <h2 className={`${style.title} ${style.titleLeft}`}>Descarga tus series para verlas forever.</h2>
+        <h2 className={`${style.title} ${style.titleLeft}`}>Descarga tus series para verlas siempre.</h2>
         <div className={style.tvContainer}>
         <img src={descarga} alt="840_560.jpg" className={style.tvImage} />
       </div>
@@ -93,7 +113,7 @@ const Landing = () => {
 
 <div>
       <div className={style.div3}>
-        <h2 className={style.title2}>Descarga tus series para verlas forever</h2>
+        <h2 className={style.title2}>Descarga tus series para verlas siempre</h2>
         <h4>Ingresa tu email para crear una cuenta</h4>
         <input className={style.input} type="text" placeholder='' onChange={ChangleHandle} />
           <button className={style.input2} onClick={suscripcion}> INGRESAR</button>
@@ -132,46 +152,25 @@ const Landing = () => {
  
 
     <div className={style.imageContainer}>
-       <img src={img8} alt="david.jpeg" className={style.img0} />
-      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend)</span></p>
+       <img src={img8} alt="Gonzalo.jpeg" className={style.img0} />
+      <p className={style.name}>Gonzalo Fernandez <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
             </div> 
 
 
     <div className={style.imageContainer}>
-       <img src={img0} alt="camilo.jpeg" className={style.img0} />
-      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+       <img src={img9} alt="man.webp" className={style.img0} />
+      <p className={style.name}>David Tealdi<br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
             </div> 
 
     <div className={style.imageContainer}>
-       <img src={img0} alt="camilo.jpeg" className={style.img0} />
-      <p className={style.name}>Camilo P <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+       <img src={img9} alt="man.webp" className={style.img0} />
+      <p className={style.name}>Camilo Pacheco <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
       </div>
 
       </div>
-            {/* <div className={style.footer}>
-      <footer className={style.footer}>
-        <h1 className={style.titlefo}>¿Preguntas?,  envía un email a moviesplay@gmail.com</h1>
-        <Link to="/suscripciones">Suscripciones</Link>
-        <Link to="/privacidad">Privacidad</Link>
-        <Link to="/centrodeayuda">Centro de ayuda</Link>
-        <Link to="/terminosdeuso">Términos de uso</Link>
-        <h4>Contáctenos</h4>
-        <a href="https://accounts.google.com/" target="_blank"><i className="bi bi-envelope"></i></a>
-        <a href="https://www.instagram.com/" target="_blank"><i className="fab fa-instagram icono-red"></i></a>
-        <h6>© 2023 MoviesPlay. Todos los derechos reservados.</h6>
-      </footer>
-         
-
-</div>  */}
+    
       <Footer/>
     </div>
-
-
-
-
-
-
-
 
   );
 };
