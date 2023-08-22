@@ -8,6 +8,7 @@ import { toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todosLosProductosXidUser, fetchCartContent} from '../../redux/actions';
 import Swal from 'sweetalert2';
+import useFetch from './useFetch';
 
 const Card = ({ image, id, price, name }) => {
   // const user = localStorage.getItem('email');
@@ -41,6 +42,7 @@ const Card = ({ image, id, price, name }) => {
     if (isAddedToCart) {
       dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
       setButtonStateRemove(true)
+      setButtonStateAdd(false)
       Swal.fire({
         title: `Artículo eliminado del carrito`,
         icon: 'success'
@@ -50,6 +52,7 @@ const Card = ({ image, id, price, name }) => {
       // Producto no en el carrito ni comprado, agregar al carrito
       dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
       setButtonStateAdd(true)
+      setButtonStateRemove(false)
       Swal.fire({
         title: `Artículo agregado al carrito`,
         icon: 'success'
@@ -58,8 +61,11 @@ const Card = ({ image, id, price, name }) => {
     }
   };
 
+  
+  useFetch(`http://localhost:3001/carroCompra?emailUsuario=${user}`)
+
   useEffect(() => {
-    if(buttonStateAdd){
+    if(buttonStateAdd){      
       dispatch(todosLosProductosXidUser(idUser))
       dispatch(fetchCartContent(user))
       setButtonStateRemove(false)
@@ -68,7 +74,7 @@ const Card = ({ image, id, price, name }) => {
   },[buttonStateAdd])
 
   useEffect(() => {
-    if(buttonStateRemove){
+    if(buttonStateRemove){      
       dispatch(todosLosProductosXidUser(idUser))
       dispatch(fetchCartContent(user))
       setButtonStateAdd(false)
