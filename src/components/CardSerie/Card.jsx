@@ -8,7 +8,7 @@ import { toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todosLosProductosXidUser, fetchCartContent} from '../../redux/actions';
 import Swal from 'sweetalert2';
-import useFetch from './useFetch';
+import useFetch from '../../assets/useFetch';
 
 const Card = ({ image, id, price, name }) => {
   // const user = localStorage.getItem('email');
@@ -37,12 +37,14 @@ const Card = ({ image, id, price, name }) => {
   const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === id);
   const [buttonStateAdd, setButtonStateAdd] = useState(false);
   const [buttonStateRemove, setButtonStateRemove] = useState(false);
+  const [serieAgregada, setSerieAgregada] = useState(isAddedToCart)
 
   const handleclick = () => {
     if (isAddedToCart) {
       dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
       setButtonStateRemove(true)
       setButtonStateAdd(false)
+      setSerieAgregada(false)
       Swal.fire({
         title: `Artículo eliminado del carrito`,
         icon: 'success'
@@ -53,6 +55,7 @@ const Card = ({ image, id, price, name }) => {
       dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
       setButtonStateAdd(true)
       setButtonStateRemove(false)
+      setSerieAgregada(true)
       Swal.fire({
         title: `Artículo agregado al carrito`,
         icon: 'success'
@@ -62,7 +65,6 @@ const Card = ({ image, id, price, name }) => {
   };
 
   
-  useFetch(`http://localhost:3001/carroCompra?emailUsuario=${user}`)
 
   useEffect(() => {
     if(buttonStateAdd){      
@@ -107,17 +109,18 @@ const Card = ({ image, id, price, name }) => {
           ))}
         </div> */}
       </div>
-      {isAddedToCart ? (
-                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
-            ) : isPurchased ? (
-              <Link to={`/detailSeries/${id}`}>
-                <button className={style.ver}>Ver serie</button>
-              </Link>
-            ) : (
-                <button className={style.agg} onClick={handleclick}>
-                    ${price} - Agregar al Carrito
-                </button>
-            )}
+      {isPurchased ? ( // Si es comprado, muestra "Ver Película"
+      <Link to={`/detailSeries/${id}`}>
+        <button className={style.ver}>Ver Película</button>
+      </Link>
+    ) : (
+      <button
+        className={serieAgregada ? style.quitar : style.agg}// Usa className condicionalmente
+        onClick={handleclick}
+      >
+        {serieAgregada ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
+      </button>
+    )}
     </div>
   );
 };
