@@ -311,12 +311,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     <button onClick={AgregandoActores}>Crear Actor</button>
                     <button onClick={remover2}>Remover Actores</button>
                  </div>
-                 <div>
-                    <label> N° Temporadas :</label>
-                    <br/>
-                    <input type="text" name="numTemporada" onChange={ChangeHandle} />
-                    <span className="error">{errors.numTemporada}</span> 
-                 </div>
+                 
                  <br/>
                  {/* <fieldset>
                     <legend>Existe Serie</legend>
@@ -328,7 +323,14 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                     </select>
                  </fieldset>*/}
                  <fieldset className="episodio"> 
+                 
                  <legend>Episodio :</legend>
+                 <div>
+                    <label> N° Temporada :</label>
+                    <br/>
+                    <input type="text" name="numTemporada" onChange={ChangeHandle} />
+                    <span className="error">{errors.numTemporada}</span> 
+                 </div>
                  <div>
                     <label>N° Episodio :</label>
                     <br/>
@@ -349,7 +351,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
                  </div>
                  
                  <div>
-                    <label>Duracion de Episodio : </label>
+                    <label>Duracion de Episodio : (minutos) </label>
                     <br/>
                     <input type="text" name="duracion" onChange={ChangeHandle}/>
                     <span className="error">{errors.duracion}</span>

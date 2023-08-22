@@ -25,7 +25,9 @@ const Series = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
-  const [selectedOrder, setSelectedOrder] = useState('') 
+  const [selectedOrder, setSelectedOrder] = useState('')
+  const [Load,setLoad] = useState(false)
+
 
   const [isScrolled, setIsScrolled] = useState(false)
   window.onscroll = () => {
@@ -49,7 +51,7 @@ const Series = () => {
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
-    let newUrl = `http://localhost:3001/media/series?page=${page}`
+    let newUrl = `https://movieplay.onrender.com/media/series?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -66,11 +68,13 @@ const Series = () => {
       setSeries(data.elementos)
       setInfoPage(data.totalPages)
       setCurrentPage(page)
+      setLoad(false)
     })
   };
   
   useEffect(()=>{
     getSeriesAndPage(1, null, null, null)
+    setLoad(true)
   },[]);
 
   useEffect(() => {
@@ -166,8 +170,7 @@ const Series = () => {
       
         <div className={style.serieContainer}>
           
-
-          {series?.length == 0 && <Loading/>}
+          {Load == true && <Loading/>}
           {
             series?.map((element) => (
               <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} />

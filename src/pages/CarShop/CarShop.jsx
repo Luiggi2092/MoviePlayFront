@@ -56,13 +56,13 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('http://localhost:3001/pago',{
+            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
                   amount: totalAmountParseado, 
                   id: id,
                   description:'pago de producto',
                   emailUsuario:user
               });
-              console.log(paymentMethod)
+            console.log(paymentMethod)
             console.log(data)
             Swal.fire({
                 title:`Compra realizada correctamente`,

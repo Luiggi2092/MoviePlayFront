@@ -1,7 +1,7 @@
 import "./ModalEditSerie.css"
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch} from "react-redux"
-import {getGeneros,postSerie,getSeries,getSeriesID,ActualizarSeries} from "../../redux/actions"
+import {getGeneros,getTodoFillCleanAdm,getSeriesID,ActualizarSeries} from "../../redux/actions"
 import axios from "axios";
 import Swal from 'sweetalert2'
 
@@ -15,7 +15,7 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie,idSerie,page}) =>
     const listaGenero = useSelector(state=> state.Generos);
     console.log(idSerie)
     const serie = useSelector(state => state.SerieID);
-    const url = useSelector(state => state.UrlSerie);
+    //const url = useSelector(state => state.UrlSerie);
     const actores = useSelector(state => state.ActoresSeries)
     const generos = useSelector(state => state.generos)
     // const temporada = useSelector(state => state.temporadaSerie)
@@ -24,7 +24,7 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie,idSerie,page}) =>
     const cantidadTemporada = useSelector(state => state.cantidadTemporadas)
     const capitulo = useSelector(state => state.cantidadCapitulos)
     const propiedades = {image:serie.image, id:+idSerie, price:serie.price, name:serie.titulo}
-    const [array,setArray] = useState([]);
+   // const [array,setArray] = useState([]);
     
 
     const dispatch = useDispatch();
@@ -56,35 +56,31 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie,idSerie,page}) =>
 
     })
 
-    console.log(url);
-
+    
     useEffect(()=> {
         
          dispatch(getGeneros());
-         dispatch(getSeriesID(idSerie))
-    },[])
-
-    useEffect(()=> {
-       if(Number(idSerie)> 0){
-         dispatch(getSeriesID(idSerie))
-
-       }
+         dispatch(getSeriesID(Number(idSerie)))
     },[idSerie])
+
+   //  useEffect(()=> {
+   //     if(Number(idSerie)> 0){
+   //       dispatch(getSeriesID(idSerie))
+
+   //     }
+   //  },[idSerie])
 
     useEffect(()=> {
 
        if(serie.length !== 0){
           console.log(serie.Episodios[0].numTemporada)
 
-           serie.Genres.map(e=> array.push(e.name))
-           const uniqueArray = Array.from(new Set(array));
-           console.log(uniqueArray)
          setForm({
               ...form,
               image:serie.image,
               titulo:serie.titulo,
               yearEstreno:serie.yearEstreno,
-              genres:uniqueArray,
+              genres:serie.Genres.map(e=>e.name),
               actores:serie.actores,
               numTemporada:serie.Episodios[0].numTemporada,
               numEpisodio:serie.Episodios[0].numEpisodio,
@@ -276,7 +272,8 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie,idSerie,page}) =>
            form.descripcion,
            form.yearEstreno ){
             dispatch(ActualizarSeries(idSerie,form,page));
-        cambiarEstadoSerie(false)
+            dispatch(getTodoFillCleanAdm());
+            cambiarEstadoSerie(false)
         //setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
         setAvance(0);
         setErrors({...errors,duracion: "",linkVideo:"",price:"",numEpisodio:"",numTemporada: "",yearEstreno:""})
@@ -311,7 +308,7 @@ const ModalEditSerie = ({openModalSerieEdit,cambiarEstadoSerie,idSerie,page}) =>
                   <h2 className="titulo">Serie</h2>
                 </div>
                 <div className="contenedor">
-                <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps":form.image}/>
+                <img src={form.image} height={350} width={252}/>
                       <input type="file" accept="image/*" className="fileinput" onChange={handleImagenUpload} />
                 <div className="progress">
                     <progress value={avance} max={100} id="progress-bar" />

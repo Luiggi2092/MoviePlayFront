@@ -243,9 +243,9 @@ const MantenerMovies = ()=> {
       <div className={style.container} >
           <br/>
           <div className={style.CreateNew} > 
-          <button onClick={handleModalMovie} >Nueva Pelicula</button>
+          <button onClick={handleModalMovie} className={style.buttonAccion} >Nueva Pelicula</button>
         </div>
-         <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
+         <Modal openModal={openModal} cambiarEstado={setOpenModal} page={page}></Modal>
          <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula}  page={page}></ModalEdit>
          <br/>
          <br/>
@@ -287,13 +287,13 @@ const MantenerMovies = ()=> {
                   (<button className={style.buttonAccion2} onClick={()=> activar(item.id,item.active)} >Activar</button>)}</td>
                 </tr>
               ))): busquedaMov.map((item) => (
-                <tr key={item.id}>
-                <td>{item.id}</td>
-                <td>{item.name}</td>
-                <td><img src={item.image} style={{width: "50px", height:"50px"}}/></td>
-                <td>{item.price}</td>
+                <tr key={item.id} className={style.tablerow}>
+                <td className={style.tablecell}>{item.id}</td>
+                <td className={style.tablecell}>{item.name}</td>
+                <td className={style.tablecell}><img src={item.image} style={{width: "50px", height:"50px"}}/></td>
+                <td className={style.tablecell}>{item.price}</td>
                 <td>
-                  <button onClick={()=>handleModalMovieEdit(item.id)}>Editar</button>
+                  <button onClick={()=>handleModalMovieEdit(item.id)} className={style.buttonAccion}>Editar</button>
                   </td>
                 <td className={style.tablecell}>
                 {item.active == true ? (<button className={style.buttonAccion1} onClick={()=>inativar(item.id,item.active)} >Desactivar</button>) : 
