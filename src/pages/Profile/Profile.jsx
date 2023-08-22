@@ -68,7 +68,7 @@ const Profile = () => {
     }, [])
 
     const productos = useSelector(state => state.productosComprados)
-    console.log(productos)
+    // console.log(productos)
 
     const movies = productos.peliculas || []
 

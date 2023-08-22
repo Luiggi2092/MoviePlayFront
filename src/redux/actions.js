@@ -536,9 +536,9 @@ export const todasLasOrdenesDeCompra = (id) => {
   }
 }
 
-export const todasLasComprasAdmin = () => {
+export const todasLasComprasAdmin = (page) => {
   return async function(dispatch){
-    const {data} = await axios.get('/ordenCompra/getAllOCs')
+    const {data} = await axios.get(`/ordenCompra/getAllOCs?page=${page}`)
     dispatch({type:TODAS_LAS_COMPRAS, payload:data})
   }
 }
@@ -546,7 +546,7 @@ export const todasLasComprasAdmin = () => {
 export const moviesxPage =(page)=> {
   return async function(dispatch){
     const mov = (await axios.get(`/admin/disableMovies?page=${page}`)).data;
-    console.log(mov.totalPages + "llego");
+    // console.log(mov.totalPages + "llego");
     dispatch({type:MOVIESXPAGE,payload: { dato1:mov.elementos,dato2:mov.currentPage,dato3:mov.totalPages }})
   }
 }
@@ -585,7 +585,7 @@ export const ActivarDesactivarSeries = (id)=> {
 
     try{
      const banserie = await axios.put(`/admin/disableSeries/${id}`);
-     console.log(banserie);
+    //  console.log(banserie);
      dispatch({type: BAN_SERIE, payload: banserie});
      Swal.fire({
       title:`${banserie.data.message}`,
@@ -610,7 +610,7 @@ export const getTodoBusqedaAdmSeries = (name)=> {
     return async function (dispatch){
 
     const buqtodoSeries = (await axios.get(`/admin/disableSeries/?busqueda=${name}`)).data.elementos;
-    console.log(buqtodoSeries);
+    // console.log(buqtodoSeries);
     dispatch({type: BUQSERIES, payload: buqtodoSeries})
 
     }  
@@ -677,7 +677,7 @@ export const AllNameSeries = ()=> {
       return async function(dispatch){
          
         const AllSeries = (await axios.get(`/media/allSeries`)).data;
-        console.log(AllSeries);
+        // console.log(AllSeries);
 
         dispatch({type: ALLSERNAME,payload: AllSeries})
      

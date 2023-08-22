@@ -41,7 +41,7 @@ import {GET_GENEROS,
         TODAS_LAS_COMPRAS,
         ACTSER,
         ALLSERNAME,
-        EMAILSUS
+        EMAILSUS,
         } from "./actions" 
 
 
@@ -94,7 +94,6 @@ const initialState = {
      comprasAdmin:[],
      AllNameSer:[],
      EmailSUSCRIPTO:"",
-     
 
 
 }
@@ -338,7 +337,7 @@ return {
             return {
                 ...state,
                 EmailSUSCRIPTO:action.payload
-            }      
+            }
         default:
             return {...state}
     }
