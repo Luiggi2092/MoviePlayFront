@@ -67,13 +67,13 @@ const Card = ({ image, id, price, name }) => {
   
 
   useEffect(() => {
-    if(buttonStateAdd){      
-      dispatch(todosLosProductosXidUser(idUser))
-      dispatch(fetchCartContent(user))
-      setButtonStateRemove(false)
+    if (buttonStateAdd) {
+      dispatch(todosLosProductosXidUser(idUser)).then(() => {
+        dispatch(fetchCartContent(user));
+        setButtonStateRemove(false);
+      });
     }
-
-  },[buttonStateAdd])
+  }, [buttonStateAdd]);
 
   useEffect(() => {
     if(buttonStateRemove){      
@@ -111,14 +111,14 @@ const Card = ({ image, id, price, name }) => {
       </div>
       {isPurchased ? ( // Si es comprado, muestra "Ver Película"
       <Link to={`/detailSeries/${id}`}>
-        <button className={style.ver}>Ver Película</button>
+        <button className={style.ver}>Ver Serie</button>
       </Link>
     ) : (
       <button
-        className={serieAgregada ? style.quitar : style.agg}// Usa className condicionalmente
+        className={serieAgregada && isAddedToCart ? style.quitar : style.agg}// Usa className condicionalmente
         onClick={handleclick}
       >
-        {serieAgregada ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
+        {isAddedToCart && serieAgregada ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
       </button>
     )}
     </div>

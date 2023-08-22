@@ -527,9 +527,9 @@ export const todasLasOrdenesDeCompra = (id) => {
   }
 }
 
-export const todasLasComprasAdmin = () => {
+export const todasLasComprasAdmin = (page) => {
   return async function(dispatch){
-    const {data} = await axios.get('/ordenCompra/getAllOCs')
+    const {data} = await axios.get(`/ordenCompra/getAllOCs?page=${page}`)
     dispatch({type:TODAS_LAS_COMPRAS, payload:data})
   }
 }
