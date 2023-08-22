@@ -25,8 +25,7 @@ const Series = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
-  const [selectedOrder, setSelectedOrder] = useState('')
-
+  const [selectedOrder, setSelectedOrder] = useState('') 
 
   const [isScrolled, setIsScrolled] = useState(false)
   window.onscroll = () => {
@@ -35,17 +34,17 @@ const Series = () => {
   }
 
 
-  useEffect(()=> {
-      dispatch(getGeneros()); 
-  },[])
+    useEffect(()=> {
+        dispatch(getGeneros()); 
+    },[])
+
+    useEffect(() => {
+      dispatch(fetchCartContent(user))
+  }, [])
 
   useEffect(() => {
-    dispatch(fetchCartContent(user))
-}, [])
-
-useEffect(() => {
-    dispatch(todosLosProductosXidUser(idUser))
-},[])
+      dispatch(todosLosProductosXidUser(idUser))
+  },[])
 
 
 

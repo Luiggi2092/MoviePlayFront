@@ -13,8 +13,6 @@ const Navbar = ({ isScrolled }) => {
   
   const data = useParams();
 
-  // console.log(data);
-
   const [busqueda, setBusqueda] = useState({
     search: '',
   });
