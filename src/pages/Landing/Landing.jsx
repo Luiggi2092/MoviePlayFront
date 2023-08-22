@@ -87,7 +87,7 @@ const Landing = () => {
 
     // Actualizar el mensaje de error si es necesario
     if (!isValidEmail) {
-      setErrorMessage('Debe completar la informacion');
+      setErrorMessage('Debe contener formato de correo');
     } else {
       setErrorMessage('');
     }
