@@ -407,3 +407,14 @@ a{
   font-size: medium;
   color: white;
 }
+
+.invalidInput {
+  border: 2px solid red;
+  color: red;
+  
+}
+
+.errorMessage {
+color: red;
+margin-bottom: 10px;
+}

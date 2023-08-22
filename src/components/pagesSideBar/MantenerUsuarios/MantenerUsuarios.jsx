@@ -82,7 +82,7 @@ const MantenerUsuarios = () => {
                     item.estadoActivo === true ? <button className={style.button} style={{ backgroundColor: "red" }} onClick={() => handleDesactivar(item.id)}>Desactivar</button> : <button className={style.button} style={{ backgroundColor: "green" }} onClick={() => handleActivar(item.id)}>Activar</button>
                   }
                   {
-                    item.rol == "Usuario" ? <button className={style.button} onClick={() => handleAdmin(item.id)}>Hacer admin</button> : <span className={style.button} style={{ backgroundColor: "green" }}>Admin</span>
+                    item.rol == "Usuario" ? <button className={style.button} onClick={() => handleAdmin(item.id)}>Hacer admin</button> : <button className={style.button} style={{ backgroundColor: "green" }} onClick={() => handleAdmin(item.id)}>Hacer usuario</button>
                   }
                 </td>
                 </tr>

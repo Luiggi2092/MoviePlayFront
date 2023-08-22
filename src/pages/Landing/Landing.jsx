@@ -2,6 +2,7 @@ import React from 'react';
 import fondo from '../../assets/the-flash.jpg';
 import Logo from '../../assets/Logo.ico.png';
 import img0 from '../../assets/camilo.jpeg';
+import img1 from '../../assets/camilop.jpeg';
 import img4 from '../../assets/amber1.jpg'
 import img5 from '../../assets/nico.png'
 import img6 from '../../assets/luis.jpeg'
@@ -28,7 +29,11 @@ const Landing = () => {
   
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [emailSus,setEmailSus] = useState('');
+  const [emailSus,setEmailSus] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+
+
 
 
   const clickHandler = () => {
@@ -71,15 +76,24 @@ const Landing = () => {
   };
 
 
-  const ChangleHandle = (event) => {
-     
-    setEmailSus(event.target.value); 
-  }
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmailSus(newEmail);
 
+    // Verificar si el correo es válido
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const isValidEmail = emailPattern.test(newEmail);
+    setIsEmailValid(isValidEmail);
 
+    // Actualizar el mensaje de error si es necesario
+    if (!isValidEmail) {
+      setErrorMessage('Debe contener formato de correo');
+    } else {
+      setErrorMessage('');
+    }
+  };
 
-
-
+    
 
   return (
     <div className={style.container}>
@@ -120,7 +134,8 @@ const Landing = () => {
       <div className={style.div3}>
         <h2 className={style.title2}>Descarga tus series para verlas siempre</h2>
         <h4>Ingresa tu email para crear una cuenta</h4>
-        <input className={style.input} type="text" placeholder='' onChange={ChangleHandle} />
+          <input className={`${style.input} ${isEmailValid ? '' : style.invalidInput}`} type="text" placeholder='' value={emailSus} onChange={handleEmailChange} />
+          {errorMessage && <p className={style.errorMessage}>{errorMessage}</p>}
           <button className={style.input2} onClick={suscripcion}> INGRESAR</button>
         
       </div>
@@ -151,7 +166,7 @@ const Landing = () => {
 
     <div className={style.imageContainer}>
        <img src={img0} alt="camilo.jpeg" className={style.img0} />
-          <p className={style.name}>Camilo Parada <br></br><span className={style.spandd}>Desarrollador Full Stack (Backend)</span></p>
+          <p className={style.name}>Camilo Pacheco <br></br><span className={style.spandd}>Desarrollador Full Stack (Backend)</span></p>
           </div> 
 
  
@@ -168,8 +183,8 @@ const Landing = () => {
             </div> 
 
     <div className={style.imageContainer}>
-       <img src={img9} alt="man.webp" className={style.img0} />
-      <p className={style.name}>Camilo Pacheco <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+       <img src={img1} alt="camilop.jpeg" className={style.img0} />
+          <p className={style.name}>Camilo Parada <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
       </div>
 
       </div>
@@ -179,6 +194,7 @@ const Landing = () => {
 
   );
 };
+
 
 export default Landing;
 
