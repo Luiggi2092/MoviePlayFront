@@ -115,7 +115,7 @@ const Card = ({ image, id, price, name }) => {
       </Link>
     ) : (
       <button
-        className={serieAgregada ? style.quitar : style.agg} // Usa className condicionalmente
+        className={serieAgregada ? style.quitar : style.agg}// Usa className condicionalmente
         onClick={handleclick}
       >
         {serieAgregada ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}

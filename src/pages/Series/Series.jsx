@@ -170,8 +170,8 @@ useEffect(() => {
 
           {series?.length == 0 && <Loading/>}
           {
-            series?.map((element, index) => (
-              <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name} />
+            series?.map((element) => (
+              <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} />
           ))}
         </div>
         <div >
