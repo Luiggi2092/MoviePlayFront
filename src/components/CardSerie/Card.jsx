@@ -68,15 +68,17 @@ const Card = ({ image, id, price, name }) => {
 
   useEffect(() => {
     if (buttonStateAdd) {
-      dispatch(todosLosProductosXidUser(idUser)).then(() => {
+      dispatch(todosLosProductosXidUser(idUser))
+        dispatch(addToCartAndSaveDetailsSerie(propiedades, user))
         dispatch(fetchCartContent(user));
         setButtonStateRemove(false);
-      });
+      
     }
   }, [buttonStateAdd]);
 
   useEffect(() => {
     if(buttonStateRemove){      
+      dispatch(removeFromCartAndRemoveDetailsSerie(id, user))
       dispatch(todosLosProductosXidUser(idUser))
       dispatch(fetchCartContent(user))
       setButtonStateAdd(false)
@@ -115,10 +117,10 @@ const Card = ({ image, id, price, name }) => {
       </Link>
     ) : (
       <button
-        className={serieAgregada && isAddedToCart ? style.quitar : style.agg}// Usa className condicionalmente
+        className={serieAgregada  ? style.quitar : style.agg}// Usa className condicionalmente
         onClick={handleclick}
       >
-        {isAddedToCart && serieAgregada ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
+        {serieAgregada  ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
       </button>
     )}
     </div>
