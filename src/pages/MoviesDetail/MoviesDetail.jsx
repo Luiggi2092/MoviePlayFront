@@ -94,6 +94,10 @@ const MoviesDetail = () => {
                         </p>
                         
                     </div>
+                    <div>
+                        <span>Duracion</span>
+                        <p>{peliculaid.time} minutos</p>
+                    </div>
                     
                 </div>
                 </section>

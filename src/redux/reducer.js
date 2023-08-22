@@ -157,7 +157,9 @@ return {
         return {...state, Todo: action.payload}
 
     case POST_MOVIE:
-        return {...state, NewMovie : action.payload}     
+        return {...state, 
+               NewMovie : action.payload.data1,
+               Movies:action.payload.data2, }     
     case GET_MOVIEXID:
         return {...state, MovieId:action.payload}
     

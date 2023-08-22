@@ -98,17 +98,25 @@ export const getTodobusqueda = (name)=> {
     // console.log(name);
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;
+        if(todoSearchBar.length == 0){
+          Swal.fire({
+            title:`El Criterio de busqueda no existe`,
+              icon:'info',
+              confirmButtonText:'Ok'});
+        };
         dispatch({type: GETSEARCHBAR, payload: todoSearchBar})
     }
 }
 
-export const postMovie = (mov) => {
+export const postMovie = (mov,page) => {
     return async function (dispatch){
       
     try{  
       
       const newMovie = await axios.post("/media",mov);
-      dispatch({type: POST_MOVIE,payload: newMovie})
+      const movies = (await axios.get(`/admin/disableMovies?page=${page}`)).data.elementos;
+      dispatch({type: POST_MOVIE,payload:{ data1: newMovie, data2:movies}})
+     
       Swal.fire({
         title:`La Pelicula se Creo con Exito`,
           icon:'success',
