@@ -54,7 +54,7 @@ const CardHome = ({ image, id, tipo, price }) => {
                     onClick={handleFavoriteClick}
                     style={{ color: isFavorite ? 'red' : 'blue' }}
                 />
-                <div className={style.rating}>
+                {/* <div className={style.rating}>
                     {[1, 2, 3, 4, 5].map(value => (
                         <FontAwesomeIcon
                             key={value}
@@ -64,7 +64,7 @@ const CardHome = ({ image, id, tipo, price }) => {
                             onClick={() => handleRating(value)}
                         />
                     ))}
-                </div>
+                </div> */}
             </div>
             <button className={style.agg} onClick={handleclick}>
                 ${price} - Agregar al Carrito

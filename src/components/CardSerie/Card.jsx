@@ -24,6 +24,8 @@ const Card = ({ image, id, price, name }) => {
   const handleRating = newRating => {
     dispatch(rateMovie(id, newRating)); // Actualiza la calificación en el estado
   };
+
+
   const user = localStorage.getItem('email');
   const idUser = localStorage.getItem('id')
   const carrito = useSelector(state => state.carrito)
@@ -87,7 +89,7 @@ const Card = ({ image, id, price, name }) => {
           onClick={handleFavoriteClick}
           style={{ color: isFavorite ? 'red' : 'blue' }}
         />
-        <div className={style.rating}>
+        {/* <div className={style.rating}>
           {[1, 2, 3, 4, 5].map(value => (
             <FontAwesomeIcon
               key={value}
@@ -97,7 +99,7 @@ const Card = ({ image, id, price, name }) => {
               onClick={() => handleRating(value)}
             />
           ))}
-        </div>
+        </div> */}
       </div>
       {isAddedToCart ? (
                 <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>

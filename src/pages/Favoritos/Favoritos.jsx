@@ -12,6 +12,9 @@ const Favoritos = () => {
 
   const favoriteMovies = useSelector(state => state.favoriteMovies);
   const movieRatings = useSelector(state => state.movieRatings);
+  const storedFavorites = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
+
+  const allFavorites = [...new Set([...storedFavorites, ...favoriteMovies])];
 
   const settings = {
     dots: false,
@@ -30,8 +33,8 @@ const Favoritos = () => {
 
   return (
     <div className={style.favorites}>
-      <h1 className={style.h1Fav}>Mi Lista</h1>
-      <Link className={style.barra} to="/home">←</Link> 
+      <h1 className={style.h1Fav}>Favoritos</h1>
+      <Link className={style.barra} to="/home"> ← </Link> 
       <div className={style.containFav}>
         <Slider {...settings}>
           {favoriteMovies.map(movieId => (
