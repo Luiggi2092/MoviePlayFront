@@ -126,11 +126,11 @@ localStorage.setItem('favoriteMovies', JSON.stringify(updatedFavorites));
       };
 
 
-case SET_RATINGS:
-      return {
-        ...state,
-        movieRatings: action.payload,
-      };
+// case SET_RATINGS:
+//       return {
+//         ...state,
+//         movieRatings: action.payload,
+//       };
     
 
 case RATE_MOVIE:
