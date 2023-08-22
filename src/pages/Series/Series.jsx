@@ -10,6 +10,7 @@ import Card from '../../components/CardSerie/Card'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
 import Loading from "../../components/Loading/Loading";
+import useFetch from '../../assets/useFetch';
 
 const Series = () => {
 
@@ -45,6 +46,7 @@ const Series = () => {
 useEffect(() => {
     dispatch(todosLosProductosXidUser(idUser))
 },[])
+
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
