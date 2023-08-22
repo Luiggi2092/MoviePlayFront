@@ -70,7 +70,7 @@ const CheckoutForm = () => {
             
                  setTimeout(() => {
                     reload();
-                }, 1500); // 1.5 segundos
+                }, 1500); //
         }
 
     }

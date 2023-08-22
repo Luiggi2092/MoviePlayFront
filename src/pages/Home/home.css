@@ -67,8 +67,12 @@ h3{
     height: 50px;
     z-index: 1;
     background-color: #1766DC;
+    color: white;
+    font-size: 20px;
     top:10px;
     position: relative;  
+    cursor: pointer;
+    border: none;
 }
 
 .Mostrar a {

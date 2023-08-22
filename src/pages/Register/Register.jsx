@@ -5,15 +5,18 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import validation from './validations'
 import { NavLink } from 'react-router-dom'
+import { useSelector} from "react-redux"
 
 const Register = () => {
 
     const navigate = useNavigate();
 
+    const email = useSelector((state) => state.EmailSUSCRIPTO)
+
     const [input, setInput] = useState({
         nombre: '',
         apellido: '',
-        email:'',
+        email: email ? email : '',
         password:''
     })
 
