@@ -407,3 +407,8 @@ a{
   font-size: medium;
   color: white;
 }
+
+.invalidInput {
+  border: 2px solid red;
+  color: red;
+}
