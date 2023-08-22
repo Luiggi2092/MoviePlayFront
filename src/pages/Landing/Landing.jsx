@@ -25,6 +25,8 @@ import Swal from 'sweetalert2'
 
 const Landing = () => {
 
+  
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [emailSus,setEmailSus] = useState("");
@@ -37,25 +39,42 @@ const Landing = () => {
   };
 
 
-  const suscripcion = ()=> {
+  const suscripcion = () => {
+    if (emailSus !== "") {
+      // Verificar si el correo electrónico es válido
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      const isValidEmail = emailPattern.test(emailSus);
 
-    if(emailSus != ""){
-      dispatch(emailSuscripcion(emailSus))
-      navigate("/register");
-    }else{
+
+      if (isValidEmail) {
+        dispatch(emailSuscripcion(emailSus));
+        navigate("/register");
+      } else {
+        Swal.fire({
+          title: "El correo ingresado no es válido",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
+      }
+    } else {
       Swal.fire({
-        title:`Debe llenar su correo en la suscripción`,
-          icon:'warning',
-          confirmButtonText:'Ok'});
-
+        title: "Debe ingresar su correo",
+        icon: "warning",
+        confirmButtonText: "Ok",
+      });
     }
-  }
+  };
 
 
   const ChangleHandle = (event) => {
      
     setEmailSus(event.target.value); 
   }
+
+
+
+
+
 
   return (
     <div className={style.container}>
@@ -79,7 +98,7 @@ const Landing = () => {
       </div>
 
       <div className={style.div1}>
-        <h2 className={`${style.title} ${style.titleLeft}`}>Descarga tus series para verlas forever.</h2>
+        <h2 className={`${style.title} ${style.titleLeft}`}>Descarga tus series para verlas siempre.</h2>
         <div className={style.tvContainer}>
         <img src={descarga} alt="840_560.jpg" className={style.tvImage} />
       </div>
@@ -149,30 +168,9 @@ const Landing = () => {
       </div>
 
       </div>
-            {/* <div className={style.footer}>
-      <footer className={style.footer}>
-        <h1 className={style.titlefo}>¿Preguntas?,  envía un email a moviesplay@gmail.com</h1>
-        <Link to="/suscripciones">Suscripciones</Link>
-        <Link to="/privacidad">Privacidad</Link>
-        <Link to="/centrodeayuda">Centro de ayuda</Link>
-        <Link to="/terminosdeuso">Términos de uso</Link>
-        <h4>Contáctenos</h4>
-        <a href="https://accounts.google.com/" target="_blank"><i className="bi bi-envelope"></i></a>
-        <a href="https://www.instagram.com/" target="_blank"><i className="fab fa-instagram icono-red"></i></a>
-        <h6>© 2023 MoviesPlay. Todos los derechos reservados.</h6>
-      </footer>
-         
-
-</div>  */}
+    
       <Footer/>
     </div>
-
-
-
-
-
-
-
 
   );
 };

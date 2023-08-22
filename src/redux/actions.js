@@ -49,7 +49,7 @@ export const ACTSER = "ACTSER"
 export const ALLSERNAME = "ALLSERNAME"
 export const EMAILSUS = "EMAILSUS"
 
-export const toggleFavorite = movieId => ({
+export const toggleFavorite = (movieId) => ({
     type: TOGGLE_FAVORITE,
     payload: movieId
 });
