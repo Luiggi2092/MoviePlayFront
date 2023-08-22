@@ -98,8 +98,7 @@ const Profile = () => {
         // localStorage.setItem('country', country);
         if(form.nombre &&
            form.apellido &&
-           form.image && 
-           form.password){
+           form.image ){
              dispatch(ActPerfil(idUser,form))
            }
         setIsEditing(false); // Salir del modo de edición
