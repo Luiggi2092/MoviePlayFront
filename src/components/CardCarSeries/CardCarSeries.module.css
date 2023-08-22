@@ -37,6 +37,11 @@
 
 .boton{
     height: 50px;
+    width: 100px;
+    color: white;
+    font-size: 18px;
+    border: 0px;
+    cursor: pointer;
 }
 
 .containerBoton{

@@ -35,7 +35,6 @@ const Series = () => {
   }
 
 
-
   useEffect(()=> {
       dispatch(getGeneros()); 
   },[])
@@ -172,7 +171,7 @@ useEffect(() => {
           {Load == true && <Loading/>}
           {
             series?.map((element, index) => (
-              <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name}/>
+              <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name} />
           ))}
         </div>
         <div >
