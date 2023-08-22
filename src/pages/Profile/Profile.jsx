@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch , useSelector} from 'react-redux';
 import { todosLosProductosXidUser } from '../../redux/actions';
+import Modal from '../../components/ModalCalificar/ModalCalificar';
 import { Link } from 'react-router-dom';
 import './profile.css';
 
 const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
+    const [openModal,setOpenModal] = useState(false);
+    const [idSerie,setIdSerie] = useState();
+    const [idMovie, setIdMovie] = useState();
     const [profileImage, setProfileImage] = useState(
         localStorage.getItem('foto') ||
         'https://media.istockphoto.com/id/500620030/es/vector/dibujos-animados-cara-con-entusiasmo-la-expresi%C3%B3n.jpg?s=612x612&w=0&k=20&c=fSHO3HwsT-afQGZb01hSgxGJeKILxXjUWklyTSMwSsc='
@@ -75,6 +79,20 @@ const Profile = () => {
         const newImage = URL.createObjectURL(e.target.files[0]);
         setProfileImage(newImage);
     };
+
+    const handleModal = (id) => {
+       
+         setIdMovie(id)
+        setOpenModal(!openModal)
+    }
+
+
+    const handleModalSer = (id) => {
+       
+        setIdSerie(id)
+       setOpenModal(!openModal);
+    
+    }
 
     return (
         <div>
@@ -168,6 +186,7 @@ const Profile = () => {
                         )}
                     </div>
                         <h1 className='conth1'>Mis Compras</h1>
+                         <Modal openModal={openModal} cambiarEstado={setOpenModal} idUser={idUser} idMov={idMovie} idSer={idSerie} ></Modal>
                     <div className='container-compras'>
                         <div className='purchase-carousel'>
                         {movies.length > 0 && movies.map((purchase) => (
@@ -178,7 +197,7 @@ const Profile = () => {
                                     </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Pelicula</p>
-                                    <button className='boton'>Calificar</button>
+                                    <button className='boton' onClick={() => handleModal(purchase.id)}>Calificar</button>
                                 </div>
                             ))}
                         {series.length > 0 &&series.map((purchase) => (
@@ -189,7 +208,7 @@ const Profile = () => {
                                     </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Serie</p>
-                                    <button className='boton'>Calificar</button>
+                                    <button className='boton' onClick={ () => handleModalSer(purchase.id)}>Calificar</button>
                                 </div>
                             ))}
                         </div>

@@ -25,6 +25,7 @@ const Series = () => {
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
   const [selectedOrder, setSelectedOrder] = useState('')
+  const [Load,setLoad] = useState(false)
 
 
   const [isScrolled, setIsScrolled] = useState(false)
@@ -66,11 +67,13 @@ useEffect(() => {
       setSeries(data.elementos)
       setInfoPage(data.totalPages)
       setCurrentPage(page)
+      setLoad(false)
     })
   };
   
   useEffect(()=>{
     getSeriesAndPage(1, null, null, null)
+    setLoad(true)
   },[]);
 
   useEffect(() => {
@@ -166,8 +169,7 @@ useEffect(() => {
       
         <div className={style.serieContainer}>
           
-
-          {series?.length == 0 && <Loading/>}
+          {Load == true && <Loading/>}
           {
             series?.map((element, index) => (
               <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name}/>

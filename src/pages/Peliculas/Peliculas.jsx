@@ -18,6 +18,7 @@ const Peliculas = () => {
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
   const [selectedOrder, setSelectedOrder] = useState('')
+  const [Load,setLoad] = useState(false)
   const idUser = localStorage.getItem('id')
   const generos = useSelector(state => state.Generos)
 
@@ -57,11 +58,14 @@ useEffect(() => {
       setMovies(data.elementos)
       setInfoPage(data.totalPages)
       setCurrentPage(page)
+      setLoad(false)
     })
   };
   
   useEffect(()=>{
     getMovieAndPage(1, null, null, null)
+    setLoad(true)
+
   },[]);
 
   useEffect(() => {
@@ -167,7 +171,7 @@ useEffect(() => {
             
             <Card key={index} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
           ))}
-          {movies?.length == 0 && <Loading/>}
+          {Load == true && <Loading/> }
          </div>
          
         <div >

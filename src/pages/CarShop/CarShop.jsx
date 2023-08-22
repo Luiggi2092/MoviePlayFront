@@ -62,7 +62,7 @@ const CheckoutForm = () => {
                   description:'pago de producto',
                   emailUsuario:user
               });
-              console.log(paymentMethod)
+            console.log(paymentMethod)
             console.log(data)
             Swal.fire({
                 title:`Compra realizada correctamente`,

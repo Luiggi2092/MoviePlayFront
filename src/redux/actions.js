@@ -282,6 +282,7 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
   try {
     if(!idSerie){
       const response = await axios.post(`/carroCompra`,{emailUsuario, idMovie});
+      console.log(response)
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -683,4 +684,30 @@ export const emailSuscripcion = (email)=> {
          payload:email
       }
      
+}
+
+export const CreateReview = (form)=> {
+
+      return async function(dispatch){
+          
+       try{ 
+        const Review = await axios.post(`/review`,form);
+        console.log(Review);
+        Swal.fire({
+          title:`Gracias por tu Calificacion`,
+           icon:'success',
+           confirmButtonText:'Ok'});
+       
+       }catch(error){
+
+
+       }
+
+
+
+
+
+      }
+
+
 }
