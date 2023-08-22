@@ -37,7 +37,7 @@ const Footer = () => {
                 <h4>Contáctenos</h4>                        
                         <div className='divContainericon'>
                     <a href="https://accounts.google.com/" target="_blank"><i className="bi bi-envelope"></i></a>
-                    <a href="https://www.instagram.com/" target="_blank"><i className="fab fa-instagram icono-red"></i></a>   
+                    <a href="https://www.instagram.com/moviesplay2023/?next=%2F" target="_blank"><i className="fab fa-instagram icono-red"></i></a>   
                     <h6>© 2023 MoviesPlay. Todos los derechos reservados.</h6>                   
          </div>
                 
