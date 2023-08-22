@@ -243,7 +243,7 @@ const MantenerMovies = ()=> {
       <div className={style.container} >
           <br/>
           <div className={style.CreateNew} > 
-          <button onClick={handleModalMovie} >Nueva Pelicula</button>
+          <button onClick={handleModalMovie} className={style.buttonAccion} >Nueva Pelicula</button>
         </div>
          <Modal openModal={openModal} cambiarEstado={setOpenModal}></Modal>
          <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula}  page={page}></ModalEdit>

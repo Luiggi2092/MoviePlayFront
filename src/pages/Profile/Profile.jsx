@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch , useSelector} from 'react-redux';
-import { todosLosProductosXidUser } from '../../redux/actions';
+import { todosLosProductosXidUser,ActPerfil} from '../../redux/actions';
 import Modal from '../../components/ModalCalificar/ModalCalificar';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 import './profile.css';
+
+const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
+const UPLOAD_PRESET = 'Products'
+
+
+
 
 const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
+    const [avance,setAvance] = useState(0);
     const [openModal,setOpenModal] = useState(false);
     const [idSerie,setIdSerie] = useState();
     const [idMovie, setIdMovie] = useState();
@@ -15,12 +23,12 @@ const Profile = () => {
         localStorage.getItem('foto') ||
         'https://media.istockphoto.com/id/500620030/es/vector/dibujos-animados-cara-con-entusiasmo-la-expresi%C3%B3n.jpg?s=612x612&w=0&k=20&c=fSHO3HwsT-afQGZb01hSgxGJeKILxXjUWklyTSMwSsc='
     );
-    const [alias, setAlias] = useState(localStorage.getItem('alias') || '');
-    const [name, setName] = useState(localStorage.getItem('name') || '');
-    const [lastName, setLastName] = useState(localStorage.getItem('lastName') || '');
-    const [phone, setPhone] = useState(localStorage.getItem('phone') || '');
-    const [email, setEmail] = useState(localStorage.getItem('email') || '');
-    const [country, setCountry] = useState(localStorage.getItem('country') || '');
+    //const [alias, setAlias] = useState(localStorage.getItem('alias') || '');
+    //const [name, setName] = useState(localStorage.getItem('name') || '');
+    //const [lastName, setLastName] = useState(localStorage.getItem('lastName') || '');
+    //const [phone, setPhone] = useState(localStorage.getItem('phone') || '');
+    //const [email, setEmail] = useState(localStorage.getItem('email') || '');
+    //const [country, setCountry] = useState(localStorage.getItem('country') || '');
     const dispatch = useDispatch()
     const foto = localStorage.getItem('foto')
 
@@ -31,6 +39,15 @@ const Profile = () => {
         'https://i0.wp.com/elplanetaurbano.com/wp-content/uploads/2023/04/super-mario-planeta-urbano-00.png?resize=1250%2C781&ssl=1',
         // Agrega más URLs de imágenes aquí
     ];
+
+    const [form,setForm] = useState({
+         image:localStorage.getItem('foto') ||
+         'https://media.istockphoto.com/id/500620030/es/vector/dibujos-animados-cara-con-entusiasmo-la-expresi%C3%B3n.jpg?s=612x612&w=0&k=20&c=fSHO3HwsT-afQGZb01hSgxGJeKILxXjUWklyTSMwSsc=',
+         nombre:"",
+         apellido:"",
+         password: ""
+    })
+
 
     useEffect(() => {
         localStorage.setItem('profileImage', profileImage);
@@ -64,22 +81,49 @@ const Profile = () => {
     };
 
     const handleSave = () => {
-        localStorage.setItem('alias', alias);
-        localStorage.setItem('name', name);
-        localStorage.setItem('lastName', lastName);
-        localStorage.setItem('phone', phone);
-        localStorage.setItem('email', email);
-        localStorage.setItem('country', country);
-
+        // localStorage.setItem('alias', alias);
+        // localStorage.setItem('name', name);
+        // localStorage.setItem('lastName', lastName);
+        // localStorage.setItem('phone', phone);
+        // localStorage.setItem('email', email);
+        // localStorage.setItem('country', country);
+        if(form.nombre &&
+           form.apellido &&
+           form.image && 
+           form.password){
+             dispatch(ActPerfil(idUser,form))
+           }
         setIsEditing(false); // Salir del modo de edición
-        alert('Datos guardados exitosamente');
+        
     };
 
-    const handleImageChange = (e) => {
-        const newImage = URL.createObjectURL(e.target.files[0]);
-        setProfileImage(newImage);
-        localStorage.setItem('profileImage', newImage); 
-    };
+    // const handleImageChange = (e) => {
+    //     const newImage = URL.createObjectURL(e.target.files[0]);
+    //     setProfileImage(newImage);
+    //     localStorage.setItem('profileImage', newImage); 
+    // };
+
+    const handleImagenUpload = async(event) => {
+        const file = event.target.files && event.target.files[0];
+ 
+        const formData = new FormData();
+        formData.append('file',file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+ 
+        const res = await axios.post(url,formData,{
+           headers: {
+             'Content-Type' : 'multipart/formData'
+           },
+           onUploadProgress(e){
+             const progress = Math.round((100 * e.loaded || 1) / (e.total || 1));
+             setAvance(progress);  
+         }
+        });
+        console.log(res);
+        setForm({...form,image: res.data.secure_url})
+     };
+      
+
 
     const handleModal = (id) => {
        
@@ -95,6 +139,17 @@ const Profile = () => {
     
     }
 
+
+    const HandleChange = (event) => {
+ 
+       const  property = event.target.name
+       const  value = event.target.value
+
+        setForm({...form,[property]:value})
+
+
+    }
+
     return (
         <div>
             <Navbar />
@@ -104,9 +159,11 @@ const Profile = () => {
                     <label>
                         <img
                             className={`profile-image ${isEditing ? 'editable' : ''}`}
-                            src={foto ? foto : "https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png" }
+                            src={form.image}
                             alt='Profile'
-                            onClick={isEditing ? () => document.getElementById('profile-image-input').click() : null}
+                            name="image"
+                            onChange={HandleChange}
+                            //onClick={isEditing ? () => document.getElementById('profile-image-input').click() : null}
                         />
                         {isEditing && (
                             <input
@@ -114,60 +171,72 @@ const Profile = () => {
                                 id='profile-image-input'
                                 accept='image/*'
                                 style={{ display: 'none' }}
-                                onChange={handleImageChange}
+                                onChange={handleImagenUpload}
                             />
                         )}
                     </label>
-
+                    <div className="progress">
+                    <progress value={avance} max={100} id="progress-bar" />
+                    <br/>
+                    </div>
                     <div className='containerInputs'>
-                        <h5>Alias</h5>
+                        {/* <h5>Alias</h5>
                         <input
                             type='text'
                             placeholder='Alias'
                             value={alias}
                             onChange={(e) => setAlias(e.target.value)}
                             disabled={!isEditing}
-                        />
+                        /> */}
                         <h5>Nombre</h5>
                         <input
                             type='text'
                             placeholder='Nombre'
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            name="nombre"
+                            onChange={HandleChange}
                             disabled={!isEditing}
                         />
                         <h5>Apellido</h5>
                         <input
                             type='text'
                             placeholder='Apellido'
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
+                            name="apellido"
+                            onChange={HandleChange}
                             disabled={!isEditing}
                         />
-                        <h5>Telefono</h5>
+                        {/* <h5>Telefono</h5>
                         <input
                             type='text'
                             placeholder='Telefono'
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                             disabled={!isEditing}
-                        />
+                        /> */}
                         <h5>Email</h5>
                         <input
                             type='text'
                             placeholder='Email'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            //value={email}
+                            //onChange={(e) => setEmail(e.target.value)}
                             disabled={!isEditing}
                         />
-                        <h5>Pais o region</h5>
+                        <h5>Contraseña</h5>
                         <input
                             type='text'
-                            placeholder='Pais o region'
-                            value={country}
-                            onChange={(e) => setCountry(e.target.value)}
+                            placeholder='Escribe tu Contraseña'
+                            name="password"
+                            onChange={HandleChange}
                             disabled={!isEditing}
                         />
+                        <h5>Confirmar Contraseña</h5>
+                        <input
+                            type='text'
+                            placeholder='Confirma Contraseña'
+                            //value={country}
+                            //onChange={(e) => setCountry(e.target.value)}
+                            disabled={!isEditing}
+                        />
+                        
                     </div>
 
                     <div className='buttPerf'>

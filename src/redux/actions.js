@@ -688,7 +688,7 @@ export const emailSuscripcion = (email)=> {
 
 export const CreateReview = (form)=> {
 
-      return async function(dispatch){
+      return async function(){
           
        try{ 
         const Review = await axios.post(`/review`,form);
@@ -710,4 +710,27 @@ export const CreateReview = (form)=> {
       }
 
 
+}
+
+
+export const ActPerfil =(id,form)=> {
+     
+    return async function (){
+        
+      try{
+        const PostPerfil = await axios.put(`/usuario/${id}`,form);
+
+        Swal.fire({
+          title:`${PostPerfil.data}`,
+           icon:'success',
+           confirmButtonText:'Ok'});
+       
+      
+      }catch(error){
+        console.log(error);
+      }
+
+    }
+    
+   
 }
