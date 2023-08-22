@@ -10,6 +10,7 @@ import Card from '../../components/CardSerie/Card'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from '../../components/Footer/Footer'
 import Loading from "../../components/Loading/Loading";
+import useFetch from '../../assets/useFetch';
 
 const Series = () => {
 
@@ -24,8 +25,7 @@ const Series = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedGenre, setSelectedGenre] = useState('')
   const [selectedPrice, setSelectedPrice] = useState('')
-  const [selectedOrder, setSelectedOrder] = useState('')
-
+  const [selectedOrder, setSelectedOrder] = useState('') 
 
   const [isScrolled, setIsScrolled] = useState(false)
   window.onscroll = () => {
@@ -34,17 +34,18 @@ const Series = () => {
   }
 
 
-  useEffect(()=> {
-      dispatch(getGeneros()); 
-  },[])
+    useEffect(()=> {
+        dispatch(getGeneros()); 
+    },[])
+
+    useEffect(() => {
+      dispatch(fetchCartContent(user))
+  }, [])
 
   useEffect(() => {
-    dispatch(fetchCartContent(user))
-}, [])
+      dispatch(todosLosProductosXidUser(idUser))
+  },[])
 
-useEffect(() => {
-    dispatch(todosLosProductosXidUser(idUser))
-},[])
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
@@ -168,8 +169,8 @@ useEffect(() => {
 
           {series?.length == 0 && <Loading/>}
           {
-            series?.map((element, index) => (
-              <Card key={index} id={element.id} image={element.image} price={element.price} name={element.name} />
+            series?.map((element) => (
+              <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} />
           ))}
         </div>
         <div >

@@ -9,6 +9,7 @@ import img6 from '../../assets/luis.jpeg'
 import img7 from '../../assets/marcos.jpeg'
 import img8 from '../../assets/Gonzalo.jpeg'
 import img9 from '../../assets/man.webp'
+import img10 from '../../assets/david.jpeg'
 import disfruta from '../../assets/peli2023.jpg'
 import descarga from '../../assets/840_560.jpg'
 import disfruta2 from '../../assets/tendencias.jpg'
@@ -25,9 +26,7 @@ import Swal from 'sweetalert2'
 
 
 const Landing = () => {
-
   
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [emailSus,setEmailSus] = useState("");
@@ -41,7 +40,7 @@ const Landing = () => {
     navigate("/home");
   };
 
-  const registerHandler = () => {
+  const registerHandler = (event) => {
     navigate("/register");
   };
 
@@ -54,15 +53,19 @@ const Landing = () => {
 
 
       if (isValidEmail) {
+
         dispatch(emailSuscripcion(emailSus));
         navigate("/register");
+      
       } else {
+      
         Swal.fire({
           title: "El correo ingresado no es válido",
           icon: "error",
           confirmButtonText: "Ok",
         });
       }
+    
     } else {
       Swal.fire({
         title: "Debe ingresar su correo",
@@ -127,7 +130,7 @@ const Landing = () => {
       </div>
       </div>
 
-<div>
+    <div>
       <div className={style.div3}>
         <h2 className={style.title2}>Descarga tus series para verlas siempre</h2>
         <h4>Ingresa tu email para crear una cuenta</h4>
@@ -175,8 +178,8 @@ const Landing = () => {
 
 
     <div className={style.imageContainer}>
-       <img src={img9} alt="man.webp" className={style.img0} />
-      <p className={style.name}>David Tealdi<br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+       <img src={img10} alt="david.jpeg" className={style.img0} />
+      <p className={style.name}>David Tealdi<br></br><span className={style.spandd}>Desarrollador Full Stack (Fronted)</span></p>
             </div> 
 
     <div className={style.imageContainer}>
