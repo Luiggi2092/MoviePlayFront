@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import style from "./ModalEditarMovie.module.css"
-import {getMoviexid,getGeneros,clearMovieId,ActualizarMovie,moviesxPage} from "../../redux/actions";
+import {getMoviexid,getGeneros,clearMovieId,ActualizarMovie,getTodoFillCleanAdm} from "../../redux/actions";
 import { useDispatch,useSelector} from "react-redux"
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
@@ -16,9 +16,15 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
     const dispatch = useDispatch();
     const listaGenero = useSelector(state=> state.Generos);
     const pelicula = useSelector(state => state.MovieId);
-    const [array,setArray] = useState([]);
-
     
+    
+    useEffect(()=> {
+        dispatch(getGeneros()); 
+          
+        dispatch(getMoviexid(Number(idpelicula))); 
+       
+    },[idpelicula])
+
 
     const [form,setForm] = useState({
         type: "movie",
@@ -47,42 +53,37 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
 
 
 
-     useEffect(()=> {
-        dispatch(getMoviexid(Number(idpelicula))); 
+
+    // useEffect(()=> {
+          
+    //       if(Number(idpelicula) > 0){
+         
+    //       dispatch(getMoviexid(Number(idpelicula))); 
+    //        setForm({...form,genres: pelicula && pelicula?.Genres.map(e => e.name)})
+    //       }
+
         
-    },[])
-
-
-    useEffect(()=> {
-          dispatch(getGeneros()); 
-
-          if(Number(idpelicula) > 0){
-          dispatch(getMoviexid(Number(idpelicula))); 
-          dispatch(clearMovieId()); 
-          }
-      
     
-    },[idpelicula])  
+    // },[idpelicula])  
 
     useEffect(()=> {
        
-        
         if(pelicula.length !==0){
         console.log(pelicula)
-      
-        pelicula.Genres.map(e => array.push(e.name)) 
-        const uniqueArray = Array.from(new Set(array));
-        console.log(uniqueArray);
+       // pelicula.Genres.map(e => array.push(e.name)) 
+        
         
             setForm({...form,name : pelicula.name,
                  image: pelicula.image,
                  time: pelicula.time,
                  linkVideo: pelicula.linkVideo,
-                 genres: uniqueArray,
+                 genres: pelicula.Genres.map(e=> e.name),
                  description: pelicula.description,
                  price : pelicula.price})
          
     }
+
+    
     },[pelicula])
 
 
@@ -112,8 +113,6 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
 
     const BotonCerrar = () => {
         cambiarEstado(false);
-        setForm({...form,genres: [] })
-        setArray([]);
         setAvance(0);
         setErrors({...errors,time: "",linkVideo:"",price:"",genres:[]})
 
@@ -122,13 +121,14 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
     const ChangeHandleCombo = (event)=> {
           
         let value = event.target.value; 
+
+        const array=[]
         
         array.push(...form.genres,value);
         
-        const uniqueArray = Array.from(new Set(array));
-         console.log(uniqueArray);
-        setForm({...form,genres:[]})
-        setForm({...form,genres:uniqueArray});
+       
+        setForm({...form,genres:[...array]})
+      
 
     }
 
@@ -211,13 +211,13 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
        if(form.type && 
           form.name &&
           form.image &&
-          form.genres &&
+          form.genres.length !== 0 &&
           form.time &&
           form.linkVideo &&
           form.description &&
           form.price  ){
             dispatch(ActualizarMovie(pelicula.id,form,page));
-            
+            dispatch(getTodoFillCleanAdm());
             cambiarEstado(false); 
             setAvance(0);
             setErrors({...errors,time: "",linkVideo:"",price:""})  
@@ -317,7 +317,7 @@ const ModelEditarMovie = ({openModalEdit,cambiarEstado,idpelicula,page})=> {
                 <div className={style.textArea}>
                 <label>Descripcion : </label>
                 <br/>
-                <textarea name="description" onChange={ChangeHandle} value={pelicula.description}></textarea>
+                <textarea name="description" onChange={ChangeHandle} value={form.description}></textarea>
                 </div>
                    
                 </div>
