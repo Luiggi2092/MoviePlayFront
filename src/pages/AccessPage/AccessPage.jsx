@@ -71,8 +71,9 @@ const AccessPage = () => {
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('name', data.nombre);
                 localStorage.setItem('rol', data.rol)
-                localStorage.setItem('foto', 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
+                localStorage.setItem('foto', data.image || 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
+                localStorage.setItem('Token', data.token)
                 localStorage.setItem('recargado', 'no')
                 
                 
@@ -121,13 +122,12 @@ const AccessPage = () => {
             // console.log(data);
 
 
-            localStorage.setItem('TokenUsu', response.credential);
-            localStorage.setItem('email', userObject.email);
-            localStorage.setItem('nombre', userObject.given_name); 
-            localStorage.setItem('name', userObject.name); 
+            localStorage.setItem('Token', response.credential);
+            localStorage.setItem('email', data.login.email);
+            localStorage.setItem('name', data.login.nombre); 
             localStorage.setItem('foto', userObject.picture); 
-            localStorage.setItem('rol', data.rol);
-            localStorage.setItem('id', data.id);
+            localStorage.setItem('rol', data.login.rol);
+            localStorage.setItem('id', data.login.id);
             localStorage.setItem('State', 'true')
             localStorage.setItem('recargado', 'no')
 
