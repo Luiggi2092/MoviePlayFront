@@ -175,9 +175,8 @@ const ModelCreateMovie = ({openModal,cambiarEstado,page})=> {
           form.price  ){
             dispatch(postMovie(form,page));
             cambiarEstado(false); 
-            setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
+            setForm({...form,image: "",genres:[] })
             setAvance(0);
-            setForm({...form,genres:[]});
             setErrors({...errors,time: "",linkVideo:"",price:""})
         }else{
             Swal.fire({
@@ -210,7 +209,7 @@ const ModelCreateMovie = ({openModal,cambiarEstado,page})=> {
                    <div className={style.contenedor}>
                       
                      <div>      
-                     <img src={form.image == "" ? "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps": form.image} />  
+                     <img src={form.image} />  
                                 <input type="file" accept="image/*" className={style.fileinput} onChange={handleImagenUpload} />
                                 
                      </div>
