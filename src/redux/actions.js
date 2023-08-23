@@ -155,14 +155,17 @@ export const getSeries = ()=> {
 }
 
 
-export const postSerie =(Serie)=>{
+export const postSerie =(Serie,page)=>{
     return async function (dispatch){
 
         try {
             
         const PostSerie = await axios.post(`/series/series`,Serie);
+        const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos;
+      
+        
         console.log(PostSerie)
-        dispatch({type: POST_SERIE,payload: PostSerie});
+        dispatch({type: POST_SERIE,payload: {data1:PostSerie,data2:ser}});
           Swal.fire({
           title:`La Serie o Episodio se Creo con Exito`,
            icon:'success',
@@ -583,13 +586,14 @@ export const getUserAdmin = (busqueda) => {
 } 
 
 
-export const ActivarDesactivarSeries = (id)=> {
+export const ActivarDesactivarSeries = (id,page)=> {
    return async function (dispatch) {
 
     try{
      const banserie = await axios.put(`/admin/disableSeries/${id}`);
     //  console.log(banserie);
-     dispatch({type: BAN_SERIE, payload: banserie});
+    const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos;
+     dispatch({type: BAN_SERIE, payload: {data1:banserie,data2:ser}});
      Swal.fire({
       title:`${banserie.data.message}`,
        icon:'success',
