@@ -2,7 +2,7 @@ import style from './CardHome.module.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp, faTheaterMasks, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 import cardMovie from '../../components/CardMovie/CardMovie';
 import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -49,22 +49,11 @@ const CardHome = ({ image, id, tipo, price }) => {
             </Link>
             <div className={style.iconsContainer}>
                 <FontAwesomeIcon
-                    icon={faThumbsUp} // Cambio a icono de pulgar arriba
+                    icon={faHeartPulse} 
                     className={style.icon}
                     onClick={handleFavoriteClick}
                     style={{ color: isFavorite ? 'red' : 'blue' }}
                 />
-                {/* <div className={style.rating}>
-                    {[1, 2, 3, 4, 5].map(value => (
-                        <FontAwesomeIcon
-                            key={value}
-                            icon={faStar}
-                            className={style.ratingStar}
-                            style={{ color: value <= rating ? 'yellow' : 'blue' }}
-                            onClick={() => handleRating(value)}
-                        />
-                    ))}
-                </div> */}
             </div>
             <button className={style.agg} onClick={handleclick}>
                 ${price} - Agregar al Carrito

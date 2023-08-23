@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
+import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
 import { toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todosLosProductosXidUser, fetchCartContent} from '../../redux/actions';
@@ -70,7 +70,7 @@ const Card = ({ image, id, price, name }) => {
       </Link>
       <div className={style.iconsContainer}>
         <FontAwesomeIcon
-          icon={faThumbsUp} // Cambio a icono de pulgar arriba
+          icon={faHeartPulse} // Cambio a icono de pulgar arriba
           className={style.icon}
           onClick={handleFavoriteClick}
           style={{ color: isFavorite ? 'red' : 'blue' }}

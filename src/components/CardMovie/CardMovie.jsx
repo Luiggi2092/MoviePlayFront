@@ -2,7 +2,7 @@ import style from './card.module.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faThumbsUp, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
@@ -62,7 +62,7 @@ const Card = ({ id, image, price, name, movieRating }) => {
             </Link>
             <div className={style.iconsContainer}>
                 <FontAwesomeIcon
-                    icon={faThumbsUp}
+                    icon={faHeartPulse}
                     className={style.icon}
                     onClick={handleFavoriteClick}
                     style={{ color: isFavorite ? 'red' : 'blue' }}
