@@ -31,7 +31,6 @@ const DashboardAdmin=()=> {
              {data.contentId == "content4" && <MantenerUsuarios/>}
              {data.contentId == "content5" && <MantenerOrdenes/>}
              {data.contentId == "content6" && <Sales/>}
-
             </div>
            </div>
            </>

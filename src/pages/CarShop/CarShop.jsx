@@ -56,7 +56,7 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('http://localhost:3001/pago',{
+            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
                   amount: totalAmountParseado, 
                   id: id,
                   description:'pago de producto',
@@ -195,11 +195,11 @@ const CardShop = () => {
             </div>
             <div className={style.submit}>
                 <p className={style.textSubmit}>Total: ${totalAmountParseado}</p>
-                {!continuePay && (
-                    <button className={style.continuar} onClick={handleclick}>
-                     Continuar compra
-                    </button>
-                    )}
+                {totalAmountParseado !== 0 && !continuePay && (
+                            <button className={style.continuar} onClick={handleclick}>
+                                Continuar compra
+                            </button>
+                        )}
             </div >
             {continuePay && <Pago/>}
         </div>

@@ -95,8 +95,8 @@ const Card = ({ id, image, price, name, movieRating }) => {
                 />
             </div>
             {isPurchased ? ( // Si es comprado, muestra "Ver Película"
-            <Link to={`/detailSeries/${id}`}>
-                <button className={style.ver}>Ver Serie</button>
+            <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver}>Ver Pelicula</button>
             </Link>
             ) : (
                 <button

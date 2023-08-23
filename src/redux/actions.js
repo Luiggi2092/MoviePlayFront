@@ -193,7 +193,6 @@ export const clearMovieId = () => {
 export const getSeriesID = (id, temp, capit)=> {
   return async function (dispatch){
     const seriesId = (await axios.get(`/media/series/${id}`)).data;
-     console.log(seriesId)
     // Utilizamos un objeto para almacenar las temporadas únicas
     const temporadasUnicas = {};
     // Utilizamos reduce para contar las temporadas únicas
@@ -295,7 +294,6 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
   try {
     if(!idSerie){
       const response = await axios.post(`/carroCompra`,{emailUsuario, idMovie});
-      console.log(response)
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
       const state = getState();
         const newCartCount = state.cartCount + 1;
