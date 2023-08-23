@@ -117,7 +117,7 @@ const MoviesDetail = () => {
                 
             </div>
             <div className={style.peliculaContainer}>
-                <ReactPlayer height={500} width={850} style={{margin:'0 15%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
+                <ReactPlayer height={500} width={1550} style={{margin:'0 15%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
                     
             </div>
             <div className={style.contenedores}>
