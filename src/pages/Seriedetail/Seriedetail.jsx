@@ -34,13 +34,11 @@ const SerieDetail = () => {
     const carrito = useSelector(state => state.carrito)
     const compras = useSelector(state => state.productosComprados)
     const seriesCarrito = carrito.Series
-    // const seriesCompradas = compras.series
-
-    const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);
-    const seriesCompradas = useSelector(state => state.productosComprados.series)
-    const isPurchased = seriesCompradas?.some(producto => producto.id === +id) || false;
+    const seriesCompradas = compras.series
+    const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);   
+    const isPurchased = seriesCarrito && seriesCompradas.some(producto => producto.id === +id)
     const [serieAgregada, setSerieAgregada] = useState(isAddedToCart)
-    console.log(isPurchased)
+    const idUser = localStorage.getItem('id')
     
     const [hoverValue,setHovervalue] = useState(undefined)
 
@@ -49,7 +47,7 @@ const SerieDetail = () => {
 
 
     const handleclick = () => {
-        if (serieAgregada) {
+        if (isAddedToCart) {
             dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
             setSerieAgregada(false)
             Swal.fire({
@@ -87,18 +85,11 @@ const SerieDetail = () => {
 
     useEffect(() => {
         dispatch(getSeriesTempCat(id, temporadaSelect, capituloSelect))
-    }, [temporadaSelect, capituloSelect, id])
-
-     useEffect(() => {
-        // Cargar los datos iniciales necesarios aquí
         dispatch(getSeriesID(id));
-        // Asegurarse de que los datos de Redux se carguen antes de usar isPurchased
         dispatch(fetchCartContent(user));
-
-        return () => {
-            dispatch(deleteSerieId());
-        }
-    }, [id, user]);
+        dispatch(deleteSerieId());
+        dispatch(todosLosProductosXidUser(idUser))
+    }, [dispatch])
 
 
     return (
@@ -140,15 +131,16 @@ const SerieDetail = () => {
                 </div>
                 </section>
 
-                {isPurchased ? ( 
+                {isAddedToCart? (
+                    <div className={style.botonContainer}>
+                    <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
+                    </div>
+                ):isPurchased? (
                     null
-                ) : (
-                    <button
-                        className={serieAgregada  ? style.quitar : style.button}// Usa className condicionalmente
-                        onClick={handleclick}
-                    >
-                        {serieAgregada  ? 'Quitar del Carrito' : `$${serie?.price} - Agregar al Carrito`}
-                    </button>
+                ): (
+                    <div className={style.botonContainer}>
+                    <button onClick={handleclick} className={style.button}>${serie.price} - Agregar al carrito</button>
+                    </div>
                 )}
                 
             </div>
