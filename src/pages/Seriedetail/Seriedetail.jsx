@@ -2,7 +2,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch,useSelector} from "react-redux"
-import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie} from "../../redux/actions";
+import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, fetchCartContent, todosLosProductosXidUser} from "../../redux/actions";
 import ReactPlayer from 'react-player/youtube'
 import Swal from 'sweetalert2'
 import style from './seriedetail.module.css'
@@ -33,35 +33,30 @@ const SerieDetail = () => {
     const carrito = useSelector(state => state.carrito)
     const compras = useSelector(state => state.productosComprados)
     const seriesCarrito = carrito.Series
-    const seriesCompradas = compras.series
+    // const seriesCompradas = compras.series
 
     const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);
-    const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === +id);
+    const seriesCompradas = useSelector(state => state.productosComprados.series)
+    const isPurchased = seriesCompradas?.some(producto => producto.id === +id) || false;
+    const [serieAgregada, setSerieAgregada] = useState(isAddedToCart)
+    console.log(isPurchased)
 
     const handleclick = () => {
-        if (isAddedToCart) {
+        if (serieAgregada) {
             dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
+            setSerieAgregada(false)
             Swal.fire({
                 title: `Artículo eliminado del carrito`,
                 icon: 'success'
             });
-    
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
-        
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
-    
+            setSerieAgregada(true)
             Swal.fire({
                 title: `Artículo agregado al carrito`,
                 icon: 'success'
-            });
-    
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
+            });    
         }
     };
     
@@ -85,16 +80,18 @@ const SerieDetail = () => {
 
     useEffect(() => {
         dispatch(getSeriesTempCat(id, temporadaSelect, capituloSelect))
-    }, [temporadaSelect, capituloSelect])
+    }, [temporadaSelect, capituloSelect, id])
 
-
-    useEffect(() => {
-        dispatch(getSeriesID(id))
+     useEffect(() => {
+        // Cargar los datos iniciales necesarios aquí
+        dispatch(getSeriesID(id));
+        // Asegurarse de que los datos de Redux se carguen antes de usar isPurchased
+        dispatch(fetchCartContent(user));
 
         return () => {
-            dispatch(deleteSerieId())
-        } 
-    }, [])
+            dispatch(deleteSerieId());
+        }
+    }, [id, user]);
 
 
     return (
@@ -136,16 +133,15 @@ const SerieDetail = () => {
                 </div>
                 </section>
 
-                {isAddedToCart? (
-                    <div className={style.botonContainer}>
-                    <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
-                    </div>
-                ):isPurchased? (
+                {isPurchased ? ( 
                     null
-                ): (
-                    <div className={style.botonContainer}>
-                    <button onClick={handleclick} className={style.button}>${serie.price} - Agregar al carrito</button>
-                    </div>
+                ) : (
+                    <button
+                        className={serieAgregada  ? style.quitar : style.button}// Usa className condicionalmente
+                        onClick={handleclick}
+                    >
+                        {serieAgregada  ? 'Quitar del Carrito' : `$${serie?.price} - Agregar al Carrito`}
+                    </button>
                 )}
                 
             </div>
