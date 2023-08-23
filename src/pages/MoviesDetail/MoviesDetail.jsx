@@ -5,8 +5,10 @@ import style from './moviesDetail.module.css'
 import {getMoviexid, clearMovieId, addToCartAndSaveDetailsMovie, fetchCartContent, todosLosProductosXidUser, removeFromCartAndRemoveDetailsMovie} from "../../redux/actions"
 import Footer from "../../components/Footer/Footer";
 import { useSelector,useDispatch } from "react-redux"
+import { FaStar } from "react-icons/fa"
 import ReactPlayer from 'react-player/youtube'
 import Swal from 'sweetalert2'
+import { formToJSON } from "axios"
 
 
 const MoviesDetail = () => {
@@ -24,7 +26,14 @@ const MoviesDetail = () => {
       const idUser = localStorage.getItem('id')
       const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === +id);
       const isPurchased = peliculas && peliculas.some(producto => producto.id === +id);
-    
+      const [Currentvalue,setCurrentValue] = useState(0);
+      const [array,setarray] = useState(0);
+      const [hoverValue,setHovervalue] = useState(undefined);
+      
+      const stars = Array(5).fill(0);
+
+
+
     const handleclick = () => {
         if (isAddedToCart) {
             dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
@@ -58,14 +67,12 @@ const MoviesDetail = () => {
           dispatch(clearMovieId());
           dispatch(fetchCartContent(user))
           dispatch(todosLosProductosXidUser(idUser))
+
           
     },[dispatch]) 
 
+   
 
-
-
-
-  console.log(peliculaid)
 
     return(
         <section className={style.max}>
@@ -117,6 +124,37 @@ const MoviesDetail = () => {
             <div className={style.peliculaContainer}>
                 <ReactPlayer height={500} width={850} style={{margin:'0 15%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
                     
+            </div>
+            <div className={style.contenedores}>
+                { peliculaid.Reviews && peliculaid.Reviews.map((e,index)=>{
+                     return <div className={style.comentarios} key={index}>
+                            <div className={style.imagen} key={index}>
+                               <img src="https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png" width={30} height={30} />
+                            </div>
+                            <div>
+                           <p>{e.Usuario.nombre}  {e.Usuario.apellido}</p>
+                            <div className={style.stars} key={index}>
+                            {stars.map((_,index) => {
+                                
+                         {console.log(e.calificacion)}
+                         return (
+                            <FaStar key={index}
+                                    size={10}
+                                    style={{
+                                        marginRight: "10px",
+                                        cursor: "pointer"
+
+                                    }}
+                                    color={(hoverValue || e.calificacion) > index ? "orange": "black"}/>
+
+                         )
+                         
+                      })}
+                            </div>
+                           <p className={style.coment}>{e.comentario}</p>
+                           </div>
+                     </div>  
+                })}
             </div>
         </div>
         <Footer/>

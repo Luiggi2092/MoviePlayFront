@@ -5,6 +5,7 @@ import { useDispatch,useSelector} from "react-redux"
 import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie} from "../../redux/actions";
 import ReactPlayer from 'react-player/youtube'
 import Swal from 'sweetalert2'
+import { FaStar } from "react-icons/fa"
 import style from './seriedetail.module.css'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer";
@@ -37,6 +38,12 @@ const SerieDetail = () => {
 
     const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);
     const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === +id);
+    
+    const [hoverValue,setHovervalue] = useState(undefined)
+
+    const stars = Array(5).fill(0);
+
+
 
     const handleclick = () => {
         if (isAddedToCart) {
@@ -174,6 +181,38 @@ const SerieDetail = () => {
                     url={
                         url
                     } controls={true} />
+            </div>
+
+            <div className={style.contenedores}>
+                { serie.Reviews && serie.Reviews.map((e,index)=>{
+                     return <div className={style.comentarios} key={index}>
+                            <div className={style.imagen} key={index}>
+                               <img src="https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png" width={30} height={30} />
+                            </div>
+                            <div>
+                           <p>{e.Usuario.nombre}  {e.Usuario.apellido}</p>
+                            <div className={style.stars} key={index}>
+                            {stars.map((_,index) => {
+                                
+                         {console.log(e.calificacion)}
+                         return (
+                            <FaStar key={index}
+                                    size={10}
+                                    style={{
+                                        marginRight: "10px",
+                                        cursor: "pointer"
+
+                                    }}
+                                    color={(hoverValue || e.calificacion) > index ? "orange": "black"}/>
+
+                         )
+                         
+                      })}
+                            </div>
+                           <p className={style.coment}>{e.comentario}</p>
+                           </div>
+                     </div>  
+                })}
             </div>
 
             <Footer />
