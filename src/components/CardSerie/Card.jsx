@@ -87,7 +87,7 @@ const Card = ({ image, id, price, name }) => {
           ))}
         </div> */}
       </div>
-      {isPurchased ? ( // Si es comprado, muestra "Ver Serie"
+      {isPurchased ? ( // Si es comprado, muestra "Ver Película"
       <Link to={`/detailSeries/${id}`}>
         <button className={style.ver}>Ver Serie</button>
       </Link>
