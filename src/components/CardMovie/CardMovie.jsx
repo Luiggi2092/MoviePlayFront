@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
+import { faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
