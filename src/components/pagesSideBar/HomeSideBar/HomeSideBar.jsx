@@ -149,7 +149,7 @@ const HomeSideBar = ()=> {
             data={data}
             options={{
               title: "Numero de Usuarios",
-              chartArea: { width: "80%" },
+              chartArea: { width: "70%" },
               hAxis: { title: "Meses", minValue: 0 },
               vAxis: { title: "N° Usuarios", minValue: 0 },
               legend: "none",

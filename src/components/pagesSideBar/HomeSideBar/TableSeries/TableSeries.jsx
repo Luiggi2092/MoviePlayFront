@@ -54,7 +54,7 @@ const tableSeries = ({Top5Ser}) => {
 
     return (
         <>
-    
+        <div className="table-container">
     <h4>Top 5 Series</h4>
     <table {...getTableProps()} className='table2' >
             <thead>
@@ -98,7 +98,7 @@ const tableSeries = ({Top5Ser}) => {
               
             </tbody>
           </table>
-
+        </div>
 
     
 
