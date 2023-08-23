@@ -72,19 +72,22 @@ const SerieDetail = () => {
     setIsScrolled(window.pageYOffset === 0 ? false : true);
     return () => (window.onscroll = null);
     }
-
+    
     const handleTemporada = (event) => {
         setTemporadaSelect(event.target.value)
+       
+        dispatch(getSeriesTempCat(id, event.target.value, capituloSelect))
     }
 
     const handleCapitulo = (event) => {
         setCapituloSelect(event.target.value)
+
+        dispatch(getSeriesTempCat(id, temporadaSelect, event.target.value))
     }
 
     
 
     useEffect(() => {
-        dispatch(getSeriesTempCat(id, temporadaSelect, capituloSelect))
         dispatch(getSeriesID(id));
         dispatch(fetchCartContent(user));
         dispatch(deleteSerieId());
