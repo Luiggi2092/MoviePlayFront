@@ -167,9 +167,9 @@ useEffect(() => {
       </div>
       <div className={style.Container}>
         <div className={style.peliculaContainer}>
-          {movies?.map((movie, index) => (
+          {movies?.map((movie) => (
             
-            <Card key={index} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
+            <Card key={movie.id} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
           ))}
           {Load == true && <Loading/> }
          </div>

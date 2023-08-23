@@ -68,15 +68,15 @@ const Sales = () => {
       chartType="PieChart"
       data={dataPie}
       options={optionsPie}
-      width={"100%"}
-      height={"300px"}
+      width={"80%"}
+      height={"270px"}
     />
     </div>
     <div className={style.barchart}>
     <Chart 
     chartType="Line"
-    width="500px"
-    height="400px"
+    width="300px"
+    height="200px"
     data={dataMovie}
     options={optionsBar}
   />
@@ -85,8 +85,8 @@ const Sales = () => {
   <div className={style.LinearChart}>
   <Chart
       chartType="LineChart"
-      width="1000px"
-      height="400px"
+      width="700px"
+      height="280px"
       data={dataVentasGastos}
       options={optionsVentasGastos}
     />

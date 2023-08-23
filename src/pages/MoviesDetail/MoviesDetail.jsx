@@ -34,30 +34,25 @@ const MoviesDetail = () => {
 
 
 
+      const [peliculaAgregada, setPeliculaAgregada] = useState(isAddedToCart)  
+
     const handleclick = () => {
         if (isAddedToCart) {
             dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
+            setPeliculaAgregada(false)
             Swal.fire({
                 title: `Artículo eliminado del carrito`,
                 icon: 'success'
             });
-
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
         
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
-
+            setPeliculaAgregada(true)
             Swal.fire({
                 title: `Artículo agregado al carrito`,
                 icon: 'success'
             });
-
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
         }
     };
 
