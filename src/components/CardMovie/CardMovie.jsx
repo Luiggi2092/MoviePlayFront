@@ -1,14 +1,15 @@
 import style from './card.module.css';
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie, fetchCartContent,AgregarAFavoritos } from '../../redux/actions';
+import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
+// import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Swal from 'sweetalert2';
 
-const Card = ({ id, image, price, name, movieRating }) => {
+const Card = ({ image, id, price, name }) => {
     const user = localStorage.getItem('email');
     const carrito = useSelector(state => state.carrito);
     const compras = useSelector(state => state.productosComprados);
@@ -16,42 +17,15 @@ const Card = ({ id, image, price, name, movieRating }) => {
     const peliculas = compras.peliculas;
     const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === id);
     const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
-    const [peliculaAgregada, setPeliculaAgregada] = useState(isAddedToCart)
     const dispatch = useDispatch();
-    const [lediClick,setleDiClick] = useState(false);
-    const propiedades = { id, price, name };
+    const propiedades = { image, id, price, name };
 
-    //const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
+
+    const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
     const rating = useSelector(state => state.movieRatings[id] || 0);
 
-    let emai = localStorage.getItem('email')
-
-
-    const [form,setForm]= useState({
-          email: "",
-          idMovie: ""
-    })
-
-
-    useEffect(()=> {
-         
-            
-        setForm({...form,email:emai,idMovie:id})
-        setleDiClick(false)
-        
-
-    },[] )
-
     const handleFavoriteClick = () => {
-        //dispatch(toggleFavorite(id));
-       // setleDiClick(true)
-        if(form.email &&
-           form.idMovie){
-             dispatch(AgregarAFavoritos(form))
-           }else{
-              console.log("algo paso");
-           }
-
+        dispatch(toggleFavorite(id));
     };
 
     const handleRating = newRating => {
@@ -59,27 +33,34 @@ const Card = ({ id, image, price, name, movieRating }) => {
     };
 
     const handleclick = () => {
-        if (peliculaAgregada) {
+        if (isAddedToCart) {
             dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
-            setPeliculaAgregada(false)
             Swal.fire({
                 title: `Artículo eliminado del carrito`,
                 icon: 'success'
             });
+
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
+        
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
-            setPeliculaAgregada(true)
+
             Swal.fire({
                 title: `Artículo agregado al carrito`,
                 icon: 'success'
             });
+
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 1500); // 1.5 segundos
         }
     };
 
-    useEffect(() => {
-    dispatch(fetchCartContent(user))
-    }, [isAddedToCart])
+    
+
 
     return (
         <div className={style.containerMax}>
@@ -88,28 +69,36 @@ const Card = ({ id, image, price, name, movieRating }) => {
             </Link>
             <div className={style.iconsContainer}>
                 <FontAwesomeIcon
-                    icon={faThumbsUp}
+                    icon={faHeartPulse} // Cambio a icono de pulgar arriba
                     className={style.icon}
                     onClick={handleFavoriteClick}
-                    //style={/*{ color: isFavorite ? 'red' : 'blue' }*/}
+                    style={{ color: isFavorite ? 'red' : 'blue' }}
                 />
+                {/* <div className={style.rating}>
+                    {[1, 2, 3, 4, 5].map(value => (
+                        <FontAwesomeIcon
+                            key={value}
+                            icon={faStar}
+                            className={style.ratingStar}
+                            style={{ color: value <= rating ? 'yellow' : 'blue' }}
+                            onClick={() => handleRating(value)}
+                        />
+                    ))}
+                </div> */}
             </div>
-            {isPurchased ? ( // Si es comprado, muestra "Ver Película"
-            <Link to={`/moviesdetail/${id}`}>
-                <button className={style.ver}>Ver Pelicula</button>
-            </Link>
+            {isAddedToCart ? (
+                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
+            ) : isPurchased ? (
+                <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver}>Ver Película</button>
+                </Link>
             ) : (
-                <button
-                className={peliculaAgregada  ? style.quitar : style.agg}// Usa className condicionalmente
-                onClick={handleclick}
-                >
-            {peliculaAgregada  ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
+                <button className={style.agg} onClick={handleclick}>
+                    ${price} - Agregar al Carrito
                 </button>
             )}
-            </div>
+        </div>
     );
 };
 
 export default Card;
-
-

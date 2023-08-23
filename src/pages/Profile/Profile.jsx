@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
-import { useDispatch , useSelector} from 'react-redux';
-import { todosLosProductosXidUser,ActPerfil} from '../../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { todosLosProductosXidUser, ActPerfil } from '../../redux/actions';
 import Modal from '../../components/ModalCalificar/ModalCalificar';
 import { Link } from 'react-router-dom';
 import axios from "axios";
@@ -15,9 +15,9 @@ const UPLOAD_PRESET = 'Products'
 
 const Profile = () => {
     const [isEditing, setIsEditing] = useState(false);
-    const [avance,setAvance] = useState(0);
-    const [openModal,setOpenModal] = useState(false);
-    const [idSerie,setIdSerie] = useState();
+    const [avance, setAvance] = useState(0);
+    const [openModal, setOpenModal] = useState(false);
+    const [idSerie, setIdSerie] = useState();
     const [idMovie, setIdMovie] = useState();
     const [profileImage, setProfileImage] = useState(
         localStorage.getItem('foto') ||
@@ -69,10 +69,10 @@ const Profile = () => {
              })
     }, []);
 
-    
+
     const idUser = localStorage.getItem('id')
 
-    useEffect(() => {    
+    useEffect(() => {
         dispatch(todosLosProductosXidUser(idUser))
     }, [])
 
@@ -81,7 +81,7 @@ const Profile = () => {
 
     const movies = productos.peliculas || []
 
-   const series = productos.series || []
+    const series = productos.series || []
 
 
 
@@ -98,11 +98,12 @@ const Profile = () => {
         // localStorage.setItem('country', country);
         if(form.nombre &&
            form.apellido &&
-           form.image ){
+           form.image && 
+           form.password){
              dispatch(ActPerfil(idUser,form))
            }
         setIsEditing(false); // Salir del modo de edición
-        
+
     };
 
     // const handleImageChange = (e) => {
@@ -111,49 +112,49 @@ const Profile = () => {
     //     localStorage.setItem('profileImage', newImage); 
     // };
 
-    const handleImagenUpload = async(event) => {
+    const handleImagenUpload = async (event) => {
         const file = event.target.files && event.target.files[0];
- 
+
         const formData = new FormData();
-        formData.append('file',file);
+        formData.append('file', file);
         formData.append('upload_preset', UPLOAD_PRESET);
- 
-        const res = await axios.post(url,formData,{
-           headers: {
-             'Content-Type' : 'multipart/formData'
-           },
-           onUploadProgress(e){
-             const progress = Math.round((100 * e.loaded || 1) / (e.total || 1));
-             setAvance(progress);  
-         }
+
+        const res = await axios.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/formData'
+            },
+            onUploadProgress(e) {
+                const progress = Math.round((100 * e.loaded || 1) / (e.total || 1));
+                setAvance(progress);
+            }
         });
         console.log(res);
-        setForm({...form,image: res.data.secure_url})
-     };
-      
+        setForm({ ...form, image: res.data.secure_url })
+    };
+
 
 
     const handleModal = (id) => {
-       
-         setIdMovie(id)
+
+        setIdMovie(id)
         setOpenModal(!openModal)
     }
 
 
     const handleModalSer = (id) => {
-       
+
         setIdSerie(id)
-       setOpenModal(!openModal);
-    
+        setOpenModal(!openModal);
+
     }
 
 
     const HandleChange = (event) => {
- 
-       const  property = event.target.name
-       const  value = event.target.value
 
-        setForm({...form,[property]:value})
+        const property = event.target.name
+        const value = event.target.value
+
+        setForm({ ...form, [property]: value })
 
 
     }
@@ -171,7 +172,7 @@ const Profile = () => {
                             alt='Profile'
                             name="image"
                             onChange={HandleChange}
-                            //onClick={isEditing ? () => document.getElementById('profile-image-input').click() : null}
+                        //onClick={isEditing ? () => document.getElementById('profile-image-input').click() : null}
                         />
                         {isEditing && (
                             <input
@@ -184,8 +185,8 @@ const Profile = () => {
                         )}
                     </label>
                     <div className="progress">
-                    <progress value={avance} max={100} id="progress-bar" />
-                    <br/>
+                        <progress value={avance} max={100} id="progress-bar" />
+                        <br />
                     </div>
                     <div className='containerInputs'>
                         {/* <h5>Alias</h5>
@@ -246,7 +247,7 @@ const Profile = () => {
                             //onChange={(e) => setCountry(e.target.value)}
                             disabled={!isEditing}
                         />
-                        
+
                     </div>
 
                     <div className='buttPerf'>
@@ -265,34 +266,34 @@ const Profile = () => {
                             </button>
                         )}
                     </div>
-                        <h1 className='conth1'>Mis Compras</h1>
-                         <Modal openModal={openModal} cambiarEstado={setOpenModal} idUser={idUser} idMov={idMovie} idSer={idSerie} ></Modal>
+                    <h1 className='conth1'>Mis Compras</h1>
+                    <Modal openModal={openModal} cambiarEstado={setOpenModal} idUser={idUser} idMov={idMovie} idSer={idSerie} ></Modal>
                     <div className='container-compras'>
                         <div className='purchase-carousel'>
-                        {movies.length > 0 && movies.map((purchase) => (
-                            <div key={purchase.id} className='purchase-card'>
-                                <Link to={`/moviesdetail/${purchase.id}`}>
-                                    <img src={purchase.image} />
-                                    <h3 className='h3'>{purchase.name}</h3>
+                            {movies.length > 0 && movies.map((purchase) => (
+                                <div key={purchase.id} className='purchase-card'>
+                                    <Link to={`/moviesdetail/${purchase.id}`}>
+                                        <img src={purchase.image} />
+                                        <h3 className='h3'>{purchase.name}</h3>
                                     </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Pelicula</p>
                                     <button className='boton' onClick={() => handleModal(purchase.id)}>Calificar</button>
                                 </div>
                             ))}
-                        {series.length > 0 &&series.map((purchase) => (
+                            {series.length > 0 && series.map((purchase) => (
                                 <div key={purchase.id} className='purchase-card'>
                                     <Link to={`/detailSeries/${purchase.id}`}>
-                                    <img src={purchase.image} />
-                                    <h3 className='h3'>{purchase.name}</h3>
+                                        <img src={purchase.image} />
+                                        <h3 className='h3'>{purchase.name}</h3>
                                     </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Serie</p>
-                                    <button className='boton' onClick={ () => handleModalSer(purchase.id)}>Calificar</button>
+                                    <button className='boton' onClick={() => handleModalSer(purchase.id)}>Calificar</button>
                                 </div>
                             ))}
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -301,6 +302,9 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
+
 
 
 
