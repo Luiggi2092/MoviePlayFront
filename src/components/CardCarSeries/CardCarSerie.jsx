@@ -20,11 +20,7 @@ const CardCarSerie = (props) => {
 
         Swal.fire({
             title:`Artículo eliminado carrito`,
-             icon:'success'});
-        
-             setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos      
+             icon:'success'});   
     }
 
     return(
