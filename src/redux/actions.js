@@ -48,6 +48,8 @@ export const TODAS_LAS_COMPRAS = "TODAS_LAS_COMPRAS"
 export const ACTSER = "ACTSER"
 export const ALLSERNAME = "ALLSERNAME"
 export const EMAILSUS = "EMAILSUS"
+export const FAVOS = "FAVOS"
+export const OBFAV = "OBFAV"
 
 export const toggleFavorite = (movieId) => ({
     type: TOGGLE_FAVORITE,
@@ -746,4 +748,40 @@ export const ActPerfil =(id,form)=> {
     }
     
    
+}
+
+
+export const AgregarAFavoritos = (form)=> {
+   
+    return async function (dispatch){
+      
+      try{
+      const ADDFAV = await axios.post(`/favs`,form);
+      console.log(ADDFAV);
+      dispatch({type: FAVOS,payload: ADDFAV})
+
+      }catch(error){
+
+        Swal.fire({
+          title:`${error.response.data.error}`,
+           icon:'error',
+           confirmButtonText:'Ok'});
+  
+      }
+  
+         
+      }
+
+    }
+
+export const ObtenerFavoritos = (email) => {
+
+    return async function(dispatch){
+
+      const ObFav = (await axios.get(`/favs?email=${email}`)).data.Multimedia;
+      console.log(ObFav)
+      dispatch({type: OBFAV, payload: ObFav})      
+    }
+
+
 }

@@ -42,6 +42,8 @@ import {GET_GENEROS,
         ACTSER,
         ALLSERNAME,
         EMAILSUS,
+        FAVOS,
+        OBFAV
         } from "./actions" 
 
 
@@ -94,6 +96,9 @@ const initialState = {
      comprasAdmin:[],
      AllNameSer:[],
      EmailSUSCRIPTO:"",
+     FAV:[],
+     GETFAV:[],
+     
 
 
 }
@@ -340,6 +345,17 @@ return {
                 ...state,
                 EmailSUSCRIPTO:action.payload
             }
+         case FAVOS: 
+            return {
+                 ...state,
+                 FAV:action.payload
+            }
+         case OBFAV:
+              return {
+                ...state,
+                GETFAV:action.payload
+
+              }
         default:
             return {...state}
     }

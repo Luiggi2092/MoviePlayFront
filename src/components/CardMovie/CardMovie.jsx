@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie, fetchCartContent } from '../../redux/actions';
+import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie, fetchCartContent,AgregarAFavoritos } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -18,13 +18,40 @@ const Card = ({ id, image, price, name, movieRating }) => {
     const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
     const [peliculaAgregada, setPeliculaAgregada] = useState(isAddedToCart)
     const dispatch = useDispatch();
+    const [lediClick,setleDiClick] = useState(false);
     const propiedades = { id, price, name };
 
-    const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
+    //const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
     const rating = useSelector(state => state.movieRatings[id] || 0);
 
+    let emai = localStorage.getItem('email')
+
+
+    const [form,setForm]= useState({
+          email: "",
+          idMovie: ""
+    })
+
+
+    useEffect(()=> {
+         
+            
+        setForm({...form,email:emai,idMovie:id})
+        setleDiClick(false)
+        
+
+    },[] )
+
     const handleFavoriteClick = () => {
-        dispatch(toggleFavorite(id));
+        //dispatch(toggleFavorite(id));
+       // setleDiClick(true)
+        if(form.email &&
+           form.idMovie){
+             dispatch(AgregarAFavoritos(form))
+           }else{
+              console.log("algo paso");
+           }
+
     };
 
     const handleRating = newRating => {
@@ -64,7 +91,7 @@ const Card = ({ id, image, price, name, movieRating }) => {
                     icon={faThumbsUp}
                     className={style.icon}
                     onClick={handleFavoriteClick}
-                    style={{ color: isFavorite ? 'red' : 'blue' }}
+                    //style={/*{ color: isFavorite ? 'red' : 'blue' }*/}
                 />
             </div>
             {isPurchased ? ( // Si es comprado, muestra "Ver Película"
