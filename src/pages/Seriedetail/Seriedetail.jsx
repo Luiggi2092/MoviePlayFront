@@ -112,7 +112,7 @@ const SerieDetail = () => {
                             <p>{serie?.yearEstreno}</p>
                         </div>
                         <div>
-                            <span>Descripcion</span>
+                            <span>Descripción</span>
                             <p>{serie?.descripcion}</p>
                         </div>
                         <div>
@@ -120,11 +120,11 @@ const SerieDetail = () => {
                             <p>{actores}</p>
                         </div>
                         <div>
-                            <span>Generos</span>
+                            <span>Géneros</span>
                             <p>{generos}</p>
                         </div>
                         <div>
-                            <span>Titulo del Episodio</span>
+                            <span>Título del Episodio</span>
                             <p>{tituloepi}</p>
                         </div>
                     </div>
@@ -155,7 +155,7 @@ const SerieDetail = () => {
                     </select>
                 </div>
                 <div className={style.divCap}>
-                    <p >CAPITULO</p>
+                    <p >CAPÍTULO</p>
                     <select className={style.selectDetail} value={capituloSelect} onChange={handleCapitulo}>
                         {
                             capitulo?.map((c) => <option key={c} value={c}>Capitulo {c}</option>)

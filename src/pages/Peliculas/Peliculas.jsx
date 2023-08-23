@@ -122,7 +122,7 @@ useEffect(() => {
   
     <section className={style.containerMax}>
       <Navbar isScrolled={isScrolled} /> 
-      <h1 className={style.allmovies}>Todas las peliculas</h1>
+      <h1 className={style.allmovies}>Todas las películas</h1>
       <div className={style.filters}>
         <div>
             <span>Categoría</span>

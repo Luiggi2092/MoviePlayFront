@@ -89,7 +89,7 @@ const MoviesDetail = () => {
                         <p>{peliculaid.description}</p>
                     </div>                    
                     <div>
-                        <span>Genero</span>
+                        <span>Género</span>
                         <p>
                         {peliculaid.Genres &&
                         peliculaid.Genres.map((genre) => genre.name).join(', ')}
@@ -97,7 +97,7 @@ const MoviesDetail = () => {
                         
                     </div>
                     <div>
-                        <span>Duracion</span>
+                        <span>Duración</span>
                         <p>{peliculaid.time} minutos</p>
                     </div>
                     

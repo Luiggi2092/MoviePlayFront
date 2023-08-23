@@ -132,7 +132,7 @@ const Landing = () => {
 
     <div>
       <div className={style.div3}>
-        <h2 className={style.title2}>Descarga tus series para verlas siempre</h2>
+        <h2 className={style.title2}>Descarga tus series y películas para verlas siempre</h2>
         <h4>Ingresa tu email para crear una cuenta</h4>
           <input className={`${style.input} ${isEmailValid ? '' : style.invalidInput}`} type="text" placeholder='' value={emailSus} onChange={handleEmailChange} />
           {errorMessage && <p className={style.errorMessage}>{errorMessage}</p>}
@@ -173,18 +173,18 @@ const Landing = () => {
 
     <div className={style.imageContainer}>
        <img src={img8} alt="Gonzalo.jpeg" className={style.img0} />
-      <p className={style.name}>Gonzalo Fernandez <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+      <p className={style.name}>Gonzalo Fernandez <br></br><span className={style.spandd}>Desarrollador Full Stack (Backend)</span></p>
             </div> 
 
 
     <div className={style.imageContainer}>
        <img src={img10} alt="david.jpeg" className={style.img0} />
-      <p className={style.name}>David Tealdi<br></br><span className={style.spandd}>Desarrollador Full Stack (Fronted)</span></p>
+      <p className={style.name}>David Tealdi<br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend)</span></p>
             </div> 
 
     <div className={style.imageContainer}>
        <img src={img1} alt="camilop.jpeg" className={style.img0} />
-          <p className={style.name}>Camilo Parada <br></br><span className={style.spandd}>Desarrollador Full Stack ("")</span></p>
+          <p className={style.name}>Camilo Parada <br></br><span className={style.spandd}>Desarrollador Full Stack (Frontend-Backend)</span></p>
       </div>
 
       </div>

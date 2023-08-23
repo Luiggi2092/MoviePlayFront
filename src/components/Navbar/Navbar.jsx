@@ -30,7 +30,7 @@ const Navbar = ({ isScrolled }) => {
   
   const links = [
     { name: 'Home', link: '/home', icon: <FiHome /> },
-    { name: 'Peliculas', link: '/peliculas', icon: <FiFilm /> },
+    { name: 'Películas', link: '/peliculas', icon: <FiFilm /> },
     { name: 'Series', link: '/series', icon: <FiTv /> },
     { name: 'Mi Lista', link: '/favoritos', icon: <FiStar /> },
   ];
@@ -145,7 +145,7 @@ useEffect(() => {
           <div className={`profile-menu ${showProfileMenu ? 'show' : ''}`}>
             <Link to="/profile" >Perfil</Link>
             <Link to='/'> 
-            <button onClick={cerrarSesion}>Cerrar Sesion</button>
+            <button onClick={cerrarSesion}>Cerrar Sesión</button>
             </Link>
           </div>
         </div>

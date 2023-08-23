@@ -74,7 +74,7 @@ const Home = () => {
       <div className='main'>
         
             <div>
-              <h3 className='h3peliculas'>Peliculas y Series Online</h3>
+              <h3 className='h3peliculas'>Películas y Series Online</h3>
             </div>
          <div className='containerCard'>
           
@@ -89,7 +89,7 @@ const Home = () => {
           )).slice(0,cantCard)}
           {listaTodo?.length == 0 && <Loading/>}
             
-          {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
+          {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Más</button>}
         </div>
         
       </div>
