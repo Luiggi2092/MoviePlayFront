@@ -180,7 +180,7 @@ useEffect(() => {
               className={style.but}
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-            >Prev</button>
+            >Ant</button>
             {itemsPage.map((item) => 
             <button
             key={item.key}
@@ -196,7 +196,7 @@ useEffect(() => {
               className={style.but}
               onClick={handleNextPage}
               disabled={currentPage === infoPage}
-            >Next</button>
+            >Sig</button>
           
           </div>
         </div>
