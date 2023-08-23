@@ -153,3 +153,51 @@ display: flex;
     flex-direction: column;
   }
 }
+
+
+
+.comentarios {
+   
+  background-color: #fff;
+  width: 60%;
+  height: 100px;
+  border-radius: 10px;
+ 
+ 
+}
+
+.comentarios p {
+   color:black
+}
+
+.comentarios{
+   padding: 10px;
+
+}
+
+.imagen {
+    float: left;
+    padding-right: 15px;
+}
+
+
+.contenedores{
+ /* display: flex;
+ align-items: center;
+ justify-content: center;
+ padding: 20px 5px; */
+ display: grid;
+ grid-template-columns: repeat(1, 1fr); /* Cambia el número de columnas según sea necesario */
+ gap: 10px;
+ place-items: center;
+ position: relative;
+ bottom: 150px;
+
+
+}
+
+.coment{
+ position: relative;
+ left:45px;
+ top:5px;
+}

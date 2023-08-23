@@ -54,7 +54,7 @@ const MantenerSeries = ()=> {
     
     setAccionOcurrida(true);
     setidSerie(row.original.id)
-    dispatch(ActivarDesactivarSeries(row.original.id));
+    dispatch(ActivarDesactivarSeries(row.original.id,page));
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
         
     dispatch(getTodoFillCleanAdm());
@@ -68,7 +68,7 @@ const MantenerSeries = ()=> {
     setAccionOcurrida(true);
     
     setidSerie(row.original.id)
-    dispatch(ActivarDesactivarSeries(row.original.id));
+    dispatch(ActivarDesactivarSeries(row.original.id,page));
     
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
           
@@ -175,7 +175,7 @@ const MantenerSeries = ()=> {
           <button onClick={handleModalSerie} >Nueva Serie</button>
           <button onClick={handleModalEpisodio}>Agregar Episodios</button>
           </div>
-          <Modal  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie}></Modal>
+          <Modal  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie} page={page}></Modal>
           <ModalEdit openModalSerieEdit={openModalSerieEdit} cambiarEstadoSerie={setopenModalSerieEdit} idSerie={idSerie > 0 ? idSerie : 1} page={page}></ModalEdit>   
           <ModalEpi openModalEpi={openModalEpi} cambiarEstado={setOpenModalEpi}></ModalEpi>
           <br/>

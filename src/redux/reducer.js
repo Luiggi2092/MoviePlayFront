@@ -167,7 +167,9 @@ return {
     case GETSEARCHBARCLEAN:
         return {...state, TodoFill: action.payload}  
     case POST_SERIE:
-         return {...state, NewSerie: action.payload}   
+         return {...state, 
+              NewSerie :action.payload.data1,
+              Series : action.payload.data2}   
     case CLEAR_MOVIE_ID:
          return { ...state, MovieId: [] }
     case GET_SERIES_ID: {

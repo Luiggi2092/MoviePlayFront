@@ -75,6 +75,7 @@ const AccessPage = () => {
                 localStorage.setItem('State', 'true')
                 localStorage.setItem('Token', data.token)
                 localStorage.setItem('recargado', 'no')
+                localStorage.setItem('apellido',data.apellido)
                 
                 
                 setInput({
@@ -130,6 +131,7 @@ const AccessPage = () => {
             localStorage.setItem('id', data.login.id);
             localStorage.setItem('State', 'true')
             localStorage.setItem('recargado', 'no')
+            localStorage.setItem('apellido',data.login.apellido)
 
             setInput({
                 email: '',

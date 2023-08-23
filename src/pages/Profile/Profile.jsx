@@ -45,6 +45,7 @@ const Profile = () => {
          'https://media.istockphoto.com/id/500620030/es/vector/dibujos-animados-cara-con-entusiasmo-la-expresi%C3%B3n.jpg?s=612x612&w=0&k=20&c=fSHO3HwsT-afQGZb01hSgxGJeKILxXjUWklyTSMwSsc=',
          nombre:"",
          apellido:"",
+         email:"",
          password: ""
     })
 
@@ -58,6 +59,14 @@ const Profile = () => {
         if (storedImage) {
             setProfileImage(storedImage);
         }
+
+        setForm({...form,
+              image: localStorage.getItem('profileImage'),
+              nombre: localStorage.getItem('name'),
+              apellido: localStorage.getItem('apellido'),
+              email: localStorage.getItem('email')
+
+             })
     }, []);
 
     
@@ -89,8 +98,7 @@ const Profile = () => {
         // localStorage.setItem('country', country);
         if(form.nombre &&
            form.apellido &&
-           form.image && 
-           form.password){
+           form.image ){
              dispatch(ActPerfil(idUser,form))
            }
         setIsEditing(false); // Salir del modo de edición
@@ -193,6 +201,7 @@ const Profile = () => {
                             type='text'
                             placeholder='Nombre'
                             name="nombre"
+                            value={form.nombre}
                             onChange={HandleChange}
                             disabled={!isEditing}
                         />
@@ -201,6 +210,7 @@ const Profile = () => {
                             type='text'
                             placeholder='Apellido'
                             name="apellido"
+                            value={form.apellido}
                             onChange={HandleChange}
                             disabled={!isEditing}
                         />
@@ -216,7 +226,7 @@ const Profile = () => {
                         <input
                             type='text'
                             placeholder='Email'
-                            //value={email}
+                            value={form.email}
                             //onChange={(e) => setEmail(e.target.value)}
                             disabled={!isEditing}
                         />
