@@ -48,6 +48,8 @@ export const TODAS_LAS_COMPRAS = "TODAS_LAS_COMPRAS"
 export const ACTSER = "ACTSER"
 export const ALLSERNAME = "ALLSERNAME"
 export const EMAILSUS = "EMAILSUS"
+export const FAVOS = "FAVOS"
+export const OBFAV = "OBFAV"
 
 export const toggleFavorite = (movieId) => ({
     type: TOGGLE_FAVORITE,
@@ -155,14 +157,17 @@ export const getSeries = ()=> {
 }
 
 
-export const postSerie =(Serie)=>{
+export const postSerie =(Serie,page)=>{
     return async function (dispatch){
 
         try {
             
         const PostSerie = await axios.post(`/series/series`,Serie);
+        const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos;
+      
+        
         console.log(PostSerie)
-        dispatch({type: POST_SERIE,payload: PostSerie});
+        dispatch({type: POST_SERIE,payload: {data1:PostSerie,data2:ser}});
           Swal.fire({
           title:`La Serie o Episodio se Creo con Exito`,
            icon:'success',
@@ -188,7 +193,6 @@ export const clearMovieId = () => {
 export const getSeriesID = (id, temp, capit)=> {
   return async function (dispatch){
     const seriesId = (await axios.get(`/media/series/${id}`)).data;
-     console.log(seriesId)
     // Utilizamos un objeto para almacenar las temporadas únicas
     const temporadasUnicas = {};
     // Utilizamos reduce para contar las temporadas únicas
@@ -290,7 +294,6 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
   try {
     if(!idSerie){
       const response = await axios.post(`/carroCompra`,{emailUsuario, idMovie});
-      console.log(response)
       dispatch({ type: ADD_TO_CART, payload: response.data }); 
       const state = getState();
         const newCartCount = state.cartCount + 1;
@@ -329,12 +332,13 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
 //   };
 // };
 
-export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
+export const addToCartAndSaveDetailsMovie = (productDetails) => async (dispatch) => {
   // const state = getState();
   // const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
 
   // if (!existingProduct) {
-    dispatch(addToCart(usuario, null, productDetails.id));
+    await dispatch(addToCart(usuario, null, productDetails.id));
+    await dispatch(fetchCartContent(usuario))
     // dispatch(saveIdToSavesMovie(productDetails.id));
 
     // const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
@@ -364,12 +368,13 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 //   };
 // };
 
-export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
+export const addToCartAndSaveDetailsSerie = (productDetails) => async (dispatch) => {
   // const state = getState();
   // const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
   
   // if (!existingProduct) {
-    dispatch(addToCart(usuario, productDetails.id, null));
+    await dispatch(addToCart(usuario, productDetails.id, null));
+    await dispatch(fetchCartContent(usuario))
     // dispatch(saveIdToSavesSerie(productDetails.id));
     
     // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
@@ -456,7 +461,8 @@ export const fetchCartContent = (email) => async (dispatch) => {
 
 export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(usuario, null, productId));   
+    await dispatch(removeFromCart(usuario, null, productId)); 
+    await dispatch(fetchCartContent(usuario))  
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
       payload: productId,
@@ -469,7 +475,7 @@ export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatc
 export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch) => {
   try {
     await dispatch(removeFromCart(usuario, productId, null)); 
-    
+    await dispatch(fetchCartContent(usuario))
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
       payload: productId,
@@ -580,13 +586,14 @@ export const getUserAdmin = (busqueda) => {
 } 
 
 
-export const ActivarDesactivarSeries = (id)=> {
+export const ActivarDesactivarSeries = (id,page)=> {
    return async function (dispatch) {
 
     try{
      const banserie = await axios.put(`/admin/disableSeries/${id}`);
     //  console.log(banserie);
-     dispatch({type: BAN_SERIE, payload: banserie});
+    const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos;
+     dispatch({type: BAN_SERIE, payload: {data1:banserie,data2:ser}});
      Swal.fire({
       title:`${banserie.data.message}`,
        icon:'success',
@@ -741,4 +748,40 @@ export const ActPerfil =(id,form)=> {
     }
     
    
+}
+
+
+export const AgregarAFavoritos = (form)=> {
+   
+    return async function (dispatch){
+      
+      try{
+      const ADDFAV = await axios.post(`/favs`,form);
+      console.log(ADDFAV);
+      dispatch({type: FAVOS,payload: ADDFAV})
+
+      }catch(error){
+
+        Swal.fire({
+          title:`${error.response.data.error}`,
+           icon:'error',
+           confirmButtonText:'Ok'});
+  
+      }
+  
+         
+      }
+
+    }
+
+export const ObtenerFavoritos = (email) => {
+
+    return async function(dispatch){
+
+      const ObFav = (await axios.get(`/favs?email=${email}`)).data.Multimedia;
+      console.log(ObFav)
+      dispatch({type: OBFAV, payload: ObFav})      
+    }
+
+
 }

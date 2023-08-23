@@ -2,9 +2,10 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch,useSelector} from "react-redux"
-import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie} from "../../redux/actions";
+import {getSeriesID, deleteSerieId, getSeriesTempCat, addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, fetchCartContent, todosLosProductosXidUser} from "../../redux/actions";
 import ReactPlayer from 'react-player/youtube'
 import Swal from 'sweetalert2'
+import { FaStar } from "react-icons/fa"
 import style from './seriedetail.module.css'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer";
@@ -34,34 +35,33 @@ const SerieDetail = () => {
     const compras = useSelector(state => state.productosComprados)
     const seriesCarrito = carrito.Series
     const seriesCompradas = compras.series
+    const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);   
+    const isPurchased = seriesCarrito && seriesCompradas.some(producto => producto.id === +id)
+    const [serieAgregada, setSerieAgregada] = useState(isAddedToCart)
+    const idUser = localStorage.getItem('id')
+    
+    const [hoverValue,setHovervalue] = useState(undefined)
 
-    const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === +id);
-    const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === +id);
+    const stars = Array(5).fill(0);
+
+
 
     const handleclick = () => {
         if (isAddedToCart) {
             dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
+            setSerieAgregada(false)
             Swal.fire({
                 title: `Artículo eliminado del carrito`,
                 icon: 'success'
             });
-    
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
-        
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
-    
+            setSerieAgregada(true)
             Swal.fire({
                 title: `Artículo agregado al carrito`,
                 icon: 'success'
-            });
-    
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
+            });    
         }
     };
     
@@ -85,16 +85,11 @@ const SerieDetail = () => {
 
     useEffect(() => {
         dispatch(getSeriesTempCat(id, temporadaSelect, capituloSelect))
-    }, [temporadaSelect, capituloSelect])
-
-
-    useEffect(() => {
-        dispatch(getSeriesID(id))
-
-        return () => {
-            dispatch(deleteSerieId())
-        } 
-    }, [])
+        dispatch(getSeriesID(id));
+        dispatch(fetchCartContent(user));
+        dispatch(deleteSerieId());
+        dispatch(todosLosProductosXidUser(idUser))
+    }, [dispatch])
 
 
     return (
@@ -174,6 +169,37 @@ const SerieDetail = () => {
                     url={
                         url
                     } controls={true} />
+            </div>
+
+            <div className={style.contenedores}>
+                { serie.Reviews && serie.Reviews.map((e,index)=>{
+                     return <div className={style.comentarios} key={index}>
+                            <div className={style.imagen} key={index}>
+                               <img src="https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png" width={30} height={30} />
+                            </div>
+                            <div>
+                           <p>{e.Usuario.nombre}  {e.Usuario.apellido}</p>
+                            <div className={style.stars} key={index}>
+                            {stars.map((_,index) => {
+                                
+                         return (
+                            <FaStar key={index}
+                                    size={10}
+                                    style={{
+                                        marginRight: "10px",
+                                        cursor: "pointer"
+
+                                    }}
+                                    color={(hoverValue || e.calificacion) > index ? "orange": "black"}/>
+
+                         )
+                         
+                      })}
+                            </div>
+                           <p className={style.coment}>{e.comentario}</p>
+                           </div>
+                     </div>  
+                })}
             </div>
 
             <Footer />

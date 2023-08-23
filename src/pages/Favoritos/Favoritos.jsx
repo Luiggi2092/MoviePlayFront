@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import CardMovie from '../../components/CardMovie/CardMovie';
 import Card from '../../components/CardSerie/Card';
 import style from './favoritos.module.css'
@@ -7,14 +7,23 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
+import {ObtenerFavoritos} from "../../redux/actions"
 
 const Favoritos = () => {
 
-  const favoriteMovies = useSelector(state => state.favoriteMovies);
-  const movieRatings = useSelector(state => state.movieRatings);
+  const favoriteMovies = useSelector(state => state.GETFAV);
+  //const movieRatings = useSelector(state => state.OBFAV);
   const storedFavorites = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
+  const dispatch = useDispatch();
+  //const allFavorites = [...new Set([...storedFavorites, ...favoriteMovies])];
 
-  const allFavorites = [...new Set([...storedFavorites, ...favoriteMovies])];
+  const email= localStorage.getItem('email')
+  
+  useEffect(()=> {
+    dispatch(ObtenerFavoritos(email))
+  },[])
+
+
 
   const settings = {
     dots: false,
@@ -24,25 +33,17 @@ const Favoritos = () => {
     slidesToScroll: 5,
   };
 
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem('favoriteMovies');
-    if (storedFavorites) {
-      const parsedFavorites = JSON.parse(storedFavorites);
-    }
-  }, []);
 
   return (
     <div className={style.favorites}>
       <h1 className={style.h1Fav}>Favoritos</h1>
       <Link className={style.barra} to="/home"> ← </Link> 
       <div className={style.containFav}>
-        <Slider {...settings}>
-          {favoriteMovies.map(movieId => (
-            <div key={movieId} className={style.cardSlide}>
-              <CardMovie id={movieId} movieId={movieId} rating={movieRatings[movieId]} />
+          {favoriteMovies.length > 0 && favoriteMovies.map((movieId,index) => (
+            <div key={index} className={style.cardSlide}>
+              <CardMovie id={movieId.id} image={movieId.image} tipo={movieId.tipo} price={movieId.price}   />
             </div>
           ))}
-        </Slider>
       </div>
     </div>
   );

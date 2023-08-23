@@ -2,12 +2,14 @@ import style from './card.module.css';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
-import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie } from '../../redux/actions';
+import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
+// import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
+
 import Swal from 'sweetalert2';
 
-const Card = ({ id, image, price, name, movieRating }) => {
+const Card = ({ image, id, price, name }) => {
     const user = localStorage.getItem('email');
     const carrito = useSelector(state => state.carrito);
     const compras = useSelector(state => state.productosComprados);
@@ -16,7 +18,8 @@ const Card = ({ id, image, price, name, movieRating }) => {
     const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === id);
     const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
     const dispatch = useDispatch();
-    const propiedades = { id, price, name };
+    const propiedades = { image, id, price, name };
+
 
     const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
     const rating = useSelector(state => state.movieRatings[id] || 0);
@@ -40,6 +43,7 @@ const Card = ({ id, image, price, name, movieRating }) => {
             setTimeout(() => {
                 window.location.reload(false);
             }, 1500); // 1.5 segundos
+        
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
@@ -55,6 +59,9 @@ const Card = ({ id, image, price, name, movieRating }) => {
         }
     };
 
+    
+
+
     return (
         <div className={style.containerMax}>
             <Link to={`/moviesdetail/${id}`}>
@@ -62,17 +69,28 @@ const Card = ({ id, image, price, name, movieRating }) => {
             </Link>
             <div className={style.iconsContainer}>
                 <FontAwesomeIcon
-                    icon={faThumbsUp}
+                    icon={faHeartPulse} // Cambio a icono de pulgar arriba
                     className={style.icon}
                     onClick={handleFavoriteClick}
                     style={{ color: isFavorite ? 'red' : 'blue' }}
                 />
+                {/* <div className={style.rating}>
+                    {[1, 2, 3, 4, 5].map(value => (
+                        <FontAwesomeIcon
+                            key={value}
+                            icon={faStar}
+                            className={style.ratingStar}
+                            style={{ color: value <= rating ? 'yellow' : 'blue' }}
+                            onClick={() => handleRating(value)}
+                        />
+                    ))}
+                </div> */}
             </div>
             {isAddedToCart ? (
                 <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
             ) : isPurchased ? (
                 <Link to={`/moviesdetail/${id}`}>
-                    <button className={style.ver}>Ver Película</button>
+                <button className={style.ver}>Ver Película</button>
                 </Link>
             ) : (
                 <button className={style.agg} onClick={handleclick}>
@@ -84,5 +102,3 @@ const Card = ({ id, image, price, name, movieRating }) => {
 };
 
 export default Card;
-
-

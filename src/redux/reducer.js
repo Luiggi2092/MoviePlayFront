@@ -42,6 +42,8 @@ import {GET_GENEROS,
         ACTSER,
         ALLSERNAME,
         EMAILSUS,
+        FAVOS,
+        OBFAV
         } from "./actions" 
 
 
@@ -94,6 +96,9 @@ const initialState = {
      comprasAdmin:[],
      AllNameSer:[],
      EmailSUSCRIPTO:"",
+     FAV:[],
+     GETFAV:[],
+     
 
 
 }
@@ -167,7 +172,9 @@ return {
     case GETSEARCHBARCLEAN:
         return {...state, TodoFill: action.payload}  
     case POST_SERIE:
-         return {...state, NewSerie: action.payload}   
+         return {...state, 
+              NewSerie :action.payload.data1,
+              Series : action.payload.data2}   
     case CLEAR_MOVIE_ID:
          return { ...state, MovieId: [] }
     case GET_SERIES_ID: {
@@ -338,6 +345,17 @@ return {
                 ...state,
                 EmailSUSCRIPTO:action.payload
             }
+         case FAVOS: 
+            return {
+                 ...state,
+                 FAV:action.payload
+            }
+         case OBFAV:
+              return {
+                ...state,
+                GETFAV:action.payload
+
+              }
         default:
             return {...state}
     }

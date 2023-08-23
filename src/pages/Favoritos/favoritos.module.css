@@ -1,9 +1,10 @@
 /* favoritos.module.css */
 .favorites {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+  
+    display: grid;
+    grid-template-columns: repeat(1, 4fr); /* Cambia el número de columnas según sea necesario */
+    gap: 10px;
+    place-items: center;
 }
 
 .barra {

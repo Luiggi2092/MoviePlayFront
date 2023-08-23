@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faThumbsUp } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
+import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
 import { toggleFavorite, rateMovie } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todosLosProductosXidUser, fetchCartContent} from '../../redux/actions';
@@ -35,15 +35,11 @@ const Card = ({ image, id, price, name }) => {
   const seriesCompradas = compras.series
   const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === id);
   const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === id);
-  const [buttonStateAdd, setButtonStateAdd] = useState(false);
-  const [buttonStateRemove, setButtonStateRemove] = useState(false);
   const [serieAgregada, setSerieAgregada] = useState(isAddedToCart)
 
   const handleclick = () => {
-    if (isAddedToCart) {
+    if (serieAgregada) {
       dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
-      setButtonStateRemove(true)
-      setButtonStateAdd(false)
       setSerieAgregada(false)
       Swal.fire({
         title: `Artículo eliminado del carrito`,
@@ -52,39 +48,19 @@ const Card = ({ image, id, price, name }) => {
 
     } else {
       // Producto no en el carrito ni comprado, agregar al carrito
-      dispatch(addToCartAndSaveDetailsSerie(propiedades, user));
-      setButtonStateAdd(true)
-      setButtonStateRemove(false)
+      dispatch(addToCartAndSaveDetailsSerie(propiedades, user));      
       setSerieAgregada(true)
       Swal.fire({
         title: `Artículo agregado al carrito`,
         icon: 'success'
       });
-
     }
   };
-
   
-
-  useEffect(() => {
-    if (buttonStateAdd) {
-      dispatch(todosLosProductosXidUser(idUser))
-        dispatch(addToCartAndSaveDetailsSerie(propiedades, user))
-        dispatch(fetchCartContent(user));
-        setButtonStateRemove(false);
-      
-    }
-  }, [buttonStateAdd]);
-
-  useEffect(() => {
-    if(buttonStateRemove){      
-      dispatch(removeFromCartAndRemoveDetailsSerie(id, user))
-      dispatch(todosLosProductosXidUser(idUser))
-      dispatch(fetchCartContent(user))
-      setButtonStateAdd(false)
-    }
-
-  },[buttonStateRemove])
+  //use Effect
+ useEffect(() => {
+  dispatch(fetchCartContent(user))
+ }, [isAddedToCart])
 
 
   return (
@@ -94,7 +70,7 @@ const Card = ({ image, id, price, name }) => {
       </Link>
       <div className={style.iconsContainer}>
         <FontAwesomeIcon
-          icon={faThumbsUp} // Cambio a icono de pulgar arriba
+          icon={faHeartPulse} // Cambio a icono de pulgar arriba
           className={style.icon}
           onClick={handleFavoriteClick}
           style={{ color: isFavorite ? 'red' : 'blue' }}

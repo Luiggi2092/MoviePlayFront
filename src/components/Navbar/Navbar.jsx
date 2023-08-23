@@ -95,12 +95,17 @@ const Navbar = ({ isScrolled }) => {
     setShowProfileMenu(!showProfileMenu);
   };
   
-  // Contador del carrito
   useEffect(()=>{
     dispatch(fetchCartContent(user))
   },[dispatch]);
-  const carrito = useSelector((state) => state.carrito)  ;
-  const contadorDelCarrito = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+
+const carrito = useSelector((state) => state.carrito);
+const [contadorDelCarrito, setContadorDelCarrito] = useState(0);
+
+useEffect(() => {
+  const totalItems = (carrito.Multimedia?.length || 0) + (carrito.Series?.length || 0);
+  setContadorDelCarrito(totalItems);
+}, [carrito]);
   
   return (
     <nav className="navbar">
