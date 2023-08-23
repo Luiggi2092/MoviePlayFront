@@ -17,6 +17,7 @@ const Card = ({ image, id, price, name }) => {
     const peliculas = compras.peliculas;
     const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === id);
     const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
+    const [peliculaAgregada, setPeliculaAgregada] = useState(isAddedToCart)
     const dispatch = useDispatch();
     const propiedades = { image, id, price, name };
 
@@ -33,29 +34,22 @@ const Card = ({ image, id, price, name }) => {
     };
 
     const handleclick = () => {
-        if (isAddedToCart) {
+        if (peliculaAgregada) {
             dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
+            setPeliculaAgregada(false)
             Swal.fire({
                 title: `Artículo eliminado del carrito`,
                 icon: 'success'
             });
-
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
         
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
-
+            setPeliculaAgregada(true)
             Swal.fire({
                 title: `Artículo agregado al carrito`,
                 icon: 'success'
             });
-
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
         }
     };
 
@@ -86,19 +80,20 @@ const Card = ({ image, id, price, name }) => {
                     ))}
                 </div> */}
             </div>
-            {isAddedToCart ? (
-                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
-            ) : isPurchased ? (
-                <Link to={`/moviesdetail/${id}`}>
-                <button className={style.ver}>Ver Película</button>
-                </Link>
+            {isPurchased ? ( // Si es comprado, muestra "Ver Película"
+              <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver}>Ver Pelicula</button>
+              </Link>
             ) : (
-                <button className={style.agg} onClick={handleclick}>
-                    ${price} - Agregar al Carrito
-                </button>
-            )}
-        </div>
-    );
+              <button
+                className={peliculaAgregada  ? style.quitar : style.agg}// Usa className condicionalmente
+                onClick={handleclick}
+              >
+                {peliculaAgregada  ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
+              </button>
+             )}
+                </div>
+            );
 };
 
 export default Card;
