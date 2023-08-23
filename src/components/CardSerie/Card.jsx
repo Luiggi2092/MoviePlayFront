@@ -54,15 +54,13 @@ const Card = ({ image, id, price, name }) => {
         title: `Artículo agregado al carrito`,
         icon: 'success'
       });
-
     }
   };
-
   
 
  useEffect(() => {
   dispatch(fetchCartContent(user))
- }, [serieAgregada])
+ }, [isAddedToCart])
 
 
   return (

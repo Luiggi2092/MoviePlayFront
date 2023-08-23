@@ -329,12 +329,13 @@ export const addToCart = (emailUsuario, idSerie, idMovie) => async (dispatch, ge
 //   };
 // };
 
-export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch, getState) => {
+export const addToCartAndSaveDetailsMovie = (productDetails) => async (dispatch) => {
   // const state = getState();
   // const existingProduct = state.savedProductsMovies.find(product => product.id === productDetails.id);
 
   // if (!existingProduct) {
-    dispatch(addToCart(usuario, null, productDetails.id));
+    await dispatch(addToCart(usuario, null, productDetails.id));
+    await dispatch(fetchCartContent(usuario))
     // dispatch(saveIdToSavesMovie(productDetails.id));
 
     // const savedProducts = JSON.parse(localStorage.getItem('savedProducts')) || [];
@@ -364,12 +365,13 @@ export const addToCartAndSaveDetailsMovie = (productDetails, user) => (dispatch,
 //   };
 // };
 
-export const addToCartAndSaveDetailsSerie = (productDetails, user) => (dispatch, getState) => {
+export const addToCartAndSaveDetailsSerie = (productDetails) => async (dispatch) => {
   // const state = getState();
   // const existingProduct = state.savedProductsSeries.find(product => product.id === productDetails.id);
   
   // if (!existingProduct) {
-    dispatch(addToCart(usuario, productDetails.id, null));
+    await dispatch(addToCart(usuario, productDetails.id, null));
+    await dispatch(fetchCartContent(usuario))
     // dispatch(saveIdToSavesSerie(productDetails.id));
     
     // const savedProducts = JSON.parse(localStorage.getItem('savedSeries')) || [];
@@ -456,7 +458,8 @@ export const fetchCartContent = (email) => async (dispatch) => {
 
 export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatch) => {
   try {
-    await dispatch(removeFromCart(usuario, null, productId));   
+    await dispatch(removeFromCart(usuario, null, productId)); 
+    await dispatch(fetchCartContent(usuario))  
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_MOVIE,
       payload: productId,
@@ -469,7 +472,7 @@ export const removeFromCartAndRemoveDetailsMovie = (productId) => async (dispatc
 export const removeFromCartAndRemoveDetailsSerie = (productId) => async (dispatch) => {
   try {
     await dispatch(removeFromCart(usuario, productId, null)); 
-    
+    await dispatch(fetchCartContent(usuario))
     dispatch({
       type: REMOVE_FROM_CART_AND_REMOVE_DETAILS_SERIE,
       payload: productId,
