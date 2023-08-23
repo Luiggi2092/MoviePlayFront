@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 const url = 'https://api.cloudinary.com/v1_1/dpq8kiocc/image/upload'
 const UPLOAD_PRESET = 'Products'
 
-const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
+const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie,page}) => {
     
     const [avance,setAvance] = useState(0);
     const [actor,setActor] = useState("");
@@ -237,7 +237,7 @@ const ModalCreateSerie = ({openModalSerie,cambiarEstadoSerie}) => {
            form.duracion,
            form.descripcion,
            form.yearEstreno ){
-            dispatch(postSerie(form));
+            dispatch(postSerie(form,page));
         cambiarEstadoSerie(false)
         setForm({...form,image: "https://res.cloudinary.com/dpq8kiocc/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1688335705/Products/uqejaqpcos3lp630roqi.jpg?_s=public-apps" })
         setAvance(0);

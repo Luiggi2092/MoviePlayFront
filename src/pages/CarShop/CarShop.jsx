@@ -195,11 +195,11 @@ const CardShop = () => {
             </div>
             <div className={style.submit}>
                 <p className={style.textSubmit}>Total: ${totalAmountParseado}</p>
-                {!continuePay && (
-                    <button className={style.continuar} onClick={handleclick}>
-                     Continuar compra
-                    </button>
-                    )}
+                {totalAmountParseado !== 0 && !continuePay && (
+                            <button className={style.continuar} onClick={handleclick}>
+                                Continuar compra
+                            </button>
+                        )}
             </div >
             {continuePay && <Pago/>}
         </div>

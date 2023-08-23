@@ -10,7 +10,6 @@ import Swal from 'sweetalert2';
 
 
 const CardHome = ({ image, id, tipo, price }) => {
-    console.log(tipo);
 
     const user = localStorage.getItem('email');
     const dispatch = useDispatch();
