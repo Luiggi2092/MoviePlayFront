@@ -31,7 +31,7 @@ const MantenerOrdenes =()=> {
             <div key={order.id} className={style.contenedor}>
                <h2>Factura #{order.id}</h2>
                <p className={style.p}>ID de usuario: {order.usuarioId}</p>
-               <p className={style.p}>Total de la compra: ${convertirNumero(order.total)}</p>
+               <p className={style.p}>Total de la compra: ${convertirNumero(order.total) === isNaN ? 0 : convertirNumero(order.total)}</p>
 
                <table className={style.table}>
                   <thead>
