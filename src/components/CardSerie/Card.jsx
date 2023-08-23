@@ -57,7 +57,7 @@ const Card = ({ image, id, price, name }) => {
     }
   };
   
-
+  //use Effect
  useEffect(() => {
   dispatch(fetchCartContent(user))
  }, [isAddedToCart])
