@@ -182,7 +182,6 @@ const SerieDetail = () => {
                             <div className={style.stars} key={index}>
                             {stars.map((_,index) => {
                                 
-                         {console.log(e.calificacion)}
                          return (
                             <FaStar key={index}
                                     size={10}

@@ -101,10 +101,10 @@ background-color: red;
 
 
 .peliculaContainer {
-  text-align: center;
-  margin-top: 50px;
-  margin-bottom: 80px ;
-  border-radius: 10px;
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  height: 100vh; /* Ajusta el alto según sea necesario */
 }
 
 
