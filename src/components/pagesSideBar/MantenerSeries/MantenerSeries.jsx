@@ -171,9 +171,9 @@ const MantenerSeries = ()=> {
 
        return (
         <div className={style.container}>
-          <div className={style.addButtons}>
-          <button onClick={handleModalSerie} >Nueva Serie</button>
-          <button onClick={handleModalEpisodio}>Agregar Episodios</button>
+             <button className={style.addButtons}  onClick={handleModalSerie} >Nueva Serie</button>
+           <div className={style.addButtons}>
+             <button className={style.addButtons1} onClick={handleModalEpisodio}>Agregar Episodios</button>
           </div>
           <Modal  openModalSerie={openModalSerie} cambiarEstadoSerie={setOpenModalSerie} page={page}></Modal>
           <ModalEdit openModalSerieEdit={openModalSerieEdit} cambiarEstadoSerie={setopenModalSerieEdit} idSerie={idSerie > 0 ? idSerie : 1} page={page}></ModalEdit>   
@@ -181,12 +181,12 @@ const MantenerSeries = ()=> {
           <br/>
           <br/>
           <div>
-            <table {...getTableProps()} className={style.table} >
+            <table {...getTableProps()} className={style.table1} >
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()} style={{backgroundColor: "red"}}>
                   {headerGroup.headers.map((column)=> (
-                    <th {...column.getHeaderProps()}>
+                    <th className={style.thS}  {...column.getHeaderProps()}>
                       <div>
                         {column.render('Header')}
                         <br/>
@@ -224,14 +224,14 @@ const MantenerSeries = ()=> {
           </div>
           <div className={style.paginado}>
          <button
-              className={style.but}
+              className={style.but2}
               onClick={handlePreviousPage}
               disabled={page === 1}
             >Ant</button>
              {numberArray.map((item) => 
             <button
             key={item}
-            className={style.but}
+            className={style.but2}
             onClick={() => {
                setPage(parseInt(item))
             }}
@@ -239,7 +239,7 @@ const MantenerSeries = ()=> {
             {item}
           </button>)}
             <button
-              className={style.but}
+              className={style.but2}
               onClick={handleNextPage}
               //disabled={Series.length < 10}
               disabled={page === totalPages}

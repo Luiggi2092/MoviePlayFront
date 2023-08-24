@@ -32,7 +32,7 @@ const Navbar = ({ isScrolled }) => {
     { name: 'Home', link: '/home', icon: <FiHome /> },
     { name: 'Películas', link: '/peliculas', icon: <FiFilm /> },
     { name: 'Series', link: '/series', icon: <FiTv /> },
-    { name: 'Mi Lista', link: '/favoritos', icon: <FiStar /> },
+    { name: 'Favoritos', link: '/favoritos', icon: <FiStar /> },
   ];
   
   const admin = localStorage.getItem("rol");

@@ -283,10 +283,10 @@ const Profile = () => {
                                 <div key={purchase.id} className='purchase-card'>
                                     <Link to={`/moviesdetail/${purchase.id}`}>
                                         <img src={purchase.image} />
-                                        <h3 className='h3'>{purchase.name}</h3>
+                                        <h3 className='h31'>{purchase.name}</h3>
                                     </Link>
-                                    <p className='p'>Costo: ${purchase.price}</p>
-                                    <p className='p'>Pelicula</p>
+                                    <p className='pc'>Costo: ${purchase.price}</p>
+                                    <p className='pc'>Pelicula</p>
                                     <div>
                                         {purchase.review === "Sin Calificar" ? <button className='boton' onClick={() => handleModal(purchase.id)}>Calificar</button>: <p>Calificado</p>}
                                     </div>
@@ -296,7 +296,7 @@ const Profile = () => {
                                 <div key={purchase.id} className='purchase-card'>
                                     <Link to={`/detailSeries/${purchase.id}`}>
                                         <img src={purchase.image} />
-                                        <h3 className='h3'>{purchase.name}</h3>
+                                        <h3 className='h31'>{purchase.name}</h3>
                                     </Link>
                                     <p className='p'>Costo: ${purchase.price}</p>
                                     <p className='p'>Serie</p>

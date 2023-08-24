@@ -111,14 +111,14 @@ const Landing = () => {
         <h2 className={`${style.title} ${style.titleLeft}`}>Disfruta en tu TV<span className={style.span}><br />
           Ve en smart TV, Chromecast,
           Apple TV, reproductores  y más.</span></h2>
-        <div className={style.tvContainer}>
-        <img src={disfruta} alt="peli2023.jpg" className={style.tvImage} />
+        <div className={style.tvContainer2}>
+          <img src={disfruta} alt="tendencias.jpg" className={style.tvImage2} />
       </div>
       </div>
 
       <div className={style.div1}>
         <h2 className={`${style.title} ${style.titleLeft}`}>Descarga tus series para verlas siempre.</h2>
-        <div className={style.tvContainer}>
+        <div className={style.tvContainer3}>
         <img src={descarga} alt="840_560.jpg" className={style.tvImage} />
       </div>
       </div>

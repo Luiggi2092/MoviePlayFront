@@ -1,10 +1,10 @@
 import style from './card.module.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 // import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
-import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions';
+import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie,AgregarAFavoritos,EliminarFav} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Swal from 'sweetalert2';
@@ -17,8 +17,20 @@ const Card = ({ image, id, price, name, calif }) => {
     const peliculas = compras.peliculas;
     const isAddedToCart = multimedia && multimedia.some(producto => producto.peliculasXcarro.multimediaId === id);
     const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
+    const [peliculaAgregada, setPeliculaAgregada] = useState(isAddedToCart)
     const dispatch = useDispatch();
     const propiedades = { image, id, price, name };
+    const [activo,setActivo] = useState(false);
+
+
+
+    const [form,setForm] = useState({
+          email:"",
+          idMovie:"",
+    })
+
+
+
     const stars = Array(5).fill(0);
 
 
@@ -27,36 +39,59 @@ const Card = ({ image, id, price, name, calif }) => {
 
     const handleFavoriteClick = () => {
         dispatch(toggleFavorite(id));
+         
+        setForm({
+            ...form,
+            email:user,
+            idMovie:id
+        })
+
+        if(!isFavorite){
+          
+           setActivo(true);
+
+        }else{
+            setActivo(false);
+        }
     };
+
+
+
+    useEffect(()=> {
+        
+        if(activo){
+            console.log(form)
+        dispatch(AgregarAFavoritos(form));
+        }else{
+            console.log(form)
+            dispatch(EliminarFav(user,form.idMovie));
+        }
+
+    },[isFavorite])
+
+    
 
     const handleRating = newRating => {
         dispatch(rateMovie(id, newRating)); // Actualiza la calificación en el estado
     };
 
     const handleclick = () => {
-        if (isAddedToCart) {
+        if (peliculaAgregada) {
             dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
+            setPeliculaAgregada(false)
             Swal.fire({
                 title: `Artículo eliminado del carrito`,
                 icon: 'success'
             });
-
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
         
         } else {
             // Producto no en el carrito ni comprado, agregar al carrito
             dispatch(addToCartAndSaveDetailsMovie(propiedades, user));
-
+            setPeliculaAgregada(true)
             Swal.fire({
                 title: `Artículo agregado al carrito`,
                 icon: 'success'
             });
-
-            setTimeout(() => {
-                window.location.reload(false);
-            }, 1500); // 1.5 segundos
         }
     };
 
@@ -90,9 +125,6 @@ const Card = ({ image, id, price, name, calif }) => {
                 </div>
                 }
             </div>
-           
-            
-            
             {isAddedToCart ? (
                 <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
             ) : isPurchased ? (
@@ -100,12 +132,15 @@ const Card = ({ image, id, price, name, calif }) => {
                 <button className={style.ver}>Ver Película</button>
                 </Link>
             ) : (
-                <button className={style.agg} onClick={handleclick}>
-                    ${price} - Agregar al Carrito
-                </button>
-            )}
-        </div>
-    );
+              <button
+                className={peliculaAgregada  ? style.quitar : style.agg}// Usa className condicionalmente
+                onClick={handleclick}
+              >
+                {peliculaAgregada  ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
+              </button>
+                )}
+                </div>
+            );
 };
 
 export default Card;

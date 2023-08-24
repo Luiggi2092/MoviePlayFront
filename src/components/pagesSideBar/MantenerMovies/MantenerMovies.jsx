@@ -249,11 +249,11 @@ const MantenerMovies = ()=> {
          <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula}  page={page}></ModalEdit>
          <br/>
          <br/>
-         <div>
-          <table className={style.table} >
+         <div className={style.table3}>
+          <table className={style.table1} >
             <thead>
               <tr style={{backgroundColor: "#011f69",color:"white"}}>
-                <th>
+                <th className={style.thM}>
                   id
                 </th>
                 <th>
