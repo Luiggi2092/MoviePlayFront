@@ -143,7 +143,7 @@ const MoviesDetail = () => {
                 { peliculaid.Reviews && peliculaid.Reviews.map((e,index)=>{
                      return <div className={style.comentarios} key={index}>
                             <div className={style.imagen} key={index}>
-                               <img src="https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png" width={30} height={30} />
+                               <img src={e.Usuario.image} width={30} height={30} />
                             </div>
                             <div>
                            <p>{e.Usuario.nombre}  {e.Usuario.apellido}</p>
