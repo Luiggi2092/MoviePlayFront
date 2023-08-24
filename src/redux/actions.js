@@ -733,6 +733,7 @@ export const ActPerfil =(id,form)=> {
         
       try{
         const PostPerfil = await axios.put(`/usuario/${id}`,form);
+        localStorage.setItem('foto', form.image)
 
         Swal.fire({
           title:`${PostPerfil.data}`,
