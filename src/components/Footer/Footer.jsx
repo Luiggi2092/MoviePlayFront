@@ -42,12 +42,13 @@ const Footer = () => {
          </div>
                 
             </footer>
-
+            <div className='divContainericon1'>
             <ModalFooter
                 header={"Suscripcion"}
                 body={"Lorem ipsum dolor sit, amet consectetur adipisicing elit. Distinctio nobis enim explicabo quae magnam dolorem minus. Alias, laboriosam dignissimos, ipsum id quidem reiciendis velit reprehenderit dolores saepe magnam voluptas dolorem?"}
                 open={showS}
                 cambiarEstado={setShowS}
+                
             />
             <ModalFooter
                 header={"Privacidad"}
@@ -67,6 +68,7 @@ const Footer = () => {
                 open={showT}
                 cambiarEstado={setShowT}
             />
+            </div>
         </>
     )
 }
