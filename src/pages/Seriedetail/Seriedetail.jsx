@@ -47,7 +47,7 @@ const SerieDetail = () => {
 
 
     const handleclick = () => {
-        if (isAddedToCart) {
+        if (serieAgregada) {
             dispatch(removeFromCartAndRemoveDetailsSerie(id, user));
             setSerieAgregada(false)
             Swal.fire({
@@ -134,7 +134,7 @@ const SerieDetail = () => {
                 </div>
                 </section>
 
-                {isAddedToCart? (
+                {serieAgregada? (
                     <div className={style.botonContainer}>
                     <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
                     </div>
