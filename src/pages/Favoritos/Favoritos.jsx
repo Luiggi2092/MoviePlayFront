@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import CardMov from '../../components/CardMovie/CardMovie';
 import CardSer from '../../components/CardSerie/Card';
@@ -8,6 +8,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
 import {ObtenerFavoritos} from "../../redux/actions"
+import Footer from '../../components/Footer/Footer'
+import Navbar from './../../components/Navbar/Navbar';
 
 const Favoritos = () => {
 
@@ -26,23 +28,20 @@ const Favoritos = () => {
   },[])
 
 
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
-  };
-
-
-  console.log(favorites)
   //const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
-  
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  window.onscroll = () => {
+    setIsScrolled(window.pageYOffset === 0 ? false : true);
+    return () => (window.onscroll = null);
+  }
 
 
   return (
+    <>
+      <Navbar isScrolled={isScrolled} />
     <div className={style.favorites}>
+      
       <h1 className={style.h1Fav}>Favoritos</h1>
       <Link className={style.barra} to="/home"> ← </Link> 
       <div className={style.containFav}>
@@ -53,6 +52,9 @@ const Favoritos = () => {
           )) }
       </div> 
     </div>
+      <Footer />
+    </>
+
   );
 };
 
