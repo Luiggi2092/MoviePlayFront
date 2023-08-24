@@ -240,6 +240,7 @@ const Profile = () => {
                             //onChange={(e) => setEmail(e.target.value)}
                             disabled={!isEditing}
                         />
+                        {isEditing && (<>
                         <h5>Contraseña</h5>
                         <input
                             type='text'
@@ -256,7 +257,7 @@ const Profile = () => {
                             //onChange={(e) => setCountry(e.target.value)}
                             disabled={!isEditing}
                         />
-
+                        </>)}
                     </div>
 
                     <div className='buttPerf'>
