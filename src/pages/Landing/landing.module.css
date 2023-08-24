@@ -21,13 +21,13 @@ background-color: rgba(0, 0, 0, 0.650);
 
 .img-container img {
   width: 100%;
-  height: auto;
-  max-height: 600px;
-  object-fit: cover;
-background: rgb(0 0 0 / 40%);
-position: relative;
-letter-spacing: 0 !important;
-text-align: center;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    background: rgb(0 0 0 / 40%);
+    position: relative;
+    letter-spacing: 0 !important;
+    text-align: center;
 
 }
 
@@ -282,11 +282,38 @@ h4 {
   
 }
 
+.tvContainer2 {
+width: 40%;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 2px 10px 10px 5px rgba(255, 255, 255, 0.5);
+  margin: 10px auto;
+  overflow: hidden;
+}
+
+.tvContainer3 {
+  width: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #000;
+    border-radius: 10px;
+    box-shadow: 2px 10px 10px 5px rgba(255, 255, 255, 0.5);
+    margin: 0 auto;
+    overflow: hidden;
+}
+
 
 .tvImage {
-  width: 100%;
-  height: auto;
+  width: 80%;
+  height: 80%;
   
+}
+
+.tvImage2{
+  width: 80%;
+  height: 80%;
 }
 
 

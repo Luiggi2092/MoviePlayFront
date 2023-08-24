@@ -203,7 +203,7 @@ const CardShop = () => {
             </div >
             {continuePay && <Pago/>}
         </div>
-            <Footer className={style.footer}/>            
+            <Footer />            
     </div>
                     </section>
                       

@@ -75,8 +75,8 @@ const MoviesDetail = () => {
             <Navbar isScrolled={isScrolled} />
             <div className={style.detailsContainer}>
                 <div className={style.nameContainer}>
-                <h1 className={style.name}>{peliculaid.name}</h1>
-                <h1 className={style.name}></h1>
+                <h1 className={style.name1}>{peliculaid.name}</h1>
+                <h1 className={style.name1}></h1>
                 </div>
 
                 <section className={style.section}>
@@ -104,20 +104,20 @@ const MoviesDetail = () => {
                 </div>
                 </section>
                 {isAddedToCart? (
-                    <div className={style.botonContainer}>
+                    <div className={style.botonContainer1}>
                     <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
                     </div>
                 ):isPurchased? (
                     null
                 ): (
-                    <div className={style.botonContainer}>
-                    <button onClick={handleclick} className={style.button}>${peliculaid.price} - Agregar al carrito</button>
+                    <div className={style.botonContainer1}>
+                    <button onClick={handleclick} className={style.button1}>${peliculaid.price} - Agregar al carrito</button>
                     </div>
                 )}
                 
             </div>
             <div className={style.peliculaContainer}>
-                <ReactPlayer height={500} width={1550} style={{margin:'0 15%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
+                <ReactPlayer height={400} width={1450} style={{margin:'0 15%',maxWidth:"100%"}} url={peliculaid.linkVideo} controls={true}/>
                     
             </div>
             <div className={style.contenedores}>
