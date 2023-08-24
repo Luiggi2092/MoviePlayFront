@@ -51,7 +51,7 @@ const Series = () => {
 
 
   const getSeriesAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/series?page=${page}`
+    let newUrl = `http://localhost:3001/media/series?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -173,7 +173,7 @@ const Series = () => {
           {Load == true && <Loading/>}
           {
             series?.map((element) => (
-              <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} />
+              <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} calif={element.calificacion} />
           ))}
         </div>
         <div >

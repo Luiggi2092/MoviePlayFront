@@ -41,7 +41,7 @@ useEffect(() => {
   //----------------------------PAGINADO y ORDENAMIENTOS------------------------------------------------
 
   const getMovieAndPage = (page, genre, price, order) =>{
-    let newUrl = `https://movieplay.onrender.com/media/movies?page=${page}`
+    let newUrl = `http://localhost:3001/media/movies?page=${page}`
     if (genre) {
       newUrl += `&genre=${genre}`;
     }
@@ -169,7 +169,7 @@ useEffect(() => {
         <div className={style.peliculaContainer}>
           {movies?.map((movie) => (
             
-            <Card key={movie.id} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
+            <Card key={movie.id} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres} calif={movie.calificacion}/>
           ))}
           {Load == true && <Loading/> }
          </div>
