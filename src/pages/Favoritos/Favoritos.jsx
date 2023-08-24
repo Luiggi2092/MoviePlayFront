@@ -25,7 +25,8 @@ const Favoritos = () => {
   
   useEffect(()=> {
     dispatch(ObtenerFavoritos(email))
-  },[])
+  },[favorites])
+
 
 
   //const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
