@@ -82,7 +82,7 @@ const Card = ({ image, id, price, name }) => {
             </div>
             {isPurchased ? ( // Si es comprado, muestra "Ver Película"
               <Link to={`/moviesdetail/${id}`}>
-                <button className={style.ver}>Ver Pelicula</button>
+                <button className={style.ver}>Ver Serie</button>
               </Link>
             ) : (
               <button
@@ -91,7 +91,7 @@ const Card = ({ image, id, price, name }) => {
               >
                 {peliculaAgregada  ? 'Quitar del Carrito' : `$${price} - Agregar al Carrito`}
               </button>
-             )}
+                )}
                 </div>
             );
 };
