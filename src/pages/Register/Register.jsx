@@ -79,6 +79,7 @@ const Register = () => {
                 localStorage.setItem('name', data.nombre); 
                 localStorage.setItem('foto', data.image || 'https://static.vecteezy.com/system/resources/previews/008/844/895/non_2x/user-icon-design-free-png.png')
                 localStorage.setItem('State', 'true')
+                localStorage.setItem('token', data.token)
                 //para evitar bugs del carrito
                 localStorage.setItem('recargado', 'no')
 
