@@ -87,7 +87,7 @@ const MoviesDetail = () => {
                 </div>
                 <div className={style.info}>
                     <div>
-                        <span>Sipnosis</span>
+                        <span>Sinopsis</span>
                         <p>{peliculaid.description}</p>
                     </div>                    
                     <div>
