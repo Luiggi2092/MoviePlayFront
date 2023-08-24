@@ -74,22 +74,22 @@ const Home = () => {
       <div className='main'>
         
             <div>
-              <h3 className='h3peliculas'>Peliculas y Series Online</h3>
+              <h3 className='h3peliculas'>Películas y Series Online</h3>
             </div>
          <div className='containerCard'>
           
          {buq?.length > 0 ? buq?.map(( hom, index ) => (
           hom.tipo == "Pelicula" ?
-          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>:
-          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price} calif={hom.calificacion}/>:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price} calif={hom.calificacion}/>
           )) : listaTodo?.map(( hom, index ) => (
             hom.tipo == "Pelicula" ?
-          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>:
-          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price}/>
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price} calif={hom.calificacion}/>:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price} calif={hom.calificacion}/>
           )).slice(0,cantCard)}
           {listaTodo?.length == 0 && <Loading/>}
             
-          {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
+          {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Más</button>}
         </div>
         
       </div>

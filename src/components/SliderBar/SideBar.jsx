@@ -13,7 +13,7 @@ const Sidebar = ()=> {
                 <NavLink to={`/DashboardAdmin/content1`}><FaIcons.FaHome/>Inicio</NavLink>
             </li>
             <li>
-                <NavLink to="/DashboardAdmin/content2"><FaIcons.FaPlayCircle/>Mantener Peliculas
+                <NavLink to="/DashboardAdmin/content2"><FaIcons.FaPlayCircle/>Mantener Películas
                 </NavLink>
             </li>
             <li>

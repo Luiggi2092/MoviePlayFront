@@ -9,6 +9,8 @@ import { FaStar } from "react-icons/fa"
 import style from './seriedetail.module.css'
 import Navbar from "../../components/Navbar/Navbar"
 import Footer from "../../components/Footer/Footer";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 
 const SerieDetail = () => {
 
@@ -115,7 +117,7 @@ const SerieDetail = () => {
                             <p>{serie?.yearEstreno}</p>
                         </div>
                         <div>
-                            <span>Descripcion</span>
+                            <span>Descripción</span>
                             <p>{serie?.descripcion}</p>
                         </div>
                         <div>
@@ -123,11 +125,29 @@ const SerieDetail = () => {
                             <p>{actores}</p>
                         </div>
                         <div>
-                            <span>Generos</span>
+                            <span>Géneros</span>
                             <p>{generos}</p>
+
                         </div>
                         <div>
-                            <span>Titulo del Episodio</span>
+                            <span>Calificación</span>
+                            <div>
+                            {
+                                <div className={style.rating}>
+                                {serie.promCal == 0 ?<p>Aún no hay calificaciones</p>: [1, 2, 3, 4, 5].map(value => (
+                                    <FontAwesomeIcon
+                                    key={value}
+                                    icon={faStar}
+                                    className={style.ratingStar}
+                                    style={{ color: value <= serie.promCal ? '#f1d237' : '#d3d3d3' }}
+                                    />
+                                ))}
+                                </div>
+                             }
+                            </div>
+                        </div>
+                        <div>
+                            <span>Título del Episodio</span>
                             <p>{tituloepi}</p>
                         </div>
                     </div>
@@ -158,7 +178,7 @@ const SerieDetail = () => {
                     </select>
                 </div>
                 <div className={style.divCap}>
-                    <p >CAPITULO</p>
+                    <p >CAPÍTULO</p>
                     <select className={style.selectDetail} value={capituloSelect} onChange={handleCapitulo}>
                         {
                             capitulo?.map((c) => <option key={c} value={c}>Capitulo {c}</option>)

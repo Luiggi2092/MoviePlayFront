@@ -57,7 +57,7 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const { data } = await axios.post('https://movieplay.onrender.com/pago',{
+            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
                   amount: totalAmountParseado, 
                   id: id,
                   description:'pago de producto',
@@ -79,7 +79,7 @@ const CheckoutForm = () => {
         <form className={style.card}>
             <CardElement className={style.formControl} />
             {isProcessingPayment ? (
-                <Loading /> // Mostrar Loading mientras se procesa el pago
+                <Loading style={{ color: 'black' }}/> // Mostrar Loading mientras se procesa el pago
               ) : (
                 <button className={style.button} onClick={handleSubmit}>
                   Comprar

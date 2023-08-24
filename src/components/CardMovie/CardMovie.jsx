@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Swal from 'sweetalert2';
 
-const Card = ({ image, id, price, name }) => {
+const Card = ({ image, id, price, name, calif }) => {
     const user = localStorage.getItem('email');
     const carrito = useSelector(state => state.carrito);
     const compras = useSelector(state => state.productosComprados);
@@ -31,6 +31,7 @@ const Card = ({ image, id, price, name }) => {
 
 
 
+    const stars = Array(5).fill(0);
 
 
     const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
@@ -99,6 +100,7 @@ const Card = ({ image, id, price, name }) => {
 
     return (
         <div className={style.containerMax}>
+            
             <Link to={`/moviesdetail/${id}`}>
                 <img src={image} className={style.image} alt={`Movie ${id}`} />
             </Link>
@@ -109,22 +111,26 @@ const Card = ({ image, id, price, name }) => {
                     onClick={handleFavoriteClick}
                     style={{ color: isFavorite ? 'red' : 'blue' }}
                 />
-                {/* <div className={style.rating}>
-                    {[1, 2, 3, 4, 5].map(value => (
+                {
+                <div className={style.rating}>
+                    {calif ==0? <></>: [1, 2, 3, 4, 5].map(value => (
                         <FontAwesomeIcon
                             key={value}
                             icon={faStar}
                             className={style.ratingStar}
-                            style={{ color: value <= rating ? 'yellow' : 'blue' }}
-                            onClick={() => handleRating(value)}
+                            style={{ color: value <= calif ? '#f1d237' : '#d3d3d3' }}
+                            
                         />
                     ))}
-                </div> */}
+                </div>
+                }
             </div>
-            {isPurchased ? ( // Si es comprado, muestra "Ver Película"
-              <Link to={`/moviesdetail/${id}`}>
-                <button className={style.ver}>Ver Serie</button>
-              </Link>
+            {isAddedToCart ? (
+                <button className={style.quitar} onClick={handleclick}>Quitar del Carrito</button>
+            ) : isPurchased ? (
+                <Link to={`/moviesdetail/${id}`}>
+                <button className={style.ver}>Ver Película</button>
+                </Link>
             ) : (
               <button
                 className={peliculaAgregada  ? style.quitar : style.agg}// Usa className condicionalmente
