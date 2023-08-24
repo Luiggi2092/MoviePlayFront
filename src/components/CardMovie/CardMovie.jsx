@@ -123,7 +123,7 @@ const Card = ({ image, id, price, name }) => {
             </div>
             {isPurchased ? ( // Si es comprado, muestra "Ver Película"
               <Link to={`/moviesdetail/${id}`}>
-                <button className={style.ver}>Ver Serie</button>
+                <button className={style.ver}>Ver Película</button>
               </Link>
             ) : (
               <button

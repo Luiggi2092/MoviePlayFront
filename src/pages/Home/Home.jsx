@@ -36,6 +36,8 @@ const Home = () => {
   const buq = useSelector(state => state.TodoFill);
 
 
+  console.log(buq)
+
   
   useEffect(()=> {
      dispatch(getTodoFillClean());
@@ -89,7 +91,7 @@ const Home = () => {
           )).slice(0,cantCard)}
           {listaTodo?.length == 0 && <Loading/>}
             
-          {showMoreButton && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
+          {showMoreButton && buq?.length < 1 && <button className='Mostrar' onClick={AmpliarCards}>Mostrar Mas</button>}
         </div>
         
       </div>

@@ -86,6 +86,8 @@ const initialState = {
      SearchAdmimovie:[],
      productosComprados:[],
      todasLasCompras:[],
+     totalPages: 1, // Número total de páginas (inicializado en 1)
+    currentPage: 1, // Página actual (inicializado en 1)
      Movies:[],
      Page: 1,
      Search: "",
@@ -166,6 +168,7 @@ return {
         ...state,
         movieRatings: updatedRatings,
       };
+
 
     case GET_GENEROS:
         return {...state, Generos:action.payload}
