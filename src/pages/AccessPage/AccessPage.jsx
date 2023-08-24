@@ -83,7 +83,7 @@ const AccessPage = () => {
                     password: ''
                 })
 
-                redirectToHome()
+               redirectToHome()
             
             } catch (error) {
                 console.log(error)

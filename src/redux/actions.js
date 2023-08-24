@@ -103,15 +103,9 @@ export const getTodo = ()=> {
 }
 
 export const getTodobusqueda = (name)=> {
-    // console.log(name);
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;
-        if(todoSearchBar.length == 0){
-          Swal.fire({
-            title:`El Criterio de busqueda no existe`,
-              icon:'info',
-              confirmButtonText:'Ok'});
-        };
+        
         dispatch({type: GETSEARCHBAR, payload: todoSearchBar})
     }
 }
@@ -597,8 +591,7 @@ export const ActivarDesactivarSeries = (id,page)=> {
 
     try{
      const banserie = await axios.put(`/admin/disableSeries/${id}`);
-    //  console.log(banserie);
-    const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos;
+     const ser = (await axios.get(`/admin/disableSeries?page=${page}`)).data.elementos;
      dispatch({type: BAN_SERIE, payload: {data1:banserie,data2:ser}});
      Swal.fire({
       title:`${banserie.data.message}`,
@@ -690,7 +683,7 @@ export const AllNameSeries = ()=> {
       return async function(dispatch){
          
         const AllSeries = (await axios.get(`/media/allSeries`)).data;
-        // console.log(AllSeries);
+        
 
         dispatch({type: ALLSERNAME,payload: AllSeries})
      
@@ -741,6 +734,7 @@ export const ActPerfil =(id,form)=> {
         
       try{
         const PostPerfil = await axios.put(`/usuario/${id}`,form);
+        localStorage.setItem('foto', form.image)
 
         Swal.fire({
           title:`${PostPerfil.data}`,
@@ -759,12 +753,11 @@ export const ActPerfil =(id,form)=> {
 
 
 export const AgregarAFavoritos = (form)=> {
-     console.log(form);
     return async function (dispatch){
       
       try{
       const ADDFAV = await axios.post(`/favs`,form);
-      console.log(ADDFAV);
+      console.log(ADDFAV)
       dispatch({type: FAVOS,payload: ADDFAV})
 
       }catch(error){
@@ -785,32 +778,25 @@ export const ObtenerFavoritos = (email) => {
 
     return async function(dispatch){
 
-      const ObFav = (await axios.get(`/favs?email=${email}`)).data.Multimedia;
-      const ObFavSer = (await axios.get(`/favs?email=${email}`)).data.Series;
+      const ObFav = (await axios.get(`/favs?email=${email}`)).data.arrayRespuesta;
+      console.log(ObFav)
+     
       
-      dispatch({type: OBFAV, payload: {data1:ObFav,data2:ObFavSer}})      
+      dispatch({type: OBFAV, payload: ObFav})      
     }
 
 
 }
 
 export const EliminarFav = (email,MovieId,SerieId)=> {
-   console.log(email);
    return async function(dispatch){
-     console.log("entra");
     if(MovieId){
-      console.log("entraaqui");
       const EliMovFav = await axios.delete(`/favs?email=${email}&MultimediumId=${MovieId}`);
-      console.log(EliMovFav)
-     // dispatch({type:ELIFAVMOV,payload: EliMovFav})
     }
 
     if(SerieId){
-      console.log("gaaa")
       const EliMovFav = await axios.delete(`/favs?email=${email}&SeriesSerieId=${SerieId}`);
-      console.log(EliMovFav)
-      //dispatch({type:ELIFAVMOV,payload: EliMovFav})
-       
+      
 
     }
       

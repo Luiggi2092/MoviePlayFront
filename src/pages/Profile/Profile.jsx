@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { todosLosProductosXidUser, ActPerfil } from '../../redux/actions';
 import Modal from '../../components/ModalCalificar/ModalCalificar';
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2'
 import axios from "axios";
 import './profile.css';
 
@@ -52,7 +53,9 @@ const Profile = () => {
 
     useEffect(() => {
         localStorage.setItem('profileImage', profileImage);
-    }, [profileImage]);
+        localStorage.setItem('foto', form.image);
+        
+    }, [profileImage,form]);
 
     useEffect(() => {
         const storedImage = localStorage.getItem('profileImage');
@@ -102,6 +105,12 @@ const Profile = () => {
            form.image && 
            form.password){
              dispatch(ActPerfil(idUser,form))
+
+           }else{
+            Swal.fire({
+                title:`Debes llenar correctamento los campos`,
+                 icon:'error',
+                 confirmButtonText:'Ok'});
            }
         setIsEditing(false); // Salir del modo de edición
 
@@ -244,7 +253,7 @@ const Profile = () => {
                         {isEditing && (<>
                         <h5>Contraseña</h5>
                         <input
-                            type='text'
+                            type='password'
                             placeholder='Escribe tu Contraseña'
                             name="password"
                             onChange={HandleChange}
@@ -252,7 +261,7 @@ const Profile = () => {
                         />
                         <h5>Confirmar Contraseña</h5>
                         <input
-                            type='text'
+                            type='password'
                             placeholder='Confirma Contraseña'
                             //value={country}
                             //onChange={(e) => setCountry(e.target.value)}
