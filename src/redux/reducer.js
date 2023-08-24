@@ -43,7 +43,8 @@ import {GET_GENEROS,
         ALLSERNAME,
         EMAILSUS,
         FAVOS,
-        OBFAV
+        OBFAV,
+        TOGGLE_FAVORITESER
         } from "./actions" 
 
 
@@ -56,6 +57,7 @@ import {GET_GENEROS,
 
 const initialState = {
     favoriteMovies: JSON.parse(localStorage.getItem('favoriteMovies')) || [],
+    favoriteSeries: JSON.parse(localStorage.getItem('favoriteSeries')) || [],
     movieRatings: JSON.parse(localStorage.getItem('movieRatings')) || {},
      Generos: [],
      Media:[],
@@ -98,6 +100,7 @@ const initialState = {
      EmailSUSCRIPTO:"",
      FAV:[],
      GETFAV:[],
+     GETFAVSER:[],
      
 
 
@@ -122,6 +125,19 @@ localStorage.setItem('favoriteMovies', JSON.stringify(updatedFavorites));
                 favoriteMovies: updatedFavorites, 
                     
 };
+
+   case TOGGLE_FAVORITESER:
+           const serieId = action.payload;
+           const updatedFavoSerie = state.favoriteSeries.includes(serieId)
+           ? state.favoriteSeries.filter(id => id !== serieId)
+           : [...state.favoriteSeries,serieId];
+
+      localStorage.setItem('favoriteSeries',JSON.stringify(updatedFavoSerie));
+
+          return {
+              ...state,
+              favoriteSeries: updatedFavoSerie,
+          }     
 
  case SET_FAVORITES:
       return {
@@ -353,7 +369,8 @@ return {
          case OBFAV:
               return {
                 ...state,
-                GETFAV:action.payload
+                GETFAV:action.payload.data1,
+                GETFAVSER:action.payload.data2,
 
               }
         default:

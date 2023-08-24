@@ -4,30 +4,70 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons'; // Importa el ícono de pulgar arriba
-import { toggleFavorite, rateMovie } from '../../redux/actions';
+import { toggleFavoritSerie, rateMovie,AgregarAFavoritos, EliminarFav } from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todosLosProductosXidUser, fetchCartContent} from '../../redux/actions';
 import Swal from 'sweetalert2';
 import useFetch from '../../assets/useFetch';
 
 const Card = ({ image, id, price, name }) => {
-  // const user = localStorage.getItem('email');
+  const user = localStorage.getItem('email');
   const dispatch = useDispatch();
   const propiedades = { image, id, price, name };
+  const [activo,setActivo] = useState(false);
 
-  const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
+
+  const [form,setForm] = useState({
+       email: "",
+       idSerie:""
+  })
+
+
+  const isFavorite = useSelector(state => state.favoriteSeries.includes(id));
   const [rating, setRating] = useState(0);
 
   const handleFavoriteClick = () => {
-    dispatch(toggleFavorite(id));
+    dispatch(toggleFavoritSerie(id));
+
+      setForm({
+        ...form,
+        email:user,
+        idSerie:id
+      })
+
+      if(!isFavorite){
+          
+        setActivo(true);
+
+     }else{
+         setActivo(false);
+     }
+
+
   };
+
+
+  console.log(isFavorite);
+
+   useEffect(()=> {
+       if(activo){
+        dispatch(AgregarAFavoritos(form));  
+       }else{
+         dispatch(EliminarFav(user,null,form.idSerie))  
+       }
+      
+        
+
+   },[isFavorite])
+
+
+
 
   const handleRating = newRating => {
     dispatch(rateMovie(id, newRating)); // Actualiza la calificación en el estado
   };
 
 
-  const user = localStorage.getItem('email');
   const idUser = localStorage.getItem('id')
   const carrito = useSelector(state => state.carrito)
   const compras = useSelector(state => state.productosComprados)
@@ -36,6 +76,9 @@ const Card = ({ image, id, price, name }) => {
   const isAddedToCart = seriesCarrito && seriesCarrito.some(producto => producto.seriesXcarro.serieId === id);
   const isPurchased = seriesCompradas && seriesCompradas.some(producto => producto.id === id);
   const [serieAgregada, setSerieAgregada] = useState(isAddedToCart)
+
+
+  //console.log(isFavorite);
 
   const handleclick = () => {
     if (serieAgregada) {

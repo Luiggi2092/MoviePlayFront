@@ -1,10 +1,10 @@
 import style from './card.module.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 // import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
-import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie} from '../../redux/actions';
+import { addToCartAndSaveDetailsMovie, toggleFavorite, rateMovie, removeFromCartAndRemoveDetailsMovie,AgregarAFavoritos,EliminarFav} from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Swal from 'sweetalert2';
@@ -19,6 +19,17 @@ const Card = ({ image, id, price, name }) => {
     const isPurchased = peliculas && peliculas.some(producto => producto.id === id);
     const dispatch = useDispatch();
     const propiedades = { image, id, price, name };
+    const [activo,setActivo] = useState(false);
+
+
+
+    const [form,setForm] = useState({
+          email:"",
+          idMovie:"",
+    })
+
+
+
 
 
     const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
@@ -26,7 +37,37 @@ const Card = ({ image, id, price, name }) => {
 
     const handleFavoriteClick = () => {
         dispatch(toggleFavorite(id));
+         
+        setForm({
+            ...form,
+            email:user,
+            idMovie:id
+        })
+
+        if(!isFavorite){
+          
+           setActivo(true);
+
+        }else{
+            setActivo(false);
+        }
     };
+
+
+
+    useEffect(()=> {
+        
+        if(activo){
+            console.log(form)
+        dispatch(AgregarAFavoritos(form));
+        }else{
+            console.log(form)
+            dispatch(EliminarFav(user,form.idMovie));
+        }
+
+    },[isFavorite])
+
+    
 
     const handleRating = newRating => {
         dispatch(rateMovie(id, newRating)); // Actualiza la calificación en el estado
