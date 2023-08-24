@@ -207,8 +207,9 @@ const CardShop = () => {
             </div >
             {continuePay && <Pago/>}
         </div>
-            <Footer />            
+                       
     </div>
+        <Footer /> 
                     </section>
                       
     )

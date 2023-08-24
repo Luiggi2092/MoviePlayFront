@@ -133,6 +133,14 @@ display: flex;
    
 }
 
+.coment {
+  position: relative;
+  left: 45px;
+  top: 5px;
+  
+  
+}
+
 
 .divVideo {
   display: flex;
@@ -164,16 +172,21 @@ display: flex;
 
 .comentarios {
    
-  background-color: #fff;
+  background-color: #000000a8;
   width: 60%;
   height: 100px;
   border-radius: 10px;
+  color: white;
+  box-shadow: 5px 5px 5px;
  
  
 }
 
 .comentarios p {
-   color:black
+   color:rgb(255, 255, 255);
+   align-items: center;
+   justify-content: center;
+   padding-top: 10px;
 }
 
 .comentarios{
@@ -183,21 +196,20 @@ display: flex;
 
 .imagen {
     float: left;
-    padding-right: 15px;
+    padding-right: 20px;
+    padding-top: 10px;
 }
 
 
 .contenedores{
- /* display: flex;
- align-items: center;
- justify-content: center;
- padding: 20px 5px; */
  display: grid;
  grid-template-columns: repeat(1, 1fr); /* Cambia el número de columnas según sea necesario */
  gap: 10px;
  place-items: center;
  position: relative;
- bottom: 150px;
+ margin-bottom: 30px;
+ margin-top: 10px;
+
 
 
 }

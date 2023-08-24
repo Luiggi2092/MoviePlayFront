@@ -1,4 +1,4 @@
-import './ModalFooter.css'
+import './modalFooter.css'
 
 const ModalFooter = ({open, cambiarEstado, header, body}) => {
 
