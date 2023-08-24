@@ -46,6 +46,8 @@ const Card = ({ image, id, price, name, calif }) => {
             idMovie:id
         })
 
+        console.log(isFavorite);
+
         if(!isFavorite){
           
            setActivo(true);

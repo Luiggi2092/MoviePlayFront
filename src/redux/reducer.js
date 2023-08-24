@@ -372,8 +372,7 @@ return {
          case OBFAV:
               return {
                 ...state,
-                GETFAV:action.payload.data1,
-                GETFAVSER:action.payload.data2,
+                GETFAV:action.payload
 
               }
         default:

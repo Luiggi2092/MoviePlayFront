@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux';
-import CardMovie from '../../components/CardMovie/CardMovie';
-import Card from '../../components/CardSerie/Card';
+import CardMov from '../../components/CardMovie/CardMovie';
+import CardSer from '../../components/CardSerie/Card';
 import style from './favoritos.module.css'
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -13,8 +13,8 @@ import Navbar from './../../components/Navbar/Navbar';
 
 const Favoritos = () => {
 
-  const favoriteMovies = useSelector(state => state.GETFAV);
-  const favoriteSeries = useSelector(state => state.GETFAVSER);
+  const favorites = useSelector(state => state.GETFAV);
+  //const favoriteSeries = useSelector(state => state.GETFAVSER);
     
   //const movieRatings = useSelector(state => state.OBFAV);
   const storedFavorites = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
@@ -45,21 +45,12 @@ const Favoritos = () => {
       <h1 className={style.h1Fav}>Favoritos</h1>
       <Link className={style.barra} to="/home"> ← </Link> 
       <div className={style.containFav}>
-        <h3>Movies</h3>
-          {favoriteMovies?.map((movieId,index) => (
-            <div key={index} className={style.cardSlide}>
-              <CardMovie id={movieId.favsMoviesXUser.MultimediaId} image={movieId.image} tipo={movieId.tipo} price={movieId.price}    />
-            </div>
-          ))}
-         <h3>Series</h3> 
-          {favoriteSeries?.map((SerieId,index) => (
-            <div key={index} className={style.cardSlide}>
-            <Card id={SerieId.uid} image={SerieId.image} price={SerieId.price}></Card>
-
-            </div>
-          ))}
-          
-      </div>
+      {favorites?.map(( hom, index ) => (
+            hom.tipo == "Pelicula" ?
+          <CardMov key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price} calif={hom.calificacion}/>:
+          <CardSer key={index} id={hom.id} image={hom.image} tipo={hom.tipo} price={hom.price} calif={hom.calificacion}/>
+          )) }
+      </div> 
     </div>
       <Footer />
     </>
