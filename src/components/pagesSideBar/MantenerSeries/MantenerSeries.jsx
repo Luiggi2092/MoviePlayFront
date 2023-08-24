@@ -38,8 +38,8 @@ const MantenerSeries = ()=> {
     setOpenModalSerie(!openModalSerie)
    }
 
-  const handleModalSerieEdit = (row) => {
-    setidSerie(row.original.id)
+  const handleModalSerieEdit = (id) => {
+    setidSerie(id)
     setopenModalSerieEdit(!openModalSerieEdit)
   } 
 
@@ -49,31 +49,32 @@ const MantenerSeries = ()=> {
   }
 
 
-   const inativar =(row)=> {
-    setMostrar(row.id)
+   const inativar =(id)=> {
+    //setMostrar(row.id)
     
     setAccionOcurrida(true);
-    setidSerie(row.original.id)
-    dispatch(ActivarDesactivarSeries(row.original.id,page));
+    setidSerie(id)
+    dispatch(ActivarDesactivarSeries(id));
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
         
     dispatch(getTodoFillCleanAdm());
     
-
+    dispatch(SeriesxPage(page))
   }
 
-  const activar = (row)=> {
-    setMostrar(null)
+  const activar = (id)=> {
     
     setAccionOcurrida(true);
     
-    setidSerie(row.original.id)
-    dispatch(ActivarDesactivarSeries(row.original.id,page));
+    setidSerie(id)
+    dispatch(ActivarDesactivarSeries(id));
     
      dispatch(getTodoBusqedaAdmSeries(busqueda.search));
           
     dispatch(getTodoFillCleanAdm());
       
+    
+    dispatch(SeriesxPage(page))
     
     
   }
@@ -94,49 +95,49 @@ const MantenerSeries = ()=> {
         dispatch(SeriesxPage(page))
   },[page])
 
-   const columns = useMemo(
-    ()=>[
-      {
-         Header: "Id",
-         accessor: "id",
-        //Cell: ({ value}) => <strong>{value}</strong>
-      },
-      {
-        Header: "Nombre",
-        accessor: "name"
-      },
-      { Header: "Imagen",
-        accessor: "image" },
-      {
-        Header: "Precio",
-        accessor: "price"},
-      { Header: "Accion",
-        accessor: "accion",
-        Cell: ({row}) => (
-          <>
-          <button className={style.buttonAccion} onClick={()=> handleModalSerieEdit(row)}>Editar</button>
-          {row.original.active == true ? (<button className={style.buttonAccion1} onClick={()=> inativar(row)}>Desactivar</button>):
-          (<button className={style.buttonAccion2} onClick={()=> activar(row)}>Activar</button>)}
-          </>
-        )}
+  //  const columns = useMemo(
+  //   ()=>[
+  //     {
+  //        Header: "Id",
+  //        accessor: "id",
+  //       //Cell: ({ value}) => <strong>{value}</strong>
+  //     },
+  //     {
+  //       Header: "Nombre",
+  //       accessor: "name"
+  //     },
+  //     { Header: "Imagen",
+  //       accessor: "image" },
+  //     {
+  //       Header: "Precio",
+  //       accessor: "price"},
+  //     { Header: "Accion",
+  //       accessor: "accion",
+  //       Cell: ({row}) => (
+  //         <>
+  //         <button className={style.buttonAccion} onClick={()=> handleModalSerieEdit(row)}>Editar</button>
+  //         {row.original.active == true ? (<button className={style.buttonAccion1} onClick={()=> inativar(row)}>Desactivar</button>):
+  //         (<button className={style.buttonAccion2} onClick={()=> activar(row)}>Activar</button>)}
+  //         </>
+  //       )}
         
-    ],[mostrar]
-   );
+  //   ],[mostrar]
+  //  );
 
-   const tableInstance = useTable({
-     columns,
-     manualPagination:true
-     ,data: busquedaSer.length == 0 ? Series : busquedaSer}
+  //  const tableInstance = useTable({
+  //    columns,
+  //    manualPagination:true
+  //    ,data: busquedaSer.length == 0 ? Series : busquedaSer}
 
-   )
+  //  )
 
-   const {
-       getTableProps,
-       getTableBodyProps,
-       headerGroups,
-       rows,
-       prepareRow
-   } = tableInstance
+  //  const {
+  //      getTableProps,
+  //      getTableBodyProps,
+  //      headerGroups,
+  //      rows,
+  //      prepareRow
+  //  } = tableInstance
 
     useEffect(()=> {
        if(accionOcurrida){
@@ -206,6 +207,35 @@ const MantenerSeries = ()=> {
             </thead>  
             <tbody className={style.tbody}>
                 
+            {busquedaSer.length == 0 ? (Series.map((item)=>(
+               <tr>
+                <td className={style.tablecell} value={idSerie=item.id}>{item.id}</td>  
+                <td className={style.tablecell}>{item.name}</td>
+                <td className={style.tablecell}><img src={item.image} style={{width:"50px",height:"50px"}}/></td>
+                <td className={style.tablecell}>{item.price}</td>
+                <td className={style.tablecell}><button className={style.buttonAccion} onClick={()=>handleModalSerieEdit(item.id)} >Editar</button></td>
+                <td>
+                {item.active == true ? (<button className={style.buttonAccion1} onClick={()=>inativar(item.id,item.active)} >Desactivar</button>) : 
+                  (<button className={style.buttonAccion2} onClick={()=> activar(item.id,item.active)} >Activar</button>)}
+                
+                </td>
+               </tr> 
+            ))) : busquedaSer.map((item)=> (
+              <tr key={item.id} className={style.tablerow}>
+              <td className={style.tablecell}>{item.id}</td>
+              <td className={style.tablecell}>{item.name}</td>
+              <td className={style.tablecell}><img src={item.image} style={{width: "50px", height:"50px"}}/></td>
+              <td className={style.tablecell}>{item.price}</td>
+              <td>
+                <button onClick={()=>handleModalSerieEdit(item.id)} className={style.buttonAccion}>Editar</button>
+                </td>
+              <td className={style.tablecell}>
+              {item.active == true ? (<button className={style.buttonAccion1} onClick={()=>inativar(item.id,item.active)} >Desactivar</button>) : 
+                (<button className={style.buttonAccion2} onClick={()=> activar(item.id,item.active)} >Activar</button>)}</td>
+              </tr>
+
+            ))}
+
             </tbody>
 
             </table>
