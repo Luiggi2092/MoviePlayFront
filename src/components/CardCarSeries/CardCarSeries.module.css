@@ -5,7 +5,7 @@
 }
 
 .container{
-    box-shadow: 2px 4px 15px 0 gray;
+    box-shadow: 2px 4px 15px 0 rgb(255, 255, 255);
     display: flex;
     justify-content: space-between;
     margin: 10px 0px;
