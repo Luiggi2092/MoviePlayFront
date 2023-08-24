@@ -10,7 +10,7 @@ import { addToCartAndSaveDetailsSerie, removeFromCartAndRemoveDetailsSerie, todo
 import Swal from 'sweetalert2';
 import useFetch from '../../assets/useFetch';
 
-const Card = ({ image, id, price, name }) => {
+const Card = ({ image, id, price, name, calif }) => {
   const user = localStorage.getItem('email');
   const dispatch = useDispatch();
   const propiedades = { image, id, price, name };
@@ -118,17 +118,18 @@ const Card = ({ image, id, price, name }) => {
           onClick={handleFavoriteClick}
           style={{ color: isFavorite ? 'red' : 'blue' }}
         />
-        {/* <div className={style.rating}>
-          {[1, 2, 3, 4, 5].map(value => (
+        {
+        <div className={style.rating}>
+          {calif == 0 ?<></>: [1, 2, 3, 4, 5].map(value => (
             <FontAwesomeIcon
               key={value}
               icon={faStar}
               className={style.ratingStar}
-              style={{ color: value <= rating ? 'yellow' : 'blue' }}
-              onClick={() => handleRating(value)}
+              style={{ color: value <= calif ? '#f1d237' : '#d3d3d3' }}
             />
           ))}
-        </div> */}
+        </div>
+        }
       </div>
       {isPurchased ? ( // Si es comprado, muestra "Ver Película"
       <Link to={`/detailSeries/${id}`}>

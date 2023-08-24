@@ -77,7 +77,8 @@ const Profile = () => {
 
     useEffect(() => {
         dispatch(todosLosProductosXidUser(idUser))
-    }, [])
+        console.log(idSerie, idMovie, openModal);
+    }, [ idSerie, idMovie, openModal])
 
     const productos = useSelector(state => state.productosComprados)
     // console.log(productos)
@@ -144,16 +145,21 @@ const Profile = () => {
 
 
     const handleModal = (id) => {
-
+        setIdSerie(undefined)
         setIdMovie(id)
+        
         setOpenModal(!openModal)
+        console.log(idSerie + " id serie" + "idMovie" + id)
+       
     }
 
 
     const handleModalSer = (id) => {
-
+        setIdMovie(undefined)
         setIdSerie(id)
+       
         setOpenModal(!openModal);
+        console.log(idMovie + " id movie" + " id serie" + id)
 
     }
 
@@ -197,6 +203,9 @@ const Profile = () => {
                         <progress value={avance} max={100} id="progress-bar" />
                         <br />
                     </div>
+                    {isEditing && (
+                        <p>Haz clic en tu imagen para cambiarla</p>
+                    )}
                     <div className='containerInputs'>
                         {/* <h5>Alias</h5>
                         <input
@@ -276,7 +285,7 @@ const Profile = () => {
                         )}
                     </div>
                     <h1 className='conth1'>Mis Compras</h1>
-                    <Modal openModal={openModal} cambiarEstado={setOpenModal} idUser={idUser} idMov={idMovie} idSer={idSerie} ></Modal>
+                    
                     <div className='container-compras'>
                         <div className='purchase-carousel'>
                             {movies.length > 0 && movies.map((purchase) => (
@@ -287,7 +296,9 @@ const Profile = () => {
                                     </Link>
                                     <p className='pc'>Costo: ${purchase.price}</p>
                                     <p className='pc'>Pelicula</p>
-                                    <button className='boton' onClick={() => handleModal(purchase.id)}>Calificar</button>
+                                    <div>
+                                        {purchase.review === "Sin Calificar" ? <button className='boton' onClick={() => handleModal(purchase.id)}>Calificar</button>: <p>Calificado</p>}
+                                    </div>
                                 </div>
                             ))}
                             {series.length > 0 && series.map((purchase) => (
@@ -296,13 +307,15 @@ const Profile = () => {
                                         <img src={purchase.image} />
                                         <h3 className='h31'>{purchase.name}</h3>
                                     </Link>
-                                    <p className='pc'>Costo: ${purchase.price}</p>
-                                    <p className='pc'>Serie</p>
-                                    <button className='boton' onClick={() => handleModalSer(purchase.id)}>Calificar</button>
+                                    <p className='p'>Costo: ${purchase.price}</p>
+                                    <p className='p'>Serie</p>
+                                    <div>
+                                    {purchase.review === "Sin Calificar" ? <button className='boton' onClick={() => handleModalSer(purchase.id)}>Calificar</button>: <p>Calificado</p>}
+                                    </div>
                                 </div>
                             ))}
                         </div>
-
+                        <Modal openModal={openModal} cambiarEstado={setOpenModal} idUser={idUser} idMov={idMovie} idSer={idSerie} ></Modal>        
                     </div>
                 </div>
             </div>

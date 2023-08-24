@@ -122,7 +122,7 @@ useEffect(() => {
   
     <section className={style.containerMax}>
       <Navbar isScrolled={isScrolled} /> 
-      <h1 className={style.allmovies}>Todas las peliculas</h1>
+      <h1 className={style.allmovies}>Todas las películas</h1>
       <div className={style.filters}>
         <div>
             <span>Categoría</span>
@@ -169,7 +169,7 @@ useEffect(() => {
         <div className={style.peliculaContainer}>
           {movies?.map((movie) => (
             
-            <Card key={movie.id} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres}/>
+            <Card key={movie.id} id={movie.id} image={movie.image} price={movie.price} name={movie.name} Genres={movie.Genres} calif={movie.calificacion}/>
           ))}
           {Load == true && <Loading/> }
          </div>
@@ -180,7 +180,7 @@ useEffect(() => {
               className={style.but}
               onClick={handlePreviousPage}
               disabled={currentPage === 1}
-            >Prev</button>
+            >Ant</button>
             {itemsPage.map((item) => 
             <button
             key={item.key}
@@ -196,7 +196,7 @@ useEffect(() => {
               className={style.but}
               onClick={handleNextPage}
               disabled={currentPage === infoPage}
-            >Next</button>
+            >Sig</button>
           
           </div>
         </div>

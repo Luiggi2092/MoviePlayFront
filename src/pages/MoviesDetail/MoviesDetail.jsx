@@ -9,6 +9,8 @@ import { FaStar } from "react-icons/fa"
 import ReactPlayer from 'react-player/youtube'
 import Swal from 'sweetalert2'
 import { formToJSON } from "axios"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faHeartPulse } from '@fortawesome/free-solid-svg-icons';
 
 
 const MoviesDetail = () => {
@@ -89,7 +91,7 @@ const MoviesDetail = () => {
                         <p>{peliculaid.description}</p>
                     </div>                    
                     <div>
-                        <span>Genero</span>
+                        <span>Género</span>
                         <p>
                         {peliculaid.Genres &&
                         peliculaid.Genres.map((genre) => genre.name).join(', ')}
@@ -97,9 +99,26 @@ const MoviesDetail = () => {
                         
                     </div>
                     <div>
-                        <span>Duracion</span>
+                        <span>Duración</span>
                         <p>{peliculaid.time} minutos</p>
                     </div>
+                    <div>
+                            <span>Calificación</span>
+                            <div>
+                            {
+                                <div className={style.rating}>
+                                {peliculaid.promCal == 0 ?<p>Aún no hay calificaciones</p>: [1, 2, 3, 4, 5].map(value => (
+                                    <FontAwesomeIcon
+                                    key={value}
+                                    icon={faStar}
+                                    className={style.ratingStar}
+                                    style={{ color: value <= peliculaid.promCal ? '#f1d237' : '#d3d3d3' }}
+                                    />
+                                ))}
+                                </div>
+                             }
+                            </div>
+                        </div>
                     
                 </div>
                 </section>

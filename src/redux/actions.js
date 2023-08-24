@@ -705,6 +705,7 @@ export const CreateReview = (form)=> {
       return async function(){
           
        try{ 
+        console.log(form);
         const Review = await axios.post(`/review`,form);
         console.log(Review);
         Swal.fire({
