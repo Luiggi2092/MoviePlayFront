@@ -757,6 +757,7 @@ export const AgregarAFavoritos = (form)=> {
       
       try{
       const ADDFAV = await axios.post(`/favs`,form);
+      console.log(ADDFAV)
       dispatch({type: FAVOS,payload: ADDFAV})
 
       }catch(error){
@@ -777,10 +778,11 @@ export const ObtenerFavoritos = (email) => {
 
     return async function(dispatch){
 
-      const ObFav = (await axios.get(`/favs?email=${email}`)).data.Multimedia;
-      const ObFavSer = (await axios.get(`/favs?email=${email}`)).data.Series;
+      const ObFav = (await axios.get(`/favs?email=${email}`)).data.arrayRespuesta;
+      console.log(ObFav)
+     
       
-      dispatch({type: OBFAV, payload: {data1:ObFav,data2:ObFavSer}})      
+      dispatch({type: OBFAV, payload: ObFav})      
     }
 
 
