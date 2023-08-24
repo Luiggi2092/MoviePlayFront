@@ -12,6 +12,8 @@ import {ObtenerFavoritos} from "../../redux/actions"
 const Favoritos = () => {
 
   const favoriteMovies = useSelector(state => state.GETFAV);
+  const favoriteSeries = useSelector(state => state.GETFAVSER);
+    
   //const movieRatings = useSelector(state => state.OBFAV);
   const storedFavorites = JSON.parse(localStorage.getItem('favoriteMovies')) || [];
   const dispatch = useDispatch();
@@ -34,16 +36,30 @@ const Favoritos = () => {
   };
 
 
+
+  //const isFavorite = useSelector(state => state.favoriteMovies.includes(id));
+  
+
+
   return (
     <div className={style.favorites}>
       <h1 className={style.h1Fav}>Favoritos</h1>
       <Link className={style.barra} to="/home"> ← </Link> 
       <div className={style.containFav}>
-          {favoriteMovies.length > 0 && favoriteMovies.map((movieId,index) => (
+        <h3>Movies</h3>
+          {favoriteMovies?.map((movieId,index) => (
             <div key={index} className={style.cardSlide}>
-              <CardMovie id={movieId.id} image={movieId.image} tipo={movieId.tipo} price={movieId.price}   />
+              <CardMovie id={movieId.favsMoviesXUser.MultimediaId} image={movieId.image} tipo={movieId.tipo} price={movieId.price}    />
             </div>
           ))}
+         <h3>Series</h3> 
+          {favoriteSeries?.map((SerieId,index) => (
+            <div key={index} className={style.cardSlide}>
+            <Card id={SerieId.uid} image={SerieId.image} price={SerieId.price}></Card>
+
+            </div>
+          ))}
+          
       </div>
     </div>
   );

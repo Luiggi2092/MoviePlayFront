@@ -2,7 +2,7 @@ import axios from "axios";
 import { actions } from "react-table";
 import Swal from 'sweetalert2'
 export const RATE_MOVIE = 'RATE_MOVIE';
-
+export const TOGGLE_FAVORITESER = 'TOGGLE_FAVORITESER';
 export const SET_RATINGS = 'SET_RATINGS';
 export const SET_FAVORITES = 'SET_FAVORITES';
 export const TOGGLE_FAVORITE = 'TOGGLE_FAVORITE';
@@ -65,6 +65,12 @@ export const setFavorites = favorites => ({
   type: SET_FAVORITES,
   payload: favorites,
 });
+
+export const toggleFavoritSerie = (SeriesId) =>({
+   type: TOGGLE_FAVORITESER,
+   payload: SeriesId
+
+})
 
 export const rateMovie = (movieId, rating) => ({
     type: RATE_MOVIE,
@@ -752,7 +758,7 @@ export const ActPerfil =(id,form)=> {
 
 
 export const AgregarAFavoritos = (form)=> {
-   
+     console.log(form);
     return async function (dispatch){
       
       try{
@@ -779,9 +785,35 @@ export const ObtenerFavoritos = (email) => {
     return async function(dispatch){
 
       const ObFav = (await axios.get(`/favs?email=${email}`)).data.Multimedia;
-      console.log(ObFav)
-      dispatch({type: OBFAV, payload: ObFav})      
+      const ObFavSer = (await axios.get(`/favs?email=${email}`)).data.Series;
+      
+      dispatch({type: OBFAV, payload: {data1:ObFav,data2:ObFavSer}})      
     }
 
 
 }
+
+export const EliminarFav = (email,MovieId,SerieId)=> {
+   console.log(email);
+   return async function(dispatch){
+     console.log("entra");
+    if(MovieId){
+      console.log("entraaqui");
+      const EliMovFav = await axios.delete(`/favs?email=${email}&MultimediumId=${MovieId}`);
+      console.log(EliMovFav)
+     // dispatch({type:ELIFAVMOV,payload: EliMovFav})
+    }
+
+    if(SerieId){
+      console.log("gaaa")
+      const EliMovFav = await axios.delete(`/favs?email=${email}&SeriesSerieId=${SerieId}`);
+      console.log(EliMovFav)
+      //dispatch({type:ELIFAVMOV,payload: EliMovFav})
+       
+
+    }
+      
+   }
+
+}
+
