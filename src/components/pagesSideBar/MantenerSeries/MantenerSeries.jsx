@@ -181,43 +181,31 @@ const MantenerSeries = ()=> {
           <br/>
           <br/>
           <div>
-            <table {...getTableProps()} className={style.table} >
+            <table className={style.table} >
             <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()} style={{backgroundColor: "red"}}>
-                  {headerGroup.headers.map((column)=> (
-                    <th {...column.getHeaderProps()}>
-                      <div>
-                        {column.render('Header')}
-                        <br/>
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              ))}
+              <tr style={{backgroundColor:"#011f69",color:"white"}}>
+                 <th>
+                  id
+                 </th>
+                 <th>
+                  Nombre
+                 </th>
+                 <th>
+                  Imagen
+                 </th>
+                 <th>
+                  Precio
+                 </th>
+                 <th>
+                  Edicion
+                 </th>
+                 <th>
+                  Activacion
+                 </th>
+              </tr>
             </thead>  
-            <tbody {...getTableBodyProps()} className={style.tbody}>
-                 {rows.map((row)=> {
-                    prepareRow(row);
-                    return (
-                      <tr {...row.getRowProps()} className={style.tablerow}>
-                        {row.cells.map((cell) => {
-
-                        return(  
-                          <td {...cell.getCellProps()} className={style.tablecell}>
-                          {cell.column.id == 'image' ? (
-                            <img src={cell.value} style={{ maxWidth: '120px', maxHeight: '150px'}}></img>
-                          ):(
-                            cell.render("Cell")
-                            
-                          )}
-                          
-                        </td>
-                          )
-                          })}
-                      </tr>
-                    )
-                 })}
+            <tbody className={style.tbody}>
+                
             </tbody>
 
             </table>
