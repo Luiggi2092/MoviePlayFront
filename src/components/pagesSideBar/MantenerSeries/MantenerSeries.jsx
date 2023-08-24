@@ -185,22 +185,22 @@ const MantenerSeries = ()=> {
             <table className={style.table} >
             <thead>
               <tr style={{backgroundColor:"#011f69",color:"white"}}>
-                 <th>
+                   <th className={style.th2}>
                   id
                  </th>
-                 <th>
+                   <th className={style.th2}>
                   Nombre
-                 </th>
-                 <th>
+                 </th >
+                   <th className={style.th2}>
                   Imagen
                  </th>
-                 <th>
+                   <th className={style.th2}>
                   Precio
                  </th>
-                 <th>
+                   <th className={style.th2}>
                   Edicion
                  </th>
-                 <th>
+                   <th className={style.th2}>
                   Activacion
                  </th>
               </tr>
