@@ -149,6 +149,7 @@ const Profile = () => {
         setIdMovie(id)
         
         setOpenModal(!openModal)
+        
         console.log(idSerie + " id serie" + "idMovie" + id)
        
     }

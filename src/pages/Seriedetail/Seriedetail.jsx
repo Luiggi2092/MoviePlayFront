@@ -213,7 +213,7 @@ const SerieDetail = () => {
                                         cursor: "pointer"
 
                                     }}
-                                    color={(hoverValue || e.calificacion) > index ? "orange": "black"}/>
+                                    color={(hoverValue || e.calificacion) > index ? "orange": "white"}/>
 
                          )
                          

@@ -131,16 +131,21 @@ background-color: red;
 
 .comentarios {
    
-   background-color: #fff;
-   width: 60%;
-   height: 100px;
-   border-radius: 10px;
+  background-color: #000000a8;
+    width: 60%;
+    height: 100px;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 5px 5px 5px;
   
   
 }
 
 .comentarios p {
-    color:black
+    color: rgb(255, 255, 255);
+      align-items: center;
+      justify-content: center;
+      padding-top: 10px;
 }
 
 .comentarios{
@@ -149,20 +154,21 @@ background-color: red;
 }
 
 .imagen {
-     float: left;
-     padding-right: 15px;
+    float: left;
+      padding-right: 20px;
+      padding-top: 10px;
 }
 
 
 .contenedores{
-  /* display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 5px; */
-  display: grid;
-  grid-template-columns: repeat(1, 1fr); /* Cambia el número de columnas según sea necesario */
+display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  /* Cambia el número de columnas según sea necesario */
   gap: 10px;
   place-items: center;
+  position: relative;
+  margin-bottom: 30px;
+  margin-top: 10px;
 
 }
 
