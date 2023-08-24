@@ -792,10 +792,12 @@ export const EliminarFav = (email,MovieId,SerieId)=> {
    return async function(dispatch){
     if(MovieId){
       const EliMovFav = await axios.delete(`/favs?email=${email}&MultimediumId=${MovieId}`);
+      const ObFav = (await axios.get(`/favs?email=${email}`)).data.arrayRespuesta;
     }
 
     if(SerieId){
       const EliMovFav = await axios.delete(`/favs?email=${email}&SeriesSerieId=${SerieId}`);
+      const ObFav = (await axios.get(`/favs?email=${email}`)).data.arrayRespuesta;
       
 
     }
