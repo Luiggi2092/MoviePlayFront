@@ -2,7 +2,7 @@ import style from "./ModalCalificar.module.css"
 import { FaStar } from "react-icons/fa"
 import {useEffect, useState} from "react"
 import { useElements } from "@stripe/react-stripe-js";
-import {CreateReview} from "../../redux/actions"
+import {CreateReview, todosLosProductosXidUser} from "../../redux/actions"
 import {useDispatch} from "react-redux"
 
 
@@ -26,7 +26,7 @@ const Calificacion = ({openModal,cambiarEstado,idUser,idMov,idSer}) => {
 
     useEffect(()=>{
           
-        setForm({...form, idUser: idUser,idMovie:idMov,idSerie:idSer,calificacion:Currentvalue})
+        setForm({ idUser: idUser,idMovie:idMov,idSerie:idSer,calificacion:Currentvalue})
         
     },[idMov,Currentvalue,idSer])
     
@@ -74,7 +74,18 @@ const Calificacion = ({openModal,cambiarEstado,idUser,idMov,idSer}) => {
             form.idSerie &&
             form.idUser ){
                 dispatch(CreateReview(form));
+                dispatch(todosLosProductosXidUser(idUser))
                 cambiarEstado(false);
+                setCurrentValue(0);
+                setForm({
+                    calificacion: 0,
+                    comentario: "",
+                    idMovie:"",
+                    idSerie:"",
+                    idUser: "", 
+             
+             
+             })
             }
 
 

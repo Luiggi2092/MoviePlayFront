@@ -173,12 +173,12 @@ const Series = () => {
           {Load == true && <Loading/>}
           {
             series?.map((element) => (
-              <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} />
+              <Card key={element.id} id={element.id} image={element.image} price={element.price} name={element.name} calif={element.calificacion} />
           ))}
         </div>
         <div >
           
-            <button className={style.but} onClick={handlePreviousPage}>Prev</button>
+            <button className={style.but} onClick={handlePreviousPage}>Ant</button>
             {itemsPage.map((item) => 
             <button
               key={item.key}
@@ -190,7 +190,7 @@ const Series = () => {
             >
               {item.key}
             </button>)}
-            <button className={style.but} onClick={handleNextPage}>Next</button>      
+            <button className={style.but} onClick={handleNextPage}>Sig</button>      
             
           </div>
           

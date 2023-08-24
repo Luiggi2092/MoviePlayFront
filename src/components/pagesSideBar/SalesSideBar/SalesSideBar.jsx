@@ -8,7 +8,7 @@ import { useEffect } from "react";
 
 
 export const optionsPie = {
-  title: "Ventas Peliculas vs Series",
+  title: "Ventas Películas vs Series",
 };
 
   
@@ -47,7 +47,7 @@ export const optionsPie = {
 
         const dataPie = [
           ["Task", "Hours per Day"],
-          [`Peliculas $${totalMultimediaPrice}`, totalMultimediaPrice ],
+          [`Películas $${totalMultimediaPrice}`, totalMultimediaPrice ],
           [`Series $${totalSeriesPrice}`, totalSeriesPrice ],
         ];
   

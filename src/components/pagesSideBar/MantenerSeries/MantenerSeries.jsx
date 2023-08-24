@@ -110,7 +110,7 @@ const MantenerSeries = ()=> {
       {
         Header: "Precio",
         accessor: "price"},
-      { Header: "Accion",
+      { Header: "Acción",
         accessor: "accion",
         Cell: ({row}) => (
           <>
@@ -227,7 +227,7 @@ const MantenerSeries = ()=> {
               className={style.but2}
               onClick={handlePreviousPage}
               disabled={page === 1}
-            >Prev</button>
+            >Ant</button>
              {numberArray.map((item) => 
             <button
             key={item}
@@ -243,7 +243,7 @@ const MantenerSeries = ()=> {
               onClick={handleNextPage}
               //disabled={Series.length < 10}
               disabled={page === totalPages}
-            >Next</button>
+            >Sig</button>
            </div >
         </div>
        )

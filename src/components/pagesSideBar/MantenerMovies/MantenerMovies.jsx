@@ -243,7 +243,7 @@ const MantenerMovies = ()=> {
       <div className={style.container} >
           <br/>
           <div className={style.CreateNew} > 
-          <button onClick={handleModalMovie} className={style.buttonAccion} >Nueva Pelicula</button>
+          <button onClick={handleModalMovie} className={style.buttonAccion} >Nueva Película</button>
         </div>
          <Modal openModal={openModal} cambiarEstado={setOpenModal} page={page}></Modal>
          <ModalEdit openModalEdit={openModalEdit} cambiarEstado={setOpenModalEdit} idpelicula={idpelicula}  page={page}></ModalEdit>
@@ -266,7 +266,7 @@ const MantenerMovies = ()=> {
                   Precio
                 </th>
                 <th>
-                  Edicion
+                  Edición
                 </th>
                 <th>
                   Activación
@@ -309,7 +309,7 @@ const MantenerMovies = ()=> {
               className={style.but}
               onClick={handlePreviousPage}
              disabled={numPage === 1}
-            >Prev</button>
+            >Ant</button>
               
              {
              numberArray.length > 0 && numberArray.map(
@@ -331,7 +331,7 @@ const MantenerMovies = ()=> {
               onClick={handleNextPage}
               disabled={Movies.length < 10}
              // disabled={currentPage === infoPage}
-            >Next</button>
+            >Sig</button>
            </div >
         </div>
     )

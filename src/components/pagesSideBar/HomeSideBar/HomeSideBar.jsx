@@ -53,7 +53,7 @@ const HomeSideBar = ()=> {
         accessor: "image"
        },
        {
-        Header : "Titulo",
+        Header : "Título",
         accessor: "title"
        },
        {Header : "Vistas",

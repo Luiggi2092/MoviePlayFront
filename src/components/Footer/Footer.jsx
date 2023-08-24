@@ -30,10 +30,10 @@ const Footer = () => {
         <>
             <footer className={style.footer}>
                     <h1 className={style.titlefo}>¿Preguntas?,  envía un email a moviesplay@gmail.com</h1>
-                        <Link className='pModal' onClick={handleShowS}>Suscripcion</Link>
+                        <Link className='pModal' onClick={handleShowS}>Suscripción</Link>
                         <Link className='pModal' onClick={handleShowP}>Privacidad</Link>
                         <Link className='pModal' onClick={handleShowC}>Centro de ayuda</Link>
-                        <Link className='pModal' onClick={handleShowT}>Terminos de uso</Link>
+                        <Link className='pModal' onClick={handleShowT}>Términos de uso</Link>
                 <h4>Contáctenos</h4>                        
                         <div className='divContainericon'>
                     <a href="https://accounts.google.com/" target="_blank"><i className="bi bi-envelope"></i></a>

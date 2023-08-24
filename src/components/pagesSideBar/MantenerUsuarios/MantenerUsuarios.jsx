@@ -93,15 +93,15 @@ const MantenerUsuarios = () => {
           <button
             className={style.butP}
             onClick={handlePreviousPage}
-            disabled={currentPage === 1}> Prev 
+            disabled={currentPage === 1}> Ant 
           </button>
           <p className={style.pPage}>
-            Pagina {currentPage}
+            Página {currentPage}
           </p>
           <button
             className={style.butN}
             onClick={handleNextPage}
-            disabled={data?.length < 10}> Next 
+            disabled={data?.length < 10}> Sig
           </button>
         </div>
     </div>
