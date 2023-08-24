@@ -37,7 +37,7 @@ const MoviesDetail = () => {
       const [peliculaAgregada, setPeliculaAgregada] = useState(isAddedToCart)  
 
     const handleclick = () => {
-        if (isAddedToCart) {
+        if (peliculaAgregada) {
             dispatch(removeFromCartAndRemoveDetailsMovie(id, user));
             setPeliculaAgregada(false)
             Swal.fire({
@@ -103,8 +103,8 @@ const MoviesDetail = () => {
                     
                 </div>
                 </section>
-                {isAddedToCart? (
-                    <div className={style.botonContainer1}>
+                {peliculaAgregada? (
+                    <div className={style.botonContainer}>
                     <button onClick={handleclick} className={style.quitar}>Quitar del carrito</button>
                     </div>
                 ):isPurchased? (

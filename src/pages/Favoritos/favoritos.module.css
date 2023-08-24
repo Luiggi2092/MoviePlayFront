@@ -1,10 +1,12 @@
 /* favoritos.module.css */
 .favorites {
   
-    display: grid;
-    grid-template-columns: repeat(1, 4fr); /* Cambia el número de columnas según sea necesario */
-    gap: 10px;
-    place-items: center;
+    display: flex;
+    /* grid-template-columns: repeat(1, 4fr); /* Cambia el número de columnas según sea necesario */
+    /*gap: 10px;*/
+    align-items: center;
+    justify-content: center;
+
 }
 
 .barra {

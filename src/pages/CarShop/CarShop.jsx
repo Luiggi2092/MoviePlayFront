@@ -9,10 +9,10 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import CardCar from '../../components/CardCar/CardCar';
 import CardCarSerie from '../../components/CardCarSeries/CardCarSerie';
+import Loading from '../../components/Loading/Loading';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 const user = localStorage.getItem('email')
-
 const stripePromise = loadStripe('pk_test_51NcsyILBC7BTbazruZpu7lVt2P4tOwBFgdzNBoDIZO511Y1EGaPV4gmr0GTtf8VcOOW3x3ha8gmJ4lAFsSbVbGw600daZvRgAp');
 
 const reload = () => {
@@ -26,6 +26,7 @@ const CheckoutForm = () => {
     let allMoviesPrice = null
     let allSeriesPrice = null    
     const carrito = useSelector(state => state.carrito)
+    const [isProcessingPayment, setIsProcessingPayment] = useState(false);
     
     
     const calculateTotalPrice = (array) => {
@@ -46,7 +47,7 @@ const CheckoutForm = () => {
 
       const handleSubmit = async (e) => {
           e.preventDefault();
-
+          setIsProcessingPayment(true)
           const {error, paymentMethod} = await stripe.createPaymentMethod({
             type:'card',
             card: elements.getElement(CardElement)
@@ -56,7 +57,7 @@ const CheckoutForm = () => {
         if(!error){
 
             const {id} = paymentMethod;
-            const {data} = await axios.post('https://movieplay.onrender.com/pago',{
+            const {data} = await axios.post('http://localhost:3001/pago',{
                   amount: totalAmountParseado, 
                   id: id,
                   description:'pago de producto',
@@ -66,21 +67,24 @@ const CheckoutForm = () => {
             console.log(data)
             Swal.fire({
                 title:`Compra realizada correctamente`,
-                 icon:'success'});
-            
-                 setTimeout(() => {
+                icon:'success'});
+                setTimeout(() => {
+                    setIsProcessingPayment(false); // Indicar que el pago ha terminado
                     reload();
-                }, 1500); //
+                  }, 2000); //
         }
-
     }
     
     return(
         <form className={style.card}>
             <CardElement className={style.formControl} />
-            <button className={style.button} onClick={handleSubmit}>
-                Comprar
-            </button>
+            {isProcessingPayment ? (
+                <Loading /> // Mostrar Loading mientras se procesa el pago
+              ) : (
+                <button className={style.button} onClick={handleSubmit}>
+                  Comprar
+                </button>
+            )}
         </form>
     )
 }
