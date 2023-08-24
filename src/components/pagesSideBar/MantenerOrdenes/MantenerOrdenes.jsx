@@ -33,7 +33,7 @@ const MantenerOrdenes =()=> {
                <p className={style.p}>ID de usuario: {order.usuarioId}</p>
                <p className={style.p}>Total de la compra: ${convertirNumero(order.total) === isNaN ? 0 : convertirNumero(order.total)}</p>
 
-               <table className={style.table}>
+               <table className={style.table1}>
                   <thead>
                      <tr>
                         <th>Imagen</th>

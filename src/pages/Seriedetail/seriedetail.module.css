@@ -7,7 +7,7 @@ body {
   font-family: Arial, sans-serif;
   color: #333;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #a21717;
 }
 
 
@@ -26,41 +26,45 @@ body {
 }
 
 .name {
-  font-size: 30px;
+  font-size: 40px;
   margin-right: 5px;
+  padding-top: 30px;
+  padding-bottom: 25%;
 }
 
 /* section styles */
 .section {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .image img {
-  width: 200px;
-    height: 300px;
+  width: 300px;
+    height: 400px;
     object-fit: cover;
-    border-radius: 4px;
-    margin-left: 80px;
+    border-radius: 15px;
+    margin-left: 250px;
 }
 
 .info {
 display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 60%;
-  margin-right: 200px;
-  margin-left: 80px;
+  gap: 15px;
+  width: 50%;
+  margin-right: 100px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  font-size: 12px;
 }
 
 .info div {
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .info span {
   font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
     color: #007bff;
 }
 
@@ -76,7 +80,9 @@ display: flex;
   border-radius: 4px;
   cursor: pointer;
   font-size: 18px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  margin-top: 40px;
+  padding-top: 10px;
 }
 
 .quitar {
@@ -104,8 +110,8 @@ display: flex;
 .divTemp p,
 .divCap p {
   margin: 0;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 15px;
+  /* font-weight: bold; */
 } 
 
 .selectDetail {
