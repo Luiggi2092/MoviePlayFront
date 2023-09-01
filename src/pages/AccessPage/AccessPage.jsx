@@ -83,7 +83,7 @@ const AccessPage = () => {
                     password: ''
                 })
 
-               redirectToHome()
+              redirectToHome()
             
             } catch (error) {
                 console.log(error)
@@ -138,7 +138,7 @@ const AccessPage = () => {
                 password: ''
             })
 
-            redirectToHome()
+           // redirectToHome()
 
         } catch (error) {
             setMensajeGoogle(true)
