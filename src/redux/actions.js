@@ -102,6 +102,13 @@ export const getTodo = ()=> {
     }
 }
 
+export const getMedia = ()=> {
+   return async function (dispatch){
+         const media = (await axios.get("/media"));
+         dispatch({type: GET_MEDIA, payload: media})
+   }
+}
+
 export const getTodobusqueda = (name)=> {
     return async function (dispatch){
         const todoSearchBar = (await axios.get(`/media/todo?busqueda=${name}`)).data.elementos;

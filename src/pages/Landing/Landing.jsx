@@ -20,7 +20,7 @@ import Footer from '../../components/Footer/Footer'
 import { useState } from 'react';
 import style from './landing.module.css';
 import {useDispatch} from "react-redux"
-import {emailSuscripcion} from "../../redux/actions"
+import {emailSuscripcion,getMedia} from "../../redux/actions"
 import Swal from 'sweetalert2'
 
 
@@ -37,6 +37,7 @@ const Landing = () => {
 
 
   const clickHandler = () => {
+    dispatch(getMedia());
     navigate("/home");
   };
 
